@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/group_2673"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivMus"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/drawable_minus_cart"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPlus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivPlus"
+        app:layout_constraintVertical_bias="0.36" />
+
+
+    <TextView
+        android:id="@+id/tvQuantity"
+        style="@style/poppin_semi_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivMus"
+        app:layout_constraintEnd_toStartOf="@+id/ivPlus"
+        app:layout_constraintStart_toEndOf="@+id/ivMus"
+        app:layout_constraintTop_toTopOf="@+id/ivMus" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="0dp"
+        android:layout_height="0.9dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="9dp"
+        android:background="@color/app_theme"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/ivMus"
+        app:layout_constraintEnd_toEndOf="@+id/ivMus"
+        app:layout_constraintStart_toStartOf="@+id/ivMus"
+        app:layout_constraintTop_toTopOf="@+id/ivMus" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

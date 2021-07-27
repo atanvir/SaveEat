@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/clDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/light_orange"
+        tools:context=".ui.activity.auth.login.LoginActivity">
+
+            <TextView
+                android:id="@+id/tvBadge"
+                style="@style/poppin_semi_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="25dp"
+                android:text="SaveEat Badges"
+                android:drawableLeft="@drawable/group_3987"
+                android:drawablePadding="@dimen/dimen_10sp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_16sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRewards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginStart="10dp"
+                />
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/drawable_top_round_corner"
+                android:backgroundTint="#ffd894">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                style="@style/poppin_bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="54"
+                                android:textAlignment="center"
+                                android:textColor="@color/reward_text_color"
+                                android:textSize="@dimen/dimen_16sp" />
+
+
+                            <TextView
+                                style="@style/poppin_medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="Items Rescued"
+                                android:textAlignment="center"
+                                android:textColor="@color/reward_text_color"
+                                android:textSize="@dimen/dimen_10sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                style="@style/poppin_bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="₹2,100"
+                                android:textAlignment="center"
+                                android:textColor="@color/reward_text_color"
+                                android:textSize="@dimen/dimen_16sp" />
+
+
+                            <TextView
+                                style="@style/poppin_medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="Saved"
+                                android:textAlignment="center"
+                                android:textColor="@color/reward_text_color"
+                                android:textSize="@dimen/dimen_10sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                style="@style/poppin_bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="4KG"
+                                android:textAlignment="center"
+                                android:textColor="@color/reward_text_color"
+                                android:textSize="@dimen/dimen_16sp" />
+
+
+                            <TextView
+                                style="@style/poppin_medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="Food Rescued"
+                                android:textAlignment="center"
+                                android:textColor="@color/reward_text_color"
+                                android:textSize="@dimen/dimen_10sp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/drawable_top_round_corner"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_14sdp"
+                            android:layout_marginTop="@dimen/_25sdp"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:id="@+id/tvPaymentInformation"
+                                style="@style/poppin_regular"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="14dp"
+                                android:drawableStart="@drawable/fi_rr_credit_card"
+                                android:drawablePadding="@dimen/_12sdp"
+                                android:text="Payment Information"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_14sp" />
+
+
+                            <TextView
+                                android:id="@+id/tvCreditWallet"
+                                style="@style/poppin_regular"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="14dp"
+                                android:text="Credit Wallet"
+                                android:drawableStart="@drawable/wallet"
+                                android:drawablePadding="@dimen/_12sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_14sp" />
+
+
+                            <TextView
+                                android:id="@+id/tvOrderDetail"
+                                style="@style/poppin_regular"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="14dp"
+                                android:text="Order Details &amp; History"
+                                android:drawableStart="@drawable/fi_rr_shopping_bag"
+                                android:drawablePadding="@dimen/_12sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_14sp" />
+
+
+                            <TextView
+                                android:id="@+id/tvHiddenLocation"
+                                style="@style/poppin_regular"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="14dp"
+                                android:text="Hidden Location"
+                                android:drawableStart="@drawable/unknown"
+                                android:drawablePadding="@dimen/_12sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_14sp" />
+
+
+                            <TextView
+                                android:id="@+id/tvHelp"
+                                style="@style/poppin_regular"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="14dp"
+                                android:text="Help &amp; Support"
+                                android:drawableStart="@drawable/fi_rr_life_ring"
+                                android:drawablePadding="@dimen/_12sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_14sp" />
+
+
+                            <TextView
+                                android:id="@+id/tvLogout"
+                                style="@style/poppin_regular"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="14dp"
+                                android:text="Log Out"
+                                android:drawableStart="@drawable/fi_rr_sign_out"
+                                android:drawablePadding="@dimen/_12sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_14sp" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+
+
+
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+</layout>
+

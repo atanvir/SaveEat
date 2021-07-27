@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activity.menu.MenuActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="@color/white"
+                android:background="@color/white"
+                app:titleCollapseMode="scale"
+                app:maxLines="3"
+                android:textAlignment="center"
+                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleMarginBottom="4dp"
+                app:collapsedTitleGravity="center"
+                app:collapsedTitleTextAppearance="@style/collapsedappbar"
+                app:expandedTitleTextAppearance="@style/expandedappbarMenu"
+                app:titleEnabled="true"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/clMainToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:minHeight="?attr/actionBarSize"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    android:elevation="3dp"
+                    app:contentInsetStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+
+                    app:layout_collapseMode="pin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <ImageView
+                            android:id="@+id/ivBack"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            app:srcCompat="@drawable/back" />
+
+                        <TextView
+                            android:id="@+id/tvToolbarHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Breakfast Club"
+                            android:textAlignment="center"
+                            android:visibility="gone"
+                            android:layout_toLeftOf="@id/ivMore"
+                            android:layout_toRightOf="@+id/ivBack"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/app_theme"
+                            android:textSize="@dimen/dimen_16sp"
+                            style="@style/poppin_semi_bold"/>
+
+                       <ImageView
+                           android:id="@+id/ivMore"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:src="@drawable/group_3997"
+                           android:elevation="@dimen/_5sdp"
+                           android:layout_marginEnd="12dp"
+                           android:layout_centerVertical="true"
+                           android:layout_toLeftOf="@+id/ivFavMenu" />
+
+                        <ImageView
+                            android:id="@+id/ivFavMenu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/menu_fav" />
+
+                    </RelativeLayout>
+
+
+                </androidx.appcompat.widget.Toolbar>
+
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/_13sdp"
+                    android:elevation="1dp"
+                    android:layout_margin="@dimen/_1sdp"
+                    app:cardUseCompatPadding="true">
+
+
+
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ProgressBar
+                                android:id="@+id/pgCover"
+                                android:layout_width="@dimen/_25sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_gravity="center"
+                                android:visibility="gone"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+
+
+                            <ImageView
+                                android:id="@+id/ivCover"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_180sdp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitXY"
+                                app:layout_collapseMode="none"
+                                android:src="@drawable/rectangle_4136"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/clProfile"
+                            android:layout_width="104dp"
+                            android:layout_height="104dp"
+                            android:layout_gravity="center|top"
+                            android:layout_marginTop="180dp"
+                            android:background="@drawable/background_circle"
+                            android:elevation="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+
+                            <ImageView
+                                android:id="@+id/ivBrandLogo"
+                                android:layout_width="81dp"
+                                android:layout_height="81dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/rectangle_logo"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ProgressBar
+                                android:id="@+id/progresBar"
+                                android:layout_width="@dimen/_12sdp"
+                                android:layout_height="@dimen/_12sdp"
+                                android:elevation="5dp"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="@+id/ivBrandLogo"
+                                app:layout_constraintEnd_toEndOf="@+id/ivBrandLogo"
+                                app:layout_constraintStart_toStartOf="@+id/ivBrandLogo"
+                                app:layout_constraintTop_toTopOf="@+id/ivBrandLogo" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/clRestroDetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:background="@drawable/drawable_bottom_round_corner"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/clProfile">
+
+
+                            <TextView
+                                android:id="@+id/tvProductName"
+                                style="@style/poppin_semi_bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Breakfast Club"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_20sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tvProductName">
+
+
+                                <TextView
+                                    android:id="@+id/tvAddress"
+                                    style="@style/poppin_semi_bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableStart="@drawable/location_address"
+                                    android:drawablePadding="6dp"
+                                    android:text="117 Wells Street"
+                                    android:textColor="@color/grey"
+                                    android:textSize="@dimen/dime_13sp" />
+
+
+                                <View
+                                    android:id="@+id/view23"
+                                    android:layout_width="4dp"
+                                    android:layout_height="4dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_marginEnd="12dp"
+                                    android:background="@drawable/drawable_circle"
+                                    android:backgroundTint="#bbbbbb" />
+
+
+                                <TextView
+                                    android:id="@+id/textView5"
+                                    style="@style/poppin_semi_bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/path_3389"
+                                    android:drawablePadding="6dp"
+                                    android:text="4 "
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/dime_13sp" />
+
+                                <View
+                                    android:id="@+id/view2"
+                                    android:layout_width="4dp"
+                                    android:layout_height="4dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="12dp"
+                                    android:background="@drawable/drawable_circle"
+                                    android:backgroundTint="#bbbbbb" />
+
+
+                                <TextView
+                                    android:id="@+id/textView6"
+                                    style="@style/poppin_semi_bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:drawableStart="@drawable/fi_rr_location_alt"
+                                    android:drawablePadding="6dp"
+                                    android:text="178m"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/dimen_12sp" />
+
+
+                            </LinearLayout>
+
+
+                            <TextView
+                                android:id="@+id/tvPickUpTime"
+                                style="@style/poppin_semi_bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:drawablePadding="6dp"
+                                android:text="Pickup between 10AM-7PM"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/dime_13sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/constraintLayout3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/drawable_green_stroke"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvPickUpTime">
+
+
+                                <TextView
+                                    style="@style/poppin_semi_bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:drawableStart="@drawable/group_2737"
+                                    android:drawablePadding="8sp"
+                                    android:padding="@dimen/_5sdp"
+                                    android:text="This restaurant follows Super Safety Standards"
+                                    android:textColor="@color/super_restro_green_text"
+                                    android:textSize="@dimen/dimen_11sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_collapseMode="none"
+                    android:elevation="@dimen/_10sdp"
+                    app:layout_collapseParallaxMultiplier="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="170dp"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="Breakfast Club"
+                        android:visibility="gone"
+
+                        android:textColor="@color/app_theme"
+                        android:textSize="25sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </FrameLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:elevation="2dp"
+                    android:src="@drawable/component_3_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMenuCategories"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/imageView7"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginBottom="78dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvMenuCategories">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvProducts"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <include
+                            layout="@layout/layout_menu_footer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/rvProducts" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

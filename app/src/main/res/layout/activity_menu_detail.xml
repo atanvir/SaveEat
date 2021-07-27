@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activity.menu.MenuDetailActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="@color/white"
+                android:background="@color/white"
+                app:titleCollapseMode="scale"
+                app:maxLines="3"
+                android:textAlignment="center"
+
+                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleMarginBottom="4dp"
+                app:collapsedTitleGravity="center"
+                app:collapsedTitleTextAppearance="@style/collapsedappbar"
+                app:expandedTitleTextAppearance="@style/expandedappbarMenu"
+                app:titleEnabled="true"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+
+                <ProgressBar
+                    android:id="@+id/progresBar"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:elevation="@dimen/_5sdp"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivCover"
+                    android:layout_width="match_parent"
+                    android:src="@drawable/rectangle_4136"
+                    android:layout_height="@dimen/_180sdp"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
+                    app:layout_collapseMode="none" />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+                    <ImageView
+                        android:id="@+id/ivBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="1dp"
+                        android:src="@drawable/back"/>
+                </androidx.appcompat.widget.Toolbar>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clRestroDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/_5sdp"
+                    app:layout_collapseParallaxMultiplier="1"
+                    android:layout_marginHorizontal="@dimen/_25sdp"
+                    android:background="@drawable/drawable_round_white_stroke_cornor"
+                    android:padding="@dimen/_2sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="@dimen/_130sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/clProfile">
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="41dp"
+                        android:layout_height="41dp"
+                        android:layout_marginStart="12dp"
+                        android:src="@drawable/rectangle_logo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tvProductName"
+                        style="@style/poppin_semi_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Breakfast Club"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        app:layout_constraintStart_toEndOf="@+id/imageView8"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        app:layout_constraintStart_toStartOf="@+id/tvProductName"
+                        app:layout_constraintTop_toBottomOf="@+id/tvProductName">
+
+
+                        <TextView
+                            android:id="@+id/tvAddress"
+                            style="@style/poppin_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/location_address"
+                            android:drawablePadding="6dp"
+                            android:text="117 Wells Street"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/dimen_12sp" />
+
+
+                        <View
+                            android:id="@+id/view23"
+                            android:layout_width="4dp"
+                            android:layout_height="4dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/drawable_circle"
+                            android:backgroundTint="#bbbbbb" />
+
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            style="@style/poppin_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/path_3389"
+                            android:drawablePadding="6dp"
+                            android:text="4 "
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/dime_13sp" />
+
+                        <View
+                            android:id="@+id/view2"
+                            android:layout_width="4dp"
+                            android:layout_height="4dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:background="@drawable/drawable_circle"
+                            android:backgroundTint="#bbbbbb" />
+
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            style="@style/poppin_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:drawableStart="@drawable/fi_rr_location_alt"
+                            android:drawablePadding="6dp"
+                            android:text="178m"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/dimen_12sp" />
+
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tvPickUpTime"
+                        style="@style/poppin_medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="8dp"
+                        android:drawablePadding="6dp"
+                        android:text="Pickup between 10AM-7PM"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/tvProductName"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_200sdp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/group_2738"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView11" />
+
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        style="@style/poppin_semi_bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="24dp"
+                        android:text="Poached eggs &amp; avocado
+on toast"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/imageView9"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvDescription"
+                        style="@style/poppin_regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Enjoy this delicious toast with smashed avocado and poached eggs. With just a handful of ingredients, it’s a simple breakfast or light meal... perfect for when you need a little boost."
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/dimen_11sp"
+                        app:layout_constraintBottom_toTopOf="@+id/view"
+                        app:layout_constraintEnd_toEndOf="@+id/textView11"
+                        app:layout_constraintStart_toStartOf="@+id/textView11"
+                        app:layout_constraintTop_toBottomOf="@+id/textView11"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="24dp"
+                        android:background="@color/new_grey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imageView9"
+                        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+
+
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+
+
+            <TextView
+                android:id="@+id/sp"
+                style="@style/poppin_semi_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="₹75"
+                android:textColor="@color/app_theme"
+                android:textSize="28dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/mp"
+                style="@style/poppin_semi_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="₹200"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/sp"
+                app:layout_constraintStart_toEndOf="@+id/sp"
+                app:layout_constraintTop_toTopOf="@+id/sp" />
+
+
+            <include
+                android:id="@+id/clQuantity"
+                layout="@layout/layout_common_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginEnd="24dp"
+                android:background="@color/new_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/sp"
+                app:layout_constraintTop_toBottomOf="@+id/clQuantity" />
+
+
+            <TextView
+
+                android:id="@+id/textView12"
+                style="@style/poppin_semi_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Add extras"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_16sp"
+                app:layout_constraintStart_toStartOf="@+id/view4"
+                app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedSv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintEnd_toEndOf="@+id/view4"
+                app:layout_constraintStart_toStartOf="@+id/textView12"
+                app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChoices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                />
+            </androidx.core.widget.NestedScrollView>
+
+            <include
+                android:id="@+id/clShadowButton"
+                layout="@layout/layout_common_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nestedSv" />
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

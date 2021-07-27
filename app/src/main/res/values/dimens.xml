@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="shadow_distance">2dp</dimen>
+    <dimen name="shadow_radius">7dp</dimen>
+    <dimen name="cornerRadius">20dp</dimen>
+
+    <dimen name="elevation">6dp</dimen>
+    <dimen name="elevation_highlight">4dp</dimen>
+    <dimen name="elevation_un_highlight">2dp</dimen>
+    <dimen name="avatar_margin">8dp</dimen>
+    <dimen name="activity_margin">24dp</dimen>
+    <dimen name="item_decoration">8dp</dimen>
+
+    <dimen name="main_screen_top_title_width">200dp</dimen>
+
+    <dimen name="top_head_height">220dp</dimen>
+    <dimen name="top_head_background_height">160dp</dimen>
+
+    <dimen name="default_collapsed_image_size">45dp</dimen>
+    <dimen name="default_expanded_image_size">135dp</dimen>
+
+    <dimen name="default_collapsed_text_size">4dp</dimen>
+    <dimen name="default_expanded_text_size">11dp</dimen>
+
+    <dimen name="default_collapsed_padding">200dp</dimen>
+    <dimen name="default_expanded_padding">0dp</dimen>
+    <dimen name="dimen_14sp">14sp</dimen>
+    <dimen name="dimen_20sp">20sp</dimen>
+    <dimen name="dimen_12sp">12sp</dimen>
+    <dimen name="dimen_18sp">18sp</dimen>
+    <dimen name="dimen_650sp">500sp</dimen>
+    <dimen name="dimen_peek_height_auth">520sp</dimen>
+    <dimen name="dimen_19sp">19sp</dimen>
+    <dimen name="dimen_16sp">16sp</dimen>
+    <dimen name="dime_13sp">13sp</dimen>
+    <dimen name="dimen_11sp">11sp</dimen>
+    <dimen name="dimen_10sp">10sp</dimen>
+
+</resources>
