@@ -72,7 +72,7 @@
             android:layout_marginStart="8dp"
             android:text="₹200"
             android:textColor="@color/black"
-            android:textSize="@dimen/dimen_14sp"
+            android:textSize="@dimen/dimen_12sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/sp"
             app:layout_constraintStart_toEndOf="@+id/sp" />
 

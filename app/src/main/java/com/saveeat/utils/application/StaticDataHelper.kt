@@ -15,6 +15,18 @@ object StaticDataHelper {
         list.add(RewardModel(image = R.drawable.group_4007,"Carbon Capturer"))
         list.add(RewardModel(image = R.drawable.group_4008,"Tree Lover"))
         list.add(RewardModel(image = R.drawable.group_4009,"CO2minator"))
+
+
+        list.add(RewardModel(image = R.drawable.group_4006,"Food Lover"))
+        list.add(RewardModel(image = R.drawable.group_4007,"Carbon Capturer"))
+        list.add(RewardModel(image = R.drawable.group_4008,"Tree Lover"))
+        list.add(RewardModel(image = R.drawable.group_4009,"CO2minator"))
+
+
+        list.add(RewardModel(image = R.drawable.group_4006,"Food Lover"))
+        list.add(RewardModel(image = R.drawable.group_4007,"Carbon Capturer"))
+        list.add(RewardModel(image = R.drawable.group_4008,"Tree Lover"))
+        list.add(RewardModel(image = R.drawable.group_4009,"CO2minator"))
         return list
     }
 

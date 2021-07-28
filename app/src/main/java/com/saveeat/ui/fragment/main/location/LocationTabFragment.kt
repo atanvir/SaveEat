@@ -27,12 +27,12 @@ class LocationTabFragment : BaseFragment<FragmentTabLocationBinding>(), TabLayou
         binding.viewPager.adapter= LocationTabPagerAdapter(requireActivity())
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             if(position==0) {
-                tab.text ="List"
-                binding.supportingView.visibility=View.VISIBLE
-            }
-            else {
                 tab.text ="Map"
 
+            }
+            else {
+                tab.text ="List"
+                binding.viewPager.isUserInputEnabled=false
             }
         }.attach()
     }
@@ -53,11 +53,11 @@ class LocationTabFragment : BaseFragment<FragmentTabLocationBinding>(), TabLayou
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
         if(tab?.position==0){
-            binding.supportingView.visibility=View.VISIBLE
-            binding.viewPager.isUserInputEnabled=true
+            binding.supportingView.visibility=View.GONE
+            binding.viewPager.isUserInputEnabled=false
         }else{
-                binding.supportingView.visibility=View.GONE
-                binding.viewPager.isUserInputEnabled=false
+            binding.supportingView.visibility=View.VISIBLE
+            binding.viewPager.isUserInputEnabled=false
         }
         binding.viewPager.currentItem = tab?.position ?:0;
     }

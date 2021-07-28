@@ -1,47 +1,41 @@
 package com.saveeat.ui.activity.main
 
 import android.content.Intent
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.navigation.NavigationBarView
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityMainBinding
+import com.saveeat.ui.activity.drawer.DrawerActivity
+import com.saveeat.ui.activity.location.ChooseAddressActivity
 import com.saveeat.ui.activity.profile.ProfileActivity
-import com.saveeat.ui.adapter.rewards.RewardsAdapter
-import com.saveeat.utils.application.StaticDataHelper
+import com.saveeat.utils.application.CommonUtils
+import com.saveeat.utils.application.CommonUtils.setSpinner
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
     private lateinit var navController : NavController
+    private var list =arrayOf<String?>("Please select Distance","With in 3 KM","With in 5 KM","With in 10 KM")
 
     override fun getActivityBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun inits() {
         binding.drawerLayout.setStatusBarBackgroundColor(android.graphics.Color.rgb(120, 120, 120))
 
-        binding.clDrawer.apply {
-            rvRewards.layoutManager=LinearLayoutManager(this@MainActivity,LinearLayoutManager.HORIZONTAL,false)
-            rvRewards.adapter=RewardsAdapter(this@MainActivity,StaticDataHelper.getRewardModel())
-        }
 
         navController=findNavController(this,R.id.fragment)
         binding.bottomNavigationView.setupWithNavController(navController)
+
+        if(intent.getBooleanExtra("cart",false)) binding.bottomNavigationView.findNavController().navigate(R.id.cartFragment)
+
+        setSpinner(this, list,binding.clMainToolbar.spnAddress,binding.clMainToolbar.tvKMDropDown)
+
     }
 
 
@@ -50,6 +44,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         binding.clMainToolbar.apply {
             ivProfile.setOnClickListener(this@MainActivity)
             ivDrawer.setOnClickListener(this@MainActivity)
+            tvAddress.setOnClickListener(this@MainActivity)
+            tvKMDropDown.setOnClickListener(this@MainActivity)
         }
     }
 
@@ -62,10 +58,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
             // Toolbar
             R.id.ivProfile ->{ startActivity(Intent(this,ProfileActivity::class.java)) }
+            R.id.tvKMDropDown ->{ binding.clMainToolbar.spnAddress.performClick() }
 
             // Drawer
-            R.id.ivDrawer ->{
-                binding.drawerLayout.openDrawer(GravityCompat.START)}
+            R.id.ivDrawer ->{ startActivity(Intent(this,DrawerActivity::class.java))}
+            R.id.tvAddress -> {startActivity(Intent(this,ChooseAddressActivity::class.java))}
         }
     }
 

@@ -9,5 +9,5 @@ import com.saveeat.ui.fragment.main.location.Map.LocationMapFragment
 class LocationTabPagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
     override fun getItemCount(): Int =2
 
-    override fun createFragment(position: Int): Fragment = if(position==0) LocationListFragment() else LocationMapFragment()
+    override fun createFragment(position: Int): Fragment = if(position==0) LocationMapFragment() else LocationListFragment()
 }

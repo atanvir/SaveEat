@@ -85,20 +85,20 @@
 
 
 
-    <com.google.android.material.navigation.NavigationView
-            android:id="@+id/drawerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@android:color/transparent">
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--            android:id="@+id/drawerView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="start"-->
+<!--            android:background="@android:color/transparent">-->
 
-            <include
-                android:id="@+id/clDrawer"
-                layout="@layout/layout_drawer_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<!--            <include-->
+<!--                android:id="@+id/clDrawer"-->
+<!--                layout="@layout/layout_drawer_view"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
 
-    </com.google.android.material.navigation.NavigationView>
+<!--    </com.google.android.material.navigation.NavigationView>-->
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

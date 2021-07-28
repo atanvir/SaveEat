@@ -31,6 +31,7 @@ import com.saveeat.model.request.address.PlacesModel
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.adapter.address.AddressInfoWindow
 import com.saveeat.ui.adapter.autocomplete.AutoCompleteAddressAdapter
+import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.Resource
 import com.saveeat.utils.extn.*
 import com.saveeat.utils.permissions.gps.GPSPermissionHelper
@@ -47,6 +48,8 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     private val NOT_SERVE_THIS_AREA = 2
     private val HIDE_INFO_WINDOW = 3
     private var list: MutableList<PlacesModel?>? = ArrayList()
+    private var distanceList =arrayOf<String?>("Please select Distance","With in 3 KM","With in 5 KM","With in 10 KM")
+
 
     private var handler: Handler?=null
     private var mMap: GoogleMap? = null
@@ -64,35 +67,22 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     override fun getActivityBinding(): ActivityChooseAddressBinding = ActivityChooseAddressBinding.inflate(layoutInflater)
 
     override fun inits() {
-        searchView()
+        binding.tvKMDropDown.setOnClickListener(this)
         binding.clShadowButton.tvButtonLabel.text=getString(R.string.choose_this_location)
         startLocation(this, onResult, onPermissionLaucher, this)
-    }
-
-    private fun searchView() {
         binding.rvPlaces.layoutManager= LinearLayoutManager(this)
         binding.rvPlaces.adapter= AutoCompleteAddressAdapter(this, list, this)
-
-        val v: View? = binding.svLocation.findViewById<View>(androidx.appcompat.R.id.search_plate)
-        val textView: TextView? = binding.svLocation.findViewById<TextView>(androidx.appcompat.R.id.search_src_text)
-        textView?.typeface =ResourcesCompat.getFont(this, R.font.inter_regular)
-        textView?.textSize=12f
-        v?.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent))
-        binding.svLocation.queryHint = getString(R.string.search_city)
-        binding.svLocation.isIconified=true
-
-
+        CommonUtils.setSpinner(this, distanceList, binding.spnAddress, binding.tvKMDropDown)
     }
 
     override fun initCtrl() {
+        binding.ivClose.setOnClickListener(this)
         binding.svLocation.setOnClickListener(this)
-        binding.svLocation.queryChanged {
-            binding.svLocation.isIconified=false
+        binding.svLocation.onTextChanged {
             binding.rvPlaces.visibility=View.INVISIBLE
             binding.pbPlaces.visibility=View.VISIBLE
             (binding.rvPlaces.adapter as AutoCompleteAddressAdapter).filter.filter(it)
         }
-        binding.svLocation.setOnCloseListener(this)
         binding.clShadowButton.ivButton.setOnClickListener(this)
         binding.btnCurrentLocation.setOnClickListener(this)
     }
@@ -291,14 +281,17 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
 
     override fun onClick(v: View?) {
         when(v?.id){
+            R.id.tvKMDropDown ->{ binding.spnAddress.performClick() }
+
             R.id.btnCurrentLocation ->{ startActivity(Intent(this,MainActivity::class.java)) }
             R.id.ivButton->{ startActivity(Intent(this,MainActivity::class.java)) }
-            else ->{ binding.svLocation.isIconified=false }
+            R.id.ivClose ->{ finish() }
+
         }
     }
 
     override fun onClick(placeId: String?, spotName: String?) {
-        binding.svLocation.isIconified=true
+        binding.root.hideKeyboard(this)
 
         binding.rvPlaces.visibility=View.GONE
         binding.pbPlaces.visibility=View.GONE

@@ -6,13 +6,13 @@
     <color name="teal_200">#FF7A2C</color>
     <color name="teal_700">#FF7A2C</color>
     <color name="black">#000000</color>
+    <color name="brown">#743c20</color>
     <color name="white">#FFFFFF</color>
     <color name="app_theme">#FF7A2C</color>
     <color name="light_orange">#ffc767</color>
     <color name="grey">#9796A1</color>
     <color name="sv_location_grey">#efefef</color>
     <color name="light_green">#F3FFDF</color>
-    <color name="green">#00ad11</color>
     <color name="super_restro_green_text">#0d700e</color>
     <color name="light_pink">#fff4e8</color>
     <color name="new_grey">#e6e6e6</color>
@@ -20,7 +20,7 @@
     <color name="text_orange">#ff792c</color>
     <color name="reward_text_color">#743c20</color>
     <color name="menu_footer">#302724</color>
-    <color name="light_black">#0a0a0a
-
-    </color>
+    <color name="light_black">#0a0a0a</color>
+    <color name="transparent_color">#73000000</color>
+    <color name="green">#00ad11</color>
 </resources>

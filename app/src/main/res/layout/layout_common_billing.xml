@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+
 <LinearLayout
     android:id="@+id/clBilling"
     android:layout_width="match_parent"
@@ -67,6 +69,54 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discount"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                style="@style/poppin_semi_bold"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹10"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                style="@style/poppin_semi_bold"
+                />
+
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_7sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/sv_location_grey"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <TextView
                 android:id="@+id/taxInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,11 +129,113 @@
                 style="@style/poppin_semi_bold"
                 />
 
+            <include
+                android:id="@+id/clTaxInfo"
+                layout="@layout/layout_tax_fees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_below="@+id/taxInfo"
+                android:layout_alignParentEnd="true"
+                />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="₹12"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                style="@style/poppin_semi_bold"
+                />
+
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_7sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/sv_location_grey"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Round Off"
+                android:drawablePadding="12dp"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                style="@style/poppin_semi_bold"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹132"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                style="@style/poppin_semi_bold"
+                />
+
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_7sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/sv_location_grey"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SaveEat Fee"
+                android:drawablePadding="12dp"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                style="@style/poppin_semi_bold"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹50"
                 android:layout_alignParentEnd="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp"
@@ -129,7 +281,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="₹162"
+                android:text="₹182"
                 android:layout_alignParentEnd="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp"

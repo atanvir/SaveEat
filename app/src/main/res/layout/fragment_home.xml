@@ -18,42 +18,55 @@
         android:background="@drawable/background_search_view_white"
         android:drawableStart="@drawable/ed_new_search"
         android:drawablePadding="16dp"
+
         android:elevation="1dp"
-        android:focusable="false"
-        android:focusableInTouchMode="true"
         android:hint="@string/dishes_restaurant"
         android:iconifiedByDefault="true"
         android:paddingLeft="9dp"
         android:queryBackground="@android:color/transparent"
         android:textColorHint="@color/grey"
         android:textSize="@dimen/dimen_12sp"
-        app:layout_constraintEnd_toStartOf="@+id/ivType"
+        app:layout_constraintEnd_toStartOf="@+id/cpType"
         app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
         app:layout_constraintTop_toTopOf="@+id/guideLineTop" />
 
-
-    <ImageView
-        android:id="@+id/ivType"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/cpType"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_42sdp"
         android:layout_marginEnd="8dp"
-        android:elevation="@dimen/_3sdp"
-        android:adjustViewBounds="true"
-        android:src="@drawable/component_3_1"
+        android:text="Veg"
+        style="@style/CustomChipChoiceStyle"
+        app:chipBackgroundColor="@color/white"
+        app:chipCornerRadius="@dimen/_5sdp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppin_semi_bold"
+        android:textSize="@dimen/dimen_12sp"
+        app:chipIcon="@drawable/group_2738"
+        app:iconStartPadding="6dp"
+
+        app:chipIconSize="12dp"
+        app:chipIconVisible="true"
+        app:chipStrokeColor="@color/sv_location_grey"
+        app:chipStrokeWidth="0.9dp"
+        app:closeIcon="@drawable/i_remove"
+        app:closeIconSize="7dp"
+        app:closeIconVisible="false"
         app:layout_constraintBottom_toBottomOf="@+id/svLocation"
         app:layout_constraintEnd_toStartOf="@+id/ivFilter"
         app:layout_constraintTop_toTopOf="@+id/svLocation" />
+
 
     <ImageView
         android:id="@+id/ivFilter"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:elevation="@dimen/_3sdp"
         android:adjustViewBounds="true"
+        android:elevation="@dimen/_3sdp"
         android:src="@drawable/group_3986"
-        app:layout_constraintBottom_toBottomOf="@+id/ivType"
+        app:layout_constraintBottom_toBottomOf="@+id/svLocation"
         app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
-        app:layout_constraintTop_toTopOf="@+id/ivType" />
+        app:layout_constraintTop_toTopOf="@+id/svLocation" />
 
 
     <androidx.recyclerview.widget.RecyclerView

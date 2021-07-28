@@ -2,10 +2,12 @@ package com.saveeat.ui.adapter.map
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
 import com.saveeat.R
@@ -18,7 +20,7 @@ class CustomClusterRenderer(var context: Context?, var map: GoogleMap?,var clust
         var descriptor : BitmapDescriptor?=null
         if(count%2==0) descriptor = BitmapDescriptorFactory.fromResource(R.drawable.group_4002)
         else descriptor = BitmapDescriptorFactory.fromResource(R.drawable.group_4001)
-        count=count+1
+        count += 1
         markerOptions.icon(descriptor)
     }
 
@@ -26,4 +28,6 @@ class CustomClusterRenderer(var context: Context?, var map: GoogleMap?,var clust
     override fun getColor(clusterSize: Int): Int {
         return Color.parseColor("#FF7A2C")
     }
+
+
 }

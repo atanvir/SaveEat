@@ -3,8 +3,10 @@ package com.saveeat.ui.adapter.cart
 import android.content.Context
 import android.graphics.Paint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.saveeat.R
 import com.saveeat.databinding.AdapterCartBinding
 
 class CartAdapter (var context: Context?) : RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
@@ -16,9 +18,29 @@ class CartAdapter (var context: Context?) : RecyclerView.Adapter<CartAdapter.MyV
 
     override fun getItemCount(): Int =3
 
-    inner class MyViewHolder(var binding: AdapterCartBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class MyViewHolder(var binding: AdapterCartBinding) : RecyclerView.ViewHolder(binding.root),
+        View.OnClickListener {
         init {
+            binding.clQuantity.ivPlus.setOnClickListener(this)
+            binding.clQuantity.ivMinus.setOnClickListener(this)
+        }
 
+        override fun onClick(v: View?) {
+            when(v?.id){
+                R.id.ivPlus ->{
+                    var count =binding.clQuantity.tvQuantity.text.toString().toInt()
+                    count += 1
+                    binding.clQuantity.tvQuantity.text=count.toString()
+                }
+
+                R.id.ivMinus ->{
+                    var count =binding.clQuantity.tvQuantity.text.toString().toInt()
+                    if(count>0){
+                        count += 1
+                        binding.clQuantity.tvQuantity.text=count.toString()
+                    }
+                }
+            }
         }
     }
 }

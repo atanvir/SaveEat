@@ -1,5 +1,6 @@
 package com.saveeat.ui.fragment.main.cart
 
+import android.content.Intent
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
@@ -13,12 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.saveeat.R
 import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentCartBinding
+import com.saveeat.ui.activity.order.checkout.CheckoutActivity
 import com.saveeat.ui.adapter.cart.CartAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class CartFragment : BaseFragment<FragmentCartBinding>() {
+class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener {
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentCartBinding = FragmentCartBinding.inflate(inflater,container,false)
 
     override fun init() {
@@ -26,6 +28,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
         binding.rvProducts.adapter=CartAdapter(requireActivity())
 
         binding.clShadowButton.tvButtonLabel.text="Checkout"
+
 
         val wordtoSpan: Spannable = SpannableString("Continue to checkout to save ₹427 on this order ")
         wordtoSpan.setSpan(ForegroundColorSpan(Color.GREEN), 28, 33, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -42,9 +45,25 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
     }
 
     override fun initCtrl() {
+        binding.clShadowButton.ivButton.setOnClickListener(this)
+        binding.clBilling.taxInfo.setOnClickListener(this)
+        binding.clBilling.clTaxInfo.ivCLose.setOnClickListener(this)
     }
 
     override fun observer() {
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.ivButton ->{ startActivity(Intent(requireActivity(),CheckoutActivity::class.java)) }
+            R.id.taxInfo ->{
+                binding.clBilling.clTaxInfo.clTaxInfo.visibility=View.VISIBLE
+
+            }
+            R.id.ivCLose ->{
+                binding.clBilling.clTaxInfo.clTaxInfo.visibility=View.GONE
+            }
+        }
     }
 
 }

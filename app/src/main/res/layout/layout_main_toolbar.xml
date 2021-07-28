@@ -27,8 +27,11 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:elevation="@dimen/_2sdp"
+                android:elevation="2dp"
+                android:layout_margin="1dp"
                 android:src="@drawable/icon_hum"
+                android:background="@drawable/background_common_button"
+                android:backgroundTint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -77,6 +80,15 @@
                     app:layout_constraintEnd_toEndOf="@+id/tvAddress"
                     app:layout_constraintStart_toStartOf="@+id/tvAddress"
                     app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
+
+                <Spinner
+                    android:id="@+id/spnAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="@+id/tvAddress"
+                    app:layout_constraintStart_toStartOf="@+id/tvAddress"
+                    app:layout_constraintTop_toBottomOf="@+id/tvKMDropDown" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

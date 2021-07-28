@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/clMainToolbar"
+            layout="@layout/layout_activity_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clMainToolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/background_common_button"
+                    android:backgroundTint="@color/white"
+                    android:elevation="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Recently Used"
+                        style="@style/poppin_medium"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/card_master"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="1234-XXXX-XXXX-6789"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/card_visa"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        android:text="1234-XXXX-XXXX-6789"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/grey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:drawableEnd="@drawable/arrow_frwd"
+                    android:gravity="center_vertical"
+                    android:padding="16dp"
+                    android:background="@drawable/background_common_button"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_12sp"
+                    style="@style/poppin_regular"
+
+                    android:text="Credit &amp; Debit Cards"
+                    android:elevation="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout6"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout6"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/background_common_button"
+                    android:backgroundTint="@color/white"
+                    android:elevation="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView18">
+
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Food Cards"
+                        style="@style/poppin_medium"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView20"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/card_sodex"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        android:text="Sodexo Meal Pass"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/card_zeta"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        android:text="Sodexo Meal Pass"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/card_ticket"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        android:text="Ticket Restaurant"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view7" />
+
+                    <View
+                        android:id="@+id/view6"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/grey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+                    <View
+                        android:id="@+id/view7"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/grey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/background_common_button"
+                    android:backgroundTint="@color/white"
+                    android:elevation="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="UPI"
+                        style="@style/poppin_medium"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/card_gpay"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="Google Pay"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+                    <View
+                        android:id="@+id/view8"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/grey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/upi_pay"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="UPI"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view8" />
+
+                    <View
+                        android:id="@+id/view9"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/grey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+                    <TextView
+                        android:id="@+id/textView26"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/phone_pay"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="PhonePe"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view9" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/background_common_button"
+                    android:backgroundTint="@color/white"
+                    android:elevation="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
+
+                    <TextView
+                        android:id="@+id/textView27"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Wallets"
+                        style="@style/poppin_medium"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView28"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/amazon_pay"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="Amazon Pay"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+                    <View
+                        android:id="@+id/view10"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/grey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+                    <TextView
+                        android:id="@+id/textView29"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/paytm_pay"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="Paytm"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view10" />
+
+                    <View
+                        android:id="@+id/view11"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/grey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+                    <TextView
+                        android:id="@+id/textView30"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/phone_pay"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="PhonePe"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view11" />
+
+                    <View
+                        android:id="@+id/view12"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/grey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+                    <TextView
+                        android:id="@+id/textView31"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/freecharge_pay"
+                        android:drawableEnd="@drawable/arrow_frwd"
+                        android:drawablePadding="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="Freecharge"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view12" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/const_netBanking"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/background_common_button"
+                    android:backgroundTint="@color/white"
+                    android:elevation="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout9">
+
+                    <TextView
+                        android:id="@+id/textView32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Net Banking"
+                        style="@style/poppin_medium"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView33"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:drawableTop="@drawable/card_hdfc"
+                        android:gravity="center"
+                        android:text="HDFC"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView34"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+                    <TextView
+                        android:id="@+id/textView34"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/card_icici"
+                        android:gravity="center"
+                        android:text="ICICI"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/textView33"
+                        app:layout_constraintEnd_toStartOf="@+id/textView35"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textView33" />
+
+                    <TextView
+                        android:id="@+id/textView35"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/card_sbi"
+                        android:gravity="center"
+                        android:text="SBI"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/textView34"
+                        app:layout_constraintEnd_toStartOf="@+id/textView36"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textView34" />
+
+                    <TextView
+                        android:id="@+id/textView36"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/card_axis"
+                        android:gravity="center"
+                        android:text="AXIS"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/textView35"
+                        app:layout_constraintEnd_toStartOf="@+id/textView37"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textView35" />
+
+                    <TextView
+                        android:id="@+id/textView37"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/card_kotak"
+                        android:gravity="center"
+                        android:text="KOTAK"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_12sp"
+                        style="@style/poppin_regular"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/textView36"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textView36" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -21,7 +21,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
     override fun onResume() {
         super.onResume()
         activity?.findViewById<ConstraintLayout>(R.id.clAddress)?.visibility= View.GONE
-        activity?.findViewById<TextView>(R.id.tvTitle)?.text="Favourite"
+        activity?.findViewById<TextView>(R.id.tvTitle)?.text="Favourites"
         activity?.findViewById<TextView>(R.id.tvTitle)?.compoundDrawablePadding=16
         activity?.findViewById<TextView>(R.id.tvTitle)?.setCompoundDrawablesWithIntrinsicBounds(activity?.getDrawable(R.drawable.fi_sr_heart25),null,null,null)
         activity?.findViewById<TextView>(R.id.tvTitle)?.visibility= View.VISIBLE

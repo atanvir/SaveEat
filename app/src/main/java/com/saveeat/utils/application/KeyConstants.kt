@@ -29,7 +29,7 @@ object KeyConstants{
     const val NOT_SERVE_THIS_AREA = 2
     const val HIDE_INFO_WINDOW = 3
 
-    const val GOOGLE_PLACE_API: String ="AIzaSyBqkaQe-laP88wY3T0HZ5VVo2naXl59jx8"
+    const val GOOGLE_PLACE_API: String ="AIzaSyA7NNCNgLREhj2_fPqudORUW9d8ztlyvUk"
 
 
     const val GOOGLE_CLIENT="google_client"

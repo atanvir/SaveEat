@@ -8,6 +8,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.viewbinding.ViewBinding
+import com.saveeat.ui.fragment.main.location.List.LocationListFragment
+import com.saveeat.ui.fragment.main.location.LocationTabFragment
 
 abstract class BaseFragment<B: ViewBinding> : Fragment() {
     protected lateinit var callback: OnBackPressedCallback
@@ -25,8 +27,12 @@ abstract class BaseFragment<B: ViewBinding> : Fragment() {
 
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                Navigation.findNavController(view).popBackStack()
-                this.remove()
+                try {
+                    Navigation.findNavController(view).popBackStack()
+                    this.remove()
+                }catch (e: Exception){
+                    requireActivity().finish()
+                }
             }
         }
 

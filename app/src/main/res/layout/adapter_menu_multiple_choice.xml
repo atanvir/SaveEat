@@ -17,7 +17,7 @@
             android:text="Mushroom"
             android:paddingStart="@dimen/_70sdp"
             android:textAlignment="textStart"
-            android:textColor="#444251"
+            android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

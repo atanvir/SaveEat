@@ -16,6 +16,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import com.saveeat.R
 import com.saveeat.base.BaseFragment
@@ -26,6 +27,7 @@ import com.saveeat.ui.adapter.map.MapRestaurantAdapter
 import com.saveeat.utils.application.StaticDataHelper
 import com.saveeat.utils.extn.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 
 
 @AndroidEntryPoint
@@ -65,15 +67,20 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
 
         mMap.setInfoWindowAdapter(clusterItemManager?.markerManager)
         mMap.setOnInfoWindowClickListener(clusterItemManager)
-        clusterItemManager?.setOnClusterItemClickListener(object : ClusterManager.OnClusterItemClickListener<ClusterItemAdapter?>{
-            override fun onClusterItemClick(item: ClusterItemAdapter?): Boolean {
-                binding.btnShowRestro.performClick()
-                return true
-            }
-
-        })
+        clusterItemManager?.setOnClusterItemClickListener {
+            Log.e("yes","yes")
+            binding.btnShowRestro.performClick()
+            true
+        }
+        clusterItemManager?.setOnClusterClickListener {
+            Log.e("yes", "clusterItemManager")
+            binding.btnShowRestro.visibility=View.GONE
+            binding.rvRestaurant.visibility=View.VISIBLE
+            true
+        }
 
         addItems()
+
     }
 
     private fun addItems() {
@@ -82,7 +89,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         var lat = currentLocation.latitude
         var lng = currentLocation.longitude
 
-        for (i in 0..9) {
+        for (i in 0..3) {
             val offset = i / 60.0
             lat += offset
             lng += offset
@@ -110,7 +117,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         btnMyLocation.layoutParams=params
 
         // Zoom Button
-        mMap?.setPadding(0, 0, 0, 700)
+        mMap?.setPadding(0, 0, 0, 650)
     }
 
 

@@ -1,8 +1,10 @@
 package com.saveeat.ui.activity.menu
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
@@ -16,7 +18,7 @@ import com.saveeat.utils.helper.AppBarStateChangeListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MenuActivity : BaseActivity<ActivityMenuBinding>() {
+class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener {
     override fun getActivityBinding(): ActivityMenuBinding = ActivityMenuBinding.inflate(layoutInflater)
     override fun inits() {
         binding.rvMenuCategories.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
@@ -24,6 +26,18 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>() {
     }
 
     override fun initCtrl() {
+
+        binding.cpType.setOnClickListener(this)
+        binding.cpType.setOnCloseIconClickListener {
+            binding.cpType.isCloseIconVisible=false
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                binding.cpType.chipBackgroundColor=getColorStateList(R.color.white)
+                binding.cpType.closeIconTint=getColorStateList(R.color.black)
+            }
+            binding.cpType.setTextColor(ContextCompat.getColor(this,R.color.black))
+
+        }
+        binding.ivBack.setOnClickListener(this)
         binding.rvProducts.layoutManager=GridLayoutManager(this,2)
         binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData(),true)
     }
@@ -44,6 +58,20 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>() {
                 }
             }
         })
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.ivBack ->{ onBackPressed() }
+            R.id.cpType ->{
+                binding.cpType.isCloseIconVisible=true
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.cpType.chipBackgroundColor=this.getColorStateList(R.color.app_theme)
+                    binding.cpType.closeIconTint=this.getColorStateList(R.color.white)
+                }
+                binding.cpType.setTextColor(ContextCompat.getColor(this,R.color.white))
+            }
+        }
     }
 
 }

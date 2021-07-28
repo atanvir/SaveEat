@@ -277,6 +277,7 @@ on toast"
 
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedSv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
@@ -353,10 +354,9 @@ on toast"
 
 
             <androidx.core.widget.NestedScrollView
-                android:id="@+id/nestedSv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="74dp"
                 app:layout_constraintEnd_toEndOf="@+id/view4"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/textView12">
@@ -370,14 +370,6 @@ on toast"
                 />
             </androidx.core.widget.NestedScrollView>
 
-            <include
-                android:id="@+id/clShadowButton"
-                layout="@layout/layout_common_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nestedSv" />
 
 
 
@@ -389,6 +381,21 @@ on toast"
 
 
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAddToCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/common_button"
+            android:textSize="@dimen/dimen_16sp"
+            android:background="@drawable/background_common_button"
+            android:text="Add to cart"
+            android:elevation="@dimen/_5sdp"
+            app:layout_anchor="@id/nestedSv"
+            app:layout_anchorGravity="bottom"
+            android:layout_marginLeft="@dimen/_24sdp"
+            android:layout_marginRight="@dimen/_24sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            />
 
 
 

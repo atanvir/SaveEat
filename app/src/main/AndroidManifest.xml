@@ -26,22 +26,63 @@
         android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon_main"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/app_icon_main"
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveEat"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.order.history.OrderHistoryActivity"></activity>
+        <activity android:name=".ui.activity.order.checkout.CheckoutActivity"
+            android:theme="@style/white_theme"
+            android:screenOrientation="portrait"
+            ></activity>
+        <activity
+            android:name=".ui.activity.order.status.OrderStatusActivity"
+            android:theme="@style/white_theme"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.activity.drawer.payment.PaymentActivity"
+            android:theme="@style/white_theme"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.activity.drawer.location.HiddenLocationActivity"
+            android:theme="@style/white_theme"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.activity.drawer.reward.RewardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/light_oragne_theme" />
+        <activity
+            android:name=".ui.activity.drawer.DrawerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/light_oragne_theme" />
+        <activity
+            android:name=".ui.activity.drawer.help.HelpActivity"
+            android:theme="@style/white_theme"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.activity.drawer.credit.CreditActivity"
+            android:theme="@style/white_theme"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.activity.order.history.OrderHistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/white_theme"
+            />
         <activity
             android:name=".ui.activity.menu.MenuDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/menu_theme" />
+            android:theme="@style/white_theme" />
         <activity
             android:name=".ui.activity.menu.MenuActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/menu_theme" />
+            android:theme="@style/white_theme" />
         <activity
             android:name=".ui.activity.profile.ProfileActivity"
             android:screenOrientation="portrait"

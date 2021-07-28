@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/ivMus"
+        android:id="@+id/ivMinus"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:src="@drawable/drawable_minus_cart"
@@ -34,10 +34,10 @@
         android:text="1"
         android:textColor="@color/black"
         android:textSize="@dimen/dimen_16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivMus"
+        app:layout_constraintBottom_toBottomOf="@+id/ivMinus"
         app:layout_constraintEnd_toStartOf="@+id/ivPlus"
-        app:layout_constraintStart_toEndOf="@+id/ivMus"
-        app:layout_constraintTop_toTopOf="@+id/ivMus" />
+        app:layout_constraintStart_toEndOf="@+id/ivMinus"
+        app:layout_constraintTop_toTopOf="@+id/ivMinus" />
 
     <View
         android:id="@+id/view3"
@@ -47,10 +47,10 @@
         android:layout_marginEnd="9dp"
         android:background="@color/app_theme"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/ivMus"
-        app:layout_constraintEnd_toEndOf="@+id/ivMus"
-        app:layout_constraintStart_toStartOf="@+id/ivMus"
-        app:layout_constraintTop_toTopOf="@+id/ivMus" />
+        app:layout_constraintBottom_toBottomOf="@+id/ivMinus"
+        app:layout_constraintEnd_toEndOf="@+id/ivMinus"
+        app:layout_constraintStart_toStartOf="@+id/ivMinus"
+        app:layout_constraintTop_toTopOf="@+id/ivMinus" />
 
 
 
