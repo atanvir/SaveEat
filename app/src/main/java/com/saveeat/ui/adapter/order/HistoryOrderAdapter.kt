@@ -20,7 +20,7 @@ class HistoryOrderAdapter(var context: Context) : RecyclerView.Adapter<HistoryOr
     override fun onBindViewHolder(holder: HistoryOrderAdapter.MyViewHolder, position: Int) {
         holder.binding.clBilling.tvSaveLabel.visibility=View.GONE
         val wordtoSpan: Spannable = SpannableString("You saved ₹427 on this order")
-        wordtoSpan.setSpan(ForegroundColorSpan(Color.GREEN), 9, 14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        wordtoSpan.setSpan(ForegroundColorSpan(Color.rgb(0, 178, 17)), 9, 14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         holder.binding.tvSaveLabelOutSide.text = wordtoSpan
     }
 
