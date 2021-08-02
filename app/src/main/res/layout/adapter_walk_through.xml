@@ -16,15 +16,26 @@
         android:layout_height="match_parent"
         android:background="@color/light_orange">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.45"
+            android:orientation="horizontal"
+            >
+
+
+        </androidx.constraintlayout.widget.Guideline>
+
 
         <ImageView
             android:id="@+id/ivPic"
             setFromResourceDrawable="@{data.image}"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_270sdp"
-            android:layout_marginBottom="32dp"
+            android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:scaleType="center"
+            app:layout_constraintBottom_toTopOf="@+id/guideLineTop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +62,7 @@
                 android:elevation="1dp"
                 android:text="@{data.title}"
                 android:textColor="#444251"
-                android:textSize="26sp"
+                android:textSize="@dimen/dimen_27sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

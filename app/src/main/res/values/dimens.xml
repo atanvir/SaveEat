@@ -35,5 +35,11 @@
     <dimen name="dime_13sp">13sp</dimen>
     <dimen name="dimen_11sp">11sp</dimen>
     <dimen name="dimen_10sp">10sp</dimen>
+    <dimen name="dimen_27sp">27sp</dimen>
+    <dimen name="dimen_266">266sp</dimen>
+    <dimen name="dimen_136">136dp</dimen>
+    <dimen name="dimen_22sp">22sp</dimen>
 
+    <item name="dimen_21" type="dimen" >21sp</item>
+    <item name="dimen_view_line" type="dimen" >0.7dp</item>
 </resources>

@@ -1,5 +1,6 @@
 package com.saveeat.utils.application
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
@@ -16,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.saveeat.R
 import com.saveeat.ui.activity.auth.login.LoginActivity
@@ -106,7 +108,7 @@ object CommonUtils {
 
 
     fun setSpinner(context: Context, list: Array<String?>, spinner: Spinner, textView: TextView) {
-        val adapter: ArrayAdapter<String?> = object : ArrayAdapter<String?>(context, android.R.layout.simple_spinner_dropdown_item,list) {
+        val adapter: ArrayAdapter<String?> = object : ArrayAdapter<String?>(context, android.R.layout.simple_spinner_item,list) {
         override fun isEnabled(position: Int): Boolean {
             return position!=0
         }
@@ -119,11 +121,11 @@ object CommonUtils {
             else tv.setTextColor(ContextCompat.getColor(context,R.color.black))
             tv.textSize = 14f
 
-            val face = ResourcesCompat.getFont(context, R.font.poppin_semi_bold)
+            val face = ResourcesCompat.getFont(context, R.font.poppins_regular)
             tv.typeface = face
             tv.textAlignment= View.TEXT_ALIGNMENT_CENTER
             view.background= ContextCompat.getDrawable(context,R.drawable.drawable_white_selected_tab_layout)
-//            view.setPadding(view.getPaddingLeft(), 6, view.getPaddingRight(), 6)
+            view.setPadding(view.getPaddingLeft(), 16, view.getPaddingRight(), 16)
             return view
         }
         }
@@ -131,7 +133,7 @@ object CommonUtils {
         spinner.onSelected { parent, position ->
             textView.text=parent?.getItemAtPosition(position).toString()
         }
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
         spinner.adapter = adapter
    }
 
@@ -151,6 +153,8 @@ object CommonUtils {
             false
         }
     }
+
+
 
 
 }

@@ -5,58 +5,39 @@
 
 
     <font
-        android:font="@font/poppin_bold"
+        android:font="@font/poppins_bold"
         android:fontStyle="normal"
         android:fontWeight="400"
-        app:font="@font/poppin_bold"
+        app:font="@font/poppins_bold"
         app:fontWeight="400" />
 
     <font
-        android:font="@font/poppin_regular"
+        android:font="@font/poppins_regular"
         android:fontStyle="normal"
         android:fontWeight="400"
-        app:font="@font/poppin_regular"
-        app:fontWeight="400" />
-
-
-    <font
-        android:font="@font/poppin_semi_bold"
-        android:fontStyle="normal"
-        android:fontWeight="400"
-        app:font="@font/poppin_semi_bold"
+        app:font="@font/poppins_regular"
         app:fontWeight="400" />
 
 
     <font
-        android:font="@font/poppin_light"
+        android:font="@font/poppins_semi_bold"
         android:fontStyle="normal"
         android:fontWeight="400"
-        app:font="@font/poppin_light"
+        app:font="@font/poppins_semi_bold"
         app:fontWeight="400" />
+
+
 
 
     <font
-        android:font="@font/poppin_medium"
+        android:font="@font/poppins_medium"
         android:fontStyle="normal"
         android:fontWeight="400"
-        app:font="@font/poppin_medium"
+        app:font="@font/poppins_medium"
         app:fontWeight="400" />
 
 
-    <font
-        android:font="@font/poppin_extra_bold"
-        android:fontStyle="normal"
-        android:fontWeight="400"
-        app:font="@font/poppin_extra_bold"
-        app:fontWeight="400" />
-
-
-    <font
-        android:font="@font/poppin_thin"
-        android:fontStyle="normal"
-        android:fontWeight="400"
-        app:font="@font/poppin_thin"
-        app:fontWeight="400" />
+    
 
 
 

@@ -21,21 +21,17 @@ import java.util.*
 class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
     private lateinit var navController : NavController
-    private var list =arrayOf<String?>("Please select Distance","With in 3 KM","With in 5 KM","With in 10 KM")
+    private var list =arrayOf<String?>("Please select Distance","Within 3 KM","Within 5 KM","Within 10 KM")
 
     override fun getActivityBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun inits() {
         binding.drawerLayout.setStatusBarBackgroundColor(android.graphics.Color.rgb(120, 120, 120))
 
-
         navController=findNavController(this,R.id.fragment)
         binding.bottomNavigationView.setupWithNavController(navController)
-
         if(intent.getBooleanExtra("cart",false)) binding.bottomNavigationView.findNavController().navigate(R.id.cartFragment)
-
         setSpinner(this, list,binding.clMainToolbar.spnAddress,binding.clMainToolbar.tvKMDropDown)
-
     }
 
 
@@ -63,6 +59,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             // Drawer
             R.id.ivDrawer ->{ startActivity(Intent(this,DrawerActivity::class.java))}
             R.id.tvAddress -> {startActivity(Intent(this,ChooseAddressActivity::class.java))}
+
         }
     }
 

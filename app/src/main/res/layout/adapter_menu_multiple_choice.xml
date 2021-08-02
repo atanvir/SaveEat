@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            style="@style/poppin_semi_bold"
+            style="@style/inter_medium"
             android:layoutDirection="rtl"
             android:text="Mushroom"
             android:paddingStart="@dimen/_70sdp"
@@ -25,13 +25,13 @@
 
         <TextView
             android:id="@+id/tvPrice"
+            style="@style/inter_semi_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="37dp"
+            android:layout_marginEnd="42dp"
             android:text="+₹15"
-            android:textSize="14sp"
-            style="@style/poppin_semi_bold"
             android:textColor="@color/black"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/rbChoiceName"
             app:layout_constraintTop_toTopOf="parent" />

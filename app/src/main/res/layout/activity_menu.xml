@@ -37,9 +37,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:minHeight="?attr/actionBarSize"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    android:elevation="3dp"
+                    android:elevation="@dimen/_9sdp"
                     app:contentInsetStart="@dimen/_10sdp"
                     android:layout_marginStart="@dimen/_6sdp"
 
@@ -107,8 +107,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/_13sdp"
-                    android:elevation="1dp"
-                    android:layout_margin="@dimen/_1sdp"
+                    app:cardElevation="@dimen/_5sdp"
+                    app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true">
 
 
@@ -138,10 +138,64 @@
                                 />
 
 
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:elevation="@dimen/_10sdp"
+                                android:outlineProvider="none"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+
+                                <TextView
+                                    android:id="@+id/tvLabel"
+                                    style="@style/inter_regular"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Latest sale was more than a week ago."
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/dimen_12sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="30dp"
+                                    android:layout_marginTop="4dp"
+                                    android:src="@drawable/heart_white"
+                                    app:layout_constraintStart_toStartOf="@+id/textView43"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvLabel" />
+
+
+                                <TextView
+                                    android:id="@+id/textView43"
+                                    style="@style/inter_regular"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAlignment="center"
+                                    android:text="Tap        to get notified when surplus \nis available"
+                                    android:textColor="@color/white"
+
+                                    android:textSize="@dimen/dimen_12sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvLabel" />
+
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
                             <ImageView
                                 android:id="@+id/ivCover"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_180sdp"
+                                android:layout_height="167sp"
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
                                 app:layout_collapseMode="none"
@@ -154,10 +208,10 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/clProfile"
-                            android:layout_width="104dp"
-                            android:layout_height="104dp"
+                            android:layout_width="78sp"
+                            android:layout_height="78sp"
                             android:layout_gravity="center|top"
-                            android:layout_marginTop="180dp"
+                            android:layout_marginTop="118dp"
                             android:background="@drawable/background_circle"
                             android:elevation="0dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -167,8 +221,8 @@
 
                             <ImageView
                                 android:id="@+id/ivBrandLogo"
-                                android:layout_width="81dp"
-                                android:layout_height="81dp"
+                                android:layout_width="65sp"
+                                android:layout_height="65sp"
                                 android:layout_gravity="center"
                                 android:src="@drawable/rectangle_logo"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -227,14 +281,14 @@
 
                                 <TextView
                                     android:id="@+id/tvAddress"
-                                    style="@style/poppin_semi_bold"
+                                    style="@style/inter_regular"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:drawableStart="@drawable/location_address"
                                     android:drawablePadding="6dp"
                                     android:text="117 Wells Street"
                                     android:textColor="@color/grey"
-                                    android:textSize="@dimen/dime_13sp" />
+                                    android:textSize="@dimen/dimen_12sp" />
 
 
                                 <View
@@ -242,36 +296,36 @@
                                     android:layout_width="4dp"
                                     android:layout_height="4dp"
                                     android:layout_gravity="center"
-                                    android:layout_marginStart="12dp"
-                                    android:layout_marginEnd="12dp"
+                                    android:layout_marginStart="8sp"
+                                    android:layout_marginEnd="8sp"
                                     android:background="@drawable/drawable_circle"
                                     android:backgroundTint="#bbbbbb" />
 
 
                                 <TextView
                                     android:id="@+id/textView5"
-                                    style="@style/poppin_semi_bold"
+                                    style="@style/inter_medium"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:drawableEnd="@drawable/path_3389"
                                     android:drawablePadding="6dp"
-                                    android:text="4 "
+                                    android:text="4.5 "
                                     android:textColor="@color/black"
-                                    android:textSize="@dimen/dime_13sp" />
+                                    android:textSize="@dimen/dimen_12sp" />
 
                                 <View
                                     android:id="@+id/view2"
                                     android:layout_width="4dp"
                                     android:layout_height="4dp"
                                     android:layout_gravity="center"
-                                    android:layout_marginStart="12dp"
+                                    android:layout_marginStart="8sp"
                                     android:background="@drawable/drawable_circle"
                                     android:backgroundTint="#bbbbbb" />
 
 
                                 <TextView
                                     android:id="@+id/textView6"
-                                    style="@style/poppin_semi_bold"
+                                    style="@style/inter_regular"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="12dp"
@@ -287,14 +341,14 @@
 
                             <TextView
                                 android:id="@+id/tvPickUpTime"
-                                style="@style/poppin_semi_bold"
+                                style="@style/inter_regular"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="3dp"
+                                android:layout_marginTop="9sp"
                                 android:drawablePadding="6dp"
                                 android:text="Pickup between 10AM-7PM"
                                 android:textColor="@color/grey"
-                                android:textSize="@dimen/dime_13sp"
+                                android:textSize="@dimen/dimen_12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -304,15 +358,15 @@
                                 android:id="@+id/constraintLayout3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:background="@drawable/drawable_green_stroke"
+                                android:layout_marginTop="@dimen/dimen_12sp"
+                                android:background="@color/light_green"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/tvPickUpTime">
 
 
                                 <TextView
-                                    style="@style/poppin_semi_bold"
+                                    style="@style/inter_regular"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -391,28 +445,27 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cpType"
+                    style="@style/CustomChipChoiceStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_42sdp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="4dp"
                     android:text="Veg"
-                    style="@style/CustomChipChoiceStyle"
+                    android:textColor="@color/black"
+
+                    android:textSize="@dimen/dimen_12sp"
                     app:chipBackgroundColor="@color/white"
                     app:chipCornerRadius="@dimen/_5sdp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppin_semi_bold"
-                    android:textSize="@dimen/dimen_12sp"
-                    app:chipIcon="@drawable/group_2738"
-                    app:iconStartPadding="6dp"
 
+                    app:chipIcon="@drawable/group_2738"
                     app:chipIconSize="12dp"
                     app:chipIconVisible="true"
                     app:chipStrokeColor="@color/sv_location_grey"
                     app:chipStrokeWidth="0.9dp"
                     app:closeIcon="@drawable/i_remove"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="8dp"
                     app:closeIconSize="7dp"
                     app:closeIconVisible="false"
+                    app:iconStartPadding="6dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

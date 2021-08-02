@@ -35,14 +35,12 @@
     <Button
         android:id="@+id/btnShowRestro"
         style="@style/common_button"
-        android:layout_width="wrap_content"
+        android:fontFamily="@font/inter_semi_bold"
+        android:layout_width="260sp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="120dp"
         android:elevation="@dimen/_5sdp"
-
-        android:paddingLeft="@dimen/_16sdp"
-        android:paddingRight="@dimen/_16sdp"
-        android:text="Show restaurants in this area"
+        android:text="@string/show_restaurants_in_this_area"
         app:layout_constraintBottom_toBottomOf="@+id/mapView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

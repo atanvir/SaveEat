@@ -32,6 +32,7 @@ import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.adapter.address.AddressInfoWindow
 import com.saveeat.ui.adapter.autocomplete.AutoCompleteAddressAdapter
 import com.saveeat.utils.application.CommonUtils
+import com.saveeat.utils.application.CommonUtils.setSpinner
 import com.saveeat.utils.application.Resource
 import com.saveeat.utils.extn.*
 import com.saveeat.utils.permissions.gps.GPSPermissionHelper
@@ -48,7 +49,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     private val NOT_SERVE_THIS_AREA = 2
     private val HIDE_INFO_WINDOW = 3
     private var list: MutableList<PlacesModel?>? = ArrayList()
-    private var distanceList =arrayOf<String?>("Please select Distance","With in 3 KM","With in 5 KM","With in 10 KM")
+    private var distanceList =arrayOf<String?>("Please select Distance","Within 3 KM","Within 5 KM","Within 10 KM")
 
 
     private var handler: Handler?=null
@@ -72,7 +73,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         startLocation(this, onResult, onPermissionLaucher, this)
         binding.rvPlaces.layoutManager= LinearLayoutManager(this)
         binding.rvPlaces.adapter= AutoCompleteAddressAdapter(this, list, this)
-        CommonUtils.setSpinner(this, distanceList, binding.spnAddress, binding.tvKMDropDown)
+        setSpinner(this, distanceList, binding.spnAddress, binding.tvKMDropDown)
     }
 
     override fun initCtrl() {

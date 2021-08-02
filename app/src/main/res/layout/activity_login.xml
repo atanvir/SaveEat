@@ -118,7 +118,7 @@
 
             <TextView
                 android:id="@+id/tvForgotPassword"
-                style="@style/poppin_semi_bold"
+                style="@style/inter_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -149,7 +149,7 @@
 
                 <TextView
                     android:id="@+id/textView2"
-                    style="@style/poppin_semi_bold"
+                    style="@style/inter_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/don_t_have_an_account"
@@ -162,10 +162,10 @@
 
                 <TextView
                     android:id="@+id/tvSignup"
-                    style="@style/poppin_semi_bold"
+                    style="@style/inter_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="6dp"
                     android:text="@string/signup"
                     android:textColor="@color/app_theme"
                     android:textSize="@dimen/dimen_14sp"

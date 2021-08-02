@@ -27,7 +27,7 @@
 
     <TextView
         android:id="@+id/tvQuantity"
-        style="@style/poppin_semi_bold"
+        style="@style/inter_semi_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

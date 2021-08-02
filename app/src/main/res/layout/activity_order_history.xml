@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/drawable_grey_stroke_white_solid"
-            android:elevation="2dp"
+            android:elevation="@dimen/_5sdp"
             app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
             app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
             app:layout_constraintTop_toBottomOf="@+id/textView8">

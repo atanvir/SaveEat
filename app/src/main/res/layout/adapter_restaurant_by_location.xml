@@ -15,7 +15,7 @@
         android:id="@id/cvMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="@dimen/_2sdp"
+        app:cardElevation="@dimen/_4sdp"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="@dimen/_12sdp">
 
@@ -43,7 +43,7 @@
 
                     <TextView
                         android:id="@+id/tvLeft"
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -104,14 +104,14 @@
                 setFromResource="@{data.restroImage}"
                 android:layout_width="41dp"
                 android:layout_height="41dp"
+                android:layout_marginStart="@dimen/dimen_19sp"
+                android:layout_marginTop="140dp"
                 android:adjustViewBounds="true"
-                android:scaleType="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/cardView3"
-                app:layout_constraintHorizontal_bias="0.09"
+                android:scaleType="fitCenter"
+                android:elevation="@dimen/_5sdp"
+                android:outlineProvider="none"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.62" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -164,7 +164,7 @@
 <!--           -->
             <TextView
                 android:id="@+id/tvProductName"
-                style="@style/inter_semi_bold"
+                style="@style/poppin_semi_bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -174,7 +174,7 @@
                 android:maxLines="1"
                 android:text="@{data.name}"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_15sdp"
+                android:textSize="@dimen/dimen_14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView4" />
@@ -188,9 +188,9 @@
                 android:layout_marginBottom="16dp"
                 android:drawableEnd="@drawable/path_3389"
                 android:drawablePadding="6dp"
-                android:text="@{data.rating+`.`}"
+                android:text="@{data.rating+``}"
                 android:textColor="@color/black"
-                android:textSize="@dimen/dime_13sp"
+                android:textSize="@dimen/dimen_12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvProductName"
                 app:layout_constraintTop_toBottomOf="@+id/tvProductName"
@@ -200,7 +200,7 @@
                 android:id="@+id/view2"
                 android:layout_width="4dp"
                 android:layout_height="4dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/drawable_circle"
                 android:backgroundTint="#bbbbbb"
                 app:layout_constraintBottom_toBottomOf="@+id/textView5"
@@ -210,10 +210,10 @@
 
             <TextView
                 android:id="@+id/textView6"
-                style="@style/inter_medium"
+                style="@style/inter_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="8dp"
                 android:drawableStart="@drawable/fi_rr_location_alt"
                 android:drawablePadding="6dp"
                 android:text="@{data.distance}"
@@ -228,8 +228,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/drawable_green_stroke"
-                android:visibility="@{data.isSuper==true?View.VISIBLE:View.INVISIBLE}"
+                android:background="@color/light_green"
+                android:visibility="@{data.isSuper==true?View.VISIBLE:View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -237,7 +237,7 @@
 
 
                 <TextView
-                    style="@style/poppin_semi_bold"
+                    style="@style/inter_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -253,12 +253,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
 
 
 

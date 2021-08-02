@@ -29,6 +29,7 @@
         app:layout_constraintStart_toStartOf="@+id/view2"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
+
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
@@ -109,7 +110,7 @@
 
 
                 <TextView
-                    style="@style/poppin_semi_bold"
+                    style="@style/inter_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+44 218-331-8113"
@@ -130,9 +131,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="@dimen/dimen_view_line"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="@dimen/dimen_16sp"
             android:background="@color/sv_location_grey" />
 
     </LinearLayout>
@@ -184,9 +185,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="@dimen/dimen_view_line"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="15dp"
             android:background="@color/sv_location_grey" />
 

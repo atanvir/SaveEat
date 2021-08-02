@@ -103,7 +103,7 @@
                         android:id="@+id/tieFullName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppin_regular"
+                        style="@style/poppin_regular"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress|textNoSuggestions"
                         android:maxLength="55"
@@ -129,7 +129,7 @@
                         android:id="@+id/tieEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppin_regular"
+                        style="@style/poppin_regular"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress|textNoSuggestions"
                         android:maxLength="55"
@@ -188,7 +188,7 @@
 
                     <TextView
                         android:id="@+id/textView2"
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/already_have_an_account"
@@ -201,10 +201,10 @@
 
                     <TextView
                         android:id="@+id/tvLogin"
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
+                        android:layout_marginStart="6dp"
                         android:text="@string/login"
                         android:textColor="@color/app_theme"
                         android:textSize="@dimen/dimen_14sp"

@@ -22,6 +22,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
     override fun getActivityBinding(): ActivityMenuDetailBinding = ActivityMenuDetailBinding.inflate(layoutInflater)
 
     override fun inits() {
+        binding.clShadowButton.tvButtonLabel.text="Add to cart"
         binding.rvChoices.layoutManager=LinearLayoutManager(this)
         binding.rvChoices.adapter = MenuMultipleChoiceAdapter(this)
         binding.mp.paintFlags= binding.mp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -36,20 +37,19 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
 
                 if (State.COLLAPSED == state) {
-                    binding.collapsingToolbarLayout.title="Poached eggs & avocado\n" + "on toast"
+//                    binding.collapsingToolbarLayout.title="/*Poached eggs & avocado\n" + "on toast*/"
                     binding.tvDescription.visibility=View.INVISIBLE
                     binding.view.visibility=View.INVISIBLE
 
                 } else if (State.IDLE == state) {
 
-                    binding.collapsingToolbarLayout.title=""
+//                    binding.collapsingToolbarLayout.title=""
                     binding.tvDescription.visibility=View.VISIBLE
                     binding.view.visibility=View.VISIBLE
                 }
             }
         })
 
-        binding.btnAddToCart.setOnClickListener(this)
     }
 
     override fun observer() {
@@ -74,7 +74,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
                 startActivity(Intent(this,MenuActivity::class.java))
             }
             R.id.ivBack ->{ onBackPressed() }
-          //  R.id.btnAddToCart ->{ startActivity(Intent(this,MainActivity::class.java).putExtra("cart",true)) }
         }
     }
 }

@@ -11,12 +11,12 @@ class MenuMultipleChoiceAdapter(var context: Context?) : RecyclerView.Adapter<Me
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuMultipleChoiceAdapter.MyViewHolder =MyViewHolder(AdapterMenuMultipleChoiceBinding.inflate(LayoutInflater.from(context),parent,false))
 
     override fun onBindViewHolder(holder: MenuMultipleChoiceAdapter.MyViewHolder, position: Int) {
-        if(position==1){
+        if(position==9){
             holder.binding.viewLine.visibility=View.GONE
         }
     }
 
-    override fun getItemCount(): Int = 2
+    override fun getItemCount(): Int = 10
 
     inner class MyViewHolder(var binding : AdapterMenuMultipleChoiceBinding): RecyclerView.ViewHolder(binding.root){
         init {

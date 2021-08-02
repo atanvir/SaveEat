@@ -36,7 +36,8 @@
             android:id="@+id/btnPickLater"
             style="@style/common_button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="38sp"
+            android:fontFamily="@font/inter_regular"
             android:layout_marginEnd="6dp"
             android:background="@drawable/background_common_button"
             android:elevation="1dp"
@@ -51,8 +52,9 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnPickNow"
             style="@style/common_button"
+            android:fontFamily="@font/inter_regular"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="38sp"
             android:layout_marginStart="6dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -61,60 +63,11 @@
             android:elevation="1dp"
             android:text="Pick up now"
             android:textSize="@dimen/dimen_14sp"
-            android:textColor="@color/black"
+            android:textColor="@color/app_theme"
             app:layout_constraintEnd_toStartOf="@+id/btnPickLater"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
             app:layout_constraintTop_toBottomOf="@+id/rvProducts" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clNote"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="6dp"
-            android:background="@drawable/background_search_view"
-            android:backgroundTint="@color/white"
-            android:elevation="1dp"
-            android:padding="@dimen/_2sdp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
-            app:layout_constraintTop_toBottomOf="@+id/btnPickNow">
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
-                style="@style/formInputLayoutNormalNote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:hint="Add any requirements here"
-                android:paddingBottom="@dimen/_4sdp"
-                app:boxStrokeWidth="0dp"
-                app:counterEnabled="true"
-                app:counterMaxLength="200"
-                app:expandedHintEnabled="true"
-                app:hintAnimationEnabled="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tieMessage"
-                    style="@style/poppin_semi_bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLength="200"
-                    android:maxLines="10"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <include
@@ -123,9 +76,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/clShadowButton"
             app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
             app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
-            app:layout_constraintTop_toBottomOf="@+id/clNote" />
+            app:layout_constraintTop_toBottomOf="@+id/btnPickNow"
+            app:layout_constraintVertical_bias="1.0" />
 
 
         <include
@@ -133,9 +88,9 @@
             layout="@layout/layout_common_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clBilling" />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
 

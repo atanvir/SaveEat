@@ -30,7 +30,15 @@ class UpcomingOrderAdapter(var context: Context?): RecyclerView.Adapter<Upcoming
 
         override fun onClick(v: View?) {
             when(v?.id){
-                R.id.cvMain ->{ if(binding.clMainBelow.visibility==View.VISIBLE) binding.clMainBelow.visibility=View.GONE else binding.clMainBelow.visibility=View.VISIBLE }
+                R.id.cvMain ->{
+                    if(binding.clMainBelow.visibility==View.VISIBLE){
+                    binding.clMainBelow.visibility=View.GONE
+                    binding.tvRestroName.visibility=View.VISIBLE
+                }else{
+                    binding.clMainBelow.visibility=View.VISIBLE
+                    binding.tvRestroName.visibility=View.GONE
+                }
+               }
             }
         }
     }

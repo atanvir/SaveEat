@@ -51,7 +51,7 @@
 
             <TextView
                 android:id="@+id/textView15"
-                style="@style/poppin_semi_bold"
+                style="@style/inter_regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -63,7 +63,7 @@ more than once and some have special
 conditions to them."
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="@dimen/dimen_14sp"
+                android:textSize="@dimen/dimen_12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -85,7 +85,7 @@ conditions to them."
                     android:id="@+id/tieFullName"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:fontFamily="@font/poppin_regular"
+                    style="@style/poppin_regular"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress|textNoSuggestions"
                     android:maxLength="55"
@@ -101,12 +101,9 @@ conditions to them."
                 layout="@layout/layout_common_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tilFullName"
+                app:layout_constraintStart_toStartOf="@+id/tilFullName"
                 app:layout_constraintTop_toBottomOf="@+id/tilFullName" />
 
 

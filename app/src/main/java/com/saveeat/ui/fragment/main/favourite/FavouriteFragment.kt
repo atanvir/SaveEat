@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.saveeat.R
 import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentFavouriteBinding
@@ -20,6 +21,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
 
     override fun onResume() {
         super.onResume()
+        activity?.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout)?.visibility= View.VISIBLE
         activity?.findViewById<ConstraintLayout>(R.id.clAddress)?.visibility= View.GONE
         activity?.findViewById<TextView>(R.id.tvTitle)?.text="Favourites"
         activity?.findViewById<TextView>(R.id.tvTitle)?.compoundDrawablePadding=16

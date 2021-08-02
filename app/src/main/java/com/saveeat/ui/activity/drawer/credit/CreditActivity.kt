@@ -1,8 +1,15 @@
 package com.saveeat.ui.activity.drawer.credit
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Handler
 import android.os.Looper
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
@@ -18,6 +25,10 @@ class CreditActivity : BaseActivity<ActivityCreditBinding>(), View.OnClickListen
 
     override fun inits() {
         toolbar(this)
+        val wordtoSpan: Spannable = SpannableString("SaveEat Credits are used for purchasing food in the app. If you have a campaign code you can press the button above and type it in to get more credits")
+        wordtoSpan.setSpan(StyleSpan(Typeface.BOLD), 0, 15, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        wordtoSpan.setSpan(ResourcesCompat.getFont(this!!, R.font.poppins_regular), 16, wordtoSpan.length-1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        binding.tvLabel.text=wordtoSpan
         binding.clShadowButton.tvButtonLabel.text="Invite Friends"
         Handler(Looper.getMainLooper()).postDelayed(Runnable {
               binding.ivInvite.setImageResource(R.drawable.group_invite)

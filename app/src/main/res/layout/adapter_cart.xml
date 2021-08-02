@@ -39,7 +39,7 @@
 
         <TextView
             android:id="@+id/textView13"
-            style="@style/poppin_semi_bold"
+            style="@style/inter_medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
@@ -54,25 +54,25 @@
 
         <TextView
             android:id="@+id/sp"
-            style="@style/poppin_semi_bold"
+            style="@style/inter_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="₹75"
             android:textColor="@color/black"
-            android:textSize="@dimen/dimen_14sp"
+            android:textSize="@dimen/dimen_16sp"
             app:layout_constraintStart_toStartOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
 
         <TextView
             android:id="@+id/mp"
-            style="@style/poppin_semi_bold"
+            style="@style/inter_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="₹200"
             android:textColor="@color/black"
-            android:textSize="@dimen/dimen_12sp"
+            android:textSize="@dimen/dimen_14sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/sp"
             app:layout_constraintStart_toEndOf="@+id/sp" />
 
@@ -88,9 +88,8 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dimen_view_line"
             android:layout_marginTop="16dp"
-
             android:layout_marginEnd="16dp"
             android:background="@color/sv_location_grey"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -109,6 +108,19 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+
+        <TextView
+            android:id="@+id/tvAddRequirement"
+            style="@style/inter_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Add Requirement"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView11" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

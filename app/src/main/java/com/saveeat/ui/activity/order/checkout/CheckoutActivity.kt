@@ -7,6 +7,7 @@ import android.view.View
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityCheckoutBinding
+import com.saveeat.ui.activity.order.history.OrderHistoryActivity
 import com.saveeat.ui.activity.order.status.OrderStatusActivity
 import com.saveeat.utils.application.CommonUtils.toolbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +32,7 @@ class CheckoutActivity : BaseActivity<ActivityCheckoutBinding>(), View.OnClickLi
 
     override fun onClick(v: View?) {
        when(v?.id){
-           R.id.ivButton ->{ startActivity(Intent(this,OrderStatusActivity::class.java)) }
+           R.id.ivButton ->{ startActivity(Intent(this,OrderHistoryActivity::class.java)) }
            R.id.btnPay ->{ binding.clShadowButton.ivButton.performClick() }
        }
     }

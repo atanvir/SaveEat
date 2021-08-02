@@ -11,9 +11,12 @@
 <androidx.cardview.widget.CardView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardUseCompatPadding="true"
-    app:cardElevation="@dimen/_2sdp"
+    android:layout_marginLeft="@dimen/_5sdp"
+    android:layout_marginRight="@dimen/_6sdp"
+    android:layout_marginTop="@dimen/_8sdp"
+    app:cardElevation="@dimen/_4sdp"
     app:cardCornerRadius="@dimen/_5sdp"
+    android:layout_marginBottom="36sp"
     >
 
 
@@ -34,7 +37,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/poppin_semi_bold"
+            style="@style/inter_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

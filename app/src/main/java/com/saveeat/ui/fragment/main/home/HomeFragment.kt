@@ -12,10 +12,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.saveeat.R
 import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentHomeBinding
 import com.saveeat.ui.adapter.menu.CategoryAdapter
+import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.StaticDataHelper.homeData
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,6 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
+        activity?.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout)?.visibility= View.VISIBLE
         activity?.findViewById<ConstraintLayout>(R.id.clAddress)?.visibility=View.VISIBLE
         activity?.findViewById<TextView>(R.id.tvTitle)?.visibility=View.GONE
     }

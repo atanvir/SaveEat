@@ -35,8 +35,6 @@ class CategoryAdapter(var context : Context?, var list : MutableList<Any?>?) : R
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder  {
-
-
         if(viewType==RESTRO) return RestroHolder(AdapterRestaurantSectionBinding.inflate(LayoutInflater.from(context) ,parent,false))
         else if(viewType==BRAND) return BrandViewHolder(AdapterBrandSectionBinding.inflate(LayoutInflater.from(context),parent,false))
         else return SaveViewHolder(AdapterSaveSectionBinding.inflate(LayoutInflater.from(context),parent,false))

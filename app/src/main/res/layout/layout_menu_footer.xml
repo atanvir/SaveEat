@@ -10,9 +10,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:background="@drawable/drawable_bottom_round_corner"
         android:backgroundTint="@color/menu_footer"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
             style="@style/poppin_semi_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:text="Breakfast Club"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_20sp"
@@ -104,6 +104,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="40sp"
+        android:layout_marginVertical="@dimen/_20sdp"
         android:background="@color/menu_footer"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -114,7 +116,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
             android:orientation="vertical">
 
 
@@ -140,7 +141,7 @@
 
 
                     <TextView
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Breakfastclub.co.uk"
@@ -172,13 +173,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
             android:orientation="vertical">
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_11sp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -197,7 +198,7 @@
 
 
                     <TextView
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Breakfastclub.co.uk"
@@ -220,7 +221,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_alignParentEnd="true"
-
                 android:layout_marginTop="12dp"
                 android:background="@color/grey" />
 
@@ -230,7 +230,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/dimen_16sp"
+
             android:orientation="vertical">
 
 
@@ -272,8 +273,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginTop="16dp"
                 android:background="@color/grey" />
 
         </LinearLayout>
@@ -282,7 +282,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/dimen_16sp"
+
             android:orientation="vertical">
 
 
@@ -324,8 +325,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginTop="@dimen/dimen_14sp"
                 android:background="@color/grey" />
 
         </LinearLayout>

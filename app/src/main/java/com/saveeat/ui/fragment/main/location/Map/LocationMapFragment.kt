@@ -13,10 +13,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.maps.android.clustering.Cluster
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.clustering.ClusterManager
 import com.saveeat.R
 import com.saveeat.base.BaseFragment
@@ -25,7 +23,6 @@ import com.saveeat.ui.adapter.map.ClusterItemAdapter
 import com.saveeat.ui.adapter.map.CustomClusterRenderer
 import com.saveeat.ui.adapter.map.MapRestaurantAdapter
 import com.saveeat.utils.application.StaticDataHelper
-import com.saveeat.utils.extn.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
@@ -40,6 +37,8 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     override fun init() {
         binding.rvRestaurant.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
         binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),StaticDataHelper.getMapRestaurant())
+//        (requireActivity()?.supportFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment)?.getMapAsync(this)
+//        (activity?.supportFragmentManager?.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMap(this)
         (childFragmentManager?.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMapAsync(this)
     }
 
@@ -67,15 +66,20 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
 
         mMap.setInfoWindowAdapter(clusterItemManager?.markerManager)
         mMap.setOnInfoWindowClickListener(clusterItemManager)
-        clusterItemManager?.setOnClusterItemClickListener {
-            Log.e("yes","yes")
-            binding.btnShowRestro.performClick()
-            true
-        }
+
         clusterItemManager?.setOnClusterClickListener {
             Log.e("yes", "clusterItemManager")
             binding.btnShowRestro.visibility=View.GONE
             binding.rvRestaurant.visibility=View.VISIBLE
+            val  latLngBounds= LatLngBounds.Builder()
+            val selectedClusterList=ArrayList(it.items)
+            for(i in selectedClusterList.indices){
+                latLngBounds.include(selectedClusterList.get(i)?.latLng)
+            }
+
+
+            mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLngBounds.build().center))
+            mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngBounds.build().center, 10f))
             true
         }
 
@@ -89,11 +93,11 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         var lat = currentLocation.latitude
         var lng = currentLocation.longitude
 
-        for (i in 0..3) {
+        for (i in 0..9) {
             val offset = i / 60.0
             lat += offset
             lng += offset
-            val offsetItem = ClusterItemAdapter(LatLng(lat,lng), "Title $i", "Snippet $i")
+            var offsetItem : ClusterItemAdapter?=ClusterItemAdapter(LatLng(lat,lng), "Title $i", "Snippet $i")
             clusterItemManager?.addItem(offsetItem)
         }
     }

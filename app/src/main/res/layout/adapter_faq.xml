@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_7sdp"
-        app:cardElevation="2dp"
+        app:cardElevation="@dimen/_3sdp"
         app:cardUseCompatPadding="true">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -20,18 +20,22 @@
 
             <TextView
                 android:id="@+id/headerText"
-                style="@style/poppin_semi_bold"
+                style="@style/inter_regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:drawableRight="@drawable/fi_sr_angle_small_left"
                 android:text="How do I Lorem ipsum dolor sit amet?"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
-                android:textSize="@dimen/dimen_14sp"
+                android:textSize="@dimen/dimen_12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,8 +53,8 @@
                 <View
                     android:id="@+id/view5"
                     android:layout_width="0dp"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="@dimen/dimen_view_line"
+                    android:layout_marginTop="@dimen/dimen_12sp"
                     android:background="@color/sv_location_grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +62,10 @@
 
                 <TextView
                     android:id="@+id/desText"
-                    style="@style/poppin_semi_bold"
+                    style="@style/inter_regular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="20dp"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel justo ut ligula suscipit mollis. Donec at lobortis mauris, at placerat purus. Mauris blandit in magna ut vulputate"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
@@ -87,11 +91,11 @@
 
                 <TextView
                     android:id="@+id/desText2"
-                    style="@style/poppin_semi_bold"
+                    style="@style/inter_semi_bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Proin vehicula orci at tellus porttitor facilisis.  \n  \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel justo ut ligula suscipit mollis. Donec at lobortis mauris, at placerat purus. Mauris blandit in magna ut vulputate"
+                    android:layout_marginTop="24dp"
+                    android:text="Proin vehicula orci at tellus porttitor facilisis."
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
                     android:textSize="@dimen/dimen_14sp"
@@ -99,6 +103,24 @@
                     app:layout_constraintEnd_toEndOf="@+id/ivPlaceHolder"
                     app:layout_constraintStart_toStartOf="@+id/ivPlaceHolder"
                     app:layout_constraintTop_toBottomOf="@id/ivPlaceHolder" />
+
+
+                <TextView
+                    android:id="@+id/desText3"
+                    style="@style/inter_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel justo ut ligula suscipit mollis. Donec at lobortis mauris, at placerat purus. Mauris blandit in magna ut vulputate"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="@dimen/dimen_14sp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/desText2"
+                    app:layout_constraintStart_toStartOf="@+id/desText2"
+                    app:layout_constraintTop_toBottomOf="@id/desText2" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

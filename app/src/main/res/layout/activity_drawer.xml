@@ -11,6 +11,11 @@
         android:background="@color/light_orange"
         tools:context=".ui.activity.drawer.DrawerActivity">
 
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -31,7 +36,6 @@
                 android:id="@+id/ivBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
                 android:src="@drawable/back"/>
 
 
@@ -49,6 +53,9 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_16sp" />
         </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -80,7 +87,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="21sp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:orientation="horizontal"
                     android:weightSum="3"

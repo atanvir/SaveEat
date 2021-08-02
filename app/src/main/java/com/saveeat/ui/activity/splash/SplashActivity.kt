@@ -19,9 +19,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     override fun getActivityBinding(): ActivitySplashBinding = ActivitySplashBinding.inflate(layoutInflater)
 
     override fun inits() {
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.statusBarColor = ContextCompat.getColor(this,R.color.white)
         Handler(Looper.myLooper()!!).postDelayed(Runnable {
             startActivity(Intent(this, WalkThroughActivity::class.java))
         },2000)

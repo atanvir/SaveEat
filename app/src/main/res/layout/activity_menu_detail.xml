@@ -47,7 +47,9 @@
                     android:id="@+id/ivCover"
                     android:layout_width="match_parent"
                     android:src="@drawable/rectangle_4136"
-                    android:layout_height="@dimen/_180sdp"
+                    android:layout_margin="@dimen/_9sdp"
+
+                    android:layout_height="201sp"
                     android:scaleType="fitXY"
                     android:adjustViewBounds="true"
                     app:layout_collapseMode="none" />
@@ -56,6 +58,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
                     <ImageView
@@ -65,6 +69,8 @@
                         android:elevation="1dp"
                         android:src="@drawable/back"/>
                 </androidx.appcompat.widget.Toolbar>
+
+
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -117,7 +123,7 @@
 
                         <TextView
                             android:id="@+id/tvAddress"
-                            style="@style/poppin_medium"
+                            style="@style/inter_regular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/location_address"
@@ -132,20 +138,20 @@
                             android:layout_width="4dp"
                             android:layout_height="4dp"
                             android:layout_gravity="center"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="12dp"
+                            android:layout_marginStart="8sp"
+                            android:layout_marginEnd="8sp"
                             android:background="@drawable/drawable_circle"
                             android:backgroundTint="#bbbbbb" />
 
 
                         <TextView
                             android:id="@+id/textView5"
-                            style="@style/poppin_medium"
+                            style="@style/inter_medium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableEnd="@drawable/path_3389"
                             android:drawablePadding="6dp"
-                            android:text="4 "
+                            android:text="4.3"
                             android:textColor="@color/black"
                             android:textSize="@dimen/dime_13sp" />
 
@@ -154,17 +160,17 @@
                             android:layout_width="4dp"
                             android:layout_height="4dp"
                             android:layout_gravity="center"
-                            android:layout_marginStart="12dp"
+                            android:layout_marginStart="8sp"
                             android:background="@drawable/drawable_circle"
                             android:backgroundTint="#bbbbbb" />
 
 
                         <TextView
                             android:id="@+id/textView6"
-                            style="@style/poppin_medium"
+                            style="@style/inter_regular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
+                            android:layout_marginStart="8sp"
                             android:drawableStart="@drawable/fi_rr_location_alt"
                             android:drawablePadding="6dp"
                             android:text="178m"
@@ -177,7 +183,7 @@
 
                     <TextView
                         android:id="@+id/tvPickUpTime"
-                        style="@style/poppin_medium"
+                        style="@style/inter_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
@@ -197,6 +203,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_200sdp"
                     >
 
@@ -230,7 +237,7 @@ on toast"
 
                     <TextView
                         android:id="@+id/tvDescription"
-                        style="@style/poppin_regular"
+                        style="@style/inter_regular"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Enjoy this delicious toast with smashed avocado and poached eggs. With just a handful of ingredients, it’s a simple breakfast or light meal... perfect for when you need a little boost."
@@ -245,7 +252,7 @@ on toast"
                     <View
                         android:id="@+id/view"
                         android:layout_width="0dp"
-                        android:layout_height="1dp"
+                        android:layout_height="@dimen/dimen_view_line"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="24dp"
                         android:background="@color/new_grey"
@@ -280,6 +287,8 @@ on toast"
             android:id="@+id/nestedSv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="54sp"
+
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -287,16 +296,16 @@ on toast"
             android:id="@+id/clMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-           >
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
             <TextView
                 android:id="@+id/sp"
-                style="@style/poppin_semi_bold"
+                style="@style/inter_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="19dp"
                 android:text="₹75"
                 android:textColor="@color/app_theme"
                 android:textSize="28dp"
@@ -306,7 +315,7 @@ on toast"
 
             <TextView
                 android:id="@+id/mp"
-                style="@style/poppin_semi_bold"
+                style="@style/inter_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
@@ -323,7 +332,7 @@ on toast"
                 layout="@layout/layout_common_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -331,12 +340,13 @@ on toast"
             <View
                 android:id="@+id/view4"
                 android:layout_width="0dp"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/dimen_view_line"
+                android:layout_marginTop="21dp"
                 android:layout_marginEnd="24dp"
                 android:background="@color/new_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/sp"
-                app:layout_constraintTop_toBottomOf="@+id/clQuantity" />
+                app:layout_constraintTop_toBottomOf="@+id/sp" />
 
 
             <TextView
@@ -345,7 +355,7 @@ on toast"
                 style="@style/poppin_semi_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="22dp"
                 android:text="Add extras"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_16sp"
@@ -355,19 +365,24 @@ on toast"
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="74dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8sp"
+                android:layout_marginBottom="@dimen/_50sdp"
+                app:layout_constrainedHeight="true"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/view4"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/textView12">
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvChoices"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvChoices"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
 
-                />
+
+                    />
             </androidx.core.widget.NestedScrollView>
 
 
@@ -381,22 +396,14 @@ on toast"
 
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnAddToCart"
+        <include
+            android:id="@+id/clShadowButton"
+            layout="@layout/layout_common_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/common_button"
-            android:textSize="@dimen/dimen_16sp"
-            android:background="@drawable/background_common_button"
-            android:text="Add to cart"
-            android:elevation="@dimen/_5sdp"
-            app:layout_anchor="@id/nestedSv"
+            android:layout_marginBottom="-40sp"
             app:layout_anchorGravity="bottom"
-            android:layout_marginLeft="@dimen/_24sdp"
-            android:layout_marginRight="@dimen/_24sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
-            />
-
+            app:layout_anchor="@id/nestedSv" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

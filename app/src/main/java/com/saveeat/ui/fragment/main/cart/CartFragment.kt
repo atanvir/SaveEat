@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.saveeat.R
 import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentCartBinding
@@ -31,12 +32,13 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener {
 
 
         val wordtoSpan: Spannable = SpannableString("Continue to checkout to save ₹427 on this order ")
-        wordtoSpan.setSpan(ForegroundColorSpan(Color.GREEN), 28, 33, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        wordtoSpan.setSpan(ForegroundColorSpan(Color.rgb(0, 178, 17)), 28, 33, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.clBilling.tvSaveLabel.text = wordtoSpan
     }
 
     override fun onResume() {
         super.onResume()
+        activity?.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout)?.visibility= View.VISIBLE
         activity?.findViewById<ConstraintLayout>(R.id.clAddress)?.visibility= View.GONE
         activity?.findViewById<TextView>(R.id.tvTitle)?.text="Cart"
         activity?.findViewById<TextView>(R.id.tvTitle)?.compoundDrawablePadding=16

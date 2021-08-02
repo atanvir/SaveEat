@@ -53,7 +53,7 @@ object StaticDataHelper {
 
         val list: MutableList<Any?> =ArrayList()
 
-        list?.add(CategoryModel(isFavScreen=false,superRestro = false,outOfStock = false, sectionName="Save it before it's too late", sectionImage = R.drawable.poke, image= R.drawable.aab, name = "", rating=0, distance = 516.0, fav=false, products = null,brand = null, getSaveRestro()))
+        list?.add(CategoryModel(isFavScreen=false,superRestro = false,outOfStock = false, sectionName="Save it before it's too late", sectionImage = R.drawable.group_34824, image= R.drawable.aab, name = "", rating=0, distance = 516.0, fav=false, products = null,brand = null, getSaveRestro()))
 
         list?.add(CategoryModel(isFavScreen=false,superRestro = true,outOfStock = false, sectionName="Popular Around You", sectionImage = R.drawable.group_3987, image= R.drawable.aab, name = "Orange Barn - Chicken Fa...", rating=0, distance = 516.0, fav=false, products = getOrganeList(),null,null))
         list?.add(CategoryModel(isFavScreen=false,superRestro = true,outOfStock = false, sectionName="", sectionImage = null, image= R.drawable.aab, name = "Orange Barn - Chicken Fa...", rating=0, distance = 516.0, fav=false, products = getBombayCanteenList(),null,null))
@@ -82,19 +82,26 @@ object StaticDataHelper {
         list?.add(BrandModel(name = "Chuyax Diner",image = R.drawable.bg))
         list?.add(BrandModel(name = "Starbucks",image = R.drawable.queen))
 
+
+        list?.add(BrandModel(name = "McDonalds",image = R.drawable.mc))
+        list?.add(BrandModel(name = "Chuyax Diner",image = R.drawable.bg))
+        list?.add(BrandModel(name = "Starbucks",image = R.drawable.queen))
+
+
+        list?.add(BrandModel(name = "McDonalds",image = R.drawable.mc))
+        list?.add(BrandModel(name = "Chuyax Diner",image = R.drawable.bg))
+        list?.add(BrandModel(name = "Starbucks",image = R.drawable.queen))
+
         return list
 
     }
 
     fun getSaveRestro() : MutableList<SaveRestaurantsModel?>?{
-
         val list: MutableList<SaveRestaurantsModel?> =ArrayList()
-
         list?.add(SaveRestaurantsModel(restroLogo=R.drawable.rectangle_4136, sellingPrice = 75.0, marketPrice = 210.0, image = R.drawable.laalal, storeName = "The Bombay Canteen", name = "Ham & Cheese Sandwich", rating = 3, distnace = "175m"))
         list?.add(SaveRestaurantsModel(restroLogo=R.drawable.rectangle_4136, sellingPrice = 85.0, marketPrice = 300.0, image = R.drawable.group_25621, storeName = "The Salad Box", name = "Avocado, Egg and Tuna salad", rating = 4, distnace = "179m"))
         list?.add(SaveRestaurantsModel(restroLogo=R.drawable.rectangle_4136, sellingPrice = 75.0, marketPrice = 210.0, image = R.drawable.laalal, storeName = "The Bombay Canteen", name = "Ham & Cheese Sandwich", rating = 3, distnace = "175m"))
         list?.add(SaveRestaurantsModel(restroLogo=R.drawable.rectangle_4136, sellingPrice = 85.0, marketPrice = 300.0, image = R.drawable.group_25621, storeName = "The Salad Box", name = "Avocado, Egg and Tuna salad", rating = 4, distnace = "179m"))
-
         return list
     }
 
@@ -107,9 +114,9 @@ object StaticDataHelper {
 //        model?.add(MenuCategoryModel(superRestro = false,outOfStock=false, sectionName="Save it before it's too late", sectionImage = "", image= R.drawable.group_2562, name = "The Bombay Canteen", rating=4, distance = 178.0, fav=false, products = getBombayCanteenList()))
         model?.add(CategoryModel(isFavScreen=true,superRestro = true,outOfStock = false, sectionName="Popular Around You", sectionImage = null, image= R.drawable.aab, name = "Orange Barn - Chicken Fa...", rating=0, distance = 516.0, fav=false, products = getOrganeList(),null,null))
         model?.add(CategoryModel(isFavScreen=true,superRestro = true,outOfStock = false, sectionName="", sectionImage = null, image= R.drawable.aab, name = "Orange Barn - Chicken Fa...", rating=0, distance = 516.0, fav=false, products = getOrganeList2(),null,null))
-         model?.add(CategoryModel(isFavScreen=true,superRestro = true,outOfStock = false, sectionName="", sectionImage = null, image= R.drawable.aab, name = "Orange Barn - Chicken Fa...", rating=0, distance = 516.0, fav=false, products = getOrganeList(),null,null))
-         model?.add(CategoryModel(isFavScreen=true,superRestro = true,outOfStock = false, sectionName="", sectionImage = null, image= R.drawable.aab, name = "Orange Barn - Chicken Fa...", rating=0, distance = 516.0, fav=false, products = getOrganeList2(),null,null))
-         model?.add(CategoryModel(isFavScreen=true,superRestro = false,outOfStock = true, sectionName="", sectionImage = null, image= R.drawable.aab, name = "Orange Barn - Chicken Fa...", rating=2, distance = 506.0, fav=false, products = getBlurData(),null,null))
+        model?.add(CategoryModel(isFavScreen=true,superRestro = true,outOfStock = false, sectionName="", sectionImage = null, image= R.drawable.aab, name = "Orange Barn - Chicken Fa...", rating=0, distance = 516.0, fav=false, products = getOrganeList(),null,null))
+        model?.add(CategoryModel(isFavScreen=true,superRestro = true,outOfStock = false, sectionName="", sectionImage = null, image= R.drawable.aab, name = "Orange Barn - Chicken Fa...", rating=0, distance = 516.0, fav=false, products = getOrganeList2(),null,null))
+        model?.add(CategoryModel(isFavScreen=true,superRestro = false,outOfStock = true, sectionName="", sectionImage = null, image= R.drawable.aab, name = "Orange Barn - Chicken Fa...", rating=2, distance = 506.0, fav=false, products = getBlurData(),null,null))
       //  model?.add(MenuCategoryModel(isFavScreen=true,superRestro = false,outOfStock = false, sectionName="New restaurants on SaveEat", sectionImage = "", image= R.drawable.rectangle_142, name = "Grills Beef & Beer", rating=3, distance = 411.0, fav=false, products = getBombayCanteenList()))
 
         return model

@@ -19,6 +19,7 @@
         android:drawablePadding="8sp"
         android:text="Browse"
         android:elevation="2dp"
+        android:textSize="@dimen/dimen_16sp"
         app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
         app:layout_constraintTop_toTopOf="@+id/guideLineTop" />
 
@@ -28,7 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:elevation="2dp"
+        android:elevation="@dimen/_4sdp"
         android:background="@drawable/drawable_grey_stroke_white_solid"
         app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
         app:layout_constraintStart_toStartOf="@+id/textView8"
@@ -40,6 +41,7 @@
             android:layout_height="38dp"
             android:layout_margin="2dp"
             android:textAlignment="center"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +85,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:elevation="1dp"
-        style="@style/poppin_regular"
+        style="@style/inter_regular"
         android:hint="Search for restaurant name"
         android:textColorHint="@color/grey"
         android:textSize="@dimen/dimen_12sp"
@@ -106,6 +108,8 @@
         android:adjustViewBounds="true"
         android:elevation="@dimen/_3sdp"
         android:scaleType="fitXY"
+        android:outlineAmbientShadowColor="@color/app_theme"
+        android:outlineSpotShadowColor="@color/app_theme"
         android:src="@drawable/group_3986"
         app:layout_constraintBottom_toBottomOf="@+id/svLocation"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
@@ -129,6 +133,7 @@
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:nestedScrollingEnabled="false"
 
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -17,8 +17,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -26,17 +33,16 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:foregroundGravity="bottom"
-            app:layout_constraintBottom_toBottomOf="@+id/viewPager"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/viewPager"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tabRippleColor="@android:color/transparent"
-            app:layout_constraintVertical_bias="0.42000002"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/viewPager"
+            app:layout_constraintVertical_bias="1.0"
             app:tabBackground="@drawable/drawable_tab_indicator_selector"
-
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp"
-            app:tabPaddingBottom="-10dp" />
+            app:tabPaddingBottom="-10dp"
+            app:tabRippleColor="@android:color/transparent" />
 
 
         <ImageView
@@ -54,7 +60,7 @@
             style="@style/poppin_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="21dp"
             android:padding="5dp"
             android:text="Skip"
             android:textColor="#444251"

@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                style="@style/poppin_semi_bold"
+                style="@style/inter_medium"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_14sp"
                 android:text="Ham &amp; Cheese sandwich
@@ -69,7 +69,7 @@ on brown bread"
                 app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
             <TextView
-                android:id="@+id/textView38"
+                android:id="@+id/tvRestroName"
                 style="@style/poppin_semi_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,19 +82,19 @@ on brown bread"
 
             <TextView
                 android:id="@+id/sp"
-                style="@style/poppin_semi_bold"
+                style="@style/inter_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="₹75"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_14sp"
-                app:layout_constraintStart_toStartOf="@+id/textView38"
-                app:layout_constraintTop_toBottomOf="@+id/textView38" />
+                app:layout_constraintStart_toStartOf="@+id/tvRestroName"
+                app:layout_constraintTop_toBottomOf="@+id/tvRestroName" />
 
 
             <TextView
                 android:id="@+id/mp"
-                style="@style/poppin_semi_bold"
+                style="@style/inter_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -190,7 +190,7 @@ on brown bread"
 
                 <TextView
                     android:id="@+id/textVie90"
-                    style="@style/inter_medium"
+                    style="@style/inter_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"

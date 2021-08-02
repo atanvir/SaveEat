@@ -51,7 +51,7 @@
 
 
             <TextView
-                style="@style/poppin_semi_bold"
+                style="@style/inter_medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -128,7 +128,7 @@ and you can select a prize"
 
                     <TextView
                         android:id="@+id/textView18"
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -143,7 +143,7 @@ and you can select a prize"
 
                     <TextView
                         android:id="@+id/textView19"
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_medium"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/group_3992"
@@ -184,7 +184,7 @@ a tree for you at the tap of a button"
 
                     <TextView
                         android:id="@+id/textView188"
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -199,7 +199,7 @@ a tree for you at the tap of a button"
 
                     <TextView
                         android:id="@+id/textView199"
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_medium"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/group_3992"
@@ -239,7 +239,7 @@ order up to 200 kr"
 
                     <TextView
                         android:id="@+id/textView1889"
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -254,7 +254,7 @@ order up to 200 kr"
 
                     <TextView
                         android:id="@+id/textView1999"
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_medium"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/group_3992"
@@ -301,7 +301,7 @@ order up to 200 kr"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
                         android:background="@drawable/drawable_round_corner2"
-                        android:backgroundTint="@color/light_pink"
+                        android:backgroundTint="#FFEDCF"
                         android:gravity="center"
                         android:text="1"
                         android:textAlignment="center"
@@ -313,7 +313,7 @@ order up to 200 kr"
 
 
                     <TextView
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_medium"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -344,7 +344,7 @@ order up to 200 kr"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
                         android:background="@drawable/drawable_round_corner2"
-                        android:backgroundTint="@color/light_pink"
+                        android:backgroundTint="#FFDFCF"
                         android:gravity="center"
                         android:text="2"
                         android:textAlignment="center"
@@ -356,7 +356,7 @@ order up to 200 kr"
 
 
                     <TextView
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_medium"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -387,7 +387,7 @@ order up to 200 kr"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
                         android:background="@drawable/drawable_round_corner2"
-                        android:backgroundTint="@color/light_pink"
+                        android:backgroundTint="#FFCFCF"
                         android:gravity="center"
                         android:text="3"
                         android:textAlignment="center"
@@ -399,7 +399,7 @@ order up to 200 kr"
 
 
                     <TextView
-                        style="@style/poppin_semi_bold"
+                        style="@style/inter_medium"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"

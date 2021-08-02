@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:textColor="@color/white"
-        android:textSize="@dimen/dimen_14sp"
+        android:textSize="@dimen/dime_13sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivButton"
         app:layout_constraintEnd_toEndOf="@+id/ivButton"
         app:layout_constraintStart_toStartOf="@+id/ivButton"

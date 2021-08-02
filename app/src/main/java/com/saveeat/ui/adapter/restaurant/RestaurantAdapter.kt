@@ -33,11 +33,6 @@ class RestaurantAdapter(var context: Context?, var list: MutableList<RestaurantP
 
     inner class RestaurantHolder(var binding : AdapterRestaurantBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
-            if(menu==true){
-                val vp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 550)
-                binding.cvMain.layoutParams = vp
-            }
-
             binding.cvMain.setOnClickListener(this)
         }
 
@@ -54,11 +49,6 @@ class RestaurantAdapter(var context: Context?, var list: MutableList<RestaurantP
 
     inner class MenuRestaurantHolder(var binding : AdapterMenuRestaurantBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
-            if(menu==true){
-                val vp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 550)
-                binding.cvMain.layoutParams = vp
-            }
-
             binding.cvMain.setOnClickListener(this)
         }
 

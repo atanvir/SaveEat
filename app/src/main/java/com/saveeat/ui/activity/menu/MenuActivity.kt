@@ -50,7 +50,7 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener {
 
                 if (State.COLLAPSED == state) {
                     binding.cvMain.visibility=View.INVISIBLE
-                    binding.tvToolbarHeader.visibility=View.VISIBLE
+                    binding.tvToolbarHeader.visibility=View.INVISIBLE
 
                 } else if (State.IDLE == state) {
                     binding.cvMain.visibility=View.VISIBLE
