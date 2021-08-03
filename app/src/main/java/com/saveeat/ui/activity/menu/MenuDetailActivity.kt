@@ -31,19 +31,16 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
     override fun initCtrl() {
         binding.clRestroDetail.setOnClickListener(this)
         binding.ivBack.setOnClickListener(this)
+        binding.clShadowButton.ivButton.setOnClickListener(this)
         binding.clQuantity.ivMinus.setOnClickListener(this)
         binding.clQuantity.ivPlus.setOnClickListener(this)
         binding.appBar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
-
                 if (State.COLLAPSED == state) {
-//                    binding.collapsingToolbarLayout.title="/*Poached eggs & avocado\n" + "on toast*/"
                     binding.tvDescription.visibility=View.INVISIBLE
                     binding.view.visibility=View.INVISIBLE
 
                 } else if (State.IDLE == state) {
-
-//                    binding.collapsingToolbarLayout.title=""
                     binding.tvDescription.visibility=View.VISIBLE
                     binding.view.visibility=View.VISIBLE
                 }
@@ -57,6 +54,8 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
 
     override fun onClick(v: View?) {
         when(v?.id){
+
+            R.id.ivButton ->{ startActivity(Intent(this,MainActivity::class.java).putExtra("menu",true)) }
             R.id.ivPlus ->{
               var count =binding.clQuantity.tvQuantity.text.toString().toInt()
               count += 1
@@ -70,9 +69,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
                 binding.clQuantity.tvQuantity.text=count.toString()
                 }
             }
-            R.id.clRestroDetail ->{
-                startActivity(Intent(this,MenuActivity::class.java))
-            }
+            R.id.clRestroDetail ->{ startActivity(Intent(this,MenuActivity::class.java)) }
             R.id.ivBack ->{ onBackPressed() }
         }
     }

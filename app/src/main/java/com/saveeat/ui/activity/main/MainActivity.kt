@@ -33,7 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
         navController=findNavController(this,R.id.fragment)
         binding.bottomNavigationView.setupWithNavController(navController)
-        if(intent.getBooleanExtra("cart",false)) binding.bottomNavigationView.findNavController().navigate(R.id.cartFragment)
+        if(intent.getBooleanExtra("menu",false)) binding.bottomNavigationView.selectedItemId=R.id.cartFragment
         setSpinner(this, list,binding.clMainToolbar.spnAddress,binding.clMainToolbar.tvKMDropDown)
     }
 
