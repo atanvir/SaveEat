@@ -26,10 +26,10 @@
         android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/app_icon_circle"
+        android:icon="@drawable/app_icon_main"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/app_icon_main"
+        android:roundIcon="@drawable/app_icon_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveEat"
         android:usesCleartextTraffic="true">
