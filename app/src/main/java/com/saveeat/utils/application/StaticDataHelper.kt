@@ -127,17 +127,17 @@ object StaticDataHelper {
 
         list?.add(RestaurantProductModel(stock="Nothing left today",outOfStock=true, veg= true, sellingPrice = 200.0, marketPrice = 89.0, image= R.drawable.group_2767, name = "2 Chicken Skewers with\n" + "balsamic rice"))
         list?.add(RestaurantProductModel(stock="Nothing left today", true,veg= true, sellingPrice = 150.0, marketPrice = 98.0, image= R.drawable.group_2775, name = "Brie, tomato and spinach\n" + "baguette"))
-        list?.add(RestaurantProductModel(stock="Nothing left today",true, veg= true, sellingPrice = 300.0, marketPrice = 119.0, image= R.drawable.group_2771, name = "Classic chicken &\n" + "cheese burger"))
+        list?.add(RestaurantProductModel(stock="Nothing left today",true, veg= true, sellingPrice = 300.0, marketPrice = 119.0, image= R.drawable.group_2767, name = "Classic chicken &\n" + "cheese burger"))
 
 
         list?.add(RestaurantProductModel(stock="Nothing left today", true,veg= true, sellingPrice = 200.0, marketPrice = 89.0, image= R.drawable.group_2767, name = "2 Chicken Skewers with\n" + "balsamic rice"))
         list?.add(RestaurantProductModel(stock="Nothing left today", true,veg= true, sellingPrice = 150.0, marketPrice = 98.0, image= R.drawable.group_2775, name = "Brie, tomato and spinach\n" + "baguette"))
-        list?.add(RestaurantProductModel(stock="Nothing left today",true, veg= true, sellingPrice = 300.0, marketPrice = 119.0, image= R.drawable.group_2771, name = "Classic chicken &\n" + "cheese burger"))
+        list?.add(RestaurantProductModel(stock="Nothing left today",true, veg= true, sellingPrice = 300.0, marketPrice = 119.0, image= R.drawable.group_2767, name = "Classic chicken &\n" + "cheese burger"))
 
 
         list?.add(RestaurantProductModel(stock="Nothing left today", true,veg= true, sellingPrice = 200.0, marketPrice = 89.0, image= R.drawable.group_2767, name = "2 Chicken Skewers with\n" + "balsamic rice"))
         list?.add(RestaurantProductModel(stock="Nothing left today",true, veg= true, sellingPrice = 150.0, marketPrice = 98.0, image= R.drawable.group_2775, name = "Brie, tomato and spinach\n" + "baguette"))
-        list?.add(RestaurantProductModel(stock="Nothing left today",true, veg= true, sellingPrice = 300.0, marketPrice = 119.0, image= R.drawable.group_2771, name = "Classic chicken &\n" + "cheese burger"))
+        list?.add(RestaurantProductModel(stock="Nothing left today",true, veg= true, sellingPrice = 300.0, marketPrice = 119.0, image= R.drawable.group_2767, name = "Classic chicken &\n" + "cheese burger"))
 
 
 

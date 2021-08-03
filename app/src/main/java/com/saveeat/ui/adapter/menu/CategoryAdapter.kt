@@ -42,10 +42,14 @@ class CategoryAdapter(var context : Context?, var list : MutableList<Any?>?) : R
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is RestroHolder){
+            if(position==5) holder.binding.btnViewAll.visibility=View.VISIBLE
+            else holder.binding.btnViewAll.visibility=View.GONE
+
             holder.binding.data=list?.get(position) as CategoryModel
             holder.binding.rvProducts.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             holder.binding.rvProducts.adapter= RestaurantAdapter(context,(list?.get(position) as CategoryModel).products,false)
             holder.binding.executePendingBindings()
+
         }else if(holder is BrandViewHolder){
             holder.binding.saveRestro=list?.get(position) as CategoryModel
             holder.binding.rvBrand.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
@@ -56,7 +60,6 @@ class CategoryAdapter(var context : Context?, var list : MutableList<Any?>?) : R
             holder.binding.rvProducts.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             holder.binding.rvProducts.adapter= SavedRestaurantAdapter(context,(list?.get(position) as CategoryModel).save)
             holder.binding.executePendingBindings()
-
         }
 
     }

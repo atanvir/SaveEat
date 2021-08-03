@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterRestaurantByLocationBinding
 import com.saveeat.model.request.restaurant.RestaurantByLocationModel
+import com.saveeat.ui.activity.menu.MenuActivity
 import com.saveeat.ui.activity.menu.MenuDetailActivity
 
 class RestaurantByLocationAdapter(var context: Context?,var list: MutableList<RestaurantByLocationModel?>?) : RecyclerView.Adapter<RestaurantByLocationAdapter.MyViewHolder>() {
@@ -29,7 +30,7 @@ class RestaurantByLocationAdapter(var context: Context?,var list: MutableList<Re
 
         override fun onClick(v: View?) {
             when(v?.id){
-                R.id.cvMain->{ context?.startActivity(Intent(context, MenuDetailActivity::class.java)) }
+                R.id.cvMain->{ context?.startActivity(Intent(context, MenuActivity::class.java)) }
             }
         }
     }

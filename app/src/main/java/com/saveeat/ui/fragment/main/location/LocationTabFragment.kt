@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -26,9 +27,6 @@ class LocationTabFragment : BaseFragment<FragmentTabLocationBinding>(), TabLayou
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentTabLocationBinding = FragmentTabLocationBinding.inflate(inflater,container,false)
 
     override fun init() {
-
-        activity?.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout)?.visibility= View.GONE
-
         binding.viewPager.isUserInputEnabled=false
         binding.viewPager.adapter= LocationTabPagerAdapter(requireActivity())
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -56,10 +54,8 @@ class LocationTabFragment : BaseFragment<FragmentTabLocationBinding>(), TabLayou
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
         if(tab?.position==0){
-            activity?.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout)?.visibility= View.GONE
             binding.supportingView.visibility=View.GONE
         }else{
-            activity?.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout)?.visibility= View.VISIBLE
             binding.supportingView.visibility=View.VISIBLE
         }
         binding.viewPager.currentItem = tab?.position ?:0

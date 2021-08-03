@@ -21,7 +21,6 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
 
     override fun onResume() {
         super.onResume()
-        activity?.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout)?.visibility= View.VISIBLE
         activity?.findViewById<ConstraintLayout>(R.id.clAddress)?.visibility= View.GONE
         activity?.findViewById<TextView>(R.id.tvTitle)?.text="Favourites"
         activity?.findViewById<TextView>(R.id.tvTitle)?.compoundDrawablePadding=16

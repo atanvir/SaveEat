@@ -50,7 +50,6 @@ class HistoryOrderAdapter(var context: Context) : RecyclerView.Adapter<HistoryOr
                     }else{
                         binding.clOrderDetail.visibility=View.VISIBLE
                         binding.tvProductName.setCompoundDrawablesWithIntrinsicBounds(null,null,ContextCompat.getDrawable(context,R.drawable.fi_sr_angle_small_left_2),null)
-
                     }
                 }
             }

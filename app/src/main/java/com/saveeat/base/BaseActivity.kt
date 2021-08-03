@@ -1,8 +1,10 @@
 package com.saveeat.base
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.saveeat.databinding.ActivitySplashBinding
 
 abstract class BaseActivity<B: ViewBinding>: AppCompatActivity(){
     protected lateinit var binding : B

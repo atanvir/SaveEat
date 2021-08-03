@@ -38,7 +38,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        activity?.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout)?.visibility= View.VISIBLE
         activity?.findViewById<ConstraintLayout>(R.id.clAddress)?.visibility= View.GONE
         activity?.findViewById<TextView>(R.id.tvTitle)?.text="Cart"
         activity?.findViewById<TextView>(R.id.tvTitle)?.compoundDrawablePadding=16

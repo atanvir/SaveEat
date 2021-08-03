@@ -66,7 +66,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
             R.id.ivMinus ->{
                 var count =binding.clQuantity.tvQuantity.text.toString().toInt()
                 if(count>0){
-                count += 1
+                count -= 1
                 binding.clQuantity.tvQuantity.text=count.toString()
                 }
             }

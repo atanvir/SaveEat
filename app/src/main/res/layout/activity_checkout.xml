@@ -76,7 +76,7 @@
                     <EditText
                         android:id="@+id/editText"
                         style="@style/poppin_regular"
-                        android:layout_width="wrap_content"
+                        android:layout_width="89sp"
                         android:layout_height="@dimen/_25sdp"
                         android:layout_marginStart="16dp"
 
@@ -87,7 +87,7 @@
                         android:inputType="number"
                         android:paddingLeft="@dimen/_10sdp"
                         android:paddingRight="@dimen/_35sdp"
-                        android:text="CVV"
+                        android:hint="CVV"
                         android:textColor="@color/grey"
                         android:textColorHint="@color/grey"
                         android:textSize="@dimen/dimen_12sp"
@@ -99,7 +99,7 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnPay"
                         style="@style/common_button"
-                        android:layout_width="@dimen/_95sdp"
+                        android:layout_width="156sp"
                         android:layout_height="@dimen/_25sdp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/background_common_button"

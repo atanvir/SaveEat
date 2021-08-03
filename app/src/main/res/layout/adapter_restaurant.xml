@@ -21,13 +21,13 @@
         android:id="@+id/constraintLayout4"
         android:layout_width="53dp"
         android:layout_height="41.5dp"
-        android:layout_marginStart="111dp"
+        android:layout_marginStart="109dp"
         android:layout_marginTop="81sp"
         android:background="@{data.outOfStock==true?@drawable/drawable_price_container_grey:@drawable/drawable_price_container}"
         android:elevation="@dimen/_7sdp"
         android:outlineProvider="none"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/cvMain"
         app:layout_constraintTop_toTopOf="@+id/cvMain">
 
@@ -68,7 +68,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvMain"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="174sp"
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginTop="@dimen/dimen_16sp"
         android:layout_marginRight="@dimen/_5sdp"

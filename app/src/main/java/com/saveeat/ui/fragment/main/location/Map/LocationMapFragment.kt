@@ -2,6 +2,7 @@ package com.saveeat.ui.fragment.main.location.Map
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -35,10 +36,6 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLocationMapBinding = FragmentLocationMapBinding.inflate(inflater,container)
 
     override fun init() {
-        binding.rvRestaurant.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
-        binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),StaticDataHelper.getMapRestaurant())
-//        (requireActivity()?.supportFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment)?.getMapAsync(this)
-//        (activity?.supportFragmentManager?.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMap(this)
         (childFragmentManager?.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMapAsync(this)
     }
 
@@ -68,7 +65,6 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         mMap.setOnInfoWindowClickListener(clusterItemManager)
 
         clusterItemManager?.setOnClusterClickListener {
-            Log.e("yes", "clusterItemManager")
             binding.btnShowRestro.visibility=View.GONE
             binding.rvRestaurant.visibility=View.VISIBLE
             val  latLngBounds= LatLngBounds.Builder()
@@ -84,6 +80,9 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         }
 
         addItems()
+        binding.rvRestaurant.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
+        binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),StaticDataHelper.getMapRestaurant())
+
 
     }
 

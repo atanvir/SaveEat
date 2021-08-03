@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.maps.MapsInitializer
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityMainBinding
@@ -26,6 +27,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     override fun getActivityBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun inits() {
+        MapsInitializer.initialize(this);
+
         binding.drawerLayout.setStatusBarBackgroundColor(android.graphics.Color.rgb(120, 120, 120))
 
         navController=findNavController(this,R.id.fragment)

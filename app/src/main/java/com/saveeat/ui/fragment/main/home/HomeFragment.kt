@@ -45,7 +45,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        activity?.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout)?.visibility= View.VISIBLE
         activity?.findViewById<ConstraintLayout>(R.id.clAddress)?.visibility=View.VISIBLE
         activity?.findViewById<TextView>(R.id.tvTitle)?.visibility=View.GONE
     }
