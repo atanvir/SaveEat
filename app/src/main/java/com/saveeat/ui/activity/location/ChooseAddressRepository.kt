@@ -9,12 +9,10 @@ import com.saveeat.repository.remote.Google.GoogleInterface
 import com.saveeat.repository.remote.SaveEat.SaveEatInterface
 import com.saveeat.utils.application.KeyConstants.HIDE_INFO_WINDOW
 import com.saveeat.utils.application.KeyConstants.NOT_SERVE_THIS_AREA
-import com.saveeat.utils.application.KeyConstants.SAVEEAT_CLIENT
 import com.saveeat.utils.application.Resource
 import java.io.IOException
 import java.util.*
 import javax.inject.Inject
-import javax.inject.Named
 
 class ChooseAddressRepository  @Inject constructor(private var apiInterface: SaveEatInterface,private var googleInterface: GoogleInterface)  : BaseRepository() {
 
@@ -41,5 +39,4 @@ class ChooseAddressRepository  @Inject constructor(private var apiInterface: Sav
     suspend fun getPlaceDetail(placeid : String?) = safeApiCall {
         googleInterface.gePlaceDetail(placeid=placeid)
     }
-
 }

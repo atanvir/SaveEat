@@ -11,13 +11,10 @@ import android.os.Looper
 import android.os.Message
 import android.view.View
 import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.biteMe.ui.adapter.autocomplete.onAutoCompleteItemClick
@@ -31,7 +28,6 @@ import com.saveeat.model.request.address.PlacesModel
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.adapter.address.AddressInfoWindow
 import com.saveeat.ui.adapter.autocomplete.AutoCompleteAddressAdapter
-import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.CommonUtils.setSpinner
 import com.saveeat.utils.application.Resource
 import com.saveeat.utils.extn.*

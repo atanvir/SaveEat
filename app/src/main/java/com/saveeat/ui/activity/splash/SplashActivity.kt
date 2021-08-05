@@ -3,10 +3,6 @@ package com.saveeat.ui.activity.splash
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
-import android.view.Window
-import android.view.WindowManager
-import androidx.core.content.ContextCompat
-import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivitySplashBinding
 import com.saveeat.ui.activity.walkthrough.WalkThroughActivity

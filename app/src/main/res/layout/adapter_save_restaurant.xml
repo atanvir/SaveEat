@@ -71,6 +71,7 @@
                             android:layout_width="@dimen/dimen_266"
                             android:layout_height="@dimen/dimen_136"
                             android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/rectangle_4136"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -107,7 +108,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/cardView3"
                     app:layout_constraintTop_toTopOf="@+id/cardView3"
-                    app:layout_constraintVertical_bias="0.53">
+                    app:layout_constraintVertical_bias="0.55">
 
 
                     <TextView

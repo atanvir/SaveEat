@@ -2,8 +2,6 @@ package com.saveeat.ui.activity.walkthrough
 
 import android.content.Intent
 import android.view.View
-import android.view.WindowManager
-import androidx.core.view.size
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityWalkThroughBinding
@@ -11,7 +9,6 @@ import com.saveeat.model.request.walkthrough.WalkThroughModel
 import com.saveeat.ui.activity.auth.login.LoginActivity
 import com.saveeat.ui.adapter.walkthrough.WalkThroughAdapter
 import com.saveeat.utils.extn.onPageChanged
-import com.saveeat.utils.extn.toast
 import com.saveeat.utils.extn.visible
 import dagger.hilt.android.AndroidEntryPoint
 

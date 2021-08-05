@@ -1,8 +1,6 @@
 package com.saveeat.ui.activity.menu
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -50,11 +48,14 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener {
 
                 if (State.COLLAPSED == state) {
                     binding.cvMain.visibility=View.INVISIBLE
-                    binding.tvToolbarHeader.visibility=View.INVISIBLE
+                    binding.tvToolbarHeader.visibility=View.VISIBLE
+                    binding.ivRestroImage.visibility=View.VISIBLE
 
                 } else if (State.IDLE == state) {
                     binding.cvMain.visibility=View.VISIBLE
                     binding.tvToolbarHeader.visibility=View.INVISIBLE
+                    binding.ivRestroImage.visibility=View.INVISIBLE
+
                 }
             }
         })

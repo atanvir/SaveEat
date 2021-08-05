@@ -4,16 +4,13 @@ import android.content.Intent
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.gms.maps.MapsInitializer
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityMainBinding
 import com.saveeat.ui.activity.drawer.DrawerActivity
 import com.saveeat.ui.activity.location.ChooseAddressActivity
 import com.saveeat.ui.activity.profile.ProfileActivity
-import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.CommonUtils.setSpinner
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -27,14 +24,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     override fun getActivityBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun inits() {
-        MapsInitializer.initialize(this);
+        try{
+            navController=findNavController(this,R.id.fragment)
+            binding.bottomNavigationView.setupWithNavController(navController)
+            if(intent.getBooleanExtra("menu",false)) binding.bottomNavigationView.selectedItemId=R.id.cartFragment
+            setSpinner(this, list,binding.clMainToolbar.spnAddress,binding.clMainToolbar.tvKMDropDown)
 
-        binding.drawerLayout.setStatusBarBackgroundColor(android.graphics.Color.rgb(120, 120, 120))
-
-        navController=findNavController(this,R.id.fragment)
-        binding.bottomNavigationView.setupWithNavController(navController)
-        if(intent.getBooleanExtra("menu",false)) binding.bottomNavigationView.selectedItemId=R.id.cartFragment
-        setSpinner(this, list,binding.clMainToolbar.spnAddress,binding.clMainToolbar.tvKMDropDown)
+        }catch (e: Exception){
+        }
     }
 
 

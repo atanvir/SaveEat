@@ -1,14 +1,11 @@
 package com.saveeat.ui.activity.auth.forgot
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityForgotPasswordBinding
 import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
-import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.CommonUtils.authToolbar
 import dagger.hilt.android.AndroidEntryPoint
 

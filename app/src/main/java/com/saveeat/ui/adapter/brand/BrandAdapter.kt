@@ -2,7 +2,6 @@ package com.saveeat.ui.adapter.brand
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.databinding.AdapterBrandBinding

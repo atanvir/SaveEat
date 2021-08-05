@@ -10,7 +10,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterCartBinding
-import com.saveeat.ui.dialog.CreditDialog
 import com.saveeat.ui.dialog.RequirementDialog
 
 class CartAdapter (var context: Context?) : RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
@@ -20,7 +19,7 @@ class CartAdapter (var context: Context?) : RecyclerView.Adapter<CartAdapter.MyV
         holder.binding.mp.paintFlags=holder.binding.mp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
     }
 
-    override fun getItemCount(): Int =3
+    override fun getItemCount(): Int =10
 
     inner class MyViewHolder(var binding: AdapterCartBinding) : RecyclerView.ViewHolder(binding.root),
         View.OnClickListener {

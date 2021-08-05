@@ -10,11 +10,19 @@
         android:name="com.saveeat.ui.fragment.main.location.Map.LocationMapFragment"
         android:label="LocationMapFragment"
         tools:layout="@layout/fragment_location_map"
-        />
+        >
+        <action
+            android:id="@+id/action_locationMapFragment_to_locationListFragment"
+            app:destination="@id/locationListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/locationListFragment"
         android:name="com.saveeat.ui.fragment.main.location.List.LocationListFragment"
         android:label="LocationListFragment"
         tools:layout="@layout/fragment_location_list"
-        />
+        >
+        <action
+            android:id="@+id/action_locationListFragment_to_locationMapFragment"
+            app:destination="@id/locationMapFragment" />
+    </fragment>
 </navigation>

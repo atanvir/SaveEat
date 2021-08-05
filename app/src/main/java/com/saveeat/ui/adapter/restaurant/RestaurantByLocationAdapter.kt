@@ -10,7 +10,6 @@ import com.saveeat.R
 import com.saveeat.databinding.AdapterRestaurantByLocationBinding
 import com.saveeat.model.request.restaurant.RestaurantByLocationModel
 import com.saveeat.ui.activity.menu.MenuActivity
-import com.saveeat.ui.activity.menu.MenuDetailActivity
 
 class RestaurantByLocationAdapter(var context: Context?,var list: MutableList<RestaurantByLocationModel?>?) : RecyclerView.Adapter<RestaurantByLocationAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantByLocationAdapter.MyViewHolder  = MyViewHolder(AdapterRestaurantByLocationBinding.inflate(LayoutInflater.from(context),parent,false))

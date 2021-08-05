@@ -29,11 +29,8 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/background_common_button"
                 android:backgroundTint="@color/white"
-                android:elevation="@dimen/_7sdp"
+                android:elevation="@dimen/_2sdp"
                 android:scaleType="center"
-
-                android:outlineAmbientShadowColor="@color/app_theme"
-                android:outlineSpotShadowColor="@color/app_theme"
                 android:src="@drawable/icon_hum"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

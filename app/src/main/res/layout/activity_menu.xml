@@ -61,6 +61,18 @@
                             android:layout_alignParentStart="true"
                             app:srcCompat="@drawable/back" />
 
+                        <ImageView
+                            android:id="@+id/ivRestroImage"
+                            android:layout_width="32sp"
+                            android:layout_height="32sp"
+                            android:elevation="5sp"
+                            android:visibility="gone"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/dimen_10sp"
+                            android:src="@drawable/group_4006"
+                            android:layout_toRightOf="@+id/ivBack"
+                            />
+
                         <TextView
                             android:id="@+id/tvToolbarHeader"
                             android:layout_width="wrap_content"
@@ -445,18 +457,16 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cpType"
-                    style="@style/CustomChipChoiceStyle"
+                    style="@style/Widget.MyApp.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_42sdp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="4dp"
                     android:text="Veg"
                     android:textColor="@color/black"
-
                     android:textSize="@dimen/dimen_12sp"
                     app:chipBackgroundColor="@color/white"
                     app:chipCornerRadius="@dimen/_5sdp"
-
                     app:chipIcon="@drawable/group_2738"
                     app:chipIconSize="12dp"
                     app:chipIconVisible="true"

@@ -1,8 +1,6 @@
 package com.saveeat.ui.activity.auth.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
@@ -10,7 +8,6 @@ import com.saveeat.databinding.ActivityLoginBinding
 import com.saveeat.ui.activity.auth.forgot.ForgotPasswordActivity
 import com.saveeat.ui.activity.auth.signup.SignUpActivity
 import com.saveeat.ui.activity.main.MainActivity
-import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.CommonUtils.authToolbar
 import dagger.hilt.android.AndroidEntryPoint
 

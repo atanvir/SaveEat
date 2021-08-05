@@ -5,7 +5,6 @@ import com.saveeat.model.request.brand.BrandModel
 import com.saveeat.model.request.menu.MenuCategoryModel
 import com.saveeat.model.request.restaurant.*
 import com.saveeat.model.request.reward.RewardModel
-import kotlinx.coroutines.CoroutineScope
 
 object StaticDataHelper {
 

@@ -2,14 +2,11 @@ package com.saveeat.ui.activity.menu
 
 import android.content.Intent
 import android.graphics.Paint
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
-import com.saveeat.databinding.ActivityMenuBinding
 import com.saveeat.databinding.ActivityMenuDetailBinding
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.adapter.menu.MenuMultipleChoiceAdapter
@@ -39,10 +36,14 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
                 if (State.COLLAPSED == state) {
                     binding.tvDescription.visibility=View.INVISIBLE
                     binding.view.visibility=View.INVISIBLE
+                    binding.tvToolbarHeader.visibility=View.VISIBLE
+                    binding.ivRestroImage.visibility=View.VISIBLE
 
                 } else if (State.IDLE == state) {
                     binding.tvDescription.visibility=View.VISIBLE
                     binding.view.visibility=View.VISIBLE
+                    binding.tvToolbarHeader.visibility=View.INVISIBLE
+                    binding.ivRestroImage.visibility=View.INVISIBLE
                 }
             }
         })

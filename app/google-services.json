@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "952197475393",
+    "project_id": "saveeat-aa236",
+    "storage_bucket": "saveeat-aa236.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952197475393:android:8b3bea6e33a1744f352ac0",
+        "android_client_info": {
+          "package_name": "com.saveeat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952197475393-0c1ot71d7ceg3ba72l222fkumtebfmk3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.saveeat",
+            "certificate_hash": "67c4a64a7a9374b04dfe010df4afc38b38a99384"
+          }
+        },
+        {
+          "client_id": "952197475393-usksfdnkghtr0llhe6akv4gf5oolajtd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjMTl3a-f3p9PEMZccr8IwX36_-ESmlw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952197475393-usksfdnkghtr0llhe6akv4gf5oolajtd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "952197475393-d5opotc7j5rmk6g3s98bc1h38ia9c9vt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.GetFit.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

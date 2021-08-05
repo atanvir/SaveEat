@@ -2,8 +2,6 @@ package com.saveeat.ui.fragment.main.location.Map
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,11 +23,10 @@ import com.saveeat.ui.adapter.map.CustomClusterRenderer
 import com.saveeat.ui.adapter.map.MapRestaurantAdapter
 import com.saveeat.utils.application.StaticDataHelper
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
 
 
 @AndroidEntryPoint
-class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapReadyCallback, View.OnClickListener {
+class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapReadyCallback, View.OnClickListener, GoogleMap.OnCameraMoveListener {
     private lateinit var mMap: GoogleMap
     private var clusterItemManager: ClusterManager<ClusterItemAdapter?>?=null
 
@@ -63,6 +60,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
 
         mMap.setInfoWindowAdapter(clusterItemManager?.markerManager)
         mMap.setOnInfoWindowClickListener(clusterItemManager)
+        mMap.setOnCameraMoveListener(this)
 
         clusterItemManager?.setOnClusterClickListener {
             binding.btnShowRestro.visibility=View.GONE
@@ -133,8 +131,18 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
                 mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 21f))
 
                 binding.btnShowRestro.visibility=View.GONE
-                 binding.rvRestaurant.visibility=View.VISIBLE
+                binding.rvRestaurant.visibility=View.VISIBLE
             }
+        }
+    }
+
+    override fun onCameraMove() {
+        if (mMap?.cameraPosition?.zoom?:0f < 8f) {
+            binding.rvRestaurant.visibility=View.GONE
+            binding.btnShowRestro.visibility=View.VISIBLE
+        }else{
+            binding.rvRestaurant.visibility=View.VISIBLE
+            binding.btnShowRestro.visibility=View.GONE
         }
     }
 

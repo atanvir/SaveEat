@@ -5,7 +5,6 @@ import android.net.Uri
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import com.bumptech.glide.Glide
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityProfileBinding

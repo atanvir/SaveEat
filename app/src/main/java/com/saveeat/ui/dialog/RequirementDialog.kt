@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.saveeat.R
 import com.saveeat.base.BaseDialog
-import com.saveeat.databinding.DialogCreditBinding
 import com.saveeat.databinding.DialogRequirementBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -68,6 +68,34 @@
                         android:layout_height="wrap_content"
                         android:elevation="1dp"
                         android:src="@drawable/back"/>
+
+
+                    <ImageView
+                        android:id="@+id/ivRestroImage"
+                        android:layout_width="32sp"
+                        android:layout_height="32sp"
+                        android:elevation="5sp"
+                        android:visibility="gone"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:src="@drawable/group_4006"
+                        android:layout_toRightOf="@+id/ivBack"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvToolbarHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Breakfast Club"
+                        android:textAlignment="center"
+                        android:layout_marginStart="@dimen/dime_13sp"
+                        android:visibility="gone"
+                        android:layout_toLeftOf="@id/ivMore"
+                        android:layout_toRightOf="@+id/ivBack"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/app_theme"
+                        android:textSize="@dimen/dimen_16sp"
+                        style="@style/poppin_semi_bold"/>
                 </androidx.appcompat.widget.Toolbar>
 
 

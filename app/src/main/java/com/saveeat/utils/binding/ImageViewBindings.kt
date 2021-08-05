@@ -3,7 +3,6 @@ package com.saveeat.utils.binding
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.saveeat.utils.extn.loadNormalPhoto
-import com.saveeat.utils.extn.loadPhoto
 
 class ImageViewBindings {
     companion object{

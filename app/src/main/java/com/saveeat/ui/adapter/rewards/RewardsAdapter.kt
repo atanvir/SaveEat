@@ -1,7 +1,6 @@
 package com.saveeat.ui.adapter.rewards
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterRewardsBinding
 import com.saveeat.model.request.reward.RewardModel
-import com.saveeat.ui.activity.drawer.reward.RewardActivity
-import com.saveeat.ui.dialog.CreditDialog
 import com.saveeat.ui.dialog.RewardDialog
 
 class RewardsAdapter(var context: Context?,var list : List<RewardModel?>?) : RecyclerView.Adapter<RewardsAdapter.MyViewHolder>() {

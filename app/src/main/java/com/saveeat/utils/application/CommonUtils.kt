@@ -1,13 +1,14 @@
 package com.saveeat.utils.application
 
-import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
@@ -17,7 +18,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.saveeat.R
 import com.saveeat.ui.activity.auth.login.LoginActivity

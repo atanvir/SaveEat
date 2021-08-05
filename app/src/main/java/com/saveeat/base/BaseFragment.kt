@@ -8,8 +8,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.viewbinding.ViewBinding
-import com.saveeat.ui.fragment.main.location.List.LocationListFragment
-import com.saveeat.ui.fragment.main.location.LocationTabFragment
 
 abstract class BaseFragment<B: ViewBinding> : Fragment() {
     protected lateinit var callback: OnBackPressedCallback

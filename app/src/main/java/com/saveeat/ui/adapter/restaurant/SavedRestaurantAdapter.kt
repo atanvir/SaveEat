@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
-import com.saveeat.databinding.AdapterRestaurantBinding
 import com.saveeat.databinding.AdapterSaveRestaurantBinding
-import com.saveeat.model.request.restaurant.RestaurantProductModel
 import com.saveeat.model.request.restaurant.SaveRestaurantsModel
 import com.saveeat.ui.activity.menu.MenuDetailActivity
 

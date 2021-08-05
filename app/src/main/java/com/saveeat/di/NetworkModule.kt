@@ -6,9 +6,6 @@ import com.saveeat.repository.remote.SaveEat.SaveEatConstant.SAVEEAT_TESTING_BAS
 import com.saveeat.repository.remote.SaveEat.SaveEatInterface
 import com.saveeat.repository.remote.StaticContent.StaticContentConstant.STATIC_CONTENT_BASE_URL
 import com.saveeat.repository.remote.StaticContent.StaticContentInterface
-import com.saveeat.utils.application.KeyConstants.GOOGLE_CLIENT
-import com.saveeat.utils.application.KeyConstants.SAVEEAT_CLIENT
-import com.saveeat.utils.application.KeyConstants.STATIC_CONTENT_CLIENT
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -19,7 +16,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 
 @Module
 @InstallIn(SingletonComponent::class)

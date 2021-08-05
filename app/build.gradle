@@ -5,6 +5,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'com.google.firebase.crashlytics'
 //    id 'com.google.gms.google-services'
 }
 
@@ -44,9 +45,9 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.21"
     implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Testing
@@ -64,10 +65,10 @@ dependencies {
     implementation 'com.github.aabhasr1:OtpView:v1.1.2-ktx'
 
     // Fragment KTX
-    implementation "androidx.fragment:fragment-ktx:1.3.5"
+    implementation "androidx.fragment:fragment-ktx:1.3.6"
 
     // Activity KTX
-    implementation "androidx.activity:activity-ktx:1.2.3"
+    implementation "androidx.activity:activity-ktx:1.3.0"
 
     // Navigation KTX
     implementation "androidx.navigation:navigation-runtime-ktx:2.3.5"
@@ -87,7 +88,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
@@ -140,9 +141,16 @@ dependencies {
     implementation 'id.zelory:compressor:3.0.1'
 
 
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:26.5.0')
+    implementation 'com.google.firebase:firebase-messaging:22.0.0'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'androidx.browser:browser:1.3.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
     // Heart Animator
     //implementation 'com.github.jd-alexander:LikeButton:0.2.3'
-
 
 
 }

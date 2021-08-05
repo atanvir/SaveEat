@@ -2,7 +2,6 @@ package com.saveeat.ui.activity.auth.signup
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import com.saveeat.R
 import com.saveeat.base.BaseActivity

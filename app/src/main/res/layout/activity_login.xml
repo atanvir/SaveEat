@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/login"
                 android:textSize="@dimen/dimen_20sp"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideStart"
                 app:layout_constraintTop_toTopOf="@+id/guideTop" />
 

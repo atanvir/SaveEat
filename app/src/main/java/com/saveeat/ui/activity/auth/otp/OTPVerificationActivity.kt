@@ -1,15 +1,12 @@
 package com.saveeat.ui.activity.auth.otp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityOtpverificationBinding
 import com.saveeat.ui.activity.auth.password.PasswordActivity
-import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.CommonUtils.authToolbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit

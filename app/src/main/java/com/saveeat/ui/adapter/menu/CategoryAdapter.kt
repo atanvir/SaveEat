@@ -11,10 +11,7 @@ import com.saveeat.R
 import com.saveeat.databinding.AdapterBrandSectionBinding
 import com.saveeat.databinding.AdapterRestaurantSectionBinding
 import com.saveeat.databinding.AdapterSaveSectionBinding
-import com.saveeat.model.request.brand.BrandModel
 import com.saveeat.model.request.restaurant.CategoryModel
-import com.saveeat.model.request.restaurant.SaveRestaurantsModel
-import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.activity.menu.MenuActivity
 import com.saveeat.ui.adapter.brand.BrandAdapter
 import com.saveeat.ui.adapter.restaurant.RestaurantAdapter

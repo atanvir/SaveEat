@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.saveeat">
 
+
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -23,7 +25,7 @@
     </queries>
 
     <application
-        android:name=".base.BaseApplication"
+        android:name="com.saveeat.base.BaseApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/app_icon_main"
@@ -34,62 +36,62 @@
         android:theme="@style/Theme.SaveEat"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.activity.order.checkout.CheckoutActivity"
+            android:name="com.saveeat.ui.activity.order.checkout.CheckoutActivity"
             android:theme="@style/white_theme"
             android:screenOrientation="portrait"
             ></activity>
         <activity
-            android:name=".ui.activity.order.status.OrderStatusActivity"
+            android:name="com.saveeat.ui.activity.order.status.OrderStatusActivity"
             android:theme="@style/white_theme"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".ui.activity.drawer.payment.PaymentActivity"
+            android:name="com.saveeat.ui.activity.drawer.payment.PaymentActivity"
             android:theme="@style/white_theme"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".ui.activity.drawer.location.HiddenLocationActivity"
+            android:name="com.saveeat.ui.activity.drawer.location.HiddenLocationActivity"
             android:theme="@style/white_theme"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".ui.activity.drawer.reward.RewardActivity"
+            android:name="com.saveeat.ui.activity.drawer.reward.RewardActivity"
             android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
-            android:name=".ui.activity.drawer.DrawerActivity"
+            android:name="com.saveeat.ui.activity.drawer.DrawerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
-            android:name=".ui.activity.drawer.help.HelpActivity"
+            android:name="com.saveeat.ui.activity.drawer.help.HelpActivity"
             android:theme="@style/white_theme"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".ui.activity.drawer.credit.CreditActivity"
+            android:name="com.saveeat.ui.activity.drawer.credit.CreditActivity"
             android:theme="@style/white_theme"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".ui.activity.order.history.OrderHistoryActivity"
+            android:name="com.saveeat.ui.activity.order.history.OrderHistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/white_theme"
             />
         <activity
-            android:name=".ui.activity.menu.MenuDetailActivity"
+            android:name="com.saveeat.ui.activity.menu.MenuDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/white_theme" />
         <activity
-            android:name=".ui.activity.menu.MenuActivity"
+            android:name="com.saveeat.ui.activity.menu.MenuActivity"
             android:screenOrientation="portrait"
             android:theme="@style/white_theme" />
         <activity
-            android:name=".ui.activity.profile.ProfileActivity"
+            android:name="com.saveeat.ui.activity.profile.ProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/white_theme" />
         <activity
-            android:name=".ui.activity.main.MainActivity"
+            android:name="com.saveeat.ui.activity.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/white_theme" />
 
@@ -98,36 +100,36 @@
             android:value="@string/map_api" />
 
         <activity
-            android:name=".ui.activity.location.ChooseAddressActivity"
+            android:name="com.saveeat.ui.activity.location.ChooseAddressActivity"
             android:screenOrientation="portrait"
             android:theme="@style/white_theme" />
         <activity
-            android:name=".ui.activity.auth.otp.OTPVerificationActivity"
+            android:name="com.saveeat.ui.activity.auth.otp.OTPVerificationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
-            android:name=".ui.activity.auth.password.PasswordActivity"
+            android:name="com.saveeat.ui.activity.auth.password.PasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
-            android:name=".ui.activity.auth.signup.SignUpActivity"
+            android:name="com.saveeat.ui.activity.auth.signup.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
-            android:name=".ui.activity.auth.forgot.ForgotPasswordActivity"
+            android:name="com.saveeat.ui.activity.auth.forgot.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
-            android:name=".ui.activity.auth.login.LoginActivity"
+            android:name="com.saveeat.ui.activity.auth.login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
-            android:name=".ui.activity.walkthrough.WalkThroughActivity"
+            android:name="com.saveeat.ui.activity.walkthrough.WalkThroughActivity"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
-            android:name=".ui.activity.splash.SplashActivity"
+            android:name="com.saveeat.ui.activity.splash.SplashActivity"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/splashScreenTheme">

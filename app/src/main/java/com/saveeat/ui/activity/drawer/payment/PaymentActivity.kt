@@ -1,11 +1,8 @@
 package com.saveeat.ui.activity.drawer.payment
 
-import android.content.Intent
 import android.view.View
-import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityPaymentBinding
-import com.saveeat.ui.activity.order.status.OrderStatusActivity
 import com.saveeat.utils.application.CommonUtils.toolbar
 import dagger.hilt.android.AndroidEntryPoint
 

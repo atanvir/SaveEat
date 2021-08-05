@@ -3,11 +3,9 @@ package com.saveeat.utils.extn
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
-import com.saveeat.R
 
 fun View.visible(isVisible: Boolean){
     visibility = if(isVisible) View.VISIBLE else View.GONE

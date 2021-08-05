@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseDialog<B: ViewBinding> : DialogFragment() {

@@ -1,7 +1,6 @@
 package com.saveeat.utils.extn
 
 import android.graphics.Typeface
-import android.util.Log
 import android.widget.SearchView
 import android.widget.TextView
 

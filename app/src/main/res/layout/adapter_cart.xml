@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_90sdp"
+    android:layout_height="121sp"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="0dp"
     app:cardElevation="0dp"
@@ -37,6 +37,21 @@
             app:layout_constraintTop_toTopOf="@+id/imageView10"
             app:layout_constraintVertical_bias="1.0" />
 
+
+        <TextView
+            android:id="@+id/tvRestroName"
+            style="@style/inter_semi_bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="8dp"
+            android:text="The Bombay Canteen"
+            android:textColor="@color/app_theme"
+            android:textSize="@dimen/dimen_11sp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView11"
+            app:layout_constraintStart_toEndOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="@+id/imageView10" />
+
         <TextView
             android:id="@+id/textView13"
             style="@style/inter_medium"
@@ -49,7 +64,7 @@
             android:textSize="@dimen/dimen_14sp"
             app:layout_constraintEnd_toStartOf="@+id/imageView11"
             app:layout_constraintStart_toEndOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/imageView10" />
+            app:layout_constraintTop_toBottomOf="@+id/tvRestroName" />
 
 
         <TextView
