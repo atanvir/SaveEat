@@ -41,12 +41,12 @@
             android:layout_height="38dp"
             android:layout_margin="2dp"
             android:textAlignment="center"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
+            android:background="@drawable/drawable_white_selected_tab_layout"
             app:tabBackground="@drawable/drawable_selector_tablayout"
             app:tabGravity="fill"
             style="@style/MineCustomTabText"

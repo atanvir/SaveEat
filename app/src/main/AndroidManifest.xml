@@ -74,7 +74,7 @@
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.saveeat.ui.activity.order.history.OrderHistoryActivity"
+            android:name="com.saveeat.ui.activity.drawer.history.OrderHistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/white_theme"
             />
@@ -149,6 +149,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <meta-data
+            android:name="firebase_performance_logcat_enabled"
+            android:value="true" />
+
     </application>
 
 </manifest>

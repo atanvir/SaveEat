@@ -9,7 +9,7 @@ import com.saveeat.databinding.ActivityDrawerBinding
 import com.saveeat.ui.activity.auth.login.LoginActivity
 import com.saveeat.ui.activity.drawer.help.HelpActivity
 import com.saveeat.ui.activity.drawer.credit.CreditActivity
-import com.saveeat.ui.activity.order.history.OrderHistoryActivity
+import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
 import com.saveeat.ui.activity.drawer.location.HiddenLocationActivity
 import com.saveeat.ui.activity.drawer.payment.PaymentActivity
 import com.saveeat.ui.activity.drawer.reward.RewardActivity

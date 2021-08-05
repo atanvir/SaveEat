@@ -1,14 +1,12 @@
 package com.saveeat.utils.application
 
 import android.content.Context
-import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
@@ -24,7 +22,7 @@ import com.saveeat.ui.activity.auth.login.LoginActivity
 import com.saveeat.ui.activity.drawer.help.HelpActivity
 import com.saveeat.ui.activity.drawer.credit.CreditActivity
 import com.saveeat.ui.activity.drawer.location.HiddenLocationActivity
-import com.saveeat.ui.activity.order.history.OrderHistoryActivity
+import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
 import com.saveeat.ui.activity.drawer.payment.PaymentActivity
 import com.saveeat.ui.activity.order.checkout.CheckoutActivity
 import com.saveeat.utils.extn.onSelected

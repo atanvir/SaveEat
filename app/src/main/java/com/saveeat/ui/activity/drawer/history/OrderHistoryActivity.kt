@@ -1,4 +1,4 @@
-package com.saveeat.ui.activity.order.history
+package com.saveeat.ui.activity.drawer.history
 
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

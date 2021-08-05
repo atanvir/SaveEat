@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.saveeat.utils.application.CommonUtils
 
 
 abstract class BaseActivity<B: ViewBinding>: AppCompatActivity(){

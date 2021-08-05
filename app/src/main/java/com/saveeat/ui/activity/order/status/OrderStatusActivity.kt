@@ -5,7 +5,7 @@ import android.view.View
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityOrderStatusBinding
-import com.saveeat.ui.activity.order.history.OrderHistoryActivity
+import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
