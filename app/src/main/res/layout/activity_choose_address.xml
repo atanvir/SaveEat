@@ -70,7 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Choose a location to see \nwhat's available"
+            android:text="@string/choose_a_location_to_see_nwhat_s_available"
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_14sp"
             app:layout_constraintEnd_toStartOf="@+id/guideLineStart"

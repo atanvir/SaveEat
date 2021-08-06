@@ -38,14 +38,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
 
-
 @AndroidEntryPoint
 class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSPermissionHelper.onLocationListner, OnMapReadyCallback, GoogleMap.OnCameraIdleListener, GoogleMap.OnCameraMoveListener, View.OnClickListener, onAutoCompleteItemClick, SearchView.OnCloseListener {
     private val GETTING_ADDRESS = 1
     private val NOT_SERVE_THIS_AREA = 2
     private val HIDE_INFO_WINDOW = 3
     private var list: MutableList<PlacesModel?>? = ArrayList()
-    private var distanceList =arrayOf<String?>("Please select Distance","Within 3 KM","Within 5 KM","Within 10 KM")
 
 
     private var handler: Handler?=null
@@ -69,7 +67,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         startLocation(this, onResult, onPermissionLaucher, this)
         binding.rvPlaces.layoutManager= LinearLayoutManager(this)
         binding.rvPlaces.adapter= AutoCompleteAddressAdapter(this, list, this)
-        setSpinner(this, distanceList, binding.spnAddress, binding.tvKMDropDown)
+        setSpinner(this, binding.spnAddress, binding.tvKMDropDown)
     }
 
     override fun initCtrl() {
@@ -94,15 +92,15 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                                 binding.clShadowButton.ivButton.enable(true)
                                 binding.tvAddress.text=it.value?.get(0)?.getAddressLine(0) ?: ""
                             }
-                            else binding.tvAddress.text="Sorry we didn't serve here yet..."
-                        }else binding.tvAddress.text="Sorry we didn't serve here yet..."
+                            else binding.tvAddress.text=getString(R.string.sorry_dont_serve_here)
+                        }else binding.tvAddress.text=getString(R.string.sorry_dont_serve_here)
 
                         binding.tvAddress.visible(true)
                         binding.pbAddressLoader.visible(false)
                         binding.clShadowButton.ivButton.visible(true)
                     }
                     is Resource.Failure ->{
-                        binding.tvAddress.text="Sorry we didn't serve here yet..."
+                        binding.tvAddress.text=getString(R.string.sorry_dont_serve_here)
                         binding.tvAddress.visible(true)
                         binding.pbAddressLoader.visible(false)
                         binding.clShadowButton.ivButton.visible(true)
@@ -146,8 +144,8 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         }
         when (permission){
             true -> { startLocation(this, onResultLaucher = onResult, null, this) }
-            else ->{ binding.root.snack("Please Turn on GPS",Snackbar.LENGTH_LONG){
-                action("Retry"){ startLocation(this@ChooseAddressActivity, onResult, onPermissionLaucher = snackViewPermissionLaucher, this@ChooseAddressActivity) }
+            else ->{ binding.root.snack(getString(R.string.turn_on_gps),Snackbar.LENGTH_LONG){
+                action(getString(R.string.retry)){ startLocation(this@ChooseAddressActivity, onResult, onPermissionLaucher = snackViewPermissionLaucher, this@ChooseAddressActivity) }
             }
             }
         }
@@ -161,7 +159,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         }
         when (permission){
             true -> { startLocation(this, onResultLaucher = onResult, null, this) }
-            else ->{ binding.root.snack("Please Turn on GPS",Snackbar.LENGTH_LONG){ toast("Please again later")}
+            else ->{ binding.root.snack(getString(R.string.turn_on_gps),Snackbar.LENGTH_LONG){ toast(getString(R.string.try_again_later))}
             }
         }
         }
@@ -173,7 +171,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
             binding.pbLoader.visibility=View.VISIBLE
             loadCurrentLoc()
         }else{
-            binding.root.snack("Please turn on GPS First"){}
+            binding.root.snack(getString(R.string.turn_on_gps)){}
         }
     }
 
@@ -207,11 +205,11 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                 super.handleMessage(msg)
                 when (msg.what) {
                     GETTING_ADDRESS -> {
-                        marker?.title = "Getting Address..!"
+                        marker?.title = getString(R.string.getting_address)
                         marker?.showInfoWindow()
                     }
                     NOT_SERVE_THIS_AREA -> {
-                        marker?.title = "Sorry we didn't serve here yet..."
+                        marker?.title = getString(R.string.sorry_dont_serve_here)
                         marker?.showInfoWindow()
                     }
                     HIDE_INFO_WINDOW -> { marker?.hideInfoWindow() }

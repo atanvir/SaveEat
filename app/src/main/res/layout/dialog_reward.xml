@@ -77,7 +77,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/background_common_button"
                 android:backgroundTint="@color/white"
-                android:text="Awesome"
+                android:text="@string/awesome"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textView15"

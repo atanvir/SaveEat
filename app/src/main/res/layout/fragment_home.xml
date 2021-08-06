@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_42sdp"
         android:layout_marginEnd="8dp"
-        android:text="Veg"
+        android:text="@string/veg"
         style="@style/Widget.MyApp.Chip.Choice"
         app:chipBackgroundColor="@color/white"
         app:chipCornerRadius="@dimen/_5sdp"

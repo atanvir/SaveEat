@@ -16,7 +16,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.firebase.messaging.FirebaseMessaging
 import com.saveeat.R
 import com.saveeat.ui.activity.auth.login.LoginActivity
 import com.saveeat.ui.activity.drawer.help.HelpActivity
@@ -34,21 +36,18 @@ object CommonUtils {
         return context.getDrawable(resourceId)
     }
 
-    fun getDeviceToken(context: Context): String {
-//        var token:String?=null
-//        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(OnCompleteListener<String?> { task ->
-//            if (!task.isSuccessful) {
-//                Log.w("TAG", "Fetching FCM registration token failed", task.exception)
-//                return@OnCompleteListener
-//            }
-//            token = task.result
-//            context.getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit().putString(
-//                PREF_DEVICE_TOKEN,
-//                token
-//            ).apply()
-//        })
+    fun generateFCMToken(context: Context): String? {
+        var token:String?=null
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener<String?> { task ->
+            if (!task.isSuccessful) {
+                Log.w("TAG", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            token = task.result
+            Log.e("TOKEN","-------->> "+token.toString())
+        })
 
-        return "token".toString()
+        return token
     }
 
     fun authToolbar(activity: AppCompatActivity){
@@ -79,22 +78,22 @@ object CommonUtils {
         val tvLabel =activity.findViewById<TextView>(R.id.tvLabel)
         if(activity is CreditActivity){
             tvLabel.visibility=View.VISIBLE
-            tvLabel.text="Credits"
+            tvLabel.text=activity.getString(R.string.credits)
         }else if(activity is OrderHistoryActivity){
             tvLabel.visibility=View.VISIBLE
-            tvLabel.text="Order Details & History"
+            tvLabel.text=activity.getString(R.string.order_details_amp_history)
         }else if(activity is HelpActivity){
             tvLabel.visibility=View.VISIBLE
-            tvLabel.text="Help & Support"
+            tvLabel.text=activity.getString(R.string.help_amp_support)
         }else if(activity is HiddenLocationActivity){
             tvLabel.visibility=View.VISIBLE
-            tvLabel.text="Unlock a hidden location"
+            tvLabel.text=activity.getString(R.string.unlock_hidden_location)
         }else if(activity is PaymentActivity){
             tvLabel.visibility=View.VISIBLE
-            tvLabel.text="Payment"
+            tvLabel.text=activity.getString(R.string.payment)
         }else if(activity is CheckoutActivity){
             tvLabel.visibility=View.VISIBLE
-            tvLabel.text="Select Payment"
+            tvLabel.text=activity.getString(R.string.select_payment)
         }
         else{
             tvLabel.visibility=View.GONE
@@ -105,8 +104,11 @@ object CommonUtils {
 
 
 
-    fun setSpinner(context: Context, list: Array<String?>, spinner: Spinner, textView: TextView) {
-        val adapter: ArrayAdapter<String?> = object : ArrayAdapter<String?>(context, android.R.layout.simple_spinner_item,list) {
+    fun setSpinner(context: Context,  spinner: Spinner, textView: TextView) {
+        val adapter: ArrayAdapter<String?> = object : ArrayAdapter<String?>(context, android.R.layout.simple_spinner_item,
+                                                                            arrayOf<String?>(context.getString(R.string.please_select_distance),
+                                                                            context.getString(R.string.within_3KM),context.getString(R.string.within_5KM),
+                                                                            context.getString(R.string.within_10KM))) {
         override fun isEnabled(position: Int): Boolean {
             return position!=0
         }
@@ -122,7 +124,7 @@ object CommonUtils {
             val face = ResourcesCompat.getFont(context, R.font.poppins_regular)
             tv.typeface = face
             tv.textAlignment= View.TEXT_ALIGNMENT_CENTER
-            view.background= ContextCompat.getDrawable(context,R.drawable.drawable_white_selected_tab_layout)
+            view.background= ContextCompat.getDrawable(context,R.drawable.drawable_spinner)
             view.setPadding(view.getPaddingLeft(), 16, view.getPaddingRight(), 16)
             return view
         }

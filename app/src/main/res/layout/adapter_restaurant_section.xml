@@ -175,7 +175,7 @@
             android:drawableStart="@drawable/group_2737"
             android:drawablePadding="8sp"
             android:padding="@dimen/_5sdp"
-            android:text="This restaurant follows Super Safety Standards"
+            android:text="@string/this_restaurant_follows_super_safety_standards"
             android:textColor="@color/super_restro_green_text"
             android:textSize="@dimen/dimen_11sp"
             app:layout_constraintBottom_toBottomOf="parent"

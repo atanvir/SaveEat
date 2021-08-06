@@ -2,6 +2,7 @@ package com.saveeat.ui.activity.drawer.history
 
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityOrderHistoryBinding
 import com.saveeat.ui.adapter.viewpager.OrderTabPagerAdapter
@@ -17,7 +18,7 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding>(), TabLay
         toolbar(this)
         binding.viewPager.adapter= OrderTabPagerAdapter(this)
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            if(position==0) tab.text ="Upcoming" else tab.text ="History"
+            if(position==0) tab.text =getString(R.string.upcoming) else tab.text =getString(R.string.history)
         }.attach()
     }
 

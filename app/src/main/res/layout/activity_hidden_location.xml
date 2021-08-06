@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_15sdp"
-            android:text="If you've found a restaurant that's not open to the public, you can use their SaveEat code here to unlock the location in the app"
+            android:text="@string/you_have_found_restaurant_that_not_open"
             android:textAlignment="center"
             android:textSize="@dimen/dimen_12sp" />
 
@@ -57,7 +57,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:hint="Type the code here"
+        android:hint="@string/type_the_code_here"
         app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
         app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
         app:layout_constraintTop_toBottomOf="@+id/cardView4">

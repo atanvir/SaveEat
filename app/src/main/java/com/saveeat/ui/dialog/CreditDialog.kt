@@ -13,7 +13,7 @@ class CreditDialog : BaseDialog<DialogCreditBinding>(), View.OnClickListener {
     override fun getDialogBinding(inflater: LayoutInflater, container: ViewGroup?): DialogCreditBinding = DialogCreditBinding.inflate(inflater,container,false)
 
     override fun init() {
-        binding.clShadowButton.tvButtonLabel.text="Send"
+        binding.clShadowButton.tvButtonLabel.text=getString(R.string.send)
 
     }
 

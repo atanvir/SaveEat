@@ -31,7 +31,7 @@
         android:background="@drawable/background_common_button"
         android:backgroundTint="@color/white"
         android:elevation="@dimen/_5sdp"
-        android:text="Add Credits"
+        android:text="@string/add_credits"
         style="@style/common_button"
         android:textColor="@color/app_theme"
         android:textSize="@dimen/dimen_14sp"
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_15sdp"
-            android:text="SaveEat Credits are used for purchasing food in the app. If you have a campaign code you can press the button above and type it in to get more credits"
+            android:text="@string/save_eat_credit_description"
             android:textAlignment="center"
             android:textSize="@dimen/dimen_12sp" />
 

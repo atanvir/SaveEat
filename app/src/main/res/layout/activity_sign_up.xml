@@ -146,7 +146,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Phone Number"
+                    android:hint="@string/phone_number"
                     app:layout_constraintEnd_toEndOf="@+id/tilEmail"
                     app:layout_constraintStart_toStartOf="@+id/tilEmail"
                     app:layout_constraintTop_toBottomOf="@+id/tilEmail">

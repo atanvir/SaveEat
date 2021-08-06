@@ -2,6 +2,7 @@ package com.saveeat.utils.application
 
 object KeyConstants{
 
+
     //Database
     const val DATABASE_NAME="restro"
 
@@ -28,6 +29,10 @@ object KeyConstants{
     const val GETTING_ADDRESS = 1
     const val NOT_SERVE_THIS_AREA = 2
     const val HIDE_INFO_WINDOW = 3
+
+
+    val FORGOT: String?="forgot"
+    val SIGNUP: String?="signup"
 
     const val GOOGLE_PLACE_API: String ="AIzaSyCJj8cpjmnNmRVOwwUG2pXw201bN5Mgy0s"
 

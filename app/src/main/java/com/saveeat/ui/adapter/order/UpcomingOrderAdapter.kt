@@ -18,9 +18,9 @@ class UpcomingOrderAdapter(var context: Context?): RecyclerView.Adapter<Upcoming
         /*if(position>0)*/ holder.binding.clMainBelow.visibility=View.GONE
         holder.binding.mp.paintFlags=holder.binding.mp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         holder.binding.rvOrderStatus.layoutManager=LinearLayoutManager(context)
-        holder.binding.rvOrderStatus.adapter=OrderStatusAdapter(context, arrayListOf<OrderStatusModel>(OrderStatusModel("Order is being prepared",true),
-                                                                                                       OrderStatusModel("Your order is ready to pick up",false),
-                                                                                                       OrderStatusModel("Order completed",false)))
+        holder.binding.rvOrderStatus.adapter=OrderStatusAdapter(context, arrayListOf<OrderStatusModel>(OrderStatusModel(context?.getString(R.string.order_being_prepared),true),
+                                                                                                       OrderStatusModel(context?.getString(R.string.order_ready_to_pickup),false),
+                                                                                                       OrderStatusModel(context?.getString(R.string.order_completed),false)))
     }
 
     inner class MyViewHolder(var binding: AdapterOrderUpcomingBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener {

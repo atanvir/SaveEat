@@ -13,7 +13,7 @@ class RequirementDialog: BaseDialog<DialogRequirementBinding>(), View.OnClickLis
     override fun getDialogBinding(inflater: LayoutInflater, container: ViewGroup?): DialogRequirementBinding = DialogRequirementBinding.inflate(inflater, container, false)
 
     override fun init() {
-        binding.clShadowButton.tvButtonLabel.text = "Done"
+        binding.clShadowButton.tvButtonLabel.text = getString(R.string.done)
 
     }
 

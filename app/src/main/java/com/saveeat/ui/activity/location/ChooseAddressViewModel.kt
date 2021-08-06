@@ -14,8 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChooseAddressViewModel @Inject constructor(val repository: ChooseAddressRepository) :
-    ViewModel() {
+class ChooseAddressViewModel @Inject constructor(val repository: ChooseAddressRepository) : ViewModel() {
 
     private val _addressResposne: MutableLiveData<Resource<List<Address>?>?> = MutableLiveData()
     val addressResposne: LiveData<Resource<List<Address>?>?> get() = _addressResposne
@@ -24,20 +23,10 @@ class ChooseAddressViewModel @Inject constructor(val repository: ChooseAddressRe
     private val _placeDetail: MutableLiveData<Resource<GooglePlacesBean?>> = MutableLiveData()
     val placeDetail: LiveData<Resource<GooglePlacesBean?>> get() = _placeDetail
 
-    fun getCurrentAddres(
-        context: Context?,
-        latitute: Double?,
-        longitute: Double?,
-        handler: Handler?
-    ) {
+    fun getCurrentAddres(context: Context?, latitute: Double?, longitute: Double?, handler: Handler?) {
         viewModelScope.launch {
             _addressResposne.value = Resource.Loading
-            _addressResposne.value = repository.getCurrentAddres(
-                context = context,
-                latitute = latitute,
-                longitute = longitute,
-                handler = handler
-            )
+            _addressResposne.value = repository.getCurrentAddres(context = context, latitute = latitute, longitute = longitute, handler = handler)
         }
     }
 

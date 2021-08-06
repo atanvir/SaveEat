@@ -90,7 +90,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(), View.OnClickList
     private var onCameraLaucher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){ permissions->
         var permission=true
         permissions.entries.forEach {
-            Log.e("DEBUG", "${it.key} = ${it.value}")
             if(!it.value){ permission=it.value }
         }
         when (permission){
@@ -98,19 +97,18 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(), View.OnClickList
                 if (!checkStoragePermissions(this)) requestStoragePermission(this, onScopeResultLaucher = onScopeResultLaucher, onPermissionlaucher = onPermissionlaucher)
                 else path=cameraIntent(this,resultLauncher)
             }
-            else ->{ binding.root.snack("Please Allow Permission to access your camera"){} }
+            else ->{ binding.root.snack(getString(R.string.please_allow_permission_to_access_camera)){} }
         }
     }
 
     private var onPermissionlaucher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
         var permission=true
         permissions.entries.forEach {
-            Log.e("DEBUG", "${it.key} = ${it.value}")
             if(!it.value){ permission=it.value }
         }
         when(permission){
             true ->{ path=cameraIntent(this,resultLauncher) }
-            else ->{ binding.root.snack("Please Allow Permission to access your camera"){} }
+            else ->{ binding.root.snack(getString(R.string.please_allow_permission_to_access_camera)){} }
         }
     }
 

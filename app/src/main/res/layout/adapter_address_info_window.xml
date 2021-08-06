@@ -59,7 +59,7 @@
         <ImageView
             android:layout_width="@dimen/dimen_20sp"
             android:layout_height="@dimen/_17sdp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="37dp"
             android:src="@drawable/bitmap_down_flat_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

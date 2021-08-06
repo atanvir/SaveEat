@@ -8,6 +8,7 @@ import com.saveeat.databinding.ActivityPasswordBinding
 import com.saveeat.ui.activity.auth.login.LoginActivity
 import com.saveeat.ui.activity.location.ChooseAddressActivity
 import com.saveeat.utils.application.CommonUtils.authToolbar
+import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.extn.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,13 +18,12 @@ class PasswordActivity : BaseActivity<ActivityPasswordBinding>(), View.OnClickLi
 
     override fun inits() {
        authToolbar(this)
-
-       if(intent.getStringExtra("type").equals("forgot")){
-            binding.tvTitleLabel.text="Reset Password"
-            binding.tvDescLabel.text="Enter a new Password"
-            binding.clShadowButton.tvButtonLabel.text="Change"
+       if(intent.getStringExtra("type").equals(KeyConstants.FORGOT)){
+            binding.tvTitleLabel.text=getString(R.string.reset_password)
+            binding.tvDescLabel.text=getString(R.string.enter_new_password)
+            binding.clShadowButton.tvButtonLabel.text=getString(R.string.change)
         }else{
-           binding.clShadowButton.tvButtonLabel.text="Save"
+           binding.clShadowButton.tvButtonLabel.text=getString(R.string.save)
         }
     }
 
@@ -37,10 +37,10 @@ class PasswordActivity : BaseActivity<ActivityPasswordBinding>(), View.OnClickLi
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.ivButton ->{
-                if(intent.getStringExtra("type").equals("signup")){
+                if(intent.getStringExtra("type").equals(KeyConstants.SIGNUP)){
                     startActivity(Intent(this,ChooseAddressActivity::class.java))
                 }else{
-                    toast("Your password has been reset")
+                    toast(getString(R.string.password_has_been_reset))
                     finish()
                     startActivity(Intent(this,LoginActivity::class.java))
                 }

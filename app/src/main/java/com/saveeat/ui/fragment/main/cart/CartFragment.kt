@@ -27,7 +27,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener {
         binding.rvProducts.layoutManager=LinearLayoutManager(requireActivity())
         binding.rvProducts.adapter=CartAdapter(requireActivity())
 
-        binding.clShadowButton.tvButtonLabel.text="Checkout"
+        binding.clShadowButton.tvButtonLabel.text=getString(R.string.checkout)
 
 
         val wordtoSpan: Spannable = SpannableString("Continue to checkout to save ₹427 on this order ")
@@ -38,7 +38,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         activity?.findViewById<ConstraintLayout>(R.id.clAddress)?.visibility= View.GONE
-        activity?.findViewById<TextView>(R.id.tvTitle)?.text="Cart"
+        activity?.findViewById<TextView>(R.id.tvTitle)?.text=getString(R.string.cart)
         activity?.findViewById<TextView>(R.id.tvTitle)?.compoundDrawablePadding=16
         activity?.findViewById<TextView>(R.id.tvTitle)?.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null)
         activity?.findViewById<TextView>(R.id.tvTitle)?.visibility= View.VISIBLE

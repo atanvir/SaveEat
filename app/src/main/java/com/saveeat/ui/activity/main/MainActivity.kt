@@ -19,7 +19,6 @@ import java.util.*
 class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
     private lateinit var navController : NavController
-    private var list =arrayOf<String?>("Please select Distance","Within 3 KM","Within 5 KM","Within 10 KM")
 
     override fun getActivityBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -28,7 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             navController=findNavController(this,R.id.fragment)
             binding.bottomNavigationView.setupWithNavController(navController)
             if(intent.getBooleanExtra("menu",false)) binding.bottomNavigationView.selectedItemId=R.id.cartFragment
-            setSpinner(this, list,binding.clMainToolbar.spnAddress,binding.clMainToolbar.tvKMDropDown)
+            setSpinner(this,binding.clMainToolbar.spnAddress,binding.clMainToolbar.tvKMDropDown)
 
         }catch (e: Exception){
         }

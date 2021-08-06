@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Subtotal"
+            android:text="@string/subtotal"
             android:layout_alignParentStart="true"
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_14sp"
@@ -76,7 +76,7 @@
                 android:id="@+id/taxInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tax &amp; Fees"
+                android:text="@string/tax_amp_fees"
                 android:drawableEnd="@drawable/info_2"
                 android:drawablePadding="12dp"
                 android:layout_alignParentStart="true"
@@ -136,7 +136,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total"
+                android:text="@string/total"
                 android:layout_alignParentStart="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_16sp"

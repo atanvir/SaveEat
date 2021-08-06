@@ -57,10 +57,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:text="Type a campaign code to add credits to your
-account. Note that some codes do not work
-more than once and some have special
-conditions to them."
+                android:text="@string/campaign_code_to_add_credit"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_12sp"
@@ -76,7 +73,7 @@ conditions to them."
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:hint="Type the code here"
+                android:hint="@string/type_the_code_here"
                 app:layout_constraintEnd_toEndOf="@+id/textView15"
                 app:layout_constraintStart_toStartOf="@+id/textView15"
                 app:layout_constraintTop_toBottomOf="@+id/textView15">

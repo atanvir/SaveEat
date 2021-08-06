@@ -70,7 +70,7 @@
         style="@style/inter_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Profile"
+        android:text="@string/edit_profile"
         android:textColor="@color/app_theme"
         android:textSize="@dimen/dimen_12sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -178,7 +178,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Phone Number"
+        android:hint="@string/phone_number"
         android:elevation="@dimen/_5sdp"
 
         app:layout_constraintEnd_toEndOf="@+id/tilEmail"

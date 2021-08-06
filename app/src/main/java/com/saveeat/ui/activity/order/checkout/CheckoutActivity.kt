@@ -16,7 +16,7 @@ class CheckoutActivity : BaseActivity<ActivityCheckoutBinding>(), View.OnClickLi
 
     override fun inits() {
         toolbar(this)
-        binding.clShadowButton.tvButtonLabel.text="Checkout"
+        binding.clShadowButton.tvButtonLabel.text=getString(R.string.checkout)
     }
 
     override fun initCtrl() {

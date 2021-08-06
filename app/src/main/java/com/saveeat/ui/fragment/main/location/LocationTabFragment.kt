@@ -24,11 +24,8 @@ class LocationTabFragment : BaseFragment<FragmentTabLocationBinding>(), TabLayou
         binding.viewPager.isUserInputEnabled=false
         binding.viewPager.adapter= LocationTabPagerAdapter(requireActivity())
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            if(position==0)  tab.text ="Map"
-
-            else {
-                tab.text ="List"
-            }
+            if(position==0)  tab.text =getString(R.string.map)
+            else tab.text =getString(R.string.list)
         }.attach()
     }
 

@@ -2,6 +2,7 @@ package com.saveeat.base
 
 import android.app.Application
 import com.google.android.gms.maps.MapView
+import com.saveeat.utils.application.CommonUtils.generateFCMToken
 import dagger.hilt.android.HiltAndroidApp
 
 
@@ -16,6 +17,8 @@ class BaseApplication : Application() {
                 mv.onPause()
                 mv.onDestroy()
             } catch (ignored: Exception) {
+            }finally {
+                generateFCMToken(this)
             }
         }.start()
     }
