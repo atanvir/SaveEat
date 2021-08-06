@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.saveeat.R
 import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentFavouriteBinding
-import com.saveeat.ui.adapter.menu.CategoryAdapter
+import com.saveeat.ui.adapter.home.HomeCategoryAdapter
 import com.saveeat.utils.application.StaticDataHelper
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,7 +29,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
 
     override fun init() {
         binding.rvFavourites.layoutManager=LinearLayoutManager(requireActivity())
-        binding.rvFavourites.adapter= CategoryAdapter(requireActivity(),StaticDataHelper.getFavData())
+        binding.rvFavourites.adapter= HomeCategoryAdapter(requireActivity(),StaticDataHelper.getFavData())
     }
     override fun initCtrl() {
     }

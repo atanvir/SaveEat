@@ -1,3 +1,3 @@
-package com.saveeat.model.response.Google.PLACE_API
+package com.saveeat.model.response.Google.place
 
 data class Location(val lat: Double, val lng: Double)

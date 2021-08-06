@@ -26,4 +26,5 @@
     <string name="dishes_restaurant">Search for dishes or restaurants</string>
     <string name="show_restaurants_in_this_area">Show restaurants in this area</string>
     <string name="search">Search</string>
+    <string name="add_to_cart">Add to cart</string>
 </resources>

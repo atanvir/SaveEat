@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.biteMe.ui.adapter.autocomplete.onAutoCompleteItemClick
 import com.saveeat.R
 import com.saveeat.databinding.AdapterAutoCompleteAddressBinding
 import com.saveeat.model.request.address.PlacesModel

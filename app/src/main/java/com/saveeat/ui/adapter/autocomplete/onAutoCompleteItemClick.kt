@@ -1,4 +1,4 @@
-package com.biteMe.ui.adapter.autocomplete
+package com.saveeat.ui.adapter.autocomplete
 
 interface onAutoCompleteItemClick {
     fun onClick(placeId:String?,spotName:String?)

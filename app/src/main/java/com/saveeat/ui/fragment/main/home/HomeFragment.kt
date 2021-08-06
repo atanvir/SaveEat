@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.saveeat.R
 import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentHomeBinding
-import com.saveeat.ui.adapter.menu.CategoryAdapter
+import com.saveeat.ui.adapter.home.HomeCategoryAdapter
 import com.saveeat.utils.application.StaticDataHelper.homeData
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +21,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener {
 
     override fun init() {
         binding.rvHome.layoutManager=LinearLayoutManager(requireActivity())
-        binding.rvHome.adapter=CategoryAdapter(requireActivity(),homeData())
+        binding.rvHome.adapter= HomeCategoryAdapter(requireActivity(),homeData())
     }
 
     override fun initCtrl() {

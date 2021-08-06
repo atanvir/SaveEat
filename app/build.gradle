@@ -13,16 +13,16 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
-        applicationId "com.saveeat"
+        applicationId 'com.saveeat'
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName '1.0'
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -45,7 +45,7 @@ android {
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.21"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.21'
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
@@ -61,33 +61,33 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
     // Lottie Files
-    implementation "com.airbnb.android:lottie:3.4.0"
+    implementation 'com.airbnb.android:lottie:3.4.0'
 
     // OTP View
     implementation 'com.github.aabhasr1:OtpView:v1.1.2-ktx'
 
     // Fragment KTX
-    implementation "androidx.fragment:fragment-ktx:1.3.6"
+    implementation 'androidx.fragment:fragment-ktx:1.3.6'
 
     // Activity KTX
-    implementation "androidx.activity:activity-ktx:1.3.0"
+    implementation 'androidx.activity:activity-ktx:1.3.0'
 
     // Navigation KTX
-    implementation "androidx.navigation:navigation-runtime-ktx:2.3.5"
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+    implementation 'androidx.navigation:navigation-runtime-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
     // LiveData KTX
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
 
     // Lifecycle KTX
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
 
     // ViewModel KTX
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 
     // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
@@ -97,11 +97,11 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
 
     // Dagger-Hilt
-    implementation "com.google.dagger:hilt-android:2.33-beta"
+    implementation 'com.google.dagger:hilt-android:2.33-beta'
     annotationProcessor 'androidx.room:room-compiler:2.3.0'
-    kapt "com.google.dagger:hilt-compiler:2.33-beta"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
-    kapt "androidx.hilt:hilt-compiler:1.0.0"
+    kapt 'com.google.dagger:hilt-compiler:2.33-beta'
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
@@ -111,7 +111,7 @@ dependencies {
 
     // Room Database
     api 'androidx.room:room-runtime:2.3.0'
-    kapt "androidx.room:room-compiler:2.3.0"
+    kapt 'androidx.room:room-compiler:2.3.0'
 
 //    //Paging
 //    implementation 'androidx.paging:paging-runtime-ktx:3.0.0'
@@ -136,20 +136,21 @@ dependencies {
 
 
     //AWS SDK
-    implementation "com.amazonaws:aws-android-sdk-s3:2.16.13"
-    implementation ("com.amazonaws:aws-android-sdk-mobile-client:2.16.13") { transitive = true }
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.16.13'
+    implementation ('com.amazonaws:aws-android-sdk-mobile-client:2.16.13') { transitive = true }
 
     // Compressor
     implementation 'id.zelory:compressor:3.0.1'
 
 
     //Firebase
-    implementation platform('com.google.firebase:firebase-bom:26.5.0')
-    implementation 'com.google.firebase:firebase-messaging:22.0.0'
-    implementation 'com.google.firebase:firebase-auth'
-    implementation 'androidx.browser:browser:1.3.0'
+    implementation platform('com.google.firebase:firebase-bom:28.3.0')
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'androidx.browser:browser:1.3.0'
+
 //    implementation 'com.google.firebase:firebase-perf-ktx'
 
 

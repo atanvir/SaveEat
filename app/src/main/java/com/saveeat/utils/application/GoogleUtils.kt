@@ -1,6 +1,6 @@
 package com.saveeat.utils.application
 
-import com.saveeat.model.response.Google.AUTO_COMPLETE_API.AutoCompleteModel
+import com.saveeat.model.response.Google.autocomplete.AutoCompleteModel
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.saveeat.model.request.address.PlacesModel

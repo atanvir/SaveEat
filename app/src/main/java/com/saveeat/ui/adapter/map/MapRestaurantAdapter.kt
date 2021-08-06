@@ -21,17 +21,14 @@ class MapRestaurantAdapter(var context: Context?,var list: MutableList<Restauarn
 
     override fun getItemCount(): Int = list?.size?:0
 
-    inner class MyViewHolder(var binding: AdapterRestaurantMapBinding) : RecyclerView.ViewHolder(binding.root),
-        View.OnClickListener {
+    inner class MyViewHolder(var binding: AdapterRestaurantMapBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
             binding.cvMain.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
             when(v?.id){
-                R.id.cvMain ->{
-                   context?.startActivity(Intent(context,MenuActivity::class.java))
-                }
+                R.id.cvMain ->{ context?.startActivity(Intent(context,MenuActivity::class.java)) }
             }
         }
     }

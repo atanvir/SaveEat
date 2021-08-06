@@ -17,7 +17,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.biteMe.ui.adapter.autocomplete.onAutoCompleteItemClick
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.android.material.snackbar.Snackbar
@@ -28,6 +27,7 @@ import com.saveeat.model.request.address.PlacesModel
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.adapter.address.AddressInfoWindow
 import com.saveeat.ui.adapter.autocomplete.AutoCompleteAddressAdapter
+import com.saveeat.ui.adapter.autocomplete.onAutoCompleteItemClick
 import com.saveeat.utils.application.CommonUtils.setSpinner
 import com.saveeat.utils.application.Resource
 import com.saveeat.utils.extn.*

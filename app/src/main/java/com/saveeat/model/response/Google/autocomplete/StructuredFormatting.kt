@@ -1,4 +1,4 @@
-package com.saveeat.model.response.Google.AUTO_COMPLETE_API
+package com.saveeat.model.response.Google.autocomplete
 
 data class StructuredFormatting(
     val main_text: String,

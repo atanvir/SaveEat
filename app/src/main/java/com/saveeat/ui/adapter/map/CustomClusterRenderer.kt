@@ -12,7 +12,6 @@ import com.saveeat.R
 
 
 class CustomClusterRenderer(var context: Context?, var map: GoogleMap?,var clusterManager: ClusterManager<ClusterItemAdapter?>?) : DefaultClusterRenderer<ClusterItemAdapter>(context,map,clusterManager){
-
     var count : Int=0
     override fun onBeforeClusterItemRendered(item: ClusterItemAdapter, markerOptions: MarkerOptions) {
         var descriptor : BitmapDescriptor?=null
@@ -20,9 +19,7 @@ class CustomClusterRenderer(var context: Context?, var map: GoogleMap?,var clust
         else BitmapDescriptorFactory.fromResource(R.drawable.group_4001)
         count += 1
         markerOptions.icon(descriptor)
-
     }
-
 
     override fun getColor(clusterSize: Int): Int = ContextCompat.getColor(context!!,R.color.app_theme)
 

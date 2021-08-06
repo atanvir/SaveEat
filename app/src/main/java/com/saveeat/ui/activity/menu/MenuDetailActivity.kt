@@ -19,7 +19,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
     override fun getActivityBinding(): ActivityMenuDetailBinding = ActivityMenuDetailBinding.inflate(layoutInflater)
 
     override fun inits() {
-        binding.clShadowButton.tvButtonLabel.text="Add to cart"
+        binding.clShadowButton.tvButtonLabel.text=getString(R.string.add_to_cart)
         binding.rvChoices.layoutManager=LinearLayoutManager(this)
         binding.rvChoices.adapter = MenuMultipleChoiceAdapter(this)
         binding.mp.paintFlags= binding.mp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -47,7 +47,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
                 }
             }
         })
-
     }
 
     override fun observer() {
@@ -55,7 +54,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
 
     override fun onClick(v: View?) {
         when(v?.id){
-
             R.id.ivButton ->{ startActivity(Intent(this,MainActivity::class.java).putExtra("menu",true)) }
             R.id.ivPlus ->{
               var count =binding.clQuantity.tvQuantity.text.toString().toInt()

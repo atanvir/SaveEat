@@ -1,6 +1,6 @@
 package com.saveeat.repository.remote.Google
 
-import com.saveeat.model.response.Google.PLACE_API.GooglePlacesBean
+import com.saveeat.model.response.Google.place.GooglePlacesBean
 import com.saveeat.repository.remote.Google.GoogleConstant.PLACE_DETAIL
 import com.saveeat.utils.application.KeyConstants
 import retrofit2.http.GET
