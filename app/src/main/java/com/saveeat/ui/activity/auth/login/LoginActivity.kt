@@ -30,7 +30,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
+        when(v?.id) {
             R.id.tvSignup ->{ startActivity(Intent(this,SignUpActivity::class.java)) }
             R.id.tvForgotPassword ->{ startActivity(Intent(this,ForgotPasswordActivity::class.java)) }
             R.id.ivButton ->{ startActivity(Intent(this,MainActivity::class.java))}

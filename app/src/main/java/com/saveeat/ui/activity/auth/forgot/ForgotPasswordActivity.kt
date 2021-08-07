@@ -12,7 +12,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ForgotPasswordActivity : BaseActivity<ActivityForgotPasswordBinding>(), View.OnClickListener {
 
-
     override fun getActivityBinding(): ActivityForgotPasswordBinding = ActivityForgotPasswordBinding.inflate(layoutInflater)
 
     override fun inits() {

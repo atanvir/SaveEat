@@ -15,6 +15,7 @@ import com.saveeat.ui.activity.drawer.payment.PaymentActivity
 import com.saveeat.ui.activity.drawer.reward.RewardActivity
 import com.saveeat.ui.adapter.rewards.RewardsAdapter
 import com.saveeat.utils.application.StaticDataHelper
+import com.saveeat.utils.application.StaticDataHelper.getRewardModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,8 +23,8 @@ class DrawerActivity : BaseActivity<ActivityDrawerBinding>(), View.OnClickListen
     override fun getActivityBinding(): ActivityDrawerBinding = ActivityDrawerBinding.inflate(layoutInflater)
     override fun inits() {
         binding.rvRewards.apply {
-           layoutManager= LinearLayoutManager(this@DrawerActivity, LinearLayoutManager.HORIZONTAL,false)
-           adapter= RewardsAdapter(this@DrawerActivity, StaticDataHelper.getRewardModel())
+           layoutManager = LinearLayoutManager(this@DrawerActivity, LinearLayoutManager.HORIZONTAL,false)
+           adapter = RewardsAdapter(this@DrawerActivity, getRewardModel())
         }
     }
 
@@ -42,16 +43,15 @@ class DrawerActivity : BaseActivity<ActivityDrawerBinding>(), View.OnClickListen
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            // Slider bar
-            R.id.ivBack ->{onBackPressed()}
-            R.id.ivRewards ->{ startActivity(Intent(this, RewardActivity::class.java))}
-            R.id.tvPaymentInformation ->{ startActivity(Intent(this, PaymentActivity::class.java))}
-            R.id.tvOrderDetail ->{ startActivity(Intent(this,OrderHistoryActivity::class.java))}
-            R.id.tvCreditWallet ->{ startActivity(Intent(this, CreditActivity::class.java))}
+        when(v?.id) {
+            R.id.ivBack ->{ onBackPressed() }
+            R.id.ivRewards ->{ startActivity(Intent(this, RewardActivity::class.java)) }
+            R.id.tvPaymentInformation ->{ startActivity(Intent(this, PaymentActivity::class.java)) }
+            R.id.tvOrderDetail ->{ startActivity(Intent(this,OrderHistoryActivity::class.java)) }
+            R.id.tvCreditWallet ->{ startActivity(Intent(this, CreditActivity::class.java)) }
             R.id.tvHiddenLocation ->{ startActivity(Intent(this,HiddenLocationActivity::class.java)) }
-            R.id.tvHelp ->{ startActivity(Intent(this,HelpActivity::class.java))}
-            R.id.tvLogout ->{startActivity(Intent(this, LoginActivity::class.java))}
+            R.id.tvHelp ->{ startActivity(Intent(this,HelpActivity::class.java)) }
+            R.id.tvLogout ->{ startActivity(Intent(this, LoginActivity::class.java)) }
         }
     }
 }

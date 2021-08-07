@@ -158,5 +158,19 @@ dependencies {
     // Heart Animator
     //implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 
+    // Date Store
+
+//    // Typed DataStore (Typed API surface, such as Proto)
+//    implementation("androidx.datastore:datastore:1.0.0")
+//
+//    // Preferences DataStore (SharedPreferences like APIs)
+//
+//    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation 'androidx.datastore:datastore-preferences:1.0.0'
+
+
+
+
+
 
 }

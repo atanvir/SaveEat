@@ -52,8 +52,6 @@ object CommonUtils {
 
     fun authToolbar(activity: AppCompatActivity){
         val ivBack =activity.findViewById<ImageView>(R.id.ivBack)
-
-
         val clMainToolbar=activity.findViewById<ConstraintLayout>(R.id.toolbar)
         clMainToolbar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
@@ -114,7 +112,6 @@ object CommonUtils {
         }
 
         override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
-
             val view = super.getDropDownView(position?:0, convertView, parent)
             val tv = view as TextView
             if (position == 0) tv.setTextColor(ContextCompat.getColor(context,R.color.grey))
@@ -153,8 +150,5 @@ object CommonUtils {
             false
         }
     }
-
-
-
 
 }

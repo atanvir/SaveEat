@@ -213,9 +213,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                         marker?.showInfoWindow()
                     }
                     HIDE_INFO_WINDOW -> { marker?.hideInfoWindow() }
-                    else ->{
-                        binding.pbLoader.visibility=View.VISIBLE
-                    }
+                    else ->{ binding.pbLoader.visibility=View.VISIBLE }
                 }
             }
         }

@@ -12,7 +12,6 @@ import com.saveeat.databinding.AdapterAutoCompleteAddressBinding
 import com.saveeat.model.request.address.PlacesModel
 import com.saveeat.utils.application.GoogleUtils.autocomplete
 
-
 class AutoCompleteAddressAdapter(var context: Context, var list: MutableList<PlacesModel?>?, var listner: onAutoCompleteItemClick?) : RecyclerView.Adapter<AutoCompleteAddressAdapter.MyViewHolder>(), Filterable {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder = MyViewHolder(AdapterAutoCompleteAddressBinding.inflate(LayoutInflater.from(context),parent,false))
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
