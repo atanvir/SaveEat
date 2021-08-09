@@ -21,12 +21,12 @@
             android:id="@+id/cvMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
             app:cardCornerRadius="@dimen/_12sdp"
             app:cardElevation="@dimen/_5sdp"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -190,14 +190,12 @@
                     app:layout_constraintVertical_bias="0.0" />
 
 
-
-
                 <TextView
                     android:id="@+id/textView6"
                     style="@style/inter_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="21dp"
                     android:drawableStart="@drawable/fi_rr_location_alt"
                     android:drawablePadding="6dp"
                     android:text="@{data.distnace}"

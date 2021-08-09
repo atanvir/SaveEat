@@ -16,6 +16,7 @@ import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentCartBinding
 import com.saveeat.ui.activity.order.checkout.CheckoutActivity
 import com.saveeat.ui.adapter.cart.CartAdapter
+import com.saveeat.ui.dialog.DatePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -47,6 +48,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener {
         binding.clShadowButton.ivButton.setOnClickListener(this)
         binding.clBilling.taxInfo.setOnClickListener(this)
         binding.clBilling.clTaxInfo.ivCLose.setOnClickListener(this)
+        binding.btnPickLater.setOnClickListener(this)
     }
 
     override fun observer() {
@@ -57,6 +59,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener {
             R.id.ivButton ->{ startActivity(Intent(requireActivity(),CheckoutActivity::class.java)) }
             R.id.taxInfo ->{ binding.clBilling.clTaxInfo.clTaxInfo.visibility=View.VISIBLE }
             R.id.ivCLose ->{ binding.clBilling.clTaxInfo.clTaxInfo.visibility=View.GONE }
+            R.id.btnPickLater ->{ DatePickerFragment().show(requireActivity().supportFragmentManager,"") }
         }
     }
 

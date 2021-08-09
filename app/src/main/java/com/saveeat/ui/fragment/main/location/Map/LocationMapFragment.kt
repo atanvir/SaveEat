@@ -106,6 +106,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
             mMap?.uiSettings?.isMyLocationButtonEnabled = true
 
         }
+        mMap.uiSettings.isCompassEnabled = false
         mMap?.uiSettings?.isScrollGesturesEnabledDuringRotateOrZoom=false
         mMap?.uiSettings?.isZoomControlsEnabled=true
 

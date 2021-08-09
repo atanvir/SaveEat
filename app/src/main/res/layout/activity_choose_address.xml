@@ -180,6 +180,7 @@
             android:id="@+id/view17"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="3dp"
+            android:visibility="invisible"
             android:layout_marginBottom="3dp"
             android:background="@drawable/background_common_button"
 
@@ -252,6 +253,8 @@
             android:id="@+id/view"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="3dp"
+            android:visibility="invisible"
+
             android:background="@drawable/background_common_button"
             android:backgroundTint="@color/sv_location_grey"
             app:layout_constraintEnd_toEndOf="parent"
@@ -307,6 +310,7 @@
             android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/location_current"
             android:drawablePadding="12dp"
+
             android:text=""
             android:maxLines="2"
             android:ellipsize="end"

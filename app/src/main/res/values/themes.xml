@@ -314,7 +314,7 @@
     </style>
 
 
-    <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
+    <style name="rating_white" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/drawable_rating</item>
         <item name="android:minHeight">18dip</item>
         <item name="android:maxHeight">18dip</item>

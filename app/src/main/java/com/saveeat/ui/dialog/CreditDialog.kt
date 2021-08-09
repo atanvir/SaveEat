@@ -14,7 +14,6 @@ class CreditDialog : BaseDialog<DialogCreditBinding>(), View.OnClickListener {
 
     override fun init() {
         binding.clShadowButton.tvButtonLabel.text=getString(R.string.send)
-
     }
 
     override fun initCtrl() {

@@ -165,6 +165,8 @@ object StaticDataHelper {
         list?.add(MenuCategoryModel(name="Main Course",selected = false))
         list?.add(MenuCategoryModel(name="Desserts",selected = false))
         list?.add(MenuCategoryModel(name="Bevera",selected = false))
+        list?.add(MenuCategoryModel(name="Pizza",selected = false))
+        list?.add(MenuCategoryModel(name="Salad",selected = false))
         return list
     }
 

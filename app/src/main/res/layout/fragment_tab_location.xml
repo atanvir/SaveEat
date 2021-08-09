@@ -18,6 +18,7 @@
         android:drawableStart="@drawable/group_3993"
         android:drawablePadding="8sp"
         android:text="Browse"
+        android:visibility="gone"
         android:elevation="2dp"
         android:textSize="@dimen/dimen_16sp"
         app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
