@@ -52,7 +52,6 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     private var latitute: Double =0.0
     private var longitute: Double =0.0
 
-
     private var curLatitude: Double =0.0
     private var curLongitude: Double =0.0
 
