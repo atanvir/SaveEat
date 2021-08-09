@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.96">
+            app:layout_constraintGuide_end="7dp">
 
         </androidx.constraintlayout.widget.Guideline>
 
@@ -115,6 +115,7 @@
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
             android:visibility="gone"
+            android:layout_marginBottom="5sp"
             app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toTopOf="@+id/tvKMDropDown"
             app:layout_constraintEnd_toEndOf="@+id/svLocation"
@@ -125,19 +126,24 @@
             android:id="@+id/pbPlaces"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:layout_margin="@dimen/_20sdp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/rvPlaces"
+            android:elevation="5sp"
+            app:layout_constraintBottom_toTopOf="@+id/barrierKM"
             app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
             app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
-            app:layout_constraintTop_toBottomOf="@+id/svLocation" />
+            app:layout_constraintTop_toBottomOf="@+id/svLocation"
+            app:layout_goneMarginBottom="0sp"
+            app:layout_goneMarginTop="0sp" />
 
 
         <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierKM"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="pbPlaces,rvPlaces"
+            app:constraint_referenced_ids="rvPlaces,pbPlaces"
             app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
             app:layout_constraintStart_toStartOf="@+id/guideLineEnd" />
 
@@ -147,8 +153,7 @@
             style="@style/poppin_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="16dp"
             android:drawableRight="@drawable/polygon_1"
             android:drawablePadding="5dp"
             android:singleLine="true"
@@ -158,10 +163,10 @@
             android:textStyle="normal"
             android:visibility="visible"
             app:layout_constrainedWidth="true"
-            app:layout_constraintBottom_toTopOf="@+id/view17"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/svLocation"
             app:layout_constraintStart_toStartOf="@+id/svLocation"
-            app:layout_constraintTop_toBottomOf="@+id/rvPlaces" />
+            app:layout_constraintTop_toBottomOf="@+id/barrierKM" />
 
         <Spinner
             android:id="@+id/spnAddress"

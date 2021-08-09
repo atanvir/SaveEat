@@ -11,7 +11,7 @@ import com.saveeat.R
 import com.saveeat.databinding.AdapterMenuCategoryBinding
 import com.saveeat.model.request.menu.MenuCategoryModel
 
-class MenuCategoryAdapter(var context: Context?,var list: List<MenuCategoryModel?>?) : RecyclerView.Adapter<MenuCategoryAdapter.MyViewHolder>() {
+class MenuCategoryAdapter(var context: Context?,var list: List<MenuCategoryModel?>?,var onItemClick: ((Int)->Unit) ?= null) : RecyclerView.Adapter<MenuCategoryAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuCategoryAdapter.MyViewHolder = MyViewHolder(AdapterMenuCategoryBinding.inflate(LayoutInflater.from(context),parent,false))
 
     override fun onBindViewHolder(holder: MenuCategoryAdapter.MyViewHolder, position: Int) {
@@ -25,8 +25,7 @@ class MenuCategoryAdapter(var context: Context?,var list: List<MenuCategoryModel
 
     override fun getItemCount(): Int = list?.size?:0
 
-    inner class MyViewHolder(var binding: AdapterMenuCategoryBinding): RecyclerView.ViewHolder(binding.root),
-        View.OnClickListener {
+    inner class MyViewHolder(var binding: AdapterMenuCategoryBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
             binding.clMain.setOnClickListener(this)
         }
@@ -39,6 +38,7 @@ class MenuCategoryAdapter(var context: Context?,var list: List<MenuCategoryModel
                     }
 
                     list?.get(adapterPosition)?.selected=true
+                    onItemClick?.invoke(adapterPosition)
                     notifyDataSetChanged()
                 }
             }

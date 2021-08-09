@@ -72,8 +72,8 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     override fun initCtrl() {
         binding.ivClose.setOnClickListener(this)
         binding.svLocation.setOnClickListener(this)
-        binding.svLocation.onTextChanged {
-            binding.rvPlaces.visibility=View.INVISIBLE
+        binding.svLocation.onAfterChanged {
+            binding.rvPlaces.visibility=View.VISIBLE
             binding.pbPlaces.visibility=View.VISIBLE
             (binding.rvPlaces.adapter as AutoCompleteAddressAdapter).filter.filter(it)
         }

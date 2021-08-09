@@ -5,6 +5,8 @@ import com.saveeat.model.request.brand.BrandModel
 import com.saveeat.model.request.menu.MenuCategoryModel
 import com.saveeat.model.request.restaurant.*
 import com.saveeat.model.request.reward.RewardModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 object StaticDataHelper {
 
@@ -175,6 +177,55 @@ object StaticDataHelper {
         list?.addAll(getOrganeList()!!)
         list?.addAll(getOrganeList2()!!)
         list?.addAll(getBlurData()!!)
+        Collections.shuffle(list)
+
         return list
     }
+
+
+    fun menuData2(): MutableList<RestaurantProductModel?>? {
+        val list: MutableList<RestaurantProductModel?>? = ArrayList()
+        list?.addAll(getOrganeList()!!)
+        list?.addAll(getOrganeList2()!!)
+//        list?.addAll(getBlurData()!!)
+        Collections.shuffle(list)
+        return list
+    }
+
+
+
+    fun menuData3(): MutableList<RestaurantProductModel?>? {
+        val list: MutableList<RestaurantProductModel?>? = ArrayList()
+        list?.addAll(getOrganeList()!!)
+//        list?.addAll(getOrganeList2()!!)
+//        list?.addAll(getBlurData()!!)
+        Collections.shuffle(list)
+
+        return list
+
+    }
+
+
+    fun menuData4(): MutableList<RestaurantProductModel?>? {
+        val list: MutableList<RestaurantProductModel?>? = ArrayList()
+//        list?.addAll(getOrganeList()!!)
+//        list?.addAll(getOrganeList2()!!)
+        list?.addAll(getBlurData()!!)
+        list?.shuffle()
+
+        return list
+    }
+
+
+    fun menuData5(): MutableList<RestaurantProductModel?>? {
+        val list: MutableList<RestaurantProductModel?>? = ArrayList()
+//        list?.addAll(getOrganeList()!!)
+        list?.addAll(getOrganeList2()!!)
+        list?.addAll(getBlurData()!!)
+        Collections.shuffle(list)
+
+        return list
+    }
+
+
 }
