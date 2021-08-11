@@ -7,7 +7,5 @@ object AWSConstants {
     val REGION: Regions = Regions.US_EAST_2
     const val BUCKET_NAME: String = "foodapp123"
     const val FOLDER_PATH: String ="profilePic/"
-    const val IMAGE_FORMAT: String = "image/jpeg"
-    const val S3_URL: String = "https://$BUCKET_NAME.s3.ap-south-1.amazonaws.com/"
-    const val FINALE_IMAGE_URL: String=S3_URL+FOLDER_PATH
+    const val IMAGE_URL: String="https://$BUCKET_NAME.s3.amazonaws.com/$FOLDER_PATH"
 }

@@ -41,13 +41,13 @@ class AWSUtils(private val context: Context?, private val filePath: String?, val
         listner?.onAWSLoader(true)
         if (TextUtils.isEmpty(filePath)) {
             listner?.onAWSLoader(false)
-            listner?.onAWSError("No Such Image File Found!")
+            listner?.onAWSError("No such file found!")
         }
         else{
         try {
             image=Compressor.compress(context!!,File(filePath?:""))
             val observer = transferUtility?.upload(BUCKET_NAME, FOLDER_PATH+image?.name, image)
-            observer?.setTransferListener(AWSCallback(image, client, listner))
+            observer?.setTransferListener(AWSCallback(image,listner))
 
         } catch (e: Exception) {
             listner?.onAWSLoader(false)

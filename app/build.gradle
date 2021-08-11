@@ -7,8 +7,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'com.google.firebase.crashlytics'
     id 'com.google.gms.google-services'
-//    id 'com.google.firebase.firebase-perf'
-
+  //id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -21,7 +20,6 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName '1.0'
-
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
@@ -70,7 +68,7 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.3.6'
 
     // Activity KTX
-    implementation 'androidx.activity:activity-ktx:1.3.0'
+    implementation 'androidx.activity:activity-ktx:1.3.1'
 
     // Navigation KTX
     implementation 'androidx.navigation:navigation-runtime-ktx:2.3.5'
@@ -93,7 +91,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
 
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
 
     // Dagger-Hilt
@@ -106,34 +104,26 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
 
-    // Google Play Services
-    implementation 'com.google.android.gms:play-services-location:18.0.0'
-
     // Room Database
     api 'androidx.room:room-runtime:2.3.0'
     kapt 'androidx.room:room-compiler:2.3.0'
 
-//    //Paging
-//    implementation 'androidx.paging:paging-runtime-ktx:3.0.0'
-
     // Dimens
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
-    implementation 'com.github.ibrahimsn98:PhoneNumberKit:1.6.2'
 
     // Country Code Picker
     implementation 'com.hbb20:ccp:2.4.5'
+    implementation 'com.github.ibrahimsn98:PhoneNumberKit:1.6.2'
 
     // Pin View
     implementation 'io.github.chaosleung:pinview:1.4.4'
-
 
     // Google Play Services
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation 'net.sharewire:google-maps-clustering:0.1.3'
     implementation 'com.google.maps.android:android-maps-utils:2.0.1'
-
-
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 
     //AWS SDK
     implementation 'com.amazonaws:aws-android-sdk-s3:2.16.13'
@@ -142,7 +132,6 @@ dependencies {
     // Compressor
     implementation 'id.zelory:compressor:3.0.1'
 
-
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:28.3.0')
     implementation 'com.google.firebase:firebase-messaging-ktx'
@@ -150,27 +139,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'androidx.browser:browser:1.3.0'
+    //implementation 'com.google.firebase:firebase-perf-ktx'
 
-//    implementation 'com.google.firebase:firebase-perf-ktx'
-
-
-
-    // Heart Animator
-    //implementation 'com.github.jd-alexander:LikeButton:0.2.3'
-
-    // Date Store
-
-//    // Typed DataStore (Typed API surface, such as Proto)
-//    implementation("androidx.datastore:datastore:1.0.0")
-//
-//    // Preferences DataStore (SharedPreferences like APIs)
-//
-//    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation 'androidx.datastore:datastore-preferences:1.0.0'
-
-
-
-
-
-
+    // DataStore
+     implementation 'androidx.datastore:datastore-preferences:1.0.0'
 }

@@ -35,6 +35,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveEat"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name="com.saveeat.ui.activity.order.checkout.CheckoutActivity"
             android:theme="@style/white_theme"

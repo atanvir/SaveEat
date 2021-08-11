@@ -23,10 +23,8 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
         binding.rvMenuCategories.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
         binding.rvMenuCategories.adapter=MenuCategoryAdapter(this,StaticDataHelper.getMenuCategory(),this)
 
-
         binding.rvProducts.layoutManager=GridLayoutManager(this,2)
         binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData(),true)
-
     }
 
     override fun initCtrl() {
@@ -58,7 +56,6 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
                     binding.cvMain.visibility=View.VISIBLE
                     binding.tvToolbarHeader.visibility=View.INVISIBLE
                     binding.ivRestroImage.visibility=View.INVISIBLE
-
                 }
             }
         })
@@ -82,12 +79,14 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
         binding.rvMenuCategories.smoothScrollToPosition(p1)
         binding.nestedSvProduct.scrollTo(0,0)
         (binding.rvProducts.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
-        if(p1==0) binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData(),true)
-        else if(p1==1) binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData2(),true)
-        else if(p1==2) binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData3(),true)
-        else if(p1==3) binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData4(),true)
-        else if(p1==4) binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData5(),true)
-        else binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData(),true)
+        when (p1) {
+            0 -> binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData(),true)
+            1 -> binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData2(),true)
+            2 -> binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData3(),true)
+            3 -> binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData4(),true)
+            4 -> binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData5(),true)
+            else -> binding.rvProducts.adapter= RestaurantAdapter(this,StaticDataHelper.menuData(),true)
+        }
     }
 
 

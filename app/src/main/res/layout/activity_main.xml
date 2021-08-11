@@ -32,7 +32,6 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             app:contentScrim="@color/white"
             app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
@@ -82,7 +81,6 @@
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
 
 <!--    <com.google.android.material.navigation.NavigationView-->

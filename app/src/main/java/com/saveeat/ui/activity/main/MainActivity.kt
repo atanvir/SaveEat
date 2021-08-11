@@ -23,16 +23,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     override fun getActivityBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun inits() {
-        try{
-            navController=findNavController(this,R.id.fragment)
-            binding.bottomNavigationView.setupWithNavController(navController)
-            if(intent.getBooleanExtra("menu",false)) binding.bottomNavigationView.selectedItemId=R.id.cartFragment
-            setSpinner(this,binding.clMainToolbar.spnAddress,binding.clMainToolbar.tvKMDropDown)
-
-        }catch (e: Exception){
-        }
+        navController=findNavController(this,R.id.fragment)
+        binding.bottomNavigationView.setupWithNavController(navController)
+        if(intent.getBooleanExtra("menu",false)) binding.bottomNavigationView.selectedItemId=R.id.cartFragment
+        setSpinner(this,binding.clMainToolbar.spnAddress,binding.clMainToolbar.tvKMDropDown)
     }
-
 
 
     override fun initCtrl() {
