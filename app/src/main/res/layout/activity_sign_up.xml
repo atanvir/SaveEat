@@ -3,11 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <import type="com.saveeat.utils.application.CommonUtils"/>
+        <variable
+            name="model"
+            type="com.saveeat.model.request.auth.signup.SignupModel" />
+    </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_orange"
-        tools:context=".ui.activity.auth.login.LoginActivity">
+        tools:context=".ui.activity.auth.signup.SignUpActivity">
 
 
         <include
@@ -95,6 +103,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
                     android:hint="@string/full_name"
+
                     app:layout_constraintEnd_toStartOf="@+id/guideEnd"
                     app:layout_constraintStart_toStartOf="@+id/guideStart"
                     app:layout_constraintTop_toBottomOf="@+id/tvLabel">
@@ -107,6 +116,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress|textNoSuggestions"
                         android:maxLength="55"
+                        android:text="@={model.name}"
                         android:singleLine="true"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dimen_14sp" />
@@ -133,6 +143,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress|textNoSuggestions"
                         android:maxLength="55"
+                        android:text="@={model.email}"
                         android:singleLine="true"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dimen_14sp" />
@@ -180,7 +191,6 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/guideEnd"
                     app:layout_constraintStart_toStartOf="@+id/guideStart"
                     app:layout_constraintTop_toBottomOf="@+id/clShadowButton">

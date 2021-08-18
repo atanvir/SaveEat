@@ -1,4 +1,4 @@
-package com.saveeat.model.response.SaveEat
+package com.saveeat.model.response.SaveEat.bean
 
 import android.os.Parcelable
 import androidx.room.TypeConverters

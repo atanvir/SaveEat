@@ -29,6 +29,7 @@ object KeyConstants{
     const val GETTING_ADDRESS = 1
     const val NOT_SERVE_THIS_AREA = 2
     const val HIDE_INFO_WINDOW = 3
+    const val PREF_NAME="cache_data"
 
 
     val FORGOT: String?="forgot"

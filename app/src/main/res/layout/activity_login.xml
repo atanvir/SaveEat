@@ -4,11 +4,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+
+        <variable
+            name="model"
+            type="com.saveeat.model.request.auth.login.LoginModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_orange"
        tools:context=".ui.activity.auth.login.LoginActivity">
+
+
+
 
 
     <include
@@ -62,33 +73,59 @@
                 app:layout_constraintStart_toStartOf="@+id/guideStart"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilEmail"
+                android:id="@+id/tilPhoneNo"
                 style="@style/formInputLayoutNormal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
-                android:hint="@string/email"
+                android:hint="@string/phone_number"
                 app:layout_constraintEnd_toStartOf="@+id/guideEnd"
                 app:layout_constraintStart_toStartOf="@+id/guideStart"
                 app:layout_constraintTop_toBottomOf="@+id/tvLabel">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tieEmail"
+                    android:id="@+id/tiePhoneNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/poppin_regular"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress|textNoSuggestions"
-                    android:maxLength="55"
+                    android:imeOptions="actionDone"
+                    android:ems="10"
+                    android:importantForAutofill="no"
+                    android:inputType="textNoSuggestions|textVisiblePassword"
+                    android:maxLength="14"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimen_14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/countryCodePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:elevation="@dimen/_2sdp"
+                app:ccpDialog_backgroundColor="@color/white"
+                app:ccpDialog_textColor="@color/black"
+                app:ccp_arrowColor="@color/black"
+                android:visibility="invisible"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_autoDetectLanguage="true"
+                app:ccp_contentColor="@color/black"
+                app:ccp_showFlag="false"
+                app:ccp_showNameCode="false"
+                app:ccp_textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tilPhoneNo"
+                app:layout_constraintStart_toStartOf="@+id/tilPhoneNo"
+                app:layout_constraintTop_toTopOf="@+id/tilPhoneNo"
+                app:layout_constraintVertical_bias="0.0"
+                tools:visibility="gone" />
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -98,9 +135,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/password"
-                app:layout_constraintEnd_toEndOf="@+id/tilEmail"
-                app:layout_constraintStart_toStartOf="@+id/tilEmail"
-                app:layout_constraintTop_toBottomOf="@+id/tilEmail">
+                app:layout_constraintEnd_toEndOf="@+id/tilPhoneNo"
+                app:layout_constraintStart_toStartOf="@+id/tilPhoneNo"
+                app:layout_constraintTop_toBottomOf="@+id/tilPhoneNo">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiePassword"
@@ -111,6 +148,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLength="16"
+                    android:text="@={model.password}"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimen_14sp" />
@@ -143,7 +181,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toStartOf="@+id/guideEnd"
                 app:layout_constraintStart_toStartOf="@+id/guideStart"
                 app:layout_constraintTop_toBottomOf="@+id/clShadowButton">

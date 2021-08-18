@@ -5,6 +5,8 @@ import android.location.Address
 import android.location.Geocoder
 import android.os.Handler
 import com.saveeat.base.BaseRepository
+import com.saveeat.model.request.auth.signup.SignupModel
+import com.saveeat.model.response.SaveEat.location.LocationModel
 import com.saveeat.repository.remote.Google.GoogleInterface
 import com.saveeat.repository.remote.SaveEat.SaveEatInterface
 import com.saveeat.utils.application.KeyConstants.HIDE_INFO_WINDOW
@@ -38,5 +40,13 @@ class ChooseAddressRepository  @Inject constructor(private var apiInterface: Sav
 
     suspend fun getPlaceDetail(placeid : String?) = safeApiCall {
         googleInterface.gePlaceDetail(placeid=placeid)
+    }
+
+    suspend fun signUp(data: SignupModel?) = safeApiCall {
+     apiInterface.signUp(data)
+    }
+
+    suspend fun updateAddress(data: LocationModel?,token: String?) = safeApiCall {
+        apiInterface.updateAddress(data,token)
     }
 }

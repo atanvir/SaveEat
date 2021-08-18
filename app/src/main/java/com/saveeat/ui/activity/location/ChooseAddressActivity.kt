@@ -9,6 +9,7 @@ import android.location.Location
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.util.Log
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,18 +25,35 @@ import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityChooseAddressBinding
 import com.saveeat.model.request.address.PlacesModel
+import com.saveeat.model.request.auth.signup.SignupModel
+import com.saveeat.model.response.SaveEat.location.LocationModel
+import com.saveeat.repository.cache.DataStore
+import com.saveeat.repository.cache.PreferenceKeyConstants
+import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
+import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
+import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
+import com.saveeat.repository.cache.PrefrencesHelper
+import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
+import com.saveeat.ui.activity.auth.login.LoginActivity
+import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.adapter.address.AddressInfoWindow
 import com.saveeat.ui.adapter.autocomplete.AutoCompleteAddressAdapter
 import com.saveeat.ui.adapter.autocomplete.onAutoCompleteItemClick
+import com.saveeat.utils.application.CommonUtils
+import com.saveeat.utils.application.CommonUtils.buttonLoader
 import com.saveeat.utils.application.CommonUtils.setSpinner
+import com.saveeat.utils.application.ErrorUtil.handlerGeneralError
+import com.saveeat.utils.application.ErrorUtil.snackView
+import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.application.Resource
 import com.saveeat.utils.extn.*
 import com.saveeat.utils.permissions.gps.GPSPermissionHelper
 import com.saveeat.utils.permissions.gps.GPSPermissionHelper.loadCurrentLoc
 import com.saveeat.utils.permissions.gps.GPSPermissionHelper.startLocation
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import java.lang.Runnable
 import java.util.*
 
 @AndroidEntryPoint
@@ -44,7 +62,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     private val NOT_SERVE_THIS_AREA = 2
     private val HIDE_INFO_WINDOW = 3
     private var list: MutableList<PlacesModel?>? = ArrayList()
-
+    var data: Any?=null
 
     private var handler: Handler?=null
     private var mMap: GoogleMap? = null
@@ -61,12 +79,22 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     override fun getActivityBinding(): ActivityChooseAddressBinding = ActivityChooseAddressBinding.inflate(layoutInflater)
 
     override fun inits() {
+        data=intent?.getParcelableExtra("data")
+
         binding.tvKMDropDown.setOnClickListener(this)
         binding.clShadowButton.tvButtonLabel.text=getString(R.string.choose_this_location)
         startLocation(this, onResult, onPermissionLaucher, this)
         binding.rvPlaces.layoutManager= LinearLayoutManager(this)
         binding.rvPlaces.adapter= AutoCompleteAddressAdapter(this, list, this)
         setSpinner(this, binding.spnAddress, binding.tvKMDropDown)
+
+        if(data is LocationModel){
+            Handler(Looper.getMainLooper()!!).postDelayed(Runnable {
+                binding.tvKMDropDown.text= "Within "+getPrefrenceStringValue(this, PreferenceKeyConstants.distance) +" KMS"
+                binding.tvKMDropDown.tag=getPrefrenceStringValue(this, PreferenceKeyConstants.distance)
+            },500)
+        }
+
     }
 
     override fun initCtrl() {
@@ -91,14 +119,21 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                                 binding.clShadowButton.ivButton.enable(true)
                                 binding.tvAddress.text=it.value?.get(0)?.getAddressLine(0) ?: ""
                             }
-                            else binding.tvAddress.text=getString(R.string.sorry_dont_serve_here)
-                        }else binding.tvAddress.text=getString(R.string.sorry_dont_serve_here)
+                            else {
+                                binding.clShadowButton.ivButton.enable(false)
+                                binding.tvAddress.text=getString(R.string.sorry_dont_serve_here)
+                            }
+                        }else {
+                            binding.clShadowButton.ivButton.enable(false)
+                            binding.tvAddress.text=getString(R.string.sorry_dont_serve_here)
+                        }
 
                         binding.tvAddress.visible(true)
                         binding.pbAddressLoader.visible(false)
                         binding.clShadowButton.ivButton.visible(true)
                     }
                     is Resource.Failure ->{
+                        binding.clShadowButton.ivButton.enable(false)
                         binding.tvAddress.text=getString(R.string.sorry_dont_serve_here)
                         binding.tvAddress.visible(true)
                         binding.pbAddressLoader.visible(false)
@@ -132,7 +167,37 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                     }
             }
         })
-    }
+            viewModel.userSignup.observe(this@ChooseAddressActivity,{
+                when (it) {
+                    is Resource.Success -> {
+                        if(KeyConstants.SUCCESS==it.value?.status?:0) {
+                            PrefrencesHelper.saveUserData(this@ChooseAddressActivity, it.value?.data)
+                            startActivity(Intent(this@ChooseAddressActivity,MainActivity::class.java))
+                        }
+                        else if(KeyConstants.FAILURE<=it.value?.status?:0) snackView(binding.root,it.value?.message?:"")
+                    }
+                    is Resource.Failure -> { handlerGeneralError(binding.root,it.throwable!!) }
+                }
+            })
+
+
+            viewModel.updateAddress.observe(this@ChooseAddressActivity,{
+                when (it) {
+                    is Resource.Success -> {
+                        if(KeyConstants.SUCCESS==it.value?.status?:0) {
+
+                            val intent=Intent()
+                            intent.putExtra("data",data as LocationModel)
+                            setResult(RESULT_OK,intent)
+                            finish()
+                        }
+                        else if(KeyConstants.FAILURE<=it.value?.status?:0) snackView(binding.root,it.value?.message?:"")
+                    }
+                    is Resource.Failure -> { handlerGeneralError(binding.root,it.throwable!!) }
+                }
+            })
+
+        }
     }
 
 
@@ -144,7 +209,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         when (permission){
             true -> { startLocation(this, onResultLaucher = onResult, null, this) }
             else ->{ binding.root.snack(getString(R.string.turn_on_gps),Snackbar.LENGTH_LONG){
-                action(getString(R.string.retry)){ startLocation(this@ChooseAddressActivity, onResult, onPermissionLaucher = snackViewPermissionLaucher, this@ChooseAddressActivity) }
+                     action(getString(R.string.retry)){ startLocation(this@ChooseAddressActivity, onResult, onPermissionLaucher = snackViewPermissionLaucher, this@ChooseAddressActivity) }
             }
             }
         }
@@ -180,9 +245,13 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         longitute=location?.longitude?:0.0
         curLongitude=longitute
         curLatitude=latitute
+        if(data is LocationModel) {
+            latitute = getPrefrenceStringValue(this, latitude).toDouble()
+            longitute = getPrefrenceStringValue(this, longitude).toDouble()
+        }
         val addresses: List<Address>
         val geocoder = Geocoder(this, Locale.getDefault())
-        addresses = geocoder.getFromLocation(location?.latitude!!, location?.longitude!!, 1)
+        addresses = geocoder.getFromLocation(latitute, longitute, 1)
         binding.tvAddress.text = addresses[0]?.getAddressLine(0) ?: ""
         (supportFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMapAsync(this)
     }
@@ -275,12 +344,68 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         when(v?.id){
             R.id.tvKMDropDown ->{ binding.spnAddress.performClick() }
 
-            R.id.btnCurrentLocation ->{ startActivity(Intent(this,MainActivity::class.java)) }
-            R.id.ivButton->{ startActivity(Intent(this,MainActivity::class.java)) }
-            R.id.ivClose ->{ finish() }
-
+            R.id.btnCurrentLocation ->{
+                if(curLatitude==0.0 && curLongitude==0.0){
+                    startLocation(this, onResult, onPermissionLaucher, this)
+                }else{
+                    marker?.position = LatLng(curLatitude?:0.0,curLatitude?:0.0)
+                    if(data is SignupModel) userSignup(curLatitude,curLongitude)
+                    else if(data is LocationModel) updateAddress(curLatitude,curLongitude)
+                }
+            }
+            R.id.ivButton-> {
+                if(curLatitude==0.0 && curLongitude==0.0) startLocation(this, onResult, onPermissionLaucher, this)
+                else if(data is SignupModel) userSignup(latitute,longitute)
+                else if(data is LocationModel) updateAddress(latitute,longitute)
+            }
+            R.id.ivClose ->{ onBackPressed() }
         }
     }
+
+    private fun checkValidation(): Boolean {
+        var ret=true
+        if( binding.tvKMDropDown.text.toString() == getString(R.string.please_select_distance)  ){
+            ret=false
+            snackView(binding.root,"Please select distance")
+        }else if(binding.tvAddress.text.toString() == "" || binding.tvAddress.text.toString().equals(getString(R.string.sorry_dont_serve_here))){
+            ret=false
+            if(binding.tvAddress.text.toString()== "") snackView(binding.root,"No Address found")
+            else snackView(binding.root,getString(R.string.sorry_dont_serve_here))
+        }
+
+        return ret
+    }
+
+    private fun userSignup(latitute: Double?,longitute : Double?) {
+        Log.e("distance",binding.tvKMDropDown.tag.toString())
+        buttonLoader(binding.clShadowButton,true)
+        if(checkValidation()){
+            Handler(Looper.myLooper()!!).postDelayed(Runnable {
+                (data as SignupModel)?.latitude=latitute
+                (data as SignupModel)?.longitude=longitute
+                (data as SignupModel)?.distance=binding.tvKMDropDown.tag.toString()
+                (data as SignupModel)?.address=binding.tvAddress.text.toString()
+                viewModel.signUp(data as SignupModel)
+            },1000)
+        }
+        else buttonLoader(binding.clShadowButton,false)
+    }
+
+    private fun updateAddress(latitute: Double?,longitute : Double?) {
+        Log.e("distance",binding.tvKMDropDown.tag.toString())
+        buttonLoader(binding.clShadowButton,true)
+        if(checkValidation()){
+            Handler(Looper.myLooper()!!).postDelayed(Runnable {
+                (data as LocationModel)?.latitude=latitute
+                (data as LocationModel)?.longitude=longitute
+                (data as LocationModel)?.distance=binding.tvKMDropDown.tag.toString()
+                (data as LocationModel)?.address=binding.tvAddress.text.toString()
+                viewModel.updateAddress(data as LocationModel, getPrefrenceStringValue(this@ChooseAddressActivity, jwtToken))
+            },1000)
+        }
+        else buttonLoader(binding.clShadowButton,false)
+    }
+
 
     override fun onClick(placeId: String?, spotName: String?) {
         binding.root.hideKeyboard(this)

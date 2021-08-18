@@ -1,22 +1,20 @@
 package com.saveeat.ui.activity.splash
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivitySplashBinding
-import com.saveeat.repository.cache.DataStoreHelper
-import com.saveeat.repository.cache.PreferenceKeyConstants
+import com.saveeat.repository.cache.PreferenceKeyConstants.login
+import com.saveeat.repository.cache.PreferenceKeyConstants.walkthrow
+import com.saveeat.ui.activity.auth.login.LoginActivity
+import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.activity.walkthrough.WalkThroughActivity
+import com.saveeat.utils.application.KeyConstants.PREF_NAME
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 @AndroidEntryPoint
@@ -25,29 +23,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     override fun getActivityBinding(): ActivitySplashBinding = ActivitySplashBinding.inflate(layoutInflater)
 
     override fun inits() {
-        Handler(Looper.myLooper()!!).postDelayed(Runnable {
-            startActivity(Intent(this, WalkThroughActivity::class.java))
-        },2000)
-
-       val flow: Flow<Any>?= dataStore.data.map {
-           it[PreferenceKeyConstants.name]?:""
-           it[PreferenceKeyConstants._id]?:""
-       }
-        flow?.asLiveData()?.observe(this){
-           Log.e("TAG", "------->"+it.toString())
-        }
-
-
-        CoroutineScope(Dispatchers.Main).launch {
-            coroutineScope {
-                DataStoreHelper(dataStore).storeUserData(id=101,_name="Tanvir Ahmed")
+        getSharedPreferences(PREF_NAME, MODE_PRIVATE).apply {
+            when {
+                getBoolean(login,false) -> splashIntent(MainActivity::class.java)
+                getBoolean(walkthrow,false) -> splashIntent(LoginActivity::class.java)
+                else -> splashIntent(WalkThroughActivity::class.java)
             }
         }
-
-
-
-
-
     }
 
     override fun initCtrl() {
@@ -55,4 +37,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun observer() {
     }
+
+    private fun  <A : Activity> splashIntent(activity: Class<A>) {
+        Handler(Looper.myLooper()!!).postDelayed(Runnable {
+            startActivity(Intent(this@SplashActivity,activity))
+        }, 2000)
+    }
+
 }

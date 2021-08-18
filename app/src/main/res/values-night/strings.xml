@@ -75,11 +75,12 @@
     <string name="help_amp_support">Help &amp; Support</string>
     <string name="log_out">Log Out</string>
     <string name="saveeat_badges">SaveEat Badges</string>
-    <string name="choose_a_location_to_see_nwhat_s_available">Choose a location to see <br></br>what\'s available</string>
+    <string name="choose_a_location_to_see_nwhat_s_available">Choose a location to see  <br></br>what\'s available</string>
     <string name="please_select_distance">Please select Distance</string>
-    <string name="within_3KM">Within 3 KM</string>
-    <string name="within_5KM">Within 5 KM</string>
-    <string name="within_10KM">Within 10 KM</string>
+    <string name="within_3KM">Within 3 KMS</string>
+    <string name="within_5KM">Within 5 KMS</string>
+    <string name="within_10KM">Within 10 KMS</string>
+    <string name="within_15KM">Within 15 KMS</string>
     <string name="this_restaurant_follows_super_safety_standards">This restaurant follows Super Safety Standards</string>
     <string name="veg">Veg</string>
     <string name="add_extras">Add extras</string>
@@ -113,4 +114,17 @@
     <string name="unlock_hidden_location">Unlock a hidden location</string>
     <string name="select_payment">Select Payment</string>
     <string name="payment">Payment</string>
+    <string name="enter_password">Please enter password</string>
+
+    <string name="enter_password_character">Password field must be contained min. 6 characters and max. 16 characters</string>
+    <string name="re_enter_password">Re-Enter Password</string>
+    <string name="enter_confirm_password_character">Confirm Password field must be contained min. 6 characters and max. 16 characters</string>
+    <string name="password_does_not_math">Re- enter password does not match</string>
+    <string name="please_enter_phone_number">Please enter phone number</string>
+    <string name="please_enter_valid_phone_number">Please enter valid phone number</string>
+    <string name="please_enter_full_name">Please enter full name</string>
+    <string name="please_enter_emailId">Please enter email id</string>
+    <string name="valid_email_id">Please enter valid email id</string>
+
+
 </resources>

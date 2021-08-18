@@ -61,7 +61,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
-            android:name="com.saveeat.ui.activity.drawer.DrawerActivity"
+            android:name="com.saveeat.ui.activity.drawer.drawer.DrawerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
@@ -140,6 +140,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <receiver android:name=".ui.activity.auth.otp.SMSReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED"/>
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="androidx.core.content.FileProvider"

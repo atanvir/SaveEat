@@ -157,7 +157,7 @@
             android:drawableRight="@drawable/polygon_1"
             android:drawablePadding="5dp"
             android:singleLine="true"
-            android:text="Within 3KM"
+            android:text="Within 3 KM"
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_14sp"
             android:textStyle="normal"

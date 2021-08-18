@@ -3,7 +3,15 @@ package com.saveeat.utils.application
 import android.R
 import android.app.Activity
 import android.content.Context
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.google.android.material.snackbar.Snackbar
+import com.saveeat.ui.activity.auth.signup.SignUpActivity
+import com.saveeat.ui.dialog.CreditDialog
+import com.saveeat.ui.dialog.ErrorDialog
+import com.saveeat.utils.extn.snack
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -11,22 +19,26 @@ import java.net.UnknownHostException
 
 
 object ErrorUtil {
-    fun handlerGeneralError(context: Context?, throwable: Throwable) {
+    fun handlerGeneralError(view: View?, throwable: Throwable) {
         throwable.printStackTrace()
-        if (context == null) return
+        if (view == null) return
         when (throwable) {
-            is ConnectException -> showCustomSnackBar(context, "Please turn on Internet")
-            is SocketTimeoutException -> showCustomSnackBar(context, "Socket Time Out Exception")
-            is UnknownHostException -> showCustomSnackBar(context, "No Internet Connection")
-            is InternalError -> showCustomSnackBar(context, "Internal Server Error")
-            is HttpException -> { showCustomSnackBar(context, "Something went wrong") }
-            else -> { showCustomSnackBar(context, "Something went wrong") }
+            is ConnectException ->  snackView(view,"Please turn on Internet")
+            is SocketTimeoutException -> snackView(view,"Socket Time Out Exception")
+            is UnknownHostException -> snackView(view,"No Internet Connection")
+            is InternalError -> snackView(view,"Internal Server Error")
+            is HttpException -> { snackView(view,"Something went wrong") }
+            else -> { snackView(view,"Something went wrong") }
         }
     }
 
-    private fun showCustomSnackBar(context: Context, message: String) {
-        val snackbar= Snackbar.make((context as Activity).findViewById(R.id.content), message, Snackbar.LENGTH_LONG)
-        snackbar.show()
+    fun snackView(view: View, message: String) {
+        val dialog= ErrorDialog()
+        val bundle= Bundle()
+        bundle.putString("message",message)
+        dialog.arguments=bundle
+        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, com.saveeat.R.style.Dialog_NoTitle);
+        dialog.show((view.context as AppCompatActivity).supportFragmentManager, "")
     }
 }
 

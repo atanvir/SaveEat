@@ -9,6 +9,8 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
@@ -66,7 +68,7 @@ fun ImageView.loadProfilePic(url: String?,progressBar: ProgressBar?) {
             progressBar?.visibility= View.GONE
             return false
         }
-    }).apply(RequestOptions.bitmapTransform( RoundedCorners(17)))/*.placeholder(R.drawable.coming_soon)*/.into(this)
+    }).transform( CenterInside(), RoundedCorners(15))/*.placeholder(R.drawable.coming_soon)*/.into(this)
 }
 
 

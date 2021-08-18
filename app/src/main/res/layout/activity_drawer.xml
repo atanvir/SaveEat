@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/light_orange"
-        tools:context=".ui.activity.drawer.DrawerActivity">
+        tools:context=".ui.activity.drawer.drawer.DrawerActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"

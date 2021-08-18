@@ -16,6 +16,7 @@ class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        generateFCMToken(this)
         Thread {
             try {
                 val mv = MapView(applicationContext)
@@ -23,8 +24,6 @@ class BaseApplication : Application() {
                 mv.onPause()
                 mv.onDestroy()
             } catch (ignored: Exception) {
-            }finally {
-                generateFCMToken(this)
             }
         }.start()
     }

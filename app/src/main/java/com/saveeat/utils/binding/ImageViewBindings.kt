@@ -1,8 +1,10 @@
 package com.saveeat.utils.binding
 
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
 import com.saveeat.utils.extn.loadNormalPhoto
+import com.saveeat.utils.extn.loadProfilePic
 
 class ImageViewBindings {
     companion object{
@@ -21,6 +23,15 @@ class ImageViewBindings {
 
             imageView?.setImageResource(drawable!!)
         }
+
+
+        @BindingAdapter(value = ["imageUrl", "progressbar"], requireAll = true)
+        @JvmStatic
+        fun loadProfilePic(view: ImageView?, imageUrl: String?, progressBar: ProgressBar?) {
+            view?.loadProfilePic(imageUrl, progressBar)
+        }
+
+
 
     }
 }

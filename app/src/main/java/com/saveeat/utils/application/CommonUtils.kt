@@ -1,6 +1,7 @@
 package com.saveeat.utils.application
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.util.Log
@@ -18,16 +19,31 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.messaging.FirebaseMessaging
 import com.saveeat.R
+import com.saveeat.databinding.LayoutCommonButtonBinding
+import com.saveeat.repository.cache.DataStore
+import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.ui.activity.auth.login.LoginActivity
+import com.saveeat.ui.activity.auth.password.PasswordActivity
 import com.saveeat.ui.activity.drawer.help.HelpActivity
 import com.saveeat.ui.activity.drawer.credit.CreditActivity
 import com.saveeat.ui.activity.drawer.location.HiddenLocationActivity
 import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
 import com.saveeat.ui.activity.drawer.payment.PaymentActivity
 import com.saveeat.ui.activity.order.checkout.CheckoutActivity
+import com.saveeat.utils.extn.enable
 import com.saveeat.utils.extn.onSelected
+import com.saveeat.utils.extn.text
+import io.michaelrocks.libphonenumber.android.NumberParseException
+import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
+import kotlinx.coroutines.*
+import android.widget.Toast
+import com.saveeat.repository.cache.PreferenceKeyConstants.deviceToken
+
+import com.saveeat.ui.activity.main.MainActivity
+import com.saveeat.utils.application.KeyConstants.PREF_NAME
 
 
 object CommonUtils {
@@ -36,23 +52,31 @@ object CommonUtils {
         return context.getDrawable(resourceId)
     }
 
-    fun generateFCMToken(context: Context): String? {
-        var token:String?=null
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener<String?> { task ->
+    fun generateFCMToken(context: Context?) : String? {
+        var fcmToken : String?=null
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.w("TAG", "Fetching FCM registration token failed", task.exception)
+                generateFCMToken(context)
                 return@OnCompleteListener
             }
-            token = task.result
-            Log.e("TOKEN","-------->> "+token.toString())
-        })
 
-        return token
+            fcmToken = task.result
+            context?.getSharedPreferences(PREF_NAME, MODE_PRIVATE)?.edit()?.putString(deviceToken,fcmToken)?.apply()
+
+        })
+    return fcmToken
     }
+
 
     fun authToolbar(activity: AppCompatActivity){
         val ivBack =activity.findViewById<ImageView>(R.id.ivBack)
-        val clMainToolbar=activity.findViewById<ConstraintLayout>(R.id.toolbar)
+        var clMainToolbar : ConstraintLayout?=null
+        if(activity is PasswordActivity){
+            clMainToolbar=activity.findViewById<ConstraintLayout>(R.id.toolbars)
+        }else{
+            clMainToolbar=activity.findViewById<ConstraintLayout>(R.id.toolbar)
+        }
+
         clMainToolbar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 Log.e("height",""+clMainToolbar.height)
@@ -106,7 +130,7 @@ object CommonUtils {
         val adapter: ArrayAdapter<String?> = object : ArrayAdapter<String?>(context, android.R.layout.simple_spinner_item,
                                                                             arrayOf<String?>(context.getString(R.string.please_select_distance),
                                                                             context.getString(R.string.within_3KM),context.getString(R.string.within_5KM),
-                                                                            context.getString(R.string.within_10KM))) {
+                                                                            context.getString(R.string.within_10KM),context.getString(R.string.within_15KM))) {
         override fun isEnabled(position: Int): Boolean {
             return position!=0
         }
@@ -128,6 +152,9 @@ object CommonUtils {
         }
 
         spinner.onSelected { parent, position ->
+            if(position>0){
+            textView.tag=parent?.getItemAtPosition(position).toString().split("Within ")[1].split("KMS")[0]
+            }
             textView.text=parent?.getItemAtPosition(position).toString()
         }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
@@ -149,6 +176,39 @@ object CommonUtils {
             println("" + e)
             false
         }
+    }
+
+    fun buttonLoader(binding: LayoutCommonButtonBinding?, loader: Boolean) {
+        if(loader){
+            binding?.ivButton?.enable(false)
+            binding?.tvButtonLabel?.visibility=View.GONE
+            binding?.pbLoader?.visibility=View.VISIBLE
+        }else{
+            binding?.ivButton?.enable(true)
+            binding?.tvButtonLabel?.visibility=View.VISIBLE
+            binding?.pbLoader?.visibility=View.GONE
+        }
+    }
+
+    fun mobileNo(mobileNo: TextInputEditText) : Pair<String,String>? {
+        val countryCode=getCountryIsoCode(mobileNo.text(), mobileNo.context)?:""
+        val no= "+"+mobileNo.text().replace("[^\\d]".toRegex(), "")
+        val returnMobileNo =no.replace(countryCode, "",ignoreCase = true)
+        return  Pair<String,String>(countryCode,returnMobileNo)
+    }
+
+
+
+    private fun getCountryIsoCode(number: String, context: Context): String? {
+        val phoneNumberUtil = PhoneNumberUtil.createInstance(context)
+        val validatedNumber = if (number.startsWith("+")) number else "+$number"
+        val phoneNumber = try {
+            phoneNumberUtil.parse(validatedNumber, null)
+        } catch (e: NumberParseException) {
+            Log.e("TAG", "error during parsing a number")
+            null
+        } ?: return ""
+        return "+"+phoneNumber.countryCode
     }
 
 }

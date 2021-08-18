@@ -44,11 +44,9 @@ class LocationTabFragment : BaseFragment<FragmentTabLocationBinding>(), TabLayou
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
-        if(tab?.position==0){
-            binding.supportingView.visibility=View.GONE
-        }else{
-            binding.supportingView.visibility=View.VISIBLE
-        }
+        if(tab?.position==0) binding.supportingView.visibility=View.GONE
+        else binding.supportingView.visibility=View.VISIBLE
+
         binding.viewPager.currentItem = tab?.position ?:0
     }
 
