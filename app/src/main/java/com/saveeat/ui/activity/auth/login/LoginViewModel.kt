@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.saveeat.model.request.auth.login.LoginModel
-import com.saveeat.model.response.SaveEat.auth.AuthModel
-import com.saveeat.ui.activity.auth.signup.SignupRepository
+import com.saveeat.model.response.saveeat.auth.AuthModel
 import com.saveeat.utils.application.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

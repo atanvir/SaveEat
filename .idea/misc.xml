@@ -6,8 +6,26 @@
         <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.309375" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/background_common_button.xml" value="0.309375" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/bitmap_splash.xml" value="0.2638888888888889" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_app_theme_line.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_app_theme_selected_tab_layout.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_app_theme_stroke.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_bag_selector.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_below_shadow.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_black_dot.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_bottom_round_corner.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_circle.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_dot_line.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_green_stroke.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_green_stroke_with_white_soild.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_grey_corner.xml" value="0.309375" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_grey_dot.xml" value="0.30092592592592593" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_grey_stroke.xml" value="0.30092592592592593" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_grey_stroke_white_solid.xml" value="0.309375" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_price_container.xml" value="0.309375" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_price_container_grey.xml" value="0.309375" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_round_corner.xml" value="0.309375" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/drawable_top_round_corner.xml" value="0.309375" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/group_34824.xml" value="0.309375" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.309375" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/font/inter.xml" value="0.2564814814814815" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/font/poppin.xml" value="0.2101851851851852" />
@@ -15,20 +33,50 @@
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/activity_forgot_password.xml" value="0.33" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/activity_main.xml" value="0.23425925925925925" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/activity_menu.xml" value="0.22" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/activity_menu_detail.xml" value="0.29322916666666665" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/activity_otpverification.xml" value="0.19907407407407407" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/activity_password.xml" value="0.19907407407407407" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/activity_profile.xml" value="0.33" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/activity_sign_up.xml" value="0.19907407407407407" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/activity_splash.xml" value="0.1675925925925926" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_address_info_window.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_brand.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_brand_section.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_menu_category.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_menu_multiple_choice.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_menu_product.xml" value="0.29322916666666665" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_menu_restaurant.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_product_home_restaurant.xml" value="0.29322916666666665" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_restaurant.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_restaurant_by_location.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_restaurant_home.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_restaurant_map.xml" value="0.29322916666666665" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_restaurant_section.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_save_restaurant.xml" value="0.25" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_save_section.xml" value="0.33" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/adapter_walk_through.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/cluster_view.xml" value="1.1" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/dialog_error.xml" value="0.22" />
-        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/fragment_home.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/fragment_favourite.xml" value="0.2890625" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/fragment_location_list.xml" value="0.29322916666666665" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/fragment_tab_location.xml" value="0.23425925925925925" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_common_auth_toolbar.xml" value="0.29322916666666665" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_common_button.xml" value="0.25" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_common_quantity.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_favourite_animation.xml" value="0.2890625" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_home_animation.xml" value="0.33" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_loader.xml" value="0.2887179487179487" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_main_toolbar.xml" value="0.25" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_map_list_placeholder.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_map_list_shimmer.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_menu_footer.xml" value="0.2890625" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_menu_shimmer.xml" value="0.29322916666666665" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_restro_placeholder.xml" value="0.33" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/layout_save_restro_placeholder.xml" value="0.25" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/menu_place_holder.xml" value="0.25" />
+        <entry key="..\:/Personal/SaveEat/app/src/main/res/layout/menu_restaurant_place_holder.xml" value="0.29322916666666665" />
         <entry key="..\:/Personal/SaveEat/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>

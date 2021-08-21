@@ -2,17 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="data"
-            type="com.saveeat.utils.application.CommonUtils" />
-
-        <variable
-            name="saveRestro"
-            type="com.saveeat.model.request.restaurant.CategoryModel" />
-
-    </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -22,13 +11,12 @@
     <TextView
         android:id="@+id/tvHeadingLabel"
         style="@style/poppin_semi_bold"
-        setDrawableLeftTextView="@{saveRestro.sectionImage}"
         android:layout_width="wrap_content"
+        android:drawableStart="@drawable/group_3989"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:drawablePadding="10dp"
-        android:text="@{saveRestro.sectionName}"
         android:textColor="@color/black"
         android:textSize="@dimen/dimen_16sp"
         app:layout_constraintStart_toStartOf="parent"

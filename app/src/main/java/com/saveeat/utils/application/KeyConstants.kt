@@ -30,10 +30,15 @@ object KeyConstants{
     const val NOT_SERVE_THIS_AREA = 2
     const val HIDE_INFO_WINDOW = 3
     const val PREF_NAME="cache_data"
+    const val VEG="Veg"
+    const val NON_VEG="Non-Veg"
+    const val BOTH="Both"
 
 
     val FORGOT: String?="forgot"
     val SIGNUP: String?="signup"
+    val BRAND: String?="brand"
+    val RESTAURANT: String?="restaurant"
 
     const val GOOGLE_PLACE_API: String ="AIzaSyCJj8cpjmnNmRVOwwUG2pXw201bN5Mgy0s"
 

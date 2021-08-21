@@ -3,9 +3,8 @@ package com.saveeat.repository.cache
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import com.saveeat.model.response.SaveEat.auth.AuthBean
-import com.saveeat.model.response.SaveEat.auth.AuthModel
-import com.saveeat.model.response.SaveEat.location.LocationModel
+import com.saveeat.model.response.saveeat.auth.AuthBean
+import com.saveeat.model.response.saveeat.location.LocationModel
 import com.saveeat.repository.cache.PreferenceKeyConstants._id
 import com.saveeat.repository.cache.PreferenceKeyConstants.address
 import com.saveeat.repository.cache.PreferenceKeyConstants.countryCode

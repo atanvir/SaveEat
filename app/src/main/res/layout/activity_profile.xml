@@ -7,7 +7,7 @@
     <data>
         <variable
             name="model"
-            type="com.saveeat.model.request.ProfileModel" />
+            type="com.saveeat.model.request.profile.ProfileModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout

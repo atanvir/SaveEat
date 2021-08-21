@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="data"
-            type="com.saveeat.model.request.restaurant.RestaurantByLocationModel" />
+            type="com.saveeat.model.response.saveeat.bean.RestaurantResponseBean" />
 
     </data>
 
@@ -49,14 +49,14 @@
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="12dp"
                         android:background="@drawable/drawable_round_corner"
-                        android:backgroundTint="@{data.outOfStock==true?@color/blur_grey:@color/app_theme}"
+                        android:backgroundTint="@{data.leftData==0?@color/blur_grey:@color/app_theme}"
                         android:elevation="@dimen/_1sdp"
                         android:gravity="center"
                         android:paddingLeft="@dimen/_7sdp"
                         android:paddingTop="@dimen/_2sdp"
                         android:paddingRight="@dimen/_7sdp"
                         android:paddingBottom="@dimen/_1sdp"
-                        android:text="@{data.stock}"
+                        android:text="@{data.leftData==0?`Nothing Left`:data.leftData+` left`}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/dimen_10sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
 
 
                     <ImageView
-                        android:id="@+id/ivType"
+                        android:id="@+id/ivFav"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
@@ -73,7 +73,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="12dp"
                         android:elevation="@dimen/_2sdp"
-                        android:src="@drawable/un_fav"
+                        android:src="@{data.isFav==true?@drawable/menu_fav:@drawable/un_fav}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,15 +82,24 @@
                         android:id="@+id/imageView2"
                         android:layout_width="match_parent"
                         android:layout_height="167dp"
-                        android:src="@drawable/rectangle_4136"
                         android:scaleType="centerCrop"
-                        setFromResourceDrawable="@{data.image}"
+                        imageUrl="@{data.image}"
+                        progressbar="@{progressBar}"
                         android:adjustViewBounds="true"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:layout_constraintStart_toStartOf="@+id/imageView2"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                        app:layout_constraintTop_toTopOf="@+id/imageView2"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView2"/>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -99,67 +108,31 @@
             </androidx.cardview.widget.CardView>
 
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageView4"
-                setFromResource="@{data.restroImage}"
                 android:layout_width="41dp"
                 android:layout_height="41dp"
                 android:layout_marginStart="@dimen/dimen_19sp"
                 android:layout_marginTop="140dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
+                imageUrl="@{data.logo}"
+                progressbar="@{progressBarLogo}"
                 android:elevation="@dimen/_5sdp"
                 android:outlineProvider="none"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ProgressBar
+                android:id="@+id/progressBarLogo"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="@+id/imageView4"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                app:layout_constraintEnd_toEndOf="@+id/imageView4"
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout4"
-                android:layout_width="53dp"
-                android:layout_height="41.5dp"
-                android:visibility="gone"
-                android:background="@drawable/drawable_price_container"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/cardView3"
-                app:layout_constraintHorizontal_bias="0.91"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.59">
+                />
 
 
-                <TextView
-                    android:id="@+id/mp"
-                    style="@style/inter_semi_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@{`₹`+data.marketPrice}"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_10sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <TextView
-                    android:id="@+id/sp"
-                    style="@style/inter_semi_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginEnd="11dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="@{`₹`+data.sellingPrice}"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mp" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--           -->
             <TextView
@@ -172,7 +145,7 @@
                 android:layout_marginEnd="12dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{data.name}"
+                android:text="@{data.businessName}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -188,7 +161,7 @@
                 android:layout_marginBottom="16dp"
                 android:drawableEnd="@drawable/path_3389"
                 android:drawablePadding="6dp"
-                android:text="@{data.rating+``}"
+                android:text="@{data.avgRating+``}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -216,7 +189,7 @@
                 android:layout_marginStart="8dp"
                 android:drawableStart="@drawable/fi_rr_location_alt"
                 android:drawablePadding="6dp"
-                android:text="@{data.distance}"
+                android:text="@{Math.round(data.dist.calculated*0.001)+` KM`}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_12sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
@@ -229,7 +202,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/light_green"
-                android:visibility="@{data.isSuper==true?View.VISIBLE:View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -37,6 +37,7 @@ object StorageHelper {
                 intent.addCategory("android.intent.category.DEFAULT")
                 intent.data = Uri.parse(String.format("package:%s", context.applicationContext.packageName))
 
+
             } catch (e: Exception) {
                 intent = Intent()
                 intent.action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION

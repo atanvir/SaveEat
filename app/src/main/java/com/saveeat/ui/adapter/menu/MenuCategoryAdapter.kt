@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterMenuCategoryBinding
 import com.saveeat.model.request.menu.MenuCategoryModel
+import com.saveeat.model.response.saveeat.bean.CuisineBean
 
-class MenuCategoryAdapter(var context: Context?,var list: List<MenuCategoryModel?>?,var onItemClick: ((Int)->Unit) ?= null) : RecyclerView.Adapter<MenuCategoryAdapter.MyViewHolder>() {
+class MenuCategoryAdapter(var context: Context?, var list:  MutableList<CuisineBean?>?, var onItemClick: ((Int)->Unit) ?= null) : RecyclerView.Adapter<MenuCategoryAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuCategoryAdapter.MyViewHolder = MyViewHolder(AdapterMenuCategoryBinding.inflate(LayoutInflater.from(context),parent,false))
 
     override fun onBindViewHolder(holder: MenuCategoryAdapter.MyViewHolder, position: Int) {
         var fontFamily : Typeface? =null
-        if(list?.get(position)?.selected==true) fontFamily = ResourcesCompat.getFont(context!!, R.font.poppins_semi_bold)
+        if(list?.get(position)?.check==true) fontFamily = ResourcesCompat.getFont(context!!, R.font.poppins_semi_bold)
         else fontFamily = ResourcesCompat.getFont(context!!, R.font.poppins_regular)
         holder.binding.tvLabel.typeface = fontFamily
         holder.binding.data=list?.get(position)
@@ -34,10 +35,10 @@ class MenuCategoryAdapter(var context: Context?,var list: List<MenuCategoryModel
             when(v?.id){
                 R.id.clMain ->{
                     for(i in list?.indices!!){
-                        list?.get(i)?.selected=false
+                        list?.get(i)?.check=false
                     }
 
-                    list?.get(adapterPosition)?.selected=true
+                    list?.get(adapterPosition)?.check=true
                     onItemClick?.invoke(adapterPosition)
                     notifyDataSetChanged()
                 }

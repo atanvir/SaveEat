@@ -2,13 +2,23 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
 
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.saveeat.model.response.saveeat.menu.RestaurantDetailModel" />
+
+    </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".ui.activity.menu.MenuDetailActivity">
+        tools:context=".ui.activity.menu.detail.MenuDetailActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBar"
@@ -46,13 +56,23 @@
                 <ImageView
                     android:id="@+id/ivCover"
                     android:layout_width="match_parent"
-                    android:src="@drawable/rectangle_4136"
                     android:layout_margin="@dimen/_9sdp"
-
+                    imageUrl="@{model.foodImage}"
+                    progressbar="@{progresbarCover}"
                     android:layout_height="201sp"
                     android:scaleType="fitXY"
                     android:adjustViewBounds="true"
                     app:layout_collapseMode="none" />
+
+
+                <ProgressBar
+                    android:id="@+id/progresbarCover"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="40dp"
+
+                    />
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
@@ -70,23 +90,30 @@
                         android:src="@drawable/back"/>
 
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/ivRestroImage"
                         android:layout_width="32sp"
                         android:layout_height="32sp"
                         android:elevation="5sp"
-                        android:visibility="gone"
+                        android:visibility="visible"
+                        imageUrl="@{model.foodImage}"
+                        progressbar="@{progressBar}"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/_20sdp"
-                        android:src="@drawable/group_4006"
                         android:layout_toRightOf="@+id/ivBack"
+                        />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
                         />
 
                     <TextView
                         android:id="@+id/tvToolbarHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Breakfast Club"
+                        android:text="@{model.foodName}"
                         android:textAlignment="center"
                         android:layout_marginStart="@dimen/dime_13sp"
                         android:visibility="gone"
@@ -118,15 +145,25 @@
                     android:layout_marginTop="@dimen/_130sdp"
                     app:layout_constraintTop_toBottomOf="@+id/clProfile">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imageView8"
                         android:layout_width="41dp"
                         android:layout_height="41dp"
                         android:layout_marginStart="12dp"
-                        android:src="@drawable/rectangle_logo"
+                        imageUrl="@{model.restroData.logo}"
+                        progressbar="@{progressbarStore}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <ProgressBar
+                        android:id="@+id/progressbarStore"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        app:layout_constraintStart_toStartOf="@+id/imageView8"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView8"
+                        app:layout_constraintTop_toTopOf="@+id/imageView8"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView8"/>
 
 
                     <TextView
@@ -136,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="8dp"
-                        android:text="Breakfast Club"
+                        android:text="@{model.restroData.businessName}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dimen_12sp"
                         app:layout_constraintStart_toEndOf="@+id/imageView8"
@@ -158,7 +195,9 @@
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/location_address"
                             android:drawablePadding="6dp"
-                            android:text="117 Wells Street"
+                            android:maxLength="17"
+                            android:ellipsize="end"
+                            android:text="@{model.restroData.address}"
                             android:textColor="@color/black"
                             android:textSize="@dimen/dimen_12sp" />
 
@@ -181,7 +220,7 @@
                             android:layout_height="wrap_content"
                             android:drawableEnd="@drawable/path_3389"
                             android:drawablePadding="6dp"
-                            android:text="4.3"
+                            android:text="@{``+model.restroData.avgRating}"
                             android:textColor="@color/black"
                             android:textSize="@dimen/dime_13sp" />
 
@@ -203,7 +242,7 @@
                             android:layout_marginStart="8sp"
                             android:drawableStart="@drawable/fi_rr_location_alt"
                             android:drawablePadding="6dp"
-                            android:text="178m"
+                            android:text="@{Math.round(model.distance*0.001)+` KM`}"
                             android:textColor="@color/black"
                             android:textSize="@dimen/dimen_12sp" />
 
@@ -219,7 +258,7 @@
                         android:layout_marginTop="3dp"
                         android:layout_marginBottom="8dp"
                         android:drawablePadding="6dp"
-                        android:text="Pickup between 10AM-7PM"
+                        android:text="@{`Pickup between `+model.todayData.pickupWindowOpen+` to `+model.todayData.pickupWindowClose}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dimen_12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -243,7 +282,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="8dp"
-                        android:src="@drawable/group_2738"
+                        android:src="@{model.foodType.equalsIgnoreCase(`Veg`)==true?@drawable/group_2738:@drawable/group_2706}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView11" />
 
@@ -256,8 +295,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="24dp"
-                        android:text="Poached eggs &amp; avocado
-on toast"
+                        android:text="@{model.foodName}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dimen_20sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -270,7 +308,7 @@ on toast"
                         style="@style/inter_regular"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Enjoy this delicious toast with smashed avocado and poached eggs. With just a handful of ingredients, it’s a simple breakfast or light meal... perfect for when you need a little boost."
+                        android:text="@{model.description}"
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/dimen_11sp"
                         app:layout_constraintBottom_toTopOf="@+id/view"
@@ -336,7 +374,7 @@ on toast"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="19dp"
-                android:text="₹75"
+                android:text="@{@string/price(Math.round(model.offeredPrice))}"
                 android:textColor="@color/app_theme"
                 android:textSize="28dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -349,7 +387,7 @@ on toast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="₹200"
+                android:text="@{@string/price(Math.round(model.price))}"
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="@+id/sp"
@@ -363,6 +401,7 @@ on toast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                bind:quantity="@{``+1}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -380,13 +419,13 @@ on toast"
 
 
             <TextView
-
-                android:id="@+id/textView12"
+                android:id="@+id/tvLabelExtra"
                 style="@style/poppin_semi_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
                 android:text="@string/add_extras"
+                android:visibility="invisible"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_16sp"
                 app:layout_constraintStart_toStartOf="@+id/view4"
@@ -402,16 +441,14 @@ on toast"
                 android:fillViewport="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/view4"
-                app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/textView12">
+                app:layout_constraintStart_toStartOf="@+id/tvLabelExtra"
+                app:layout_constraintTop_toBottomOf="@+id/tvLabelExtra">
 
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvChoices"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
-
                     />
             </androidx.core.widget.NestedScrollView>
 

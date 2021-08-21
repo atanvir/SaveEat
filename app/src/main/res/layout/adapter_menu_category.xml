@@ -8,7 +8,7 @@
         <import type="android.view.View"/>
         <variable
             name="data"
-            type="com.saveeat.model.request.menu.MenuCategoryModel" />
+            type="com.saveeat.model.response.saveeat.bean.CuisineBean" />
 
 
     </data>
@@ -34,7 +34,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="4dp"
-        android:visibility="@{data.selected==true?View.VISIBLE:View.GONE}"
+        android:visibility="@{data.check==true?View.VISIBLE:View.GONE}"
         android:background="@drawable/drawable_round_corner"
         android:backgroundTint="@color/app_theme"
         app:layout_constraintEnd_toEndOf="parent"

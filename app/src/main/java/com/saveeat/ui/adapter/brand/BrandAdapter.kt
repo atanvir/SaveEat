@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.databinding.AdapterBrandBinding
-import com.saveeat.model.request.brand.BrandModel
+import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 
-class BrandAdapter (var context : Context?,var list: MutableList<BrandModel?>?) : RecyclerView.Adapter<BrandAdapter.MyViewHolder>() {
+class BrandAdapter (var context : Context?,var list: MutableList<RestaurantResponseBean?>?) : RecyclerView.Adapter<BrandAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandAdapter.MyViewHolder=  MyViewHolder(AdapterBrandBinding.inflate(LayoutInflater.from(context),parent,false))
 

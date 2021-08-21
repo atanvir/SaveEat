@@ -26,21 +26,17 @@ import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityChooseAddressBinding
 import com.saveeat.model.request.address.PlacesModel
 import com.saveeat.model.request.auth.signup.SignupModel
-import com.saveeat.model.response.SaveEat.location.LocationModel
-import com.saveeat.repository.cache.DataStore
+import com.saveeat.model.response.saveeat.location.LocationModel
 import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
 import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
-import com.saveeat.ui.activity.auth.login.LoginActivity
-import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.adapter.address.AddressInfoWindow
 import com.saveeat.ui.adapter.autocomplete.AutoCompleteAddressAdapter
 import com.saveeat.ui.adapter.autocomplete.onAutoCompleteItemClick
-import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.CommonUtils.buttonLoader
 import com.saveeat.utils.application.CommonUtils.setSpinner
 import com.saveeat.utils.application.ErrorUtil.handlerGeneralError
@@ -349,6 +345,9 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                     startLocation(this, onResult, onPermissionLaucher, this)
                 }else{
                     marker?.position = LatLng(curLatitude?:0.0,curLatitude?:0.0)
+                    mMap?.moveCamera(CameraUpdateFactory.newLatLng(marker?.position))
+                    mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(marker?.position, 21.0f))
+
                     if(data is SignupModel) userSignup(curLatitude,curLongitude)
                     else if(data is LocationModel) updateAddress(curLatitude,curLongitude)
                 }

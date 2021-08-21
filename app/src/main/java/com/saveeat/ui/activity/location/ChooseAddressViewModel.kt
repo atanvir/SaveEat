@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.saveeat.model.request.auth.signup.SignupModel
 import com.saveeat.model.response.Google.place.GooglePlacesBean
-import com.saveeat.model.response.SaveEat.auth.AuthModel
-import com.saveeat.model.response.SaveEat.location.LocationModel
+import com.saveeat.model.response.saveeat.auth.AuthModel
+import com.saveeat.model.response.saveeat.location.LocationModel
 import com.saveeat.utils.application.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

@@ -15,15 +15,13 @@ import com.saveeat.aws.AWSListner
 import com.saveeat.aws.AWSUtils
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityProfileBinding
-import com.saveeat.model.request.ProfileModel
-import com.saveeat.model.response.SaveEat.location.LocationModel
+import com.saveeat.model.request.profile.ProfileModel
 import com.saveeat.repository.cache.PreferenceKeyConstants.countryCode
 import com.saveeat.repository.cache.PreferenceKeyConstants.email
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.mobileNumber
 import com.saveeat.repository.cache.PreferenceKeyConstants.name
 import com.saveeat.repository.cache.PreferenceKeyConstants.profilePic
-import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.repository.cache.PrefrencesHelper.updateUserData
 import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
@@ -56,7 +54,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(), View.OnClickList
     override fun getActivityBinding(): ActivityProfileBinding = ActivityProfileBinding.inflate(layoutInflater)
     override fun inits() {
         mobileNo=getPrefrenceStringValue(this, countryCode)+getPrefrenceStringValue(this, mobileNumber)
-        binding?.model=ProfileModel(profilePic =  getPrefrenceStringValue(this,profilePic),name = getPrefrenceStringValue(this,name),email =getPrefrenceStringValue(this,email),mobileNumber = getPrefrenceStringValue(this, mobileNumber),countryCode = getPrefrenceStringValue(this, countryCode),token = getPrefrenceStringValue(this, jwtToken))
+        binding?.model= ProfileModel(profilePic =  getPrefrenceStringValue(this,profilePic),name = getPrefrenceStringValue(this,name),email =getPrefrenceStringValue(this,email),mobileNumber = getPrefrenceStringValue(this, mobileNumber),countryCode = getPrefrenceStringValue(this, countryCode),token = getPrefrenceStringValue(this, jwtToken))
         toolbar(this)
         phoneNumberKit = PhoneNumberKit(this)
         phoneNumberKit?.attachToInput(binding.tilPhoneNo, binding.countryCodePicker.selectedCountryCodeAsInt)

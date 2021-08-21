@@ -6,7 +6,7 @@ import android.location.Geocoder
 import android.os.Handler
 import com.saveeat.base.BaseRepository
 import com.saveeat.model.request.auth.signup.SignupModel
-import com.saveeat.model.response.SaveEat.location.LocationModel
+import com.saveeat.model.response.saveeat.location.LocationModel
 import com.saveeat.repository.remote.Google.GoogleInterface
 import com.saveeat.repository.remote.SaveEat.SaveEatInterface
 import com.saveeat.utils.application.KeyConstants.HIDE_INFO_WINDOW

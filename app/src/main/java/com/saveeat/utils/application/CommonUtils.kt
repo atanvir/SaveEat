@@ -2,8 +2,11 @@ package com.saveeat.utils.application
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +44,8 @@ import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 import kotlinx.coroutines.*
 import android.widget.Toast
 import com.saveeat.repository.cache.PreferenceKeyConstants.deviceToken
+import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
+import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
 
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.utils.application.KeyConstants.PREF_NAME
@@ -71,11 +76,9 @@ object CommonUtils {
     fun authToolbar(activity: AppCompatActivity){
         val ivBack =activity.findViewById<ImageView>(R.id.ivBack)
         var clMainToolbar : ConstraintLayout?=null
-        if(activity is PasswordActivity){
-            clMainToolbar=activity.findViewById<ConstraintLayout>(R.id.toolbars)
-        }else{
-            clMainToolbar=activity.findViewById<ConstraintLayout>(R.id.toolbar)
-        }
+        if(activity is PasswordActivity) clMainToolbar=activity.findViewById<ConstraintLayout>(R.id.toolbars)
+        else if(activity is OTPVerificationActivity) clMainToolbar=activity.findViewById<ConstraintLayout>(R.id.toolbarOTP)
+        else clMainToolbar=activity.findViewById<ConstraintLayout>(R.id.toolbar)
 
         clMainToolbar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
@@ -210,5 +213,54 @@ object CommonUtils {
         } ?: return ""
         return "+"+phoneNumber.countryCode
     }
+
+    fun TAG(context: Context): String? {
+        return (context as AppCompatActivity)::class.simpleName
+    }
+    public fun openGoogleMap(context: Context, latitute: Double?, longtitute: Double?) {
+        if(context!=null) {
+            val builder: Uri.Builder = Uri.Builder()
+            builder.scheme("https")
+                .authority("www.google.com")
+                .appendPath("maps")
+                .appendPath("dir")
+                .appendPath("")
+                .appendQueryParameter("api", "1")
+                .appendQueryParameter("origin", getPrefrenceStringValue(context, PreferenceKeyConstants.latitude) + "," + getPrefrenceStringValue(context, PreferenceKeyConstants.longitude))
+                .appendQueryParameter("destination", latitute.toString() + "," + longtitute.toString())
+            val url: String = builder.build().toString()
+            Log.d("Directions", url)
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            context.startActivity(i)
+        }
+    }
+
+     fun convertToBitmap(drawable: Drawable?, widthPixels: Int, heightPixels: Int): Bitmap? {
+        val mutableBitmap = Bitmap.createBitmap(widthPixels, heightPixels, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(mutableBitmap)
+        drawable?.setBounds(0, 0, widthPixels, heightPixels)
+        drawable?.draw(canvas)
+        return com.saveeat.utils.application.CommonUtils.getRoundedCornerBitmap(mutableBitmap,100)
+    }
+
+    fun getRoundedCornerBitmap(bitmap: Bitmap, pixels: Int): Bitmap? {
+        val output = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(output)
+        val color = -0xbdbdbe
+        val paint = Paint()
+        val rect = Rect(0, 0, bitmap.width, bitmap.height)
+        val rectF = RectF(rect)
+        val roundPx = pixels.toFloat()
+        paint.isAntiAlias = true
+        canvas.drawARGB(0, 0, 0, 0)
+        paint.color = color
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint)
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+        canvas.drawBitmap(bitmap, rect, rect, paint)
+        return output
+    }
+
+
 
 }

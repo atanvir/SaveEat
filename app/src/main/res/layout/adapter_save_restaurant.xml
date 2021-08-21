@@ -4,11 +4,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+
     <data>
 
+        <import type="com.saveeat.utils.application.KeyConstants"/>
+
+
         <variable
-            name="data"
-            type="com.saveeat.model.request.restaurant.SaveRestaurantsModel" />
+            name="model"
+            type="com.saveeat.model.response.saveeat.bean.RestaurantResponseBean" />
 
     </data>
 
@@ -61,7 +66,7 @@
                             android:layout_marginTop="12dp"
                             android:layout_marginEnd="12dp"
                             android:elevation="@dimen/_2sdp"
-                            android:src="@drawable/group_2738"
+                            android:src="@{model.foodType.equals(KeyConstants.VEG)==true?@drawable/group_2738:@drawable/group_2706}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,12 +77,22 @@
                             android:layout_height="@dimen/dimen_136"
                             android:adjustViewBounds="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/rectangle_4136"
+                            imageUrl="@{model.foodImage}"
+                            progressbar="@{progressBar}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.0" />
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -86,17 +101,25 @@
                 </androidx.cardview.widget.CardView>
 
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageView4"
-                    setFromResource="@{data.image}"
                     android:layout_width="41dp"
                     android:layout_height="41dp"
                     android:layout_marginStart="@dimen/dimen_22sp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="center"
+                    imageUrl="@{model.restroData.image}"
+                    progressbar="@{pbRestro}"
                     app:layout_constraintBottom_toBottomOf="@+id/constraintLayout4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/constraintLayout4" />
+
+                <ProgressBar
+                    android:id="@+id/pbRestro"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                    app:layout_constraintStart_toStartOf="@+id/imageView4"
+                    app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -117,9 +140,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="@{`₹`+Math.round(data.marketPrice)}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dimen_10sp"
+                        android:text="@{@string/price(Math.round(model.price))}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -133,9 +156,9 @@
                         android:layout_marginStart="11dp"
                         android:layout_marginEnd="11dp"
                         android:layout_marginBottom="5dp"
-                        android:text="@{`₹`+Math.round(data.sellingPrice)}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dimen_12sp"
+                        android:text="@{@string/price(Math.round(model.price-model.discountAmount))}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -150,9 +173,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{data.storeName}"
                     android:textColor="@color/text_orange"
                     android:textSize="@dimen/dimen_11sp"
+                    android:text="@{model.restroData.businessName}"
                     app:layout_constraintStart_toStartOf="@+id/imageView4"
                     app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
@@ -164,7 +187,7 @@
                     android:layout_marginEnd="10dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@{data.name}"
+                    android:text="@{model.foodName}"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -179,9 +202,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_10sp"
                     android:layout_marginBottom="14dp"
+                    android:text="@{``+model.avgRating}"
                     android:drawableEnd="@drawable/path_3389"
                     android:drawablePadding="6dp"
-                    android:text="@{data.rating+``}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dime_13sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -196,9 +219,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="21dp"
+                    android:text="@{Math.round(model.restroData.dist.calculated*0.001)+` KM`}"
                     android:drawableStart="@drawable/fi_rr_location_alt"
                     android:drawablePadding="6dp"
-                    android:text="@{data.distnace}"
                     android:textColor="@color/text_grey"
                     android:textSize="@dimen/dimen_12sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView5"

@@ -5,18 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import com.saveeat.model.request.auth.signup.SignupModel
-import com.saveeat.model.response.SaveEat.auth.AuthBean
-import com.saveeat.repository.cache.PreferenceKeyConstants._id
-import com.saveeat.repository.cache.PreferenceKeyConstants.countryCode
-import com.saveeat.repository.cache.PreferenceKeyConstants.distance
-import com.saveeat.repository.cache.PreferenceKeyConstants.email
-import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
-import com.saveeat.repository.cache.PreferenceKeyConstants.login
-import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
-import com.saveeat.repository.cache.PreferenceKeyConstants.mobileNumber
-import com.saveeat.repository.cache.PreferenceKeyConstants.name
-import com.saveeat.repository.cache.PreferenceKeyConstants.profilePic
+import com.saveeat.model.response.saveeat.auth.AuthBean
 import com.saveeat.utils.extn.getData
 
 class DataStore(var context: Context) {

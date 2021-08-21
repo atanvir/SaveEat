@@ -1,7 +1,7 @@
 package com.saveeat.ui.activity.profile
 
 import com.saveeat.base.BaseRepository
-import com.saveeat.model.request.ProfileModel
+import com.saveeat.model.request.profile.ProfileModel
 import com.saveeat.repository.remote.SaveEat.SaveEatInterface
 import javax.inject.Inject
 

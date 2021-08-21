@@ -2,7 +2,14 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="model"
+            type="com.saveeat.model.response.saveeat.menu.RestaurantDetailModel" />
+    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/clFootMain"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/menu_footer">
@@ -144,7 +151,10 @@
                         style="@style/inter_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Breakfastclub.co.uk"
+                        android:autoLink="web"
+                        android:linksClickable="true"
+                        android:textColorLink="@color/white"
+                        android:text="@{model.restroObj.restroData.webiteLink}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/dimen_12sp" />
 
@@ -177,6 +187,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/rlPhoneCall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_11sp"
@@ -198,10 +209,11 @@
 
 
                     <TextView
+                        android:id="@+id/tvPhoneCall"
                         style="@style/inter_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Breakfastclub.co.uk"
+                        android:text="@{model.restroObj.restroData.mobileNumber}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/dimen_12sp" />
 
@@ -236,8 +248,10 @@
 
 
             <RelativeLayout
+                android:id="@+id/rlDirection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:tag="@{model.restroObj.restroData.latitude+`,`+model.restroObj.restroData.longitude}"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -288,6 +302,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/rlShareApp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">

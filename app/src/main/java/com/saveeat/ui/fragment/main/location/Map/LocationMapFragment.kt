@@ -2,11 +2,16 @@ package com.saveeat.ui.fragment.main.location.Map
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -14,26 +19,54 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Marker
+import com.google.android.material.snackbar.Snackbar
 import com.google.maps.android.clustering.ClusterManager
 import com.saveeat.R
 import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentLocationMapBinding
+import com.saveeat.model.request.main.home.CommonHomeModel
+import com.saveeat.model.request.restaurant.RestauarntMap
+import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
+import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
+import com.saveeat.repository.cache.PreferenceKeyConstants
+import com.saveeat.repository.cache.PrefrencesHelper
+import com.saveeat.ui.adapter.home.RestaurantHomeAdapter
 import com.saveeat.ui.adapter.map.ClusterItemAdapter
 import com.saveeat.ui.adapter.map.CustomClusterRenderer
 import com.saveeat.ui.adapter.map.MapRestaurantAdapter
+import com.saveeat.ui.fragment.main.home.HomeViewModel
+import com.saveeat.ui.fragment.main.location.LocationViewModel
+import com.saveeat.utils.application.CustomLoader.Companion.hideLoader
+import com.saveeat.utils.application.CustomLoader.Companion.showLoader
+import com.saveeat.utils.application.ErrorUtil
+import com.saveeat.utils.application.KeyConstants
+import com.saveeat.utils.application.Resource
 import com.saveeat.utils.application.StaticDataHelper
+import com.saveeat.utils.extn.action
+import com.saveeat.utils.extn.snack
+import com.saveeat.utils.extn.toast
+import com.saveeat.utils.permissions.gps.GPSPermissionHelper
+import com.saveeat.utils.permissions.gps.GPSPermissionHelper.startLocation
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapReadyCallback, View.OnClickListener, GoogleMap.OnCameraMoveListener {
+class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapReadyCallback, View.OnClickListener, GoogleMap.OnCameraMoveListener, GPSPermissionHelper.onLocationListner, ClusterManager.OnClusterItemClickListener<ClusterItemAdapter?> {
     private lateinit var mMap: GoogleMap
     private var clusterItemManager: ClusterManager<ClusterItemAdapter?>?=null
+    private var requestModel : CommonHomeModel? =null
+    private var list : MutableList<RestaurantResponseBean?>? = ArrayList()
+    private val viewModel : LocationViewModel by viewModels()
+    private var curLatitude : Double?=0.0
+    private var curLongitude : Double?=0.0
+
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLocationMapBinding = FragmentLocationMapBinding.inflate(inflater,container)
 
     override fun init() {
-        (childFragmentManager?.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMapAsync(this)
+        (childFragmentManager?.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMapAsync(this@LocationMapFragment)
     }
 
     override fun initCtrl() {
@@ -41,17 +74,44 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     }
 
     override fun observer() {
+        lifecycleScope.launch {
+            viewModel.restaurantList.observe(this@LocationMapFragment,{
+                hideLoader()
+                when (it) {
+                    is Resource.Success -> {
+                        if(KeyConstants.SUCCESS==it.value?.status?:0) {
+                            try{
+                            clusterItemManager?.clearItems()
+                            list = it?.value?.data
+                            val latLngBounds = LatLngBounds.Builder()
+                            for (i in list?.indices!!) {
+                                clusterItemManager?.addItem(ClusterItemAdapter(it.value?.data?.get(i)))
+                                latLngBounds.include(LatLng(list?.get(i)?.latitude ?: 0.0, list?.get(i)?.longitude ?: 0.0))
+                            }
+
+                            mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLngBounds.build().center))
+                            mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngBounds.build().center, 10f))
+                            }catch (e: Exception){
+                                e.printStackTrace()
+                            }
+                        }
+                        else if(KeyConstants.FAILURE<=it.value?.status?:0) {
+                            ErrorUtil.snackView(binding.root, it.value?.message ?: "")
+                        }
+                    }
+                    is Resource.Failure -> { ErrorUtil.handlerGeneralError(binding.root, it.throwable!!) }
+                }
+            })
+        }
     }
+
+
 
     override fun onMapReady(p0: GoogleMap) {
         mMap=p0
         mapControls()
 
-        val currentLocation=LatLng(28.6259,77.3774)
 
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(currentLocation.latitude, currentLocation.longitude), 7f))
-        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 7f))
         clusterItemManager = ClusterManager(context, mMap)
         mMap.setOnCameraIdleListener(clusterItemManager)
         mMap.setOnMarkerClickListener(clusterItemManager)
@@ -62,42 +122,33 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         mMap.setOnInfoWindowClickListener(clusterItemManager)
         mMap.setOnCameraMoveListener(this)
 
+        clusterItemManager?.setOnClusterItemClickListener(this@LocationMapFragment)
+
         clusterItemManager?.setOnClusterClickListener {
             binding.btnShowRestro.visibility=View.GONE
             binding.rvRestaurant.visibility=View.VISIBLE
             val  latLngBounds= LatLngBounds.Builder()
             val selectedClusterList=ArrayList(it.items)
             for(i in selectedClusterList.indices){
-                latLngBounds.include(selectedClusterList.get(i)?.latLng)
+                latLngBounds.include(LatLng(selectedClusterList.get(i)?.data?.latitude?:0.0,selectedClusterList.get(i)?.data?.longitude?:0.0))
             }
-
-
             mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLngBounds.build().center))
             mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngBounds.build().center, 10f))
+
             true
         }
 
-        addItems()
-        binding.rvRestaurant.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
-        binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),StaticDataHelper.getMapRestaurant())
+
+        clusterItemManager?.clearItems()
+
+        showLoader(requireActivity())
+        restaurantApi(latitude= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.latitude).toDouble(),
+                      longitude= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.longitude).toDouble())
+
 
 
     }
 
-    private fun addItems() {
-
-        val currentLocation=LatLng(28.6259,77.3774)
-        var lat = currentLocation.latitude
-        var lng = currentLocation.longitude
-
-        for (i in 0..9) {
-            val offset = i / 60.0
-            lat += offset
-            lng += offset
-            var offsetItem : ClusterItemAdapter?=ClusterItemAdapter(LatLng(lat,lng), "Title $i", "Snippet $i")
-            clusterItemManager?.addItem(offsetItem)
-        }
-    }
 
 
     private fun mapControls() {
@@ -126,13 +177,8 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btnShowRestro->{
-                val currentLocation=LatLng(28.6259,77.3774)
-
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(currentLocation.latitude, currentLocation.longitude), 21f))
-                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 21f))
-
-                binding.btnShowRestro.visibility=View.GONE
-                binding.rvRestaurant.visibility=View.VISIBLE
+                if(curLatitude==0.0) startLocation(requireActivity(), onResult, onPermissionLaucher, this)
+                else showLoader(requireActivity()); restaurantApi(curLatitude,curLongitude)
             }
         }
     }
@@ -145,6 +191,71 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
             binding.rvRestaurant.visibility=View.VISIBLE
             binding.btnShowRestro.visibility=View.GONE
         }
+    }
+
+
+    private var onPermissionLaucher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){ permissions->
+        var permission=true
+        permissions.entries.forEach {
+            if(!it.value) { permission=it.value }
+        }
+        when (permission){
+            true -> {
+                startLocation(requireActivity(), onResultLaucher = onResult, null, this)
+            }
+            else ->{ binding.root.snack(getString(R.string.turn_on_gps), Snackbar.LENGTH_LONG){
+                action(getString(R.string.retry)){
+                    startLocation(requireActivity(), onResult, onPermissionLaucher = snackViewPermissionLaucher, this@LocationMapFragment)
+                }
+            }
+            }
+        }
+    }
+
+
+    private var snackViewPermissionLaucher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){ permissions->
+        var permission=true
+        permissions.entries.forEach {
+            if(!it.value) { permission=it.value }
+        }
+        when (permission){
+            true -> { startLocation(requireActivity(), onResultLaucher = onResult, null, this) }
+            else ->{ binding.root.snack(getString(R.string.turn_on_gps), Snackbar.LENGTH_LONG){ requireActivity().toast(getString(R.string.try_again_later))} }
+        }
+    }
+
+
+
+    private var onResult = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) {
+        if(it.resultCode== AppCompatActivity.RESULT_OK){
+            showLoader(requireActivity())
+            GPSPermissionHelper.loadCurrentLoc()
+        }else{
+            binding.root.snack(getString(R.string.turn_on_gps)){}
+        }
+    }
+
+    override fun onLocation(location: Location?) {
+        curLatitude=location?.latitude
+        curLongitude=location?.longitude
+        binding.btnShowRestro.visibility=View.GONE
+        restaurantApi(location?.latitude,location?.longitude)
+    }
+    private fun restaurantApi(latitude: Double?,longitude: Double?){
+        requestModel= CommonHomeModel(latitude= latitude.toString(),
+                                      longitude= longitude.toString(),
+                                      distance= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.distance),
+                                      foodType = KeyConstants.VEG,limit = 10,
+                                      token = PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken))
+
+        viewModel.restaurantList(requestModel)
+    }
+
+
+    override fun onClusterItemClick(item: ClusterItemAdapter?): Boolean {
+        binding.rvRestaurant.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
+        binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),item?.data?.realProductData,item?.data?.logo)
+        return true
     }
 
 

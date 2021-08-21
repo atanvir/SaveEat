@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
+
     <queries>
         <intent>
             <action android:name="android.media.action.IMAGE_CAPTURE" />
@@ -80,11 +81,11 @@
             android:theme="@style/white_theme"
             />
         <activity
-            android:name="com.saveeat.ui.activity.menu.MenuDetailActivity"
+            android:name="com.saveeat.ui.activity.menu.detail.MenuDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/white_theme" />
         <activity
-            android:name="com.saveeat.ui.activity.menu.MenuActivity"
+            android:name="com.saveeat.ui.activity.menu.menu.MenuActivity"
             android:screenOrientation="portrait"
             android:theme="@style/white_theme" />
         <activity
@@ -107,7 +108,13 @@
         <activity
             android:name="com.saveeat.ui.activity.auth.otp.OTPVerificationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/light_oragne_theme" />
+            android:exported="true"
+            android:theme="@style/light_oragne_theme" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED"/>
+            </intent-filter>
+
+        </activity>
         <activity
             android:name="com.saveeat.ui.activity.auth.password.PasswordActivity"
             android:screenOrientation="portrait"
@@ -142,11 +149,6 @@
         </activity>
 
 
-        <receiver android:name=".ui.activity.auth.otp.SMSReceiver" android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED"/>
-            </intent-filter>
-        </receiver>
 
         <provider
             android:name="androidx.core.content.FileProvider"

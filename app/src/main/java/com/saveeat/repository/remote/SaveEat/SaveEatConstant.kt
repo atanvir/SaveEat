@@ -13,5 +13,15 @@ object SaveEatConstant  {
     internal const val UPDATE_PROFILE="userUpdateDetails"
     internal const val UPDATE_ADDRESS="updateAddress"
     internal const val LOGOUT="userLogout"
+    internal const val SAVE_PRODUCTS_HOME="moreSaveProductList"
+    internal const val RESTAURANT_HOME="restaurantForHomeList"
+    internal const val POPULAR_RESTAURANT_HOME="popularRestaurantList"
+    internal const val NEW_RESTAURANT_HOME="newRestaurantList"
+    internal const val ADD_TO_FAVOURITE="addToFavourite"
+    internal const val ALL_RESTAURANT="restaurantList"
+    internal const val RESTAURANT_DETAIL="getRestroDetail"
+    internal const val MENU_LIST="getMenuList"
+    internal const val ALL_FAVOURITE="getFavoriteRestaurants"
+    internal const val MENU_ITEM_DETAIL="getItemDetail"
 
 }
