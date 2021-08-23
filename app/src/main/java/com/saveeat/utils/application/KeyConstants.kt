@@ -17,7 +17,7 @@ object KeyConstants{
     const val LANG_CODE_EN="en"
     const val LANG_CODE_AR="ar"
     const val MOBILE_NUMBER_VALIDATION=9
-    const val PASSWORD_VALIDATION=9
+    const val PASSWORD_VALIDATION=6
     const val SCOPE_STORE_PERMISSION=11
     const val FOLDER_NAME="Bite Me"
     const val IMAGE_FOLDER_NAME="Images"
@@ -37,8 +37,8 @@ object KeyConstants{
 
     val FORGOT: String?="forgot"
     val SIGNUP: String?="signup"
-    val BRAND: String?="brand"
-    val RESTAURANT: String?="restaurant"
+    val BRAND: String?="Brand"
+    val RESTAURANT: String?="Store"
 
     const val GOOGLE_PLACE_API: String ="AIzaSyCJj8cpjmnNmRVOwwUG2pXw201bN5Mgy0s"
 

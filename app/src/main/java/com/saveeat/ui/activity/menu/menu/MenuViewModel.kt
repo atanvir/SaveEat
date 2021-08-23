@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.saveeat.model.request.menu.MenuBrandModel
 import com.saveeat.model.request.menu.MenuListModel
 import com.saveeat.model.request.menu.MenuModel
 import com.saveeat.model.response.saveeat.main.home.HomeModel
@@ -25,6 +26,10 @@ class MenuViewModel @Inject constructor(private val repository: MenuRepository) 
     val getMenuList : LiveData<Resource<MenuRestaurantModel?>>  get() = _getMenuList
 
 
+    private val _nearByRestaurantDetail : MutableLiveData<Resource<MenuRestaurantModel?>> = MutableLiveData()
+    val nearByRestaurantDetail : LiveData<Resource<MenuRestaurantModel?>>  get() = _nearByRestaurantDetail
+
+
     private val _addToFavourite : MutableLiveData<Resource<HomeModel?>> = MutableLiveData()
     val addToFavourite : LiveData<Resource<HomeModel?>> get() = _addToFavourite
 
@@ -36,9 +41,16 @@ class MenuViewModel @Inject constructor(private val repository: MenuRepository) 
         }
     }
 
-    fun getMenuList(model: MenuListModel) {
+    fun getMenuList(model: MenuListModel?) {
         viewModelScope.launch {
             _getMenuList.value=repository.getMenuList(model)
+        }
+
+    }
+
+    fun nearByRestaurantDetail(model: MenuBrandModel?) {
+        viewModelScope.launch {
+            _nearByRestaurantDetail.value=repository.nearByRestaurantDetail(model)
         }
 
     }

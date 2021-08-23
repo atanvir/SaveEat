@@ -31,6 +31,7 @@ import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
 import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PrefrencesHelper
+import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.ui.adapter.home.RestaurantHomeAdapter
 import com.saveeat.ui.adapter.map.ClusterItemAdapter
 import com.saveeat.ui.adapter.map.CustomClusterRenderer
@@ -89,6 +90,9 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
                                 latLngBounds.include(LatLng(list?.get(i)?.latitude ?: 0.0, list?.get(i)?.longitude ?: 0.0))
                             }
 
+                            binding.rvRestaurant.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
+                            binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),list)
+
                             mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLngBounds.build().center))
                             mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngBounds.build().center, 10f))
                             }catch (e: Exception){
@@ -142,8 +146,8 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         clusterItemManager?.clearItems()
 
         showLoader(requireActivity())
-        restaurantApi(latitude= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.latitude).toDouble(),
-                      longitude= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.longitude).toDouble())
+        restaurantApi(latitude= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.latitude).toDouble(),
+                      longitude= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.longitude).toDouble())
 
 
 
@@ -244,17 +248,18 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     private fun restaurantApi(latitude: Double?,longitude: Double?){
         requestModel= CommonHomeModel(latitude= latitude.toString(),
                                       longitude= longitude.toString(),
-                                      distance= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.distance),
+                                      distance= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.distance),
                                       foodType = KeyConstants.VEG,limit = 10,
-                                      token = PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken))
+                                      token = getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken) ,
+                                      userId= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)
+        )
 
         viewModel.restaurantList(requestModel)
     }
 
 
     override fun onClusterItemClick(item: ClusterItemAdapter?): Boolean {
-        binding.rvRestaurant.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
-        binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),item?.data?.realProductData,item?.data?.logo)
+
         return true
     }
 

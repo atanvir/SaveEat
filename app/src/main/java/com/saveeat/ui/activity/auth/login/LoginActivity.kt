@@ -25,6 +25,7 @@ import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.CommonUtils.authToolbar
 import com.saveeat.utils.application.CommonUtils.buttonLoader
+import com.saveeat.utils.application.CommonUtils.isValidPassword
 import com.saveeat.utils.application.CommonUtils.mobileNo
 import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.KeyConstants
@@ -36,6 +37,8 @@ import com.saveeat.utils.extn.text
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import me.ibrahimsn.lib.PhoneNumberKit
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener {
@@ -119,7 +122,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
             binding.tilPassword.error=getString(R.string.enter_password)
 
         }
-        else if(binding?.model?.password?.length?:0< PASSWORD_VALIDATION){
+        else if((isValidPassword(binding?.model?.password)==false) || binding?.model?.password?.length?:0< PASSWORD_VALIDATION){
             ret=false
             binding.tilPassword.isErrorEnabled=true
             binding.tilPassword.error = getString(R.string.enter_password_character)
@@ -128,7 +131,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
         return ret
     }
 
+
     override fun onBackPressed() {
         finishAffinity()
     }
+
+
 }

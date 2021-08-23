@@ -17,6 +17,7 @@ import com.saveeat.ui.activity.location.ChooseAddressActivity
 import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.CommonUtils.authToolbar
 import com.saveeat.utils.application.CommonUtils.buttonLoader
+import com.saveeat.utils.application.CommonUtils.isValidPassword
 import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.application.KeyConstants.PASSWORD_VALIDATION
@@ -104,11 +105,13 @@ class PasswordActivity : BaseActivity<ActivityPasswordBinding>(), View.OnClickLi
             binding.tilPassword.error=getString(R.string.enter_password)
 
         }
-        else if(binding.tiePassword.text().length<PASSWORD_VALIDATION){
+
+        else if(!isValidPassword(binding.tiePassword.text()) || binding.tiePassword.text()?.length?:0<PASSWORD_VALIDATION){
             ret=false
             binding.tilPassword.isErrorEnabled=true
             binding.tilPassword.error = getString(R.string.enter_password_character)
         }
+
 
         else if(binding.tieConfirmPassword.text().isEmpty()){
             ret=false
@@ -116,11 +119,12 @@ class PasswordActivity : BaseActivity<ActivityPasswordBinding>(), View.OnClickLi
             binding.tilConfirmPassword.error = getString(R.string.re_enter_password)
         }
 
-        else if(binding.tieConfirmPassword.text().length<PASSWORD_VALIDATION){
+        else if(!isValidPassword(binding.tieConfirmPassword.text()) || binding.tieConfirmPassword.text()?.length?:0< PASSWORD_VALIDATION){
             ret=false
-            binding.tilConfirmPassword.isErrorEnabled=true
-            binding.tilConfirmPassword.error = getString(R.string.enter_confirm_password_character)
+            binding.tilPassword.isErrorEnabled=true
+            binding.tilPassword.error = getString(R.string.enter_confirm_password_character)
         }
+
 
         else if(!binding.tiePassword.text().equals(binding.tieConfirmPassword.text())){
             ret=false

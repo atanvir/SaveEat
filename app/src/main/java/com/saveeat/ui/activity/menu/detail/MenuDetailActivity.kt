@@ -54,12 +54,17 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
         binding.appBar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
                 if (State.COLLAPSED == state) {
+                    binding.tvTitle.visibility=View.INVISIBLE
+                    binding.ivType.visibility=View.INVISIBLE
                     binding.tvDescription.visibility=View.INVISIBLE
                     binding.view.visibility=View.INVISIBLE
                     binding.tvToolbarHeader.visibility=View.VISIBLE
                     binding.ivRestroImage.visibility=View.VISIBLE
 
                 } else if (State.IDLE == state) {
+                    binding.tvTitle.visibility=View.VISIBLE
+                    binding.ivType.visibility=View.VISIBLE
+
                     binding.tvDescription.visibility=View.VISIBLE
                     binding.view.visibility=View.VISIBLE
                     binding.tvToolbarHeader.visibility=View.INVISIBLE

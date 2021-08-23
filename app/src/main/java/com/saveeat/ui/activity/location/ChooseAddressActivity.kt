@@ -32,7 +32,9 @@ import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
 import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
 import com.saveeat.repository.cache.PrefrencesHelper
+import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceBooleanValue
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
+import com.saveeat.repository.cache.PrefrencesHelper.updateLocation
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.adapter.address.AddressInfoWindow
 import com.saveeat.ui.adapter.autocomplete.AutoCompleteAddressAdapter
@@ -151,7 +153,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                             }
                         }
                         mMap?.moveCamera(CameraUpdateFactory.newLatLng(marker?.position))
-                        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(marker?.position, 21.0f))
+                        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(marker?.position, 16f))
 
                         binding.rvPlaces.visibility=View.GONE
                         binding.pbPlaces.visibility=View.GONE
@@ -181,11 +183,9 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                 when (it) {
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
-
-                            val intent=Intent()
-                            intent.putExtra("data",data as LocationModel)
-                            setResult(RESULT_OK,intent)
+                            updateLocation(this@ChooseAddressActivity,data as LocationModel)
                             finish()
+                            startActivity(Intent(this@ChooseAddressActivity,MainActivity::class.java))
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) snackView(binding.root,it.value?.message?:"")
                     }
@@ -259,7 +259,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         mMap?.apply {
             marker=addMarker(MarkerOptions().position(currentLocation).title("Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.path_2740)))
             mMap?.moveCamera(CameraUpdateFactory.newLatLng(currentLocation))
-            mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 21.0f))
+            mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 16f))
         }
 
         mMap?.setInfoWindowAdapter(AddressInfoWindow(this@ChooseAddressActivity))
@@ -346,13 +346,14 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                 }else{
                     marker?.position = LatLng(curLatitude?:0.0,curLatitude?:0.0)
                     mMap?.moveCamera(CameraUpdateFactory.newLatLng(marker?.position))
-                    mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(marker?.position, 21.0f))
+                    mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(marker?.position, 16f))
 
                     if(data is SignupModel) userSignup(curLatitude,curLongitude)
                     else if(data is LocationModel) updateAddress(curLatitude,curLongitude)
                 }
             }
             R.id.ivButton-> {
+
                 if(curLatitude==0.0 && curLongitude==0.0) startLocation(this, onResult, onPermissionLaucher, this)
                 else if(data is SignupModel) userSignup(latitute,longitute)
                 else if(data is LocationModel) updateAddress(latitute,longitute)
@@ -363,7 +364,11 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
 
     private fun checkValidation(): Boolean {
         var ret=true
-        if( binding.tvKMDropDown.text.toString() == getString(R.string.please_select_distance)  ){
+        if(binding.tvKMDropDown.text==null){
+            ret=false
+            snackView(binding.root,"Please select distance")
+        }
+        else if( binding.tvKMDropDown.text.toString().equals(getString(R.string.please_select_distance),ignoreCase = true)){
             ret=false
             snackView(binding.root,"Please select distance")
         }else if(binding.tvAddress.text.toString() == "" || binding.tvAddress.text.toString().equals(getString(R.string.sorry_dont_serve_here))){
@@ -376,7 +381,6 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     }
 
     private fun userSignup(latitute: Double?,longitute : Double?) {
-        Log.e("distance",binding.tvKMDropDown.tag.toString())
         buttonLoader(binding.clShadowButton,true)
         if(checkValidation()){
             Handler(Looper.myLooper()!!).postDelayed(Runnable {
@@ -391,7 +395,6 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     }
 
     private fun updateAddress(latitute: Double?,longitute : Double?) {
-        Log.e("distance",binding.tvKMDropDown.tag.toString())
         buttonLoader(binding.clShadowButton,true)
         if(checkValidation()){
             Handler(Looper.myLooper()!!).postDelayed(Runnable {

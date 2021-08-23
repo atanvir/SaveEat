@@ -6,9 +6,10 @@ import com.saveeat.model.response.saveeat.menu.TodayDataModel
 
 data class RestaurantResponseBean(
     var _id: String,
+    var userType: String?,
     var addedQuantity: Int,
     var adminVerifyStatus: String,
-    var avgRating: Int,
+    var avgRating: Double,
     var category: List<Any>,
     var logo: String,
     var businessName: String,
@@ -30,6 +31,7 @@ data class RestaurantResponseBean(
     var foodImage: String,
     var foodName: String,
     var foodQuantity: Int,
+    var safetyBadge: Boolean,
     var foodType: String,
     var isChoiceStatus: Boolean,
     var leftQuantity: Int,
@@ -56,6 +58,7 @@ data class RestaurantResponseBean(
     var leftData: Int,
     var latitude: Double?,
     var longitude: Double?,
+    var maxLeft: MutableList<MaxLeftModel?>?,
     var todayData: TodayDataModel?,
     var image: String?,
     var mobileNumber: String?,

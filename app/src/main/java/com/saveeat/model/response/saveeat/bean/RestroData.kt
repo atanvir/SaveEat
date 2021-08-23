@@ -10,5 +10,6 @@ data class RestroData(
     val logo: String,
     val longitude: String,
     val userType: String,
-    val avgRating: Double?
+    val avgRating: Double?,
+    val safetyBadge : Boolean
 )

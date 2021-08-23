@@ -43,7 +43,8 @@ class LocationListFragment : BaseFragment<FragmentLocationListBinding>(), (Int) 
                                                 longitude=getPrefrenceStringValue(requireActivity(), longitude),
                                                 distance= getPrefrenceStringValue(requireActivity(), distance),
                                                 foodType = VEG,limit = 10,
-                                                token = getPrefrenceStringValue(requireActivity(), jwtToken)))
+                                                token = getPrefrenceStringValue(requireActivity(), jwtToken),
+                                                userId=getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)))
     }
 
     override fun initCtrl() {

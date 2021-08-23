@@ -21,8 +21,7 @@ class CartAdapter (var context: Context?) : RecyclerView.Adapter<CartAdapter.MyV
 
     override fun getItemCount(): Int =10
 
-    inner class MyViewHolder(var binding: AdapterCartBinding) : RecyclerView.ViewHolder(binding.root),
-        View.OnClickListener {
+    inner class MyViewHolder(var binding: AdapterCartBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
             binding.clQuantity.ivPlus.setOnClickListener(this)
             binding.clQuantity.ivMinus.setOnClickListener(this)

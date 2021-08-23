@@ -20,6 +20,7 @@ object SaveEatConstant  {
     internal const val ADD_TO_FAVOURITE="addToFavourite"
     internal const val ALL_RESTAURANT="restaurantList"
     internal const val RESTAURANT_DETAIL="getRestroDetail"
+    internal const val NEAR_BY_RESTAURANT="nearByRestaurantDetail"
     internal const val MENU_LIST="getMenuList"
     internal const val ALL_FAVOURITE="getFavoriteRestaurants"
     internal const val MENU_ITEM_DETAIL="getItemDetail"

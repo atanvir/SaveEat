@@ -1,6 +1,7 @@
 package com.saveeat.ui.activity.menu.menu
 
 import com.saveeat.base.BaseRepository
+import com.saveeat.model.request.menu.MenuBrandModel
 import com.saveeat.model.request.menu.MenuListModel
 import com.saveeat.model.request.menu.MenuModel
 import com.saveeat.model.response.saveeat.menu.MenuRestaurantModel
@@ -13,8 +14,12 @@ class MenuRepository @Inject constructor(private val apiInterface: SaveEatInterf
         apiInterface.getRestroDetail(model,model.token)
     }
 
-    suspend fun getMenuList(model: MenuListModel) = safeApiCall{
-        apiInterface.getMenuList(model,model.token)
+    suspend fun getMenuList(model: MenuListModel?) = safeApiCall{
+        apiInterface.getMenuList(model,model?.token)
+    }
+
+    suspend fun nearByRestaurantDetail(model: MenuBrandModel?) = safeApiCall{
+        apiInterface.nearByRestaurantDetail(model,model?.token)
     }
 
     suspend fun addToFavourite(storeId: String?,token: String?) =safeApiCall {

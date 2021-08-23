@@ -49,6 +49,8 @@ import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
 
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.utils.application.KeyConstants.PREF_NAME
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 object CommonUtils {
@@ -259,6 +261,19 @@ object CommonUtils {
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
+    }
+
+    fun isValidPassword(password: String?): Boolean {
+        val passwordREGEX = Pattern.compile("^" +
+                "(?=.*[0-9])" +         //at least 1 digit
+                "(?=.*[a-z])" +         //at least 1 lower case letter
+                "(?=.*[A-Z])" +         //at least 1 upper case letter
+                "(?=.*[a-zA-Z])" +      //any letter
+                "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                "(?=\\S+$)" +           //no white spaces
+                ".{6,}" +               //at least 8 characters
+                "$");
+        return passwordREGEX.matcher(password).matches()
     }
 
 

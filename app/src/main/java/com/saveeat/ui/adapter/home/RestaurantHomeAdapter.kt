@@ -26,6 +26,14 @@ import com.saveeat.utils.application.KeyConstants
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is RestroViewHolder -> {
+                if(type?.equals("Favourite",ignoreCase = true)==true){
+                    list?.get(position)?.isFav=true
+                    list?.get(position)?.safetyBadge=list?.get(position)?.restroData?.safetyBadge?:false
+                    list?.get(position)?.businessName=list?.get(position)?.restroData?.businessName?:""
+                    list?.get(position)?.avgRating=list?.get(position)?.restroData?.avgRating?:0.0
+                    list?.get(position)?.logo=list?.get(position)?.restroData?.logo?:""
+                    list?.get(position)?.dist=list?.get(position)?.restroData?.dist
+                }
                 holder.binding.type=type
                 holder.binding.model=list?.get(position)
                 holder.binding.rvProducts.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)

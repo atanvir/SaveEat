@@ -6,9 +6,13 @@
 
     <data>
 
+
+        <import type="android.view.View"/>
         <variable
             name="type"
             type="java.lang.String" />
+
+
 
         <variable
             name="model"
@@ -51,7 +55,7 @@
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                imageUrl="@{type.equalsIgnoreCase(`Favourite`)?model.restroData.logo:model.logo}"
+                imageUrl="@{model.logo}"
                 progressbar="@{progressBar}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +81,7 @@
                 android:ellipsize="end"
                 android:lineSpacingExtra="-1sp"
                 android:maxLines="1"
-                android:text="@{type.equalsIgnoreCase(`Favourite`)?model.restroData.businessName:model.businessName}"
+                android:text="@{model.businessName}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dime_13sp"
                 app:layout_constraintEnd_toStartOf="@+id/ivViewAll"
@@ -90,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/drawable_star"
-                android:text="@{type.equalsIgnoreCase(`Favourite`)?model.restroData.avgRating+``:``+model.avgRating}"
+                android:text="@{``+Math.round(model.avgRating)}"
                 android:drawablePadding="3sp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dime_13sp"
@@ -116,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@{``+(Math.round(model.restroData.dist.calculated*0.001))+` KM`}"
+                android:text="@{``+Math.round(model.dist.calculated*0.001)+` KM`}"
                 android:drawableStart="@drawable/fi_rr_location_alt"
                 android:drawablePadding="5sp"
                 android:textColor="@color/black"
@@ -158,6 +162,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="3.4dp"
+        android:visibility="@{model.safetyBadge==true?View.VISIBLE:View.GONE}"
         android:background="@drawable/drawable_green_stroke"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="@+id/cardView"

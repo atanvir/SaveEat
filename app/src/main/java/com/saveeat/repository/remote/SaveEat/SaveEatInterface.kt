@@ -8,6 +8,7 @@ import com.saveeat.model.response.saveeat.auth.AuthModel
 import com.saveeat.model.response.saveeat.location.LocationModel
 import com.saveeat.model.request.profile.ProfileModel
 import com.saveeat.model.request.main.home.CommonHomeModel
+import com.saveeat.model.request.menu.MenuBrandModel
 import com.saveeat.model.request.menu.MenuItemDetailModel
 import com.saveeat.model.request.menu.MenuListModel
 import com.saveeat.model.request.menu.MenuModel
@@ -24,6 +25,7 @@ import com.saveeat.repository.remote.SaveEat.SaveEatConstant.LOGIN
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.LOGOUT
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.MENU_ITEM_DETAIL
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.MENU_LIST
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.NEAR_BY_RESTAURANT
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.NEW_RESTAURANT_HOME
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.POPULAR_RESTAURANT_HOME
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.RESTAURANT_DETAIL
@@ -103,6 +105,10 @@ interface SaveEatInterface {
 
     @POST(MENU_LIST)
     suspend fun getMenuList(@Body model: MenuListModel?,@Header("Authorization") token: String?)  :  MenuRestaurantModel?
+
+
+    @POST(NEAR_BY_RESTAURANT)
+    suspend fun nearByRestaurantDetail(@Body model: MenuBrandModel?, @Header("Authorization") token: String?)  :  MenuRestaurantModel?
 
     @POST(ALL_FAVOURITE)
     suspend fun getFavoriteRestaurants(@Body model: FavouriteModel?,@Header("Authorization") token: String?)  : HomeModel?

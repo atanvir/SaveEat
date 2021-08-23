@@ -21,6 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 import com.google.maps.android.ui.IconGenerator
 import android.graphics.Bitmap
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -31,6 +32,7 @@ import android.widget.ImageView
 import com.saveeat.utils.application.CommonUtils
 import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 import android.widget.RelativeLayout
+import java.lang.Exception
 
 
 class CustomClusterRenderer(var context: Context?, var map: GoogleMap?,var clusterManager: ClusterManager<ClusterItemAdapter?>?) : DefaultClusterRenderer<ClusterItemAdapter>(context,map,clusterManager){
@@ -71,19 +73,27 @@ class CustomClusterRenderer(var context: Context?, var map: GoogleMap?,var clust
 
     override fun onClusterRendered(cluster: Cluster<ClusterItemAdapter>, marker: Marker) {
         super.onClusterRendered(cluster, marker)
+        Log.e("onClusterRendered","yes")
+        try{
+            if(marker?.tag !=null){
+            Glide.with(context!!).load((marker?.tag as RestaurantResponseBean)?.image).listener(object : RequestListener<Drawable>{
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                    clusterProgressBar?.visibility=View.GONE
+                    return false
+                }
 
-        Glide.with(context!!).load((marker.tag as RestaurantResponseBean).image).listener(object : RequestListener<Drawable>{
-            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                clusterProgressBar?.visibility=View.GONE
-                return false
+                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                    marker.setIcon(BitmapDescriptorFactory.fromBitmap(CommonUtils.convertToBitmap(resource,110,110)))
+                    clusterProgressBar?.visibility=View.GONE
+                    return false
+                }
+
+            }).into(ciClusterLogo!!)
             }
+        }catch (e: Exception){
 
-            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                clusterProgressBar?.visibility=View.GONE
-                return false
-            }
+        }
 
-        }).into(ciClusterLogo!!)
     }
 
 
@@ -91,21 +101,28 @@ class CustomClusterRenderer(var context: Context?, var map: GoogleMap?,var clust
     override fun getColor(clusterSize: Int): Int = ContextCompat.getColor(context!!, com.saveeat.R.color.app_theme)
 
     override fun onClusterItemRendered(clusterItem: ClusterItemAdapter, marker: Marker) {
-        super.onClusterItemRendered(clusterItem, marker)
+        Log.e("onClusterItemRendered","yes")
         marker.tag=clusterItem.data
-        Glide.with(context!!).load(clusterItem.data?.image).listener(object : RequestListener<Drawable>{
-            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                clusterProgressBar?.visibility=View.GONE
-                return false
-            }
 
-            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                marker.setIcon(BitmapDescriptorFactory.fromBitmap(CommonUtils.convertToBitmap(resource,80,80)))
-                clusterProgressBar?.visibility=View.GONE
-                return false
-            }
+        try{
+            marker.tag=clusterItem.data
+            Glide.with(context!!).load(clusterItem.data?.image).listener(object : RequestListener<Drawable>{
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                    clusterProgressBar?.visibility=View.GONE
+                    return false
+                }
 
-        }).into(ciClusterLogo!!)
+                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                    marker.setIcon(BitmapDescriptorFactory.fromBitmap(CommonUtils.convertToBitmap(resource,110,110)))
+                    clusterProgressBar?.visibility=View.GONE
+                    return false
+                }
+
+            }).into(ciClusterLogo!!)
+        }catch (e: Exception){
+
+        }
+
     }
 
 

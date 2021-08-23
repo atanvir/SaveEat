@@ -6,7 +6,7 @@
 
         <variable
             name="data"
-            type="com.saveeat.model.response.saveeat.main.home.RestaurantProductModel" />
+            type="com.saveeat.model.response.saveeat.bean.RestaurantResponseBean" />
 
         <variable
             name="image"
@@ -30,7 +30,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView6"
-        imageUrl="@{image}"
+        imageUrl="@{data.logo}"
         progressbar="@{progressBar}"
         android:layout_width="47dp"
         android:layout_height="47dp"
@@ -60,7 +60,7 @@
         android:layout_marginEnd="14dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="@{data.foodName}"
+        android:text="@{data.businessName}"
         android:textColor="@color/black"
         android:textSize="@dimen/dimen_16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,18 +74,18 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dimen_20sp"
         android:layout_marginBottom="17dp"
-        android:background="@{data.leftQuantity>0?@drawable/drawable_round_corner:@drawable/drawable_grey_corner}"
-        android:backgroundTint="@{data.leftQuantity>0?@color/app_theme:@color/blur_grey}"
+        android:background="@{data.maxLeft!=null?data.maxLeft.get(0).letfProductAllSum>0?@drawable/drawable_round_corner:@drawable/drawable_grey_corner:@drawable/drawable_grey_corner}"
+        android:backgroundTint="@{data.maxLeft!=null?data.maxLeft.get(0).letfProductAllSum>0?@color/app_theme:@color/blur_grey:@color/blur_grey}"
         android:elevation="@dimen/_5sdp"
         android:gravity="center"
-        android:outlineAmbientShadowColor="@{data.leftQuantity>0?@color/app_theme:@color/grey}"
-        android:outlineSpotShadowColor="@{data.leftQuantity>0?@color/app_theme:@color/blur_grey}"
+        android:outlineAmbientShadowColor="@{data.maxLeft!=null?data.maxLeft.get(0).letfProductAllSum>0?@color/app_theme:@color/grey:@color/grey}"
+        android:outlineSpotShadowColor="@{data.maxLeft!=null?data.maxLeft.get(0).letfProductAllSum>0?@color/app_theme:@color/blur_grey:@color/blur_grey}"
         android:paddingLeft="@dimen/_7sdp"
         android:paddingTop="@dimen/_2sdp"
         android:paddingRight="@dimen/_7sdp"
         android:paddingBottom="@dimen/_1sdp"
         android:shadowColor="@color/app_theme"
-        android:text="@{data.leftQuantity+` Left`}"
+        android:text="@{data.maxLeft!=null?data.maxLeft.get(0).letfProductAllSum>0?data.maxLeft.get(0).letfProductAllSum+` meal left`:`Nothing Left`:``}"
         android:textColor="@color/white"
         android:textSize="@dimen/dimen_10sp"
         app:layout_constraintBottom_toBottomOf="parent"

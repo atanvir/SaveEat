@@ -29,6 +29,16 @@ import kotlinx.coroutines.launch
 import android.content.Intent
 import android.net.Uri
 import com.saveeat.BuildConfig
+import com.saveeat.model.request.menu.MenuBrandModel
+import com.saveeat.repository.cache.PreferenceKeyConstants._id
+import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
+import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
+import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
+import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
+import com.saveeat.utils.application.KeyConstants.BOTH
+import com.saveeat.utils.application.KeyConstants.BRAND
+import com.saveeat.utils.application.KeyConstants.RESTAURANT
+import com.saveeat.utils.application.KeyConstants.VEG
 
 
 @AndroidEntryPoint
@@ -42,22 +52,46 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
     override fun getActivityBinding(): ActivityMenuBinding = ActivityMenuBinding.inflate(layoutInflater)
 
     override fun inits() {
-        if(intent.getStringExtra("type").equals(KeyConstants.RESTAURANT,true)) {
-            binding.clShimmer.shimmerContainer.startShimmer()
 
+        startShimmerAnimation()
+        if(intent.getStringExtra("type").equals(RESTAURANT,true)) {
             viewModel.getMenuList(MenuListModel(menuId = intent.getStringExtra("_id"),
-                                                latitude= PrefrencesHelper.getPrefrenceStringValue(this@MenuActivity, PreferenceKeyConstants.latitude),
-                                                longitude= PrefrencesHelper.getPrefrenceStringValue(this@MenuActivity, PreferenceKeyConstants.longitude),
-                                                userId = PrefrencesHelper.getPrefrenceStringValue(this@MenuActivity, PreferenceKeyConstants._id),
-                                                token = PrefrencesHelper.getPrefrenceStringValue(this@MenuActivity, PreferenceKeyConstants.jwtToken)))
-
+                                                latitude= getPrefrenceStringValue(this@MenuActivity, latitude),
+                                                longitude= getPrefrenceStringValue(this@MenuActivity, longitude),
+                                                userId = getPrefrenceStringValue(this@MenuActivity, _id),
+                                                token = getPrefrenceStringValue(this@MenuActivity, jwtToken),
+                                                foodType = BOTH))
         }
+        else if(intent?.getStringExtra("type").equals(BRAND,ignoreCase = true)){
+            viewModel.nearByRestaurantDetail(MenuBrandModel(longitude= getPrefrenceStringValue(this@MenuActivity, longitude),
+                                                            latitude= getPrefrenceStringValue(this@MenuActivity, latitude),
+                                                            userId = getPrefrenceStringValue(this@MenuActivity, _id),
+                                                            brandId = intent?.getStringExtra("_id"),
+                                                            token = getPrefrenceStringValue(this@MenuActivity, jwtToken),
+                                                            foodType = BOTH))
+        }
+    }
+
+    private fun startShimmerAnimation(){
+        cuisineList?.clear()
+        menuProductDataList?.clear()
+        binding.clShimmer.shimmerContainer.visibility=View.VISIBLE
+        binding.clShimmer.shimmerContainer.startShimmer()
+
     }
 
     override fun initCtrl() {
 
+        binding.ivMore.setOnClickListener(this)
         binding.cpType.setOnClickListener(this)
         binding.cpType.setOnCloseIconClickListener {
+            startShimmerAnimation()
+            viewModel.getMenuList(MenuListModel(menuId = intent.getStringExtra("_id"),
+                                                latitude= getPrefrenceStringValue(this@MenuActivity, latitude),
+                                                longitude= getPrefrenceStringValue(this@MenuActivity, longitude),
+                                                userId = getPrefrenceStringValue(this@MenuActivity, _id),
+                                                token = getPrefrenceStringValue(this@MenuActivity, jwtToken),
+                                                foodType = BOTH))
             binding.cpType.isCloseIconVisible=false
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 binding.cpType.chipBackgroundColor=getColorStateList(R.color.white)
@@ -118,11 +152,29 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
             })
 
 
+            viewModel.nearByRestaurantDetail.observe(this@MenuActivity,{
+                when (it) {
+                    is Resource.Success -> {
+                        if(KeyConstants.SUCCESS==it.value?.status?:0) {
+                            viewModel.getMenuList(MenuListModel(menuId = it.value?.data?.menuData,
+                                                                latitude= getPrefrenceStringValue(this@MenuActivity, latitude),
+                                                                longitude= getPrefrenceStringValue(this@MenuActivity, longitude),
+                                                                userId = getPrefrenceStringValue(this@MenuActivity, _id),
+                                                                token = getPrefrenceStringValue(this@MenuActivity, jwtToken),
+                                                                foodType = BOTH))
+                        }
+                        else if(KeyConstants.FAILURE<=it.value?.status?:0) { stopShimmer(); ErrorUtil.snackView(binding.root, it.value?.message ?: "") }
+                    }
+                    is Resource.Failure -> { stopShimmer(); ErrorUtil.handlerGeneralError(binding.root, it.throwable!!) }
+                }
+            })
+
+
             viewModel.addToFavourite.observe(this@MenuActivity,{
                 when (it) {
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
-                            binding?.model?.restroObj?.restroData?.isFav=!(binding?.model?.restroObj?.restroData?.isFav!!)
+                            binding?.model?.restroObj?.isFav = it?.value?.message?.contains("Remove",ignoreCase = true) != true
                             binding.model=binding.model
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) {
@@ -155,15 +207,21 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
     override fun onClick(v: View?) {
         when(v?.id){
 
+            R.id.ivMore ->{
+                binding.appBar.setExpanded(false,true)
+                binding.nestedSvProduct.fullScroll(View.FOCUS_DOWN)
+            }
+
             R.id.ivFavMenu ->{
-                viewModel.addToFavourite(binding.ivFavMenu.tag as String,PrefrencesHelper.getPrefrenceStringValue(this@MenuActivity, PreferenceKeyConstants.jwtToken))
+
+                viewModel.addToFavourite(binding.ivFavMenu.tag as String,getPrefrenceStringValue(this@MenuActivity, jwtToken))
             }
 
             R.id.rlShareApp ->{
                 val sendIntent =  Intent()
-                sendIntent.setAction(Intent.ACTION_SEND)
+                sendIntent.action = Intent.ACTION_SEND
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey check out my app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID)
-                sendIntent.setType("text/plain")
+                sendIntent.type = "text/plain"
                 startActivity(sendIntent)
             }
 
@@ -179,6 +237,13 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
 
             R.id.ivBack ->{ onBackPressed() }
             R.id.cpType ->{
+                startShimmerAnimation()
+                viewModel.getMenuList(MenuListModel(menuId = intent.getStringExtra("_id"),
+                                                    latitude= getPrefrenceStringValue(this@MenuActivity, latitude),
+                                                    longitude= getPrefrenceStringValue(this@MenuActivity, longitude),
+                                                    userId = getPrefrenceStringValue(this@MenuActivity, _id),
+                                                    token = getPrefrenceStringValue(this@MenuActivity, jwtToken),
+                                                    foodType = VEG))
                 binding.cpType.isCloseIconVisible=true
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     binding.cpType.chipBackgroundColor=this.getColorStateList(R.color.app_theme)

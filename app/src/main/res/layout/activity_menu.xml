@@ -5,16 +5,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="android.view.View"/>
 
         <variable
             name="model"
             type="com.saveeat.model.response.saveeat.menu.RestaurantDetailModel" />
 
     </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -131,7 +133,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="20dp"
                             android:tag="@{model.restroObj.restroData._id}"
-                            android:src="@{model.restroObj.restroData.isFav==true?@drawable/menu_fav:@drawable/group_17481}"
+                            android:src="@{model.restroObj.isFav==true?@drawable/menu_fav:@drawable/group_17481}"
                             />
 
                     </RelativeLayout>
@@ -306,8 +308,10 @@
                             android:background="@drawable/drawable_bottom_round_corner"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/clProfile">
+                            app:layout_constraintTop_toBottomOf="@+id/clProfile"
+                            app:layout_constraintVertical_bias="1.0">
 
 
                             <TextView
@@ -315,10 +319,10 @@
                                 style="@style/poppin_semi_bold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="28sp"
+                                android:lineSpacingExtra="-1dp"
                                 android:text="@{model.restroObj.restroData.businessName}"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/dimen_20sp"
-                                android:lineSpacingExtra="-1dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -338,10 +342,10 @@
                                     style="@style/inter_regular"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:maxLength="17"
-                                    android:ellipsize="end"
                                     android:drawableStart="@drawable/location_address"
                                     android:drawablePadding="6dp"
+                                    android:ellipsize="end"
+                                    android:maxLength="17"
                                     android:text="@{model.restroObj.restroData.address}"
                                     android:textColor="@color/grey"
                                     android:textSize="@dimen/dimen_12sp" />
@@ -387,7 +391,7 @@
                                     android:layout_marginStart="12dp"
                                     android:drawableStart="@drawable/fi_rr_location_alt"
                                     android:drawablePadding="6dp"
-                                    android:text="@{model.restroObj.restroData.distance*0.001+` KM`}"
+                                    android:text="@{Math.round(model.restroObj.distance*0.001)+` KM`}"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/dimen_12sp" />
 
@@ -401,20 +405,24 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="16sp"
                                 android:layout_marginTop="9sp"
+                                android:layout_marginBottom="16dp"
                                 android:drawablePadding="6dp"
                                 android:text="@{`Pickup between `+model.restroObj.todayData.pickupWindowOpen +` to `+ model.restroObj.todayData.pickupWindowClose}"
                                 android:textColor="@color/grey"
                                 android:textSize="@dimen/dimen_12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                                app:layout_constraintVertical_bias="0.0" />
 
 
                             <androidx.constraintlayout.widget.ConstraintLayout
-                                android:id="@+id/constraintLayout3"
+                                android:id="@+id/clSuperSafety"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dimen_12sp"
+                                android:visibility="@{model.restroObj.restroData.safetyBadge==true?View.VISIBLE:View.GONE}"
                                 android:background="@color/light_green"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -440,10 +448,6 @@
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-
-
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -456,6 +460,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
@@ -539,11 +544,13 @@
                             layout="@layout/layout_menu_footer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+
                             android:visibility="invisible"
-                            bind:model="@{model}"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/rvProducts" />
+                            app:layout_constraintTop_toBottomOf="@id/rvProducts"
+                            bind:model="@{model}" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

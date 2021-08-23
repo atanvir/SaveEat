@@ -33,5 +33,8 @@ class ImageViewBindings {
 
 
 
+
+
+
     }
 }

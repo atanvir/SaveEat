@@ -16,6 +16,7 @@ import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentHomeBinding
 import com.saveeat.model.request.main.home.CommonHomeModel
 import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
+import com.saveeat.repository.cache.PreferenceKeyConstants._id
 import com.saveeat.repository.cache.PreferenceKeyConstants.distance
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
@@ -28,6 +29,7 @@ import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.ErrorUtil.snackView
 import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.application.KeyConstants.BOTH
+import com.saveeat.utils.application.KeyConstants.NON_VEG
 import com.saveeat.utils.application.KeyConstants.VEG
 import com.saveeat.utils.application.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,17 +53,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
         requestModel=CommonHomeModel(latitude=getPrefrenceStringValue(requireActivity(), latitude),
                                      longitude=getPrefrenceStringValue(requireActivity(), longitude),
                                      distance=getPrefrenceStringValue(requireActivity(), distance),
-                                     foodType = VEG,limit = 10, token = getPrefrenceStringValue(requireActivity(), jwtToken))
-        binding.clShimmer.shimmerContainer.startShimmer()
-
-
-        viewModel.moreSaveProductList(requestModel)
+                                     foodType = BOTH,limit = 10, token = getPrefrenceStringValue(requireActivity(), jwtToken),
+                                     userId=getPrefrenceStringValue(requireActivity(), _id))
+        startShimmerAnimation()
     }
 
 
     override fun initCtrl() {
         binding.cpType.setOnClickListener(this)
         binding.cpType.setOnCloseIconClickListener {
+            requestModel?.foodType= BOTH
+            startShimmerAnimation()
             binding.cpType.isCloseIconVisible=false
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 binding.cpType.chipBackgroundColor=requireActivity().getColorStateList(R.color.white)
@@ -69,6 +71,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
             }
             binding.cpType.setTextColor(ContextCompat.getColor(requireActivity(),R.color.black))
         }
+    }
+    private fun startShimmerAnimation(){
+        binding.clMain.visibility=View.GONE
+        binding.clShimmer.shimmerContainer.startShimmer()
+        binding.clShimmer.shimmerContainer.visibility=View.VISIBLE
+        viewModel.moreSaveProductList(requestModel)
     }
 
     override fun onResume() {
@@ -144,7 +152,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
                             binding.rvBrands.adapter= BrandAdapter(requireActivity(),it.value?.data?.toMutableList()!!)
                             viewModel.restaurantForHomeList(requestModel)
 
-
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) { stopShimmer();  snackView(binding.root,it.value?.message?:"") }
                     }
@@ -165,10 +172,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
                             binding.rvAllRestro.adapter= RestaurantHomeAdapter(requireActivity(),allRestraurantList,"All",this@HomeFragment)
 
                             binding.clMain.visibility=View.VISIBLE
-                            if(binding.rvSaveProducts.adapter?.itemCount?:0>0) binding.clSaveProducts.visibility=View.VISIBLE
-                            if(binding.rvPopularProducts.adapter?.itemCount?:0>0) binding.clPopularRestro.visibility=View.VISIBLE
-                            if(binding.rvBrands.adapter?.itemCount?:0>0) binding.clBrand.visibility=View.VISIBLE
-                            if(binding.rvAllRestro.adapter?.itemCount?:0>0) binding.clAllRestro.visibility=View.VISIBLE
+                            if(binding.rvSaveProducts.adapter?.itemCount?:0>0) binding.clSaveProducts.visibility=View.VISIBLE else binding.clSaveProducts.visibility=View.GONE
+                            if(binding.rvPopularProducts.adapter?.itemCount?:0>0) binding.clPopularRestro.visibility=View.VISIBLE else binding.clPopularRestro.visibility=View.GONE
+                            if(binding.rvBrands.adapter?.itemCount?:0>0) binding.clBrand.visibility=View.VISIBLE else binding.clBrand.visibility=View.GONE
+                            if(binding.rvAllRestro.adapter?.itemCount?:0>0) binding.clAllRestro.visibility=View.VISIBLE else binding.clAllRestro.visibility=View.GONE
 
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) { snackView(binding.root,it.value?.message?:"") }
@@ -189,6 +196,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.cpType ->{
+                requestModel?.foodType= VEG
+                startShimmerAnimation()
                 binding.cpType.isCloseIconVisible=true
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     binding.cpType.chipBackgroundColor=requireActivity().getColorStateList(R.color.app_theme)

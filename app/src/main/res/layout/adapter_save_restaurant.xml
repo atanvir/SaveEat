@@ -106,7 +106,7 @@
                     android:layout_width="41dp"
                     android:layout_height="41dp"
                     android:layout_marginStart="@dimen/dimen_22sp"
-                    imageUrl="@{model.restroData.image}"
+                    imageUrl="@{model.restroData.logo}"
                     progressbar="@{pbRestro}"
                     app:layout_constraintBottom_toBottomOf="@+id/constraintLayout4"
                     app:layout_constraintStart_toStartOf="parent"
