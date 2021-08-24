@@ -117,7 +117,7 @@
     <string name="enter_password">Please enter password</string>
 
     <string name="enter_password_character">Password field must be contains min 6 characters with special character &amp; numeric digits</string>
-    <string name="re_enter_password">Re-Enter Password</string>
+    <string name="re_enter_password">Please enter confirm password</string>
     <string name="enter_confirm_password_character">Confirm password field must be contains min 6 characters with special character &amp; numeric digits</string>
     <string name="password_does_not_math">Re- enter password does not match</string>
     <string name="please_enter_phone_number">Please enter phone number</string>

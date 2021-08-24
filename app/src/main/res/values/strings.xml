@@ -117,7 +117,7 @@
     <string name="enter_password">Please enter password</string>
 
     <string name="enter_password_character">Password field must be contains min 6 characters with special character &amp; numeric digits</string>
-    <string name="re_enter_password">Re-Enter Password</string>
+    <string name="re_enter_password">Please enter confirm password</string>
     <string name="enter_confirm_password_character">Confirm password field must be contains min 6 characters with special character &amp; numeric digits</string>
     <string name="password_does_not_math">Re- enter password does not match</string>
     <string name="please_enter_phone_number">Please enter phone number</string>
@@ -125,7 +125,7 @@
     <string name="please_enter_full_name">Please enter full name</string>
     <string name="please_enter_emailId">Please enter email id</string>
     <string name="valid_email_id">Please enter valid email id</string>
-    <string name="save_its_before_it_too_late">Save its before it\'s too late</string>
+    <string name="save_its_before_it_too_late">Save it before it\'s too late</string>
     <string name="popular_around_you">Popular Around Your</string>
     <string name="new_restaurant_on_saveeat">New restaurants on SaveEat</string>
     <string name="all_restaurant_near_you">All restaurants near you</string>

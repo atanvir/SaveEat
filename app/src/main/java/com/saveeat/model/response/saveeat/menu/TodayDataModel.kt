@@ -5,6 +5,8 @@ data class TodayDataModel(
     val day: String,
     val pickupWindowClose: String,
     val pickupWindowOpen: String,
+    val pickupOpenTime: String,
+    val pickupCloseTime: String,
     val saleWindowClose: String,
     val saleWindowOpen: String
 )

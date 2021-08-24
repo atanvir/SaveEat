@@ -36,6 +36,7 @@ fun ImageView.loadPhoto(url: String?,progressBar: ProgressBar?) {
 }
 
 fun ImageView.loadNormalPhoto(url: Any?,progressBar: ProgressBar?) {
+
     progressBar?.visibility= View.VISIBLE
     Glide.with(context).load(url).listener (object : RequestListener<Drawable>{
         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
@@ -48,8 +49,7 @@ fun ImageView.loadNormalPhoto(url: Any?,progressBar: ProgressBar?) {
             progressBar?.visibility= View.GONE
             return false
         }
-    }).apply(RequestOptions().format(DecodeFormat.PREFER_ARGB_8888)
-            .diskCacheStrategy(DiskCacheStrategy.ALL))/*.placeholder(R.drawable.coming_soon)*/.into(this)
+    }).apply(RequestOptions().format(DecodeFormat.DEFAULT).diskCacheStrategy(DiskCacheStrategy.NONE))/*.placeholder(R.drawable.coming_soon)*/.into(this)
 
 
 }
@@ -68,7 +68,7 @@ fun ImageView.loadProfilePic(url: String?,progressBar: ProgressBar?) {
             progressBar?.visibility= View.GONE
             return false
         }
-    }).transform( CenterInside(), RoundedCorners(15))/*.placeholder(R.drawable.coming_soon)*/.into(this)
+    }).transform(CenterInside(), RoundedCorners(15))/*.placeholder(R.drawable.coming_soon)*/.into(this)
 }
 
 

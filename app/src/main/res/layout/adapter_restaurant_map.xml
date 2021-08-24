@@ -4,9 +4,13 @@
 
     <data>
 
+
         <variable
             name="data"
             type="com.saveeat.model.response.saveeat.bean.RestaurantResponseBean" />
+
+
+
 
         <variable
             name="image"

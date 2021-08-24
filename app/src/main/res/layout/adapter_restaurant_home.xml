@@ -8,6 +8,7 @@
 
 
         <import type="android.view.View"/>
+        <import type="com.saveeat.utils.extn.DoubleExtensionKt"/>
         <variable
             name="type"
             type="java.lang.String" />
@@ -94,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/drawable_star"
-                android:text="@{``+Math.round(model.avgRating)}"
+                android:text="@{``+model.avgRating}"
                 android:drawablePadding="3sp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dime_13sp"
@@ -120,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@{``+Math.round(model.dist.calculated*0.001)+` KM`}"
+                android:text="@{``+DoubleExtensionKt.roundOffDecimal(model.dist.calculated*0.001)+` KM`}"
                 android:drawableStart="@drawable/fi_rr_location_alt"
                 android:drawablePadding="5sp"
                 android:textColor="@color/black"

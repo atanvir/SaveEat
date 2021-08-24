@@ -86,6 +86,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
                             list = it?.value?.data
                             val latLngBounds = LatLngBounds.Builder()
                             for (i in list?.indices!!) {
+
                                 clusterItemManager?.addItem(ClusterItemAdapter(it.value?.data?.get(i)))
                                 latLngBounds.include(LatLng(list?.get(i)?.latitude ?: 0.0, list?.get(i)?.longitude ?: 0.0))
                             }
@@ -122,8 +123,8 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
 
         clusterItemManager?.renderer = CustomClusterRenderer(activity, mMap, clusterItemManager)
 
-        mMap.setInfoWindowAdapter(clusterItemManager?.markerManager)
-        mMap.setOnInfoWindowClickListener(clusterItemManager)
+//        mMap.setInfoWindowAdapter(clusterItemManager?.markerManager)
+//        mMap.setOnInfoWindowClickListener(clusterItemManager)
         mMap.setOnCameraMoveListener(this)
 
         clusterItemManager?.setOnClusterItemClickListener(this@LocationMapFragment)

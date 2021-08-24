@@ -43,7 +43,7 @@
             android:adjustViewBounds="true"
             imageUrl="@{model.profilePic}"
             progressbar="@{progressbar}"
-            android:scaleType="center" />
+            android:scaleType="centerCrop" />
 
         <ProgressBar
             android:id="@+id/progressbar"

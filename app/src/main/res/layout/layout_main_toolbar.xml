@@ -133,7 +133,7 @@
                     android:layout_width="38sp"
                     android:layout_height="38sp"
                     android:adjustViewBounds="true"
-                    android:scaleType="center" />
+                    android:scaleType="centerCrop" />
 
                 <ProgressBar
                     android:id="@+id/progresBar"

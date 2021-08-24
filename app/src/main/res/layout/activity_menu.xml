@@ -10,6 +10,7 @@
     <data>
 
         <import type="android.view.View"/>
+        <import type="com.saveeat.utils.extn.DoubleExtensionKt"/>
 
         <variable
             name="model"
@@ -391,7 +392,7 @@
                                     android:layout_marginStart="12dp"
                                     android:drawableStart="@drawable/fi_rr_location_alt"
                                     android:drawablePadding="6dp"
-                                    android:text="@{Math.round(model.restroObj.distance*0.001)+` KM`}"
+                                    android:text="@{DoubleExtensionKt.roundOffDecimal(model.restroObj.distance*0.001)+` KM`}"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/dimen_12sp" />
 
@@ -407,7 +408,7 @@
                                 android:layout_marginTop="9sp"
                                 android:layout_marginBottom="16dp"
                                 android:drawablePadding="6dp"
-                                android:text="@{`Pickup between `+model.restroObj.todayData.pickupWindowOpen +` to `+ model.restroObj.todayData.pickupWindowClose}"
+                                android:text="@{`Pickup between `+model.restroObj.todayData.pickupOpenTime +` to `+ model.restroObj.todayData.pickupCloseTime}"
                                 android:textColor="@color/grey"
                                 android:textSize="@dimen/dimen_12sp"
                                 app:layout_constraintBottom_toBottomOf="parent"

@@ -1,5 +1,6 @@
 package com.saveeat.utils.application
 
+import android.app.Activity
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -271,9 +273,22 @@ object CommonUtils {
                 "(?=.*[a-zA-Z])" +      //any letter
                 "(?=.*[@#$%^&+=])" +    //at least 1 special character
                 "(?=\\S+$)" +           //no white spaces
-                ".{6,}" +               //at least 8 characters
+                ".{6,}" +               //at least 6 characters
                 "$");
         return passwordREGEX.matcher(password).matches()
+    }
+
+    fun createDrawableFromView(context: Context?, view: View?): Bitmap? {
+        val displayMetrics = DisplayMetrics()
+        (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+        view?.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        view?.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
+        view?.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
+        view?.buildDrawingCache()
+        val bitmap = Bitmap.createBitmap(view?.measuredWidth?:0, view?.measuredHeight?:0, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view?.draw(canvas)
+        return bitmap
     }
 
 

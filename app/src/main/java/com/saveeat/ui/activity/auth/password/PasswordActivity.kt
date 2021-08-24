@@ -125,7 +125,6 @@ class PasswordActivity : BaseActivity<ActivityPasswordBinding>(), View.OnClickLi
             binding.tilPassword.error = getString(R.string.enter_confirm_password_character)
         }
 
-
         else if(!binding.tiePassword.text().equals(binding.tieConfirmPassword.text())){
             ret=false
             binding.tilConfirmPassword.isErrorEnabled=true

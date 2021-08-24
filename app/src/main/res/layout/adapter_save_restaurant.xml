@@ -9,6 +9,7 @@
     <data>
 
         <import type="com.saveeat.utils.application.KeyConstants"/>
+        <import type="com.saveeat.utils.extn.DoubleExtensionKt"/>
 
 
         <variable
@@ -219,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="21dp"
-                    android:text="@{Math.round(model.restroData.dist.calculated*0.001)+` KM`}"
+                    android:text="@{DoubleExtensionKt.roundOffDecimal(model.restroData.dist.calculated*0.001)+` KM`}"
                     android:drawableStart="@drawable/fi_rr_location_alt"
                     android:drawablePadding="6dp"
                     android:textColor="@color/text_grey"

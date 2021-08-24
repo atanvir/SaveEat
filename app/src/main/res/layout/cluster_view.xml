@@ -2,6 +2,14 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.saveeat.model.response.saveeat.bean.RestaurantResponseBean" />
+
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -10,7 +18,7 @@
         android:id="@+id/imageView19"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/group_4002"
+        android:src="@drawable/marker_restro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

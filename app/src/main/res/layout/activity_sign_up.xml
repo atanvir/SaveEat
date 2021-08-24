@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content"
                         style="@style/poppin_regular"
                         android:imeOptions="actionNext"
-                        android:inputType="textPersonName|textNoSuggestions"
+                        android:inputType="textPersonName"
                         android:maxLength="55"
                         android:digits="@string/full_name_validation"
                         android:text="@={model.name}"

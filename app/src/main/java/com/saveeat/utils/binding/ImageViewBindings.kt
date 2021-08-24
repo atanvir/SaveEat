@@ -32,6 +32,13 @@ class ImageViewBindings {
         }
 
 
+        @BindingAdapter(value = ["normalPhotoUrl", "progressbar"], requireAll = true)
+        @JvmStatic
+        fun loadNormalPhoto(view: ImageView?, imageUrl: String?, progressBar: ProgressBar?) {
+            view?.loadNormalPhoto(imageUrl, progressBar)
+        }
+
+
 
 
 

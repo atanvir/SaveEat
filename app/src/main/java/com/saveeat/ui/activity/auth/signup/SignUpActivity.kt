@@ -94,17 +94,17 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(), View.OnClickListen
 
     private fun checkValidation() : Boolean {
         var ret=true
-        if(binding?.model?.name.isNullOrEmpty()) {
+        if(binding?.model?.name?.trim().isNullOrEmpty()) {
             ret=false
             binding.tilFullName.isErrorEnabled=true
             binding.tilFullName.error=getString(R.string.please_enter_full_name)
 
-        }else if(binding?.model?.email.isNullOrEmpty()){
+        }else if(binding?.model?.email?.trim().isNullOrEmpty()){
             ret=false
             binding.tilEmail.isErrorEnabled=true
             binding.tilEmail.error=getString(R.string.please_enter_emailId)
         }
-        else if(!Patterns.EMAIL_ADDRESS.matcher(binding?.model?.email?:"").matches()){
+        else if(!Patterns.EMAIL_ADDRESS.matcher(binding?.model?.email?.trim()?:"").matches()){
             ret=false
             binding.tilEmail.isErrorEnabled=true
             binding.tilEmail.error=getString(R.string.valid_email_id)
