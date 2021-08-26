@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="com.saveeat.utils.extn.DoubleExtensionKt"/>
+
         <variable
             name="data"
             type="com.saveeat.model.response.saveeat.bean.RestaurantResponseBean" />
@@ -20,7 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
             android:layout_width="53dp"
-            android:layout_height="41.5dp"
+            android:layout_height="41dp"
             android:layout_marginTop="81sp"
             android:layout_marginEnd="10dp"
             android:background="@{data.leftQuantity>0?@drawable/drawable_price_container:@drawable/drawable_price_container_grey}"

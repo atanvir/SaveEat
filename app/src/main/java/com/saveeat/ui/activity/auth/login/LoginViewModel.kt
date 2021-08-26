@@ -14,8 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel  @Inject constructor(private val repository: LoginRepository) : ViewModel() {
 
-    private val _userLogin: MutableLiveData<Resource<AuthModel?>> = MutableLiveData()
-    val userLogin: LiveData<Resource<AuthModel?>> get() = _userLogin
+    private val _userLogin: MutableLiveData<Resource<AuthModel?>?> = MutableLiveData()
+    val userLogin: LiveData<Resource<AuthModel?>?> get() = _userLogin
 
 
     fun login(model : LoginModel?){

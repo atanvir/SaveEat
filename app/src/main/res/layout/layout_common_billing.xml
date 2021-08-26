@@ -134,14 +134,13 @@
             android:layout_height="wrap_content">
 
             <TextView
+                style="@style/poppin_semi_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/total"
                 android:layout_alignParentStart="true"
+                android:text="@string/total"
                 android:textColor="@color/black"
-                android:textSize="@dimen/dimen_16sp"
-                style="@style/poppin_semi_bold"
-                />
+                android:textSize="@dimen/dimen_16sp" />
 
 
 

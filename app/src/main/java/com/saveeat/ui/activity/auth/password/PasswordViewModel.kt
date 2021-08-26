@@ -14,8 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PasswordViewModel  @Inject constructor(private val repository: PasswordRepository) : ViewModel() {
 
-    private val _forgotPassword: MutableLiveData<Resource<AuthModel?>> = MutableLiveData()
-    val forgotPassword: LiveData<Resource<AuthModel?>> get() = _forgotPassword
+    private val _forgotPassword: MutableLiveData<Resource<AuthModel?>?> = MutableLiveData()
+    val forgotPassword: LiveData<Resource<AuthModel?>?> get() = _forgotPassword
 
 
     fun forgotPassword(model : ForgotModel?){

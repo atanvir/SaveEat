@@ -14,24 +14,24 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: HomeRepository): ViewModel() {
 
-    private val _moreSaveProductList : MutableLiveData<Resource<HomeModel?>> = MutableLiveData()
-    val moreSaveProductList : LiveData<Resource<HomeModel?>> get() = _moreSaveProductList
+    private val _moreSaveProductList : MutableLiveData<Resource<HomeModel?>?> = MutableLiveData()
+    val moreSaveProductList : LiveData<Resource<HomeModel?>?> get() = _moreSaveProductList
 
 
-    private val _restaurantForHomeList : MutableLiveData<Resource<HomeModel?>> = MutableLiveData()
-    val restaurantForHomeList : LiveData<Resource<HomeModel?>> get() = _restaurantForHomeList
+    private val _restaurantForHomeList : MutableLiveData<Resource<HomeModel?>?> = MutableLiveData()
+    val restaurantForHomeList : LiveData<Resource<HomeModel?>?> get() = _restaurantForHomeList
 
 
-    private val _popularRestaurantList : MutableLiveData<Resource<HomeModel?>> = MutableLiveData()
-    val popularRestaurantList : LiveData<Resource<HomeModel?>> get() = _popularRestaurantList
+    private val _popularRestaurantList : MutableLiveData<Resource<HomeModel?>?> = MutableLiveData()
+    val popularRestaurantList : LiveData<Resource<HomeModel?>?> get() = _popularRestaurantList
 
 
-    private val _newRestaurantList : MutableLiveData<Resource<HomeModel?>> = MutableLiveData()
-    val newRestaurantList : LiveData<Resource<HomeModel?>> get() = _newRestaurantList
+    private val _newRestaurantList : MutableLiveData<Resource<HomeModel?>?> = MutableLiveData()
+    val newRestaurantList : LiveData<Resource<HomeModel?>?> get() = _newRestaurantList
 
 
-    private val _addToFavourite : MutableLiveData<Resource<HomeModel?>> = MutableLiveData()
-    val addToFavourite : LiveData<Resource<HomeModel?>> get() = _addToFavourite
+    private val _addToFavourite : MutableLiveData<Resource<HomeModel?>?> = MutableLiveData()
+    val addToFavourite : LiveData<Resource<HomeModel?>?> get() = _addToFavourite
 
     fun moreSaveProductList(model: CommonHomeModel?){
         viewModelScope.launch {

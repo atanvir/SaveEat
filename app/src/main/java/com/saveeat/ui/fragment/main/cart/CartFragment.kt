@@ -18,6 +18,10 @@ import com.saveeat.ui.activity.order.checkout.CheckoutActivity
 import com.saveeat.ui.adapter.cart.CartAdapter
 import com.saveeat.ui.dialog.DatePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
+import android.text.style.RelativeSizeSpan
+import com.airbnb.lottie.utils.Utils
+import com.saveeat.utils.application.CommonUtils
+import com.saveeat.utils.application.CommonUtils.increaseFontSizeForPath
 
 
 @AndroidEntryPoint
@@ -32,8 +36,12 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener {
         binding.clShadowButton.tvButtonLabel.text=getString(R.string.checkout)
         val wordtoSpan: Spannable = SpannableString("Continue to checkout to save ₹427 on this order")
         wordtoSpan.setSpan(ForegroundColorSpan(Color.rgb(0, 178, 17)), 28, 33, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        increaseFontSizeForPath(wordtoSpan, "₹427", 1.25f)
+
         binding.clBilling.tvSaveLabel.text = wordtoSpan
     }
+
+
 
     override fun onResume() {
         super.onResume()

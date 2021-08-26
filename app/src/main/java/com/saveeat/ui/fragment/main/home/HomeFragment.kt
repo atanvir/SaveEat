@@ -1,6 +1,7 @@
 package com.saveeat.ui.fragment.main.home
 
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +62,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
 
     override fun initCtrl() {
         binding.cpType.setOnClickListener(this)
+        binding.rvSaveProducts.addOnScrollListener(saveRestroRecycleviewListner)
+
         binding.cpType.setOnCloseIconClickListener {
             requestModel?.foodType= BOTH
             startShimmerAnimation()
@@ -72,6 +75,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
             binding.cpType.setTextColor(ContextCompat.getColor(requireActivity(),R.color.black))
         }
     }
+
+    val saveRestroRecycleviewListner = object: RecyclerView.OnScrollListener(){
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            if(binding.rvSaveProducts.adapter!=null){
+                val layoutParams= binding.rvSaveProducts.layoutParams as ViewGroup.MarginLayoutParams
+                if((recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()==0 && (recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()==0) layoutParams.leftMargin=19
+                else layoutParams.leftMargin=0
+                binding.rvSaveProducts.layoutParams=layoutParams
+                binding.rvSaveProducts.requestLayout()
+            }
+        }
+
+    }
+
+
     private fun startShimmerAnimation(){
         binding.clMain.visibility=View.GONE
         binding.clShimmer.shimmerContainer.startShimmer()

@@ -1,3 +1,8 @@
 package com.saveeat.model.response.saveeat.bean
 
-data class MaxLeftModel(var letfProductAllSum: Int)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+
+@Parcelize
+data class MaxLeftModel(var letfProductAllSum: Int?) : Parcelable

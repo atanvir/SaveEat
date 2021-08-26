@@ -245,11 +245,15 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
             latitute = getPrefrenceStringValue(this, latitude).toDouble()
             longitute = getPrefrenceStringValue(this, longitude).toDouble()
         }
+        getAddressFromLat(latitute, longitute)
+        (supportFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMapAsync(this)
+    }
+
+    private fun getAddressFromLat(latitute: Double, longitute: Double) {
         val addresses: List<Address>
         val geocoder = Geocoder(this, Locale.getDefault())
         addresses = geocoder.getFromLocation(latitute, longitute, 1)
         binding.tvAddress.text = addresses[0]?.getAddressLine(0) ?: ""
-        (supportFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMapAsync(this)
     }
 
     override fun onMapReady(p0: GoogleMap) {
@@ -315,7 +319,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         btnMyLocation.layoutParams=params
 
         // Zoom Button
-        mMap?.setPadding(0, 0, 0, 370)
+        mMap?.setPadding(0, 0, 0, 420)
     }
 
 
@@ -344,16 +348,15 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                 if(curLatitude==0.0 && curLongitude==0.0){
                     startLocation(this, onResult, onPermissionLaucher, this)
                 }else{
-                    marker?.position = LatLng(curLatitude?:0.0,curLatitude?:0.0)
-                    mMap?.moveCamera(CameraUpdateFactory.newLatLng(marker?.position))
-                    mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(marker?.position, 16f))
-
+//                    marker?.position = LatLng(curLatitude?:0.0,curLongitude?:0.0)
+//                    mMap?.moveCamera(CameraUpdateFactory.newLatLng(marker?.position))
+//                    mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(marker?.position, 16f))
+                    getAddressFromLat(curLatitude,curLongitude)
                     if(data is SignupModel) userSignup(curLatitude,curLongitude)
                     else if(data is LocationModel) updateAddress(curLatitude,curLongitude)
                 }
             }
             R.id.ivButton-> {
-
                 if(curLatitude==0.0 && curLongitude==0.0) startLocation(this, onResult, onPermissionLaucher, this)
                 else if(data is SignupModel) userSignup(latitute,longitute)
                 else if(data is LocationModel) updateAddress(latitute,longitute)

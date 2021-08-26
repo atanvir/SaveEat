@@ -60,6 +60,28 @@
                         android:layout_height="wrap_content">
 
 
+                        <TextView
+                            android:id="@+id/tvLeft"
+                            style="@style/inter_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/drawable_round_corner"
+                            android:backgroundTint="@{model.leftQuantity==0?@color/blur_grey:@color/app_theme}"
+                            android:elevation="@dimen/_1sdp"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/_7sdp"
+                            android:paddingTop="@dimen/_2sdp"
+                            android:paddingRight="@dimen/_7sdp"
+                            android:paddingBottom="@dimen/_1sdp"
+
+                            android:text="@{model.leftQuantity>0?model.leftQuantity+` left`:`Nothing left`}"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dimen_10sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
                         <ImageView
                             android:id="@+id/ivType"
                             android:layout_width="wrap_content"
@@ -125,8 +147,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout4"
-                    android:layout_width="53sp"
-                    android:layout_height="41sp"
+                    android:layout_width="53dp"
+                    android:layout_height="41dp"
                     android:layout_marginEnd="@dimen/dimen_19sp"
                     android:background="@drawable/drawable_price_save_container"
                     app:layout_constraintBottom_toBottomOf="parent"

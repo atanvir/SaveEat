@@ -13,8 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SignupViewModel  @Inject constructor(private val repository: SignupRepository) : ViewModel() {
 
-    private val _checkUserMobileAndEmail: MutableLiveData<Resource<AuthModel?>> = MutableLiveData()
-    val checkUserMobileAndEmail: LiveData<Resource<AuthModel?>> get() = _checkUserMobileAndEmail
+    private val _checkUserMobileAndEmail: MutableLiveData<Resource<AuthModel?>?> = MutableLiveData()
+    val checkUserMobileAndEmail: LiveData<Resource<AuthModel?>?> get() = _checkUserMobileAndEmail
 
 
     fun checkUserMobileAndEmail(email : String?,mobileNumber: String?){

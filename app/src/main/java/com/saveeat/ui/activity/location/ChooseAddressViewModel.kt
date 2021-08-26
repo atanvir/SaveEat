@@ -23,15 +23,15 @@ class ChooseAddressViewModel @Inject constructor(val repository: ChooseAddressRe
     val addressResposne: LiveData<Resource<List<Address>?>?> get() = _addressResposne
 
 
-    private val _placeDetail: MutableLiveData<Resource<GooglePlacesBean?>> = MutableLiveData()
-    val placeDetail: LiveData<Resource<GooglePlacesBean?>> get() = _placeDetail
+    private val _placeDetail: MutableLiveData<Resource<GooglePlacesBean?>?> = MutableLiveData()
+    val placeDetail: LiveData<Resource<GooglePlacesBean?>?> get() = _placeDetail
 
 
-    private val _userSignup: MutableLiveData<Resource<AuthModel?>> = MutableLiveData()
-    val userSignup: LiveData<Resource<AuthModel?>> get() = _userSignup
+    private val _userSignup: MutableLiveData<Resource<AuthModel?>?> = MutableLiveData()
+    val userSignup: LiveData<Resource<AuthModel?>?> get() = _userSignup
 
-    private val _updateAddress: MutableLiveData<Resource<AuthModel?>> = MutableLiveData()
-    val updateAddress: LiveData<Resource<AuthModel?>> get() = _updateAddress
+    private val _updateAddress: MutableLiveData<Resource<AuthModel?>?> = MutableLiveData()
+    val updateAddress: LiveData<Resource<AuthModel?>?> get() = _updateAddress
 
 
     fun getCurrentAddres(context: Context?, latitute: Double?, longitute: Double?, handler: Handler?) {

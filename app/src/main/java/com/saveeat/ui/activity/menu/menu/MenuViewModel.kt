@@ -18,20 +18,20 @@ import javax.inject.Inject
 @HiltViewModel
 class MenuViewModel @Inject constructor(private val repository: MenuRepository) : ViewModel() {
 
-    private val _getRestroDetail : MutableLiveData<Resource<MenuRestaurantModel?>> = MutableLiveData()
-    val getRestroDetail : LiveData<Resource<MenuRestaurantModel?>>  get() = _getRestroDetail
+    private val _getRestroDetail : MutableLiveData<Resource<MenuRestaurantModel?>?> = MutableLiveData()
+    val getRestroDetail : LiveData<Resource<MenuRestaurantModel?>?>  get() = _getRestroDetail
 
 
-    private val _getMenuList : MutableLiveData<Resource<MenuRestaurantModel?>> = MutableLiveData()
-    val getMenuList : LiveData<Resource<MenuRestaurantModel?>>  get() = _getMenuList
+    private val _getMenuList : MutableLiveData<Resource<MenuRestaurantModel?>?> = MutableLiveData()
+    val getMenuList : LiveData<Resource<MenuRestaurantModel?>?>  get() = _getMenuList
 
 
-    private val _nearByRestaurantDetail : MutableLiveData<Resource<MenuRestaurantModel?>> = MutableLiveData()
-    val nearByRestaurantDetail : LiveData<Resource<MenuRestaurantModel?>>  get() = _nearByRestaurantDetail
+    private val _nearByRestaurantDetail : MutableLiveData<Resource<MenuRestaurantModel?>?> = MutableLiveData()
+    val nearByRestaurantDetail : LiveData<Resource<MenuRestaurantModel?>?>  get() = _nearByRestaurantDetail
 
 
-    private val _addToFavourite : MutableLiveData<Resource<HomeModel?>> = MutableLiveData()
-    val addToFavourite : LiveData<Resource<HomeModel?>> get() = _addToFavourite
+    private val _addToFavourite : MutableLiveData<Resource<HomeModel?>?> = MutableLiveData()
+    val addToFavourite : LiveData<Resource<HomeModel?>?> get() = _addToFavourite
 
 
 

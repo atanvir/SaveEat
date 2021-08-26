@@ -1,8 +1,10 @@
 package com.saveeat.ui.fragment.main.location.Map
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.material.snackbar.Snackbar
 import com.google.maps.android.clustering.ClusterManager
@@ -32,6 +35,7 @@ import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
 import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
+import com.saveeat.ui.activity.menu.menu.MenuActivity
 import com.saveeat.ui.adapter.home.RestaurantHomeAdapter
 import com.saveeat.ui.adapter.map.ClusterItemAdapter
 import com.saveeat.ui.adapter.map.CustomClusterRenderer
@@ -51,6 +55,9 @@ import com.saveeat.utils.permissions.gps.GPSPermissionHelper
 import com.saveeat.utils.permissions.gps.GPSPermissionHelper.startLocation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+
+
+
 
 
 @AndroidEntryPoint
@@ -111,10 +118,15 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     }
 
 
-
     override fun onMapReady(p0: GoogleMap) {
         mMap=p0
+        try {
+            val success: Boolean = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(activity, R.raw.map_style))
+        } catch (e: Exception) {
+            Log.e("TAG", "Can't find style. Error: ", e)
+        }
         mapControls()
+
 
 
         clusterItemManager = ClusterManager(context, mMap)
@@ -130,6 +142,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         clusterItemManager?.setOnClusterItemClickListener(this@LocationMapFragment)
 
         clusterItemManager?.setOnClusterClickListener {
+            Log.e("data","click")
             binding.btnShowRestro.visibility=View.GONE
             binding.rvRestaurant.visibility=View.VISIBLE
             val  latLngBounds= LatLngBounds.Builder()
@@ -138,7 +151,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
                 latLngBounds.include(LatLng(selectedClusterList.get(i)?.data?.latitude?:0.0,selectedClusterList.get(i)?.data?.longitude?:0.0))
             }
             mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLngBounds.build().center))
-            mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngBounds.build().center, 10f))
+            mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngBounds.build().center, 12f))
 
             true
         }
@@ -260,7 +273,11 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
 
 
     override fun onClusterItemClick(item: ClusterItemAdapter?): Boolean {
-
+        val intent= Intent(context, MenuActivity::class.java)
+        if(item?.data?.userType?.equals(KeyConstants.BRAND,ignoreCase = true)==true)intent.putExtra("_id",item?.data?._id)
+        else intent.putExtra("_id",item?.data?.menuData?._id)
+        intent.putExtra("type",item?.data?.userType)
+        context?.startActivity(intent)
         return true
     }
 

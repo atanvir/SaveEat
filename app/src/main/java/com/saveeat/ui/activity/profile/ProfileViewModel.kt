@@ -14,12 +14,12 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel  @Inject constructor(private val repository: ProfileRepository) : ViewModel() {
 
-    private val _changeMobileNumber: MutableLiveData<Resource<AuthModel?>> = MutableLiveData()
-    val changeMobileNumber: LiveData<Resource<AuthModel?>> get() = _changeMobileNumber
+    private val _changeMobileNumber: MutableLiveData<Resource<AuthModel?>?> = MutableLiveData()
+    val changeMobileNumber: LiveData<Resource<AuthModel?>?> get() = _changeMobileNumber
 
 
-    private val _userUpdateDetails: MutableLiveData<Resource<AuthModel?>> = MutableLiveData()
-    val userUpdateDetails: LiveData<Resource<AuthModel?>> get() = _userUpdateDetails
+    private val _userUpdateDetails: MutableLiveData<Resource<AuthModel?>?> = MutableLiveData()
+    val userUpdateDetails: LiveData<Resource<AuthModel?>?> get() = _userUpdateDetails
 
 
     fun changeMobileNumber(model : ProfileModel?){

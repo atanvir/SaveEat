@@ -38,12 +38,27 @@ import com.saveeat.utils.application.KeyConstants
                 holder.binding.model=list?.get(position)
                 holder.binding.rvProducts.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
                 holder.binding.rvProducts.adapter = RestaurantProductHomeAdapter(context,list?.get(position)?.realProductData)
+                holder.binding.rvProducts.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        if(holder.binding.rvProducts.adapter!=null){
+                            val layoutParams= holder.binding.rvProducts.layoutParams as ViewGroup.MarginLayoutParams
+                            if((recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()==0 && (recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()==0) layoutParams.leftMargin=21
+                            else layoutParams.leftMargin=0
+                            holder.binding.rvProducts.layoutParams=layoutParams
+                            holder.binding.rvProducts.requestLayout()
+                        }
+                    }
+
+                })
                 holder.binding.executePendingBindings()
             }
         }
     }
 
-    inner class RestroViewHolder(var binding : AdapterRestaurantHomeBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+
+        inner class RestroViewHolder(var binding : AdapterRestaurantHomeBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
             binding.ivViewAll.setOnClickListener(this)
             binding.ivFav.setOnClickListener(this)

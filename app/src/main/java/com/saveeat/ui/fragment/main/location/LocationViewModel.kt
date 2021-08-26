@@ -14,11 +14,11 @@ import javax.inject.Inject
 @HiltViewModel
 class LocationViewModel  @Inject constructor(private val repository: LocationRepository): ViewModel() {
 
-    private val _restaurantList : MutableLiveData<Resource<HomeModel??>> = MutableLiveData()
-    val restaurantList : LiveData<Resource<HomeModel?>> get() = _restaurantList
+    private val _restaurantList : MutableLiveData<Resource<HomeModel?>?> = MutableLiveData()
+    val restaurantList : LiveData<Resource<HomeModel?>?> get() = _restaurantList
 
-    private val _addToFavourite : MutableLiveData<Resource<HomeModel?>> = MutableLiveData()
-    val addToFavourite : LiveData<Resource<HomeModel?>> get() = _addToFavourite
+    private val _addToFavourite : MutableLiveData<Resource<HomeModel?>?> = MutableLiveData()
+    val addToFavourite : LiveData<Resource<HomeModel?>?> get() = _addToFavourite
 
 
     fun addToFavourite(storeId: String?,token: String?){

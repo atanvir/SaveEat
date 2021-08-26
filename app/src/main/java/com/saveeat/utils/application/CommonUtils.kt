@@ -8,6 +8,8 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.text.Spannable
+import android.text.style.RelativeSizeSpan
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
@@ -76,6 +78,11 @@ object CommonUtils {
     return fcmToken
     }
 
+    fun increaseFontSizeForPath(spannable: Spannable, path: String, increaseTime: Float) {
+        val startIndexOfPath = spannable.toString().indexOf(path)
+        spannable.setSpan(RelativeSizeSpan(increaseTime), startIndexOfPath, startIndexOfPath + path.length, 0)
+    }
+
 
     fun authToolbar(activity: AppCompatActivity){
         val ivBack =activity.findViewById<ImageView>(R.id.ivBack)
@@ -136,8 +143,8 @@ object CommonUtils {
     fun setSpinner(context: Context,  spinner: Spinner, textView: TextView) {
         val adapter: ArrayAdapter<String?> = object : ArrayAdapter<String?>(context, android.R.layout.simple_spinner_item,
                                                                             arrayOf<String?>(context.getString(R.string.please_select_distance),
-                                                                            context.getString(R.string.within_3KM),context.getString(R.string.within_5KM),
-                                                                            context.getString(R.string.within_10KM),context.getString(R.string.within_15KM))) {
+                                                                            "Within 500 Mtr","Within 1 KM",
+                                                                            "Within 1.5 KM","Within 2 KM","Within 2.5 KM","Within 3 KM","Within 3.5 KM","Within 4 KM","Within 4.5 KM","Within 5 KM")) {
         override fun isEnabled(position: Int): Boolean {
             return position!=0
         }
@@ -160,7 +167,13 @@ object CommonUtils {
 
         spinner.onSelected { parent, position ->
             if(position>0){
-            textView.tag=parent?.getItemAtPosition(position).toString().split("Within ")[1].split("KMS")[0]
+                if(parent?.getItemAtPosition(position).toString().contains("Mtr")){
+                    textView.tag=parent?.getItemAtPosition(position).toString().split("Within ")[1].split("Mtr")[0]
+                }else if(parent?.getItemAtPosition(position).toString().contains("KM")){
+                    textView.tag=parent?.getItemAtPosition(position).toString().split("Within ")[1].split("KM")[0]
+                }else if(parent?.getItemAtPosition(position).toString().contains("KMS")){
+                    textView.tag=parent?.getItemAtPosition(position).toString().split("Within ")[1].split("KMS")[0]
+                }
             }
             textView.text=parent?.getItemAtPosition(position).toString()
         }

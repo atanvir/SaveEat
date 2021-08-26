@@ -28,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import com.saveeat.BuildConfig
 import com.saveeat.model.request.menu.MenuBrandModel
 import com.saveeat.repository.cache.PreferenceKeyConstants._id
@@ -35,6 +36,7 @@ import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
 import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
+import com.saveeat.ui.bottomsheet.restaurant.RestaurantBottomSheet
 import com.saveeat.utils.application.KeyConstants.BOTH
 import com.saveeat.utils.application.KeyConstants.BRAND
 import com.saveeat.utils.application.KeyConstants.RESTAURANT
@@ -208,12 +210,14 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
         when(v?.id){
 
             R.id.ivMore ->{
-                binding.appBar.setExpanded(false,true)
-                binding.nestedSvProduct.fullScroll(View.FOCUS_DOWN)
+                val bottomSheet = RestaurantBottomSheet()
+                val bundle = Bundle()
+                bundle.putParcelable("data", binding.model)
+                bottomSheet.arguments = bundle
+                bottomSheet.show(supportFragmentManager, "")
             }
 
             R.id.ivFavMenu ->{
-
                 viewModel.addToFavourite(binding.ivFavMenu.tag as String,getPrefrenceStringValue(this@MenuActivity, jwtToken))
             }
 
