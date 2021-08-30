@@ -39,6 +39,7 @@ import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.adapter.address.AddressInfoWindow
 import com.saveeat.ui.adapter.autocomplete.AutoCompleteAddressAdapter
 import com.saveeat.ui.adapter.autocomplete.onAutoCompleteItemClick
+import com.saveeat.ui.bottomsheet.distance.DistanceBottomSheet
 import com.saveeat.utils.application.CommonUtils.buttonLoader
 import com.saveeat.utils.application.CommonUtils.setSpinner
 import com.saveeat.utils.application.ErrorUtil.handlerGeneralError
@@ -88,11 +89,10 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
 
         if(data is LocationModel){
             Handler(Looper.getMainLooper()!!).postDelayed(Runnable {
-                binding.tvKMDropDown.text= "Within "+getPrefrenceStringValue(this, PreferenceKeyConstants.distance) +" KMS"
+                binding.tvKMDropDown.text= "Within "+getPrefrenceStringValue(this, PreferenceKeyConstants.distance) +" KM"
                 binding.tvKMDropDown.tag=getPrefrenceStringValue(this, PreferenceKeyConstants.distance)
             },500)
         }
-
     }
 
     override fun initCtrl() {
@@ -258,6 +258,11 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
+        try {
+             mMap?.setMapStyle(MapStyleOptions.loadRawResourceStyle(this@ChooseAddressActivity, R.raw.map_style))
+        } catch (e: Exception) {
+            Log.e("TAG", "Can't find style. Error: ", e)
+        }
         mapControls()
         val currentLocation=LatLng(latitute,longitute)
         mMap?.apply {
@@ -342,7 +347,10 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.tvKMDropDown ->{ binding.spnAddress.performClick() }
+            R.id.tvKMDropDown ->{ DistanceBottomSheet({
+                binding.tvKMDropDown.text="Within $it KM"
+                binding.tvKMDropDown.tag=it?.toString() },
+                (binding.tvKMDropDown.tag?:"").toString()).show(supportFragmentManager,"") }
 
             R.id.btnCurrentLocation ->{
                 if(curLatitude==0.0 && curLongitude==0.0){

@@ -143,7 +143,7 @@ object CommonUtils {
     fun setSpinner(context: Context,  spinner: Spinner, textView: TextView) {
         val adapter: ArrayAdapter<String?> = object : ArrayAdapter<String?>(context, android.R.layout.simple_spinner_item,
                                                                             arrayOf<String?>(context.getString(R.string.please_select_distance),
-                                                                            "Within 500 Mtr","Within 1 KM",
+                                                                            "Within 0.5 KM","Within 1 KM",
                                                                             "Within 1.5 KM","Within 2 KM","Within 2.5 KM","Within 3 KM","Within 3.5 KM","Within 4 KM","Within 4.5 KM","Within 5 KM")) {
         override fun isEnabled(position: Int): Boolean {
             return position!=0

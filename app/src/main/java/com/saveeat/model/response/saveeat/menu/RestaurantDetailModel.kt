@@ -44,6 +44,7 @@ data class RestaurantDetailModel(
     var todayData: TodayDataModel?,
     var extra: MutableList<MenuExtraModel?>?,
     var image: String?,
+    var menu: Boolean=false,
     var restroData: RestaurantResponseBean?,
     var cuisineList:  MutableList<CuisineBean?>?,
     var itemData:  MutableList<MenuItemProductModel?>?,

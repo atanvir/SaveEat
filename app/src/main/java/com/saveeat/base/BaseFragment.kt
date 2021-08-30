@@ -12,6 +12,7 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseFragment<B: ViewBinding> : Fragment() {
     protected lateinit var callback: OnBackPressedCallback
     protected lateinit var binding: B
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding=getFragmentBinding(inflater, container)
         return binding.root

@@ -3,7 +3,10 @@ package com.saveeat.ui.fragment.main.location.Map
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.location.Location
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,18 +18,22 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.maps.android.clustering.ClusterManager
+import com.google.maps.android.clustering.view.ClusterRenderer
 import com.saveeat.R
 import com.saveeat.base.BaseFragment
+import com.saveeat.databinding.ClusterViewBinding
 import com.saveeat.databinding.FragmentLocationMapBinding
 import com.saveeat.model.request.main.home.CommonHomeModel
 import com.saveeat.model.request.restaurant.RestauarntMap
@@ -42,22 +49,19 @@ import com.saveeat.ui.adapter.map.CustomClusterRenderer
 import com.saveeat.ui.adapter.map.MapRestaurantAdapter
 import com.saveeat.ui.fragment.main.home.HomeViewModel
 import com.saveeat.ui.fragment.main.location.LocationViewModel
+import com.saveeat.utils.application.*
 import com.saveeat.utils.application.CustomLoader.Companion.hideLoader
 import com.saveeat.utils.application.CustomLoader.Companion.showLoader
-import com.saveeat.utils.application.ErrorUtil
-import com.saveeat.utils.application.KeyConstants
-import com.saveeat.utils.application.Resource
-import com.saveeat.utils.application.StaticDataHelper
 import com.saveeat.utils.extn.action
 import com.saveeat.utils.extn.snack
 import com.saveeat.utils.extn.toast
 import com.saveeat.utils.permissions.gps.GPSPermissionHelper
 import com.saveeat.utils.permissions.gps.GPSPermissionHelper.startLocation
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
-
-
+import java.util.logging.Handler
 
 
 @AndroidEntryPoint
@@ -69,11 +73,13 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     private val viewModel : LocationViewModel by viewModels()
     private var curLatitude : Double?=0.0
     private var curLongitude : Double?=0.0
+    var clusterBinding : ClusterViewBinding?=null
 
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLocationMapBinding = FragmentLocationMapBinding.inflate(inflater,container)
 
     override fun init() {
+        clusterBinding = ClusterViewBinding.inflate(LayoutInflater.from(context),null)
         (childFragmentManager?.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMapAsync(this@LocationMapFragment)
     }
 
@@ -93,7 +99,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
                             list = it?.value?.data
                             val latLngBounds = LatLngBounds.Builder()
                             for (i in list?.indices!!) {
-
+                              //  mMap?.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(getClusterView(list?.get(i)))))
                                 clusterItemManager?.addItem(ClusterItemAdapter(it.value?.data?.get(i)))
                                 latLngBounds.include(LatLng(list?.get(i)?.latitude ?: 0.0, list?.get(i)?.longitude ?: 0.0))
                             }
@@ -101,8 +107,6 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
                             binding.rvRestaurant.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
                             binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),list)
 
-                            mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLngBounds.build().center))
-                            mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngBounds.build().center, 10f))
                             }catch (e: Exception){
                                 e.printStackTrace()
                             }
@@ -117,9 +121,19 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         }
     }
 
+    private fun getClusterView(data: RestaurantResponseBean?): Bitmap? {
+      var  binding = ClusterViewBinding.inflate(LayoutInflater.from(context),null)
+      Picasso.get().load(data?.logo).networkPolicy(NetworkPolicy.OFFLINE).into(binding?.ciLogo)
+      return CommonUtils.createDrawableFromView(context, binding?.root)
+    }
+
 
     override fun onMapReady(p0: GoogleMap) {
         mMap=p0
+
+        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.latitude).toDouble(), getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.longitude).toDouble()),12f))
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.latitude).toDouble(), getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.longitude).toDouble()),12f))
+
         try {
             val success: Boolean = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(activity, R.raw.map_style))
         } catch (e: Exception) {

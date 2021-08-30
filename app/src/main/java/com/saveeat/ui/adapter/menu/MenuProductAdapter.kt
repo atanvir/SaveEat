@@ -25,6 +25,7 @@ class MenuProductAdapter(var context: Context?, var list: MutableList<Restaurant
         if(list?.get(position)?.leftQuantity==0) holder.binding.ivCoverPhoto.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
         holder.binding.executePendingBindings()
     }
+
     override fun getItemCount(): Int = list?.size?:0
 
     inner class MenuRestaurantHolder(var binding : AdapterMenuProductBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {

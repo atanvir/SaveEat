@@ -19,12 +19,14 @@ class RestaurantBottomSheet : BaseBottomSheet<BottomSheetRestaurantInfoBinding>(
     override fun getBottomSheetBinding(inflater: LayoutInflater, container: ViewGroup?): BottomSheetRestaurantInfoBinding = BottomSheetRestaurantInfoBinding.inflate(inflater,container,false)
 
     override fun init() {
-        binding.model=arguments?.getParcelable("data")
+        val data=arguments?.getParcelable<RestaurantDetailModel?>("data")
+        data?.menu=false
+        binding.model=data
     }
 
     override fun initCtrl() {
         binding.clFooter.rlDirection.setOnClickListener(this)
-        binding.clFooter.rlPhoneCall.setOnClickListener(this)
+        binding.clFooter.tvPhoneCall.setOnClickListener(this)
         binding.clFooter.rlShareApp.setOnClickListener(this)
     }
 
@@ -33,6 +35,7 @@ class RestaurantBottomSheet : BaseBottomSheet<BottomSheetRestaurantInfoBinding>(
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.rlShareApp -> {
+                dismiss()
                 val sendIntent =  Intent()
                 sendIntent.action = Intent.ACTION_SEND
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey check out my app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID)
@@ -41,10 +44,12 @@ class RestaurantBottomSheet : BaseBottomSheet<BottomSheetRestaurantInfoBinding>(
             }
 
             R.id.rlDirection -> {
+                dismiss()
                 CommonUtils.openGoogleMap(requireActivity(),(binding.clFooter.rlDirection.tag as String).split(",")[0].toDouble(),(binding.clFooter.rlDirection.tag as String).split(",")[1].toDouble())
             }
 
-            R.id.rlPhoneCall ->{
+            R.id.tvPhoneCall ->{
+                dismiss()
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + binding.clFooter.tvPhoneCall.text.toString()))
                 startActivity(intent)
             }

@@ -85,7 +85,6 @@
                             android:visibility="gone"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="@dimen/dimen_10sp"
-                            android:src="@drawable/group_4006"
                             android:layout_toRightOf="@+id/ivBack"
                             />
 
@@ -109,6 +108,8 @@
                             android:text="@{model.restroObj.restroData.businessName}"
                             android:textAlignment="center"
                             android:visibility="gone"
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             android:layout_toLeftOf="@id/ivMore"
                             android:layout_marginLeft="7dp"
                             android:layout_toRightOf="@+id/ivRestroImage"
@@ -474,7 +475,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_42sdp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="4dp"
                     android:text="@string/veg"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimen_12sp"
@@ -492,16 +492,30 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/sv_location_grey"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@+id/cpType"
+                    app:layout_constraintEnd_toStartOf="@+id/rvMenuCategories"
+                    app:layout_constraintStart_toEndOf="@+id/cpType"
+                    app:layout_constraintTop_toTopOf="@+id/cpType" />
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvMenuCategories"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="14dp"
                     android:nestedScrollingEnabled="false"
-                    android:layout_marginTop="@dimen/_5sdp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/cpType"
-                    app:layout_constraintTop_toBottomOf="@+id/cpType" />
+                    app:layout_constraintStart_toEndOf="@+id/cpType"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
                 <include
@@ -509,11 +523,12 @@
                     layout="@layout/layout_menu_shimmer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:nestedScrollingEnabled="false"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/cpType"
-                    app:layout_constraintTop_toBottomOf="@+id/cpType" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.core.widget.NestedScrollView
                     android:id="@+id/nestedSvProduct"
@@ -546,7 +561,7 @@
                             layout="@layout/layout_menu_footer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
+                            android:background="@color/menu_footer"
                             android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

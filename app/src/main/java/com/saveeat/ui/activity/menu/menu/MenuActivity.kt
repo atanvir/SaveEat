@@ -55,7 +55,10 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
 
     override fun inits() {
 
-        startShimmerAnimation()
+//        startShimmerAnimation()
+        binding.clShimmer.shimmerContainer.visibility=View.VISIBLE
+        binding.clShimmer.shimmerContainer.startShimmer()
+
         if(intent.getStringExtra("type").equals(RESTAURANT,true)) {
             viewModel.getMenuList(MenuListModel(menuId = intent.getStringExtra("_id"),
                                                 latitude= getPrefrenceStringValue(this@MenuActivity, latitude),
@@ -75,8 +78,8 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
     }
 
     private fun startShimmerAnimation(){
-        cuisineList?.clear()
-        menuProductDataList?.clear()
+//        cuisineList?.clear()
+//        menuProductDataList?.clear()
         binding.clShimmer.shimmerContainer.visibility=View.VISIBLE
         binding.clShimmer.shimmerContainer.startShimmer()
 
@@ -87,7 +90,7 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
         binding.ivMore.setOnClickListener(this)
         binding.cpType.setOnClickListener(this)
         binding.cpType.setOnCloseIconClickListener {
-            startShimmerAnimation()
+            //startShimmerAnimation()
             viewModel.getMenuList(MenuListModel(menuId = intent.getStringExtra("_id"),
                                                 latitude= getPrefrenceStringValue(this@MenuActivity, latitude),
                                                 longitude= getPrefrenceStringValue(this@MenuActivity, longitude),
@@ -132,7 +135,9 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
                 when (it) {
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
-                            binding.model=it.value?.data
+                            var data=it.value?.data
+                            data?.menu=true
+                            binding.model=data
 
                             cuisineList=it?.value?.data?.cuisineList
                             cuisineList?.add(0,CuisineBean(check = true,_id = "123",name = "All"))
@@ -241,7 +246,7 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
 
             R.id.ivBack ->{ onBackPressed() }
             R.id.cpType ->{
-                startShimmerAnimation()
+//                startShimmerAnimation()
                 viewModel.getMenuList(MenuListModel(menuId = intent.getStringExtra("_id"),
                                                     latitude= getPrefrenceStringValue(this@MenuActivity, latitude),
                                                     longitude= getPrefrenceStringValue(this@MenuActivity, longitude),

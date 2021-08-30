@@ -48,7 +48,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
     private var type : String?=null
     private var position : Int?=null
 
-    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
+    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater,container,false)
 
     override fun init() {
         requestModel=CommonHomeModel(latitude=getPrefrenceStringValue(requireActivity(), latitude),

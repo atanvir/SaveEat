@@ -22,6 +22,7 @@ import com.saveeat.repository.cache.PrefrencesHelper.updateLocation
 import com.saveeat.ui.activity.drawer.drawer.DrawerActivity
 import com.saveeat.ui.activity.location.ChooseAddressActivity
 import com.saveeat.ui.activity.profile.ProfileActivity
+import com.saveeat.ui.bottomsheet.distance.DistanceBottomSheet
 import com.saveeat.utils.application.CommonUtils.setSpinner
 import com.saveeat.utils.extn.loadProfilePic
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +39,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         navController=findNavController(this,R.id.fragment)
         binding.bottomNavigationView.setupWithNavController(navController)
         if(intent.getBooleanExtra("menu",false)) binding.bottomNavigationView.selectedItemId=R.id.cartFragment
-        setSpinner(this,binding.clMainToolbar.spnAddress,binding.clMainToolbar.tvKMDropDown)
     }
 
     override fun onResume() {
@@ -57,6 +57,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     }
 
     override fun observer() {
+
+
     }
 
 
@@ -65,7 +67,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
             // Toolbar
             R.id.ivProfile ->{ startActivity(Intent(this,ProfileActivity::class.java)) }
-            R.id.tvKMDropDown ->{ binding.clMainToolbar.spnAddress.performClick() }
+            R.id.tvKMDropDown ->{ DistanceBottomSheet({
+                binding.clMainToolbar.tvKMDropDown.text="Within $it KM"
+                binding.clMainToolbar.tvKMDropDown.tag=it?.toString() },
+                (binding.clMainToolbar.tvKMDropDown.tag?:"").toString()).show(supportFragmentManager,"") }
 
             // Drawer
             R.id.ivDrawer ->{ startActivity(Intent(this, DrawerActivity::class.java))}
@@ -90,7 +95,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         binding.clMainToolbar.tvAddress.text=getPrefrenceStringValue(this, address)
         binding.clMainToolbar.ivProfile.loadProfilePic(getPrefrenceStringValue(this, profilePic),binding.clMainToolbar.progresBar)
         Handler(Looper.getMainLooper()!!).postDelayed(Runnable {
-            binding.clMainToolbar.tvKMDropDown.text= "Within "+getPrefrenceStringValue(this, distance) +" KMS"
+            binding.clMainToolbar.tvKMDropDown.text= "Within "+getPrefrenceStringValue(this, distance) +" KM"
             binding.clMainToolbar.tvKMDropDown.tag=getPrefrenceStringValue(this, distance)
         },500)
     }

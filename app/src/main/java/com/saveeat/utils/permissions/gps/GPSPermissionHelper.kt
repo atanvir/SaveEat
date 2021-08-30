@@ -189,6 +189,7 @@ object GPSPermissionHelper : GoogleApiClient.OnConnectionFailedListener, GoogleA
     override fun onSuccess(p0: Location?) {
         if(p0!=null) locationCallBack(p0)
         else mFusedLocationClient?.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+//        mFusedLocationClient?.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
     }
 
 

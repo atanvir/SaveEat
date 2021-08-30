@@ -94,22 +94,24 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
     }
 
     override fun onClick(v: View?) {
+
         when(v?.id){
-            R.id.ivButton ->{ startActivity(Intent(this,MainActivity::class.java).putExtra("menu",true)) }
-            R.id.ivPlus ->{
+
+            R.id.ivButton -> { startActivity(Intent(this,MainActivity::class.java).putExtra("menu",true)) }
+            R.id.ivPlus -> {
               var count =binding.clQuantity.tvQuantity.text.toString().toInt()
               count += 1
               binding.clQuantity.tvQuantity.text=count.toString()
             }
 
-            R.id.ivMinus ->{
+            R.id.ivMinus -> {
                 var count =binding.clQuantity.tvQuantity.text.toString().toInt()
                 if(count>0){
                 count -= 1
                 binding.clQuantity.tvQuantity.text=count.toString()
                 }
             }
-            R.id.clRestroDetail ->{
+            R.id.clRestroDetail -> {
                 val intent=Intent(this,MenuActivity::class.java)
                 intent.putExtra("_id",binding?.model?.menuId)
                 intent.putExtra("type", KeyConstants.RESTAURANT)
