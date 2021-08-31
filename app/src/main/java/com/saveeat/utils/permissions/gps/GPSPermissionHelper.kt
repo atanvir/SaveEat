@@ -178,18 +178,20 @@ object GPSPermissionHelper : GoogleApiClient.OnConnectionFailedListener, GoogleA
         }
     }
     fun locationCallBack(location: Location?) {
+        if(!isLocation){
         mFusedLocationClient?.removeLocationUpdates(locationCallback)
         isLocation = true
         listner?.onLocation(location)
+        }
     }
 
 
 
     @SuppressLint("MissingPermission")
     override fun onSuccess(p0: Location?) {
-        if(p0!=null) locationCallBack(p0)
-        else mFusedLocationClient?.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
-//        mFusedLocationClient?.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+//        if(p0!=null) locationCallBack(p0)
+//        else mFusedLocationClient?.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+        mFusedLocationClient?.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
     }
 
 

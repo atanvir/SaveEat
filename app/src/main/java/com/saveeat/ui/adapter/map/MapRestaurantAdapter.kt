@@ -17,7 +17,7 @@ import com.saveeat.ui.activity.menu.menu.MenuActivity
 import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.application.KeyConstants.BRAND
 
-class MapRestaurantAdapter(var context: Context?, var list:  MutableList<RestaurantResponseBean?>?) : RecyclerView.Adapter<MapRestaurantAdapter.MyViewHolder>() {
+class MapRestaurantAdapter(var context: Context?, var list: MutableList<RestaurantResponseBean?>?) : RecyclerView.Adapter<MapRestaurantAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MapRestaurantAdapter.MyViewHolder =MyViewHolder(AdapterRestaurantMapBinding.inflate(LayoutInflater.from(context),parent,false))
 
     override fun onBindViewHolder(holder: MapRestaurantAdapter.MyViewHolder, position: Int) {

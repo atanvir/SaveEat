@@ -68,7 +68,7 @@ fun ImageView.loadProfilePic(url: String?,progressBar: ProgressBar?) {
             progressBar?.visibility= View.GONE
             return false
         }
-    }).transform(CenterInside(), RoundedCorners(15))/*.placeholder(R.drawable.coming_soon)*/.into(this)
+    }).transform(RoundedCorners(15))/*.placeholder(R.drawable.coming_soon)*/.into(this)
 }
 
 

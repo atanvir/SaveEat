@@ -78,6 +78,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     override fun getActivityBinding(): ActivityChooseAddressBinding = ActivityChooseAddressBinding.inflate(layoutInflater)
 
     override fun inits() {
+        (supportFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMapAsync(this)
         data=intent?.getParcelableExtra("data")
 
         binding.tvKMDropDown.setOnClickListener(this)
@@ -246,24 +247,6 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
             longitute = getPrefrenceStringValue(this, longitude).toDouble()
         }
         getAddressFromLat(latitute, longitute)
-        (supportFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment?)?.getMapAsync(this)
-    }
-
-    private fun getAddressFromLat(latitute: Double, longitute: Double) {
-        val addresses: List<Address>
-        val geocoder = Geocoder(this, Locale.getDefault())
-        addresses = geocoder.getFromLocation(latitute, longitute, 1)
-        binding.tvAddress.text = addresses[0]?.getAddressLine(0) ?: ""
-    }
-
-    override fun onMapReady(p0: GoogleMap) {
-        mMap = p0
-        try {
-             mMap?.setMapStyle(MapStyleOptions.loadRawResourceStyle(this@ChooseAddressActivity, R.raw.map_style))
-        } catch (e: Exception) {
-            Log.e("TAG", "Can't find style. Error: ", e)
-        }
-        mapControls()
         val currentLocation=LatLng(latitute,longitute)
         mMap?.apply {
             marker=addMarker(MarkerOptions().position(currentLocation).title("Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.path_2740)))
@@ -301,9 +284,29 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         binding.clShadowButton.ivButton.enable(false)
 
         viewModel.getCurrentAddres(context = this,
-                                   latitute=currentLocation.latitude,
-                                   longitute=currentLocation.longitude,
-                                   handler=handler!!)
+            latitute=currentLocation.latitude,
+            longitute=currentLocation.longitude,
+            handler=handler!!)
+
+    }
+
+    private fun getAddressFromLat(latitute: Double, longitute: Double) {
+        val addresses: List<Address>
+        val geocoder = Geocoder(this, Locale.getDefault())
+        addresses = geocoder.getFromLocation(latitute, longitute, 1)
+        binding.tvAddress.text = addresses[0]?.getAddressLine(0) ?: ""
+    }
+
+    override fun onMapReady(p0: GoogleMap) {
+        mMap = p0
+        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(20.5937,78.9629),10f))
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(20.5937,78.9629),10f))
+        try {
+             mMap?.setMapStyle(MapStyleOptions.loadRawResourceStyle(this@ChooseAddressActivity, R.raw.map_style))
+        } catch (e: Exception) {
+            Log.e("TAG", "Can't find style. Error: ", e)
+        }
+        mapControls()
     }
 
     private fun mapControls() {

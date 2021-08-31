@@ -24,7 +24,7 @@
         android:orientation="vertical"
         android:layout_marginBottom="20dp"
         android:background="@drawable/background_common_button"
-        android:backgroundTint="@color/sv_location_grey">
+        android:backgroundTint="@color/white">
 
 
 
@@ -36,8 +36,8 @@
             android:autoLink="web"
             android:linksClickable="true"
             android:tag="@{model.restroObj.restroData.webiteLink}"
-            android:text="Open Website in Chroome"
-            style="@style/poppin_semi_bold"
+            android:text="Open Website in Chrome"
+            style="@style/poppin_regular"
             android:textColor="@color/black"
             android:textAlignment="center"
             />
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Phone Call"
-            style="@style/poppin_semi_bold"
+            style="@style/poppin_regular"
             android:textColor="@color/black"
             android:textAlignment="center"
             />
@@ -75,7 +75,7 @@
             android:text="Open in Google Maps"
             android:tag="@{model.restroObj.restroData.latitude+`,`+model.restroObj.restroData.longitude}"
 
-            style="@style/poppin_semi_bold"
+            style="@style/poppin_regular"
             android:textColor="@color/black"
             android:textAlignment="center"
             />
@@ -93,10 +93,16 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Share"
-            style="@style/poppin_semi_bold"
+            style="@style/poppin_regular"
             android:textColor="@color/black"
             android:textAlignment="center"
             />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/grey"/>
 
 
 
@@ -109,7 +115,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:background="@drawable/background_common_button"
-            android:backgroundTint="@color/sv_location_grey"
+            android:backgroundTint="@color/white"
             android:text="Cancel"
             style="@style/poppin_semi_bold"
             android:textColor="@color/app_theme"

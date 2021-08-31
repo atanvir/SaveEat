@@ -1,5 +1,6 @@
 package com.saveeat.model.response.saveeat.bean
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
@@ -14,8 +15,10 @@ data class RestaurantResponseBean(
     var addedQuantity: Int?,
     var adminVerifyStatus: String?,
     var avgRating: Double?,
+    var loaded: Boolean=false,
 
     var logo: String?,
+    var bitmap: Bitmap?,
     var businessName: String?,
     var dist: DistanceModel?,
     var address: String?,

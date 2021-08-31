@@ -11,6 +11,7 @@ import com.saveeat.base.BaseBottomSheet
 import com.saveeat.databinding.BottomSheetRestaurantInfoBinding
 import com.saveeat.model.response.saveeat.menu.RestaurantDetailModel
 import com.saveeat.utils.application.CommonUtils
+import com.saveeat.utils.extn.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,6 +29,8 @@ class RestaurantBottomSheet : BaseBottomSheet<BottomSheetRestaurantInfoBinding>(
         binding.clFooter.rlDirection.setOnClickListener(this)
         binding.clFooter.tvPhoneCall.setOnClickListener(this)
         binding.clFooter.rlShareApp.setOnClickListener(this)
+        binding.clFooter.tvCancel.setOnClickListener(this)
+        binding.clFooter.tvWebsite.setOnClickListener(this)
     }
 
     override fun observer() {}
@@ -43,6 +46,16 @@ class RestaurantBottomSheet : BaseBottomSheet<BottomSheetRestaurantInfoBinding>(
                 startActivity(sendIntent)
             }
 
+            R.id.tvWebsite ->{
+                dismiss()
+                try{
+                val sendIntent =  Intent(Intent.ACTION_VIEW, Uri.parse(binding.clFooter.tvWebsite.tag as String))
+                    startActivity(sendIntent)
+                }catch (e: Exception){
+                    requireActivity().toast("No url found!")
+                }
+            }
+
             R.id.rlDirection -> {
                 dismiss()
                 CommonUtils.openGoogleMap(requireActivity(),(binding.clFooter.rlDirection.tag as String).split(",")[0].toDouble(),(binding.clFooter.rlDirection.tag as String).split(",")[1].toDouble())
@@ -52,6 +65,10 @@ class RestaurantBottomSheet : BaseBottomSheet<BottomSheetRestaurantInfoBinding>(
                 dismiss()
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + binding.clFooter.tvPhoneCall.text.toString()))
                 startActivity(intent)
+            }
+
+            R.id.tvCancel ->{
+                dismiss()
             }
         }
     }
