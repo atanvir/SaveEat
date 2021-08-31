@@ -63,7 +63,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     private var curLongitude : Double?=0.0
     var clusterBinding : ClusterViewBinding?=null
 
-    var zoomLevel=7f
+    var zoomLevel=13f
     var isCurrentLocationEnable=false
 
 

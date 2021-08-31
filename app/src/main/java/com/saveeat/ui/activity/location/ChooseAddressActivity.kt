@@ -94,6 +94,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                 binding.tvKMDropDown.tag=getPrefrenceStringValue(this, PreferenceKeyConstants.distance)
             },500)
         }
+
     }
 
     override fun initCtrl() {
@@ -163,7 +164,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                     is Resource.Failure ->{
                         binding.pbLoader.visibility=View.GONE
                         binding.root.snack(it.throwable?.message?:""){}
-                    }
+                       }
             }
         })
             viewModel.userSignup.observe(this@ChooseAddressActivity,{
@@ -284,23 +285,21 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         binding.clShadowButton.ivButton.enable(false)
 
         viewModel.getCurrentAddres(context = this,
-            latitute=currentLocation.latitude,
-            longitute=currentLocation.longitude,
-            handler=handler!!)
+                                   latitute=currentLocation.latitude,
+                                   longitute=currentLocation.longitude,
+                                   handler=handler!!)
 
     }
 
     private fun getAddressFromLat(latitute: Double, longitute: Double) {
-        val addresses: List<Address>
-        val geocoder = Geocoder(this, Locale.getDefault())
-        addresses = geocoder.getFromLocation(latitute, longitute, 1)
-        binding.tvAddress.text = addresses[0]?.getAddressLine(0) ?: ""
+        val addresses : List<Address?>? =  Geocoder(this, Locale.getDefault()).getFromLocation(latitute, longitute, 1)
+        binding.tvAddress.text = addresses?.get(0)?.getAddressLine(0)?: ""
     }
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
-        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(20.5937,78.9629),10f))
-        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(20.5937,78.9629),10f))
+        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(20.5937,78.9629),5f))
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(20.5937,78.9629),5f))
         try {
              mMap?.setMapStyle(MapStyleOptions.loadRawResourceStyle(this@ChooseAddressActivity, R.raw.map_style))
         } catch (e: Exception) {
@@ -321,6 +320,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         // Location Button Gravity
         val btnMyLocation = (supportFragmentManager.findFragmentById(R.id.mapView)?.view?.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById<View>(Integer.parseInt("2"))
         val params = RelativeLayout.LayoutParams( btnMyLocation.layoutParams.width, btnMyLocation.layoutParams.height) // size of button in dp
+
         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE)
         params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE)
         params.setMargins(0, 0, 25, 0)
@@ -411,6 +411,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     private fun updateAddress(latitute: Double?,longitute : Double?) {
         buttonLoader(binding.clShadowButton,true)
         if(checkValidation()){
+
             Handler(Looper.myLooper()!!).postDelayed(Runnable {
                 (data as LocationModel)?.latitude=latitute
                 (data as LocationModel)?.longitude=longitute
@@ -425,7 +426,6 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
 
     override fun onClick(placeId: String?, spotName: String?) {
         binding.root.hideKeyboard(this)
-
         binding.rvPlaces.visibility=View.GONE
         binding.pbPlaces.visibility=View.GONE
         binding.pbLoader.visibility=View.VISIBLE

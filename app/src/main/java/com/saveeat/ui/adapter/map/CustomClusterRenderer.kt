@@ -71,7 +71,7 @@ class CustomClusterRenderer(var context: Context?, var map: GoogleMap?, private 
             marker.setIcon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(context,binding?.root)))
         }
 
-         if (map?.cameraPosition?.zoom?:0f < 8f) {
+         if (map?.cameraPosition?.zoom?:0f < 14f) {
             bindingActivity.rvRestaurant.visibility=View.GONE
              bindingActivity.btnShowRestro.visibility=View.VISIBLE
         }else{

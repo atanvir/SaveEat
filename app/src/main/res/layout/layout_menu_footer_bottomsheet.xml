@@ -34,9 +34,30 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:autoLink="web"
+            android:visibility="gone"
             android:linksClickable="true"
             android:tag="@{model.restroObj.restroData.webiteLink}"
             android:text="Open Website in Chrome"
+            style="@style/poppin_regular"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:visibility="gone"
+            android:background="@color/grey"/>
+
+
+        <TextView
+            android:id="@+id/rlDirection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Open in Google Maps"
+            android:tag="@{model.restroObj.restroData.latitude+`,`+model.restroObj.restroData.longitude}"
+
             style="@style/poppin_regular"
             android:textColor="@color/black"
             android:textAlignment="center"
@@ -67,23 +88,7 @@
 
 
 
-        <TextView
-            android:id="@+id/rlDirection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Open in Google Maps"
-            android:tag="@{model.restroObj.restroData.latitude+`,`+model.restroObj.restroData.longitude}"
 
-            style="@style/poppin_regular"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/grey"/>
 
 
 

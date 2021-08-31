@@ -14,7 +14,7 @@ object GoogleUtils {
 
     fun autocomplete(input: String): MutableList<PlacesModel?>? {
         val resultList: MutableList<PlacesModel?>? = ArrayList()
-        val types = "establishment"
+        val types = "establishment|geocode"
 
         var conn: HttpURLConnection? = null
         val jsonResults = StringBuilder()
@@ -41,7 +41,7 @@ object GoogleUtils {
                 resultList?.add(
                     PlacesModel(placeId = autoCompleteModel.predictions[i].place_id,
                                 placeName = autoCompleteModel.predictions[i].structured_formatting.main_text,
-                                spotName = autoCompleteModel.predictions[i].structured_formatting.secondary_text)
+                                spotName = autoCompleteModel.predictions[i].description)
                 )
             }
 

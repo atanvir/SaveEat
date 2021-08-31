@@ -104,6 +104,8 @@
         <activity
             android:name="com.saveeat.ui.activity.location.ChooseAddressActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"
+
             android:theme="@style/white_theme" />
         <activity
             android:name="com.saveeat.ui.activity.auth.otp.OTPVerificationActivity"

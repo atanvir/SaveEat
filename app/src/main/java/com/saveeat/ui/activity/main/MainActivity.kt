@@ -1,6 +1,7 @@
 package com.saveeat.ui.activity.main
 
 import android.content.Intent
+import android.location.Address
 import android.os.Handler
 import android.os.Looper
 import android.view.View
@@ -12,6 +13,7 @@ import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityMainBinding
 import com.saveeat.model.response.saveeat.location.LocationModel
+import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PreferenceKeyConstants.address
 import com.saveeat.repository.cache.PreferenceKeyConstants.distance
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
@@ -27,6 +29,10 @@ import com.saveeat.utils.application.CommonUtils.setSpinner
 import com.saveeat.utils.extn.loadProfilePic
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import android.location.Geocoder
+
+
+
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
@@ -92,7 +98,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
 
     private fun refreshToolbar() {
-        binding.clMainToolbar.tvAddress.text=getPrefrenceStringValue(this, address)
+        getLocalityFromLatLng()
         binding.clMainToolbar.ivProfile.loadProfilePic(getPrefrenceStringValue(this, profilePic),binding.clMainToolbar.progresBar)
         Handler(Looper.getMainLooper()!!).postDelayed(Runnable {
             binding.clMainToolbar.tvKMDropDown.text= "Within "+getPrefrenceStringValue(this, distance) +" KM"
@@ -100,7 +106,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         },500)
     }
 
-
+    private fun getLocalityFromLatLng() {
+        val addresses : List<Address?>? = Geocoder(this, Locale.getDefault()).getFromLocation(getPrefrenceStringValue(this,latitude).toDouble(), getPrefrenceStringValue(this, longitude).toDouble(), 1)
+        binding.clMainToolbar.tvAddress.text=addresses?.get(0)?.subLocality
+    }
 
 
 }
