@@ -97,6 +97,8 @@
             style="@style/inter_regular"
             android:textSize="@dimen/dimen_11sp"
             android:paddingLeft="9dp"
+            android:paddingRight="9dp"
+
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:drawableStart="@drawable/ed_new_search"

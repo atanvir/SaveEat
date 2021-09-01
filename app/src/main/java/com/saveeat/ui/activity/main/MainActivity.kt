@@ -111,8 +111,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
     private fun getLocalityFromLatLng() {
         val addresses : List<Address?>? = Geocoder(this, Locale.getDefault()).getFromLocation(getPrefrenceStringValue(this,latitude).toDouble(), getPrefrenceStringValue(this, longitude).toDouble(), 1)
-        binding.clMainToolbar.tvAddress.text=addresses?.get(0)?.subLocality
+        if(addresses?.get(0)?.subLocality?:"".equals("")==true) binding.clMainToolbar.tvAddress.text=addresses?.get(0)?.getAddressLine(0)
+        else binding.clMainToolbar.tvAddress.text=addresses?.get(0)?.subLocality
     }
-
-
 }

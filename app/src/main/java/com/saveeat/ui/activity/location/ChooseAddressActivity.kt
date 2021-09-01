@@ -62,6 +62,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
     private val HIDE_INFO_WINDOW = 3
     private var list: MutableList<PlacesModel?>? = ArrayList()
     var data: Any?=null
+    var isSelected=false
 
     private var handler: Handler?=null
     private var mMap: GoogleMap? = null
@@ -101,9 +102,13 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         binding.ivClose.setOnClickListener(this)
         binding.svLocation.setOnClickListener(this)
         binding.svLocation.onAfterChanged {
+            if(!isSelected){
             binding.rvPlaces.visibility=View.VISIBLE
             binding.pbPlaces.visibility=View.VISIBLE
             (binding.rvPlaces.adapter as AutoCompleteAddressAdapter).filter.filter(it)
+            }
+
+            isSelected=false
         }
         binding.clShadowButton.ivButton.setOnClickListener(this)
         binding.btnCurrentLocation.setOnClickListener(this)
@@ -142,7 +147,9 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                 }
             })
             viewModel.placeDetail.observe(this@ChooseAddressActivity,{
-                 when(it){
+                binding.pbLoader.visibility=View.GONE
+
+                when(it){
                     is Resource.Success -> {
                         binding.pbLoader.visibility=View.GONE
                         latitute = it.value?.result?.geometry?.location?.lat ?: 0.0
@@ -159,6 +166,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
 
                         binding.rvPlaces.visibility=View.GONE
                         binding.pbPlaces.visibility=View.GONE
+                        binding.root.hideKeyboard(this@ChooseAddressActivity)
 
                     }
                     is Resource.Failure ->{
@@ -425,11 +433,10 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
 
 
     override fun onClick(placeId: String?, spotName: String?) {
-        binding.root.hideKeyboard(this)
-        binding.rvPlaces.visibility=View.GONE
-        binding.pbPlaces.visibility=View.GONE
         binding.pbLoader.visibility=View.VISIBLE
-        binding.root.hideKeyboard(this)
+        binding.svLocation.setText(spotName?:"")
+        isSelected=true
+        binding.svLocation.setSelection(binding.svLocation.length())
         viewModel.getLatLongFromPlaceId(placeId)
     }
 
