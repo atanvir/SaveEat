@@ -13,7 +13,6 @@ import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentFavouriteBinding
 import com.saveeat.model.request.main.favourite.FavouriteModel
 import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
-import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
 import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
@@ -22,7 +21,6 @@ import com.saveeat.ui.adapter.home.RestaurantHomeAdapter
 import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.application.Resource
-import com.saveeat.utils.application.StaticDataHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

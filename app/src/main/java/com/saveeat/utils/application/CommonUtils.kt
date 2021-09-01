@@ -30,7 +30,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.messaging.FirebaseMessaging
 import com.saveeat.R
 import com.saveeat.databinding.LayoutCommonButtonBinding
-import com.saveeat.repository.cache.DataStore
 import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.ui.activity.auth.login.LoginActivity
 import com.saveeat.ui.activity.auth.password.PasswordActivity
@@ -46,14 +45,11 @@ import com.saveeat.utils.extn.text
 import io.michaelrocks.libphonenumber.android.NumberParseException
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 import kotlinx.coroutines.*
-import android.widget.Toast
 import com.saveeat.repository.cache.PreferenceKeyConstants.deviceToken
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
 
-import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.utils.application.KeyConstants.PREF_NAME
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 

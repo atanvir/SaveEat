@@ -12,16 +12,11 @@ import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityMenuBinding
 import com.saveeat.model.request.menu.MenuListModel
-import com.saveeat.model.request.menu.MenuModel
 import com.saveeat.model.response.saveeat.bean.CuisineBean
 import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 import com.saveeat.model.response.saveeat.menu.MenuItemProductModel
-import com.saveeat.repository.cache.PreferenceKeyConstants
-import com.saveeat.repository.cache.PrefrencesHelper
-import com.saveeat.ui.adapter.home.RestaurantHomeAdapter
 import com.saveeat.ui.adapter.menu.MenuCategoryAdapter
 import com.saveeat.ui.adapter.menu.MenuProductAdapter
-import com.saveeat.ui.adapter.restaurant.SavedRestaurantAdapter
 import com.saveeat.utils.application.*
 import com.saveeat.utils.helper.AppBarStateChangeListener
 import dagger.hilt.android.AndroidEntryPoint

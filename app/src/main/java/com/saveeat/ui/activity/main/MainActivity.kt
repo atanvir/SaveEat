@@ -13,7 +13,6 @@ import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityMainBinding
 import com.saveeat.model.response.saveeat.location.LocationModel
-import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PreferenceKeyConstants.address
 import com.saveeat.repository.cache.PreferenceKeyConstants.distance
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
@@ -25,7 +24,6 @@ import com.saveeat.ui.activity.drawer.drawer.DrawerActivity
 import com.saveeat.ui.activity.location.ChooseAddressActivity
 import com.saveeat.ui.activity.profile.ProfileActivity
 import com.saveeat.ui.bottomsheet.distance.DistanceBottomSheet
-import com.saveeat.utils.application.CommonUtils.setSpinner
 import com.saveeat.utils.extn.loadProfilePic
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*

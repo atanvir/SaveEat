@@ -8,12 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityDrawerBinding
-import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.ui.activity.auth.login.LoginActivity
-import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
 import com.saveeat.ui.activity.drawer.help.HelpActivity
 import com.saveeat.ui.activity.drawer.credit.CreditActivity
 import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
@@ -21,7 +19,6 @@ import com.saveeat.ui.activity.drawer.location.HiddenLocationActivity
 import com.saveeat.ui.activity.drawer.payment.PaymentActivity
 import com.saveeat.ui.activity.drawer.reward.RewardActivity
 import com.saveeat.ui.adapter.rewards.RewardsAdapter
-import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.application.Resource

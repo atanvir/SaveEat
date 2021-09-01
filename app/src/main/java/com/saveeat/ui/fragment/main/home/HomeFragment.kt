@@ -1,7 +1,6 @@
 package com.saveeat.ui.fragment.main.home
 
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,14 +29,12 @@ import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.ErrorUtil.snackView
 import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.application.KeyConstants.BOTH
-import com.saveeat.utils.application.KeyConstants.NON_VEG
 import com.saveeat.utils.application.KeyConstants.VEG
 import com.saveeat.utils.application.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, (Int,String?) -> Unit {

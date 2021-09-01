@@ -32,7 +32,6 @@ import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
 import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
 import com.saveeat.repository.cache.PrefrencesHelper
-import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceBooleanValue
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.repository.cache.PrefrencesHelper.updateLocation
 import com.saveeat.ui.activity.main.MainActivity

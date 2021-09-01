@@ -6,9 +6,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentLocationListBinding
 import com.saveeat.model.request.main.home.CommonHomeModel
@@ -18,9 +15,7 @@ import com.saveeat.repository.cache.PreferenceKeyConstants.distance
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
 import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
-import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
-import com.saveeat.ui.adapter.map.ClusterItemAdapter
 import com.saveeat.ui.adapter.restaurant.RestaurantByLocationAdapter
 import com.saveeat.ui.fragment.main.location.LocationViewModel
 import com.saveeat.utils.application.*
