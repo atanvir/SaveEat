@@ -63,7 +63,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     private var curLongitude : Double?=0.0
     var clusterBinding : ClusterViewBinding?=null
 
-    var zoomLevel=13f
+    var zoomLevel=14f
     var isCurrentLocationEnable=false
 
 
@@ -111,6 +111,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
                                         binding.btnShowRestro.visibility=View.GONE
                                         binding.rvRestaurant.visibility=View.VISIBLE
                                     }else{
+                                        visibleSection()
                                         updateCameraPoistion(zoomLevel)
                                     }
                                 }
@@ -126,6 +127,16 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
                         ErrorUtil.handlerGeneralError(binding.root, it.throwable!!) }
                 }
             })
+        }
+    }
+
+    private fun visibleSection() {
+        if (mMap?.cameraPosition?.zoom?:0f < 8f) {
+            binding.rvRestaurant.visibility=View.GONE
+            binding.btnShowRestro.visibility=View.VISIBLE
+        }else{
+            binding.rvRestaurant.visibility=View.VISIBLE
+            binding.btnShowRestro.visibility=View.GONE
         }
     }
 
@@ -160,7 +171,6 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         clusterItemManager?.setOnClusterItemClickListener(this@LocationMapFragment)
 
         clusterItemManager?.setOnClusterClickListener {
-            Log.e("data","click")
             binding.btnShowRestro.visibility=View.GONE
             binding.rvRestaurant.visibility=View.VISIBLE
             list?.clear()
@@ -234,13 +244,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     }
 
     override fun onCameraMove() {
-    //        if (mMap?.cameraPosition?.zoom?:0f < 8f) {
-    //            binding.rvRestaurant.visibility=View.GONE
-    //            binding.btnShowRestro.visibility=View.VISIBLE
-    //        }else{
-//            binding.rvRestaurant.visibility=View.VISIBLE
-//            binding.btnShowRestro.visibility=View.GONE
-//        }
+        visibleSection()
     }
 
 

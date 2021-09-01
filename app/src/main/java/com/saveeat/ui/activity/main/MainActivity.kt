@@ -30,8 +30,7 @@ import com.saveeat.utils.extn.loadProfilePic
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import android.location.Geocoder
-
-
+import androidx.navigation.ui.NavigationUI
 
 
 @AndroidEntryPoint
@@ -59,6 +58,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             ivDrawer.setOnClickListener(this@MainActivity)
             tvAddress.setOnClickListener(this@MainActivity)
             tvKMDropDown.setOnClickListener(this@MainActivity)
+        }
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener  { item ->
+            if(item.itemId != binding.bottomNavigationView.selectedItemId) NavigationUI.onNavDestinationSelected(item, navController)
+            true
         }
     }
 
