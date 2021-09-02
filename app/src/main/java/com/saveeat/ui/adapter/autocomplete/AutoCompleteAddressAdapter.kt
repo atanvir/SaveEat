@@ -25,6 +25,7 @@ class AutoCompleteAddressAdapter(var context: Context, var list: MutableList<Pla
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 val filterResults = FilterResults()
                 if (constraint.isNotEmpty()) {
+
                    val resultList: List<PlacesModel?>? = autocomplete(context,constraint.toString())
                    filterResults.values=resultList
                    filterResults.count= resultList?.size?:0
