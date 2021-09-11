@@ -3,145 +3,135 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="121sp"
-    app:cardUseCompatPadding="true"
-    app:cardCornerRadius="0dp"
-    app:cardElevation="0dp"
-    >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="data"
+            type="com.saveeat.model.response.saveeat.cart.CartDataModel" />
+
+    </data>
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="83dp"
-            android:layout_height="82.4dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/group_2593"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageView10"
+                imageUrl="@{data.restroData.logo}"
+                progressbar="@{progresBar}"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
 
-        <ImageView
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:src="@drawable/group_2844"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-            app:layout_constraintEnd_toStartOf="@+id/clQuantity"
-            app:layout_constraintHorizontal_bias="0.91"
-            app:layout_constraintStart_toStartOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/imageView10"
-            app:layout_constraintVertical_bias="1.0" />
+            <ProgressBar
+                android:id="@+id/progresBar"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                app:layout_constraintStart_toStartOf="@+id/imageView10"
+                app:layout_constraintTop_toTopOf="@+id/imageView10" />
+
+            <TextView
+                android:id="@+id/tvQty"
+                style="@style/inter_semi_bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                totalItemPrice="@{data.productData}"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/dimen_11sp"
+                app:layout_constraintStart_toStartOf="@+id/tvRestroName"
+                app:layout_constraintTop_toBottomOf="@+id/tvRestroName" />
 
 
-        <TextView
-            android:id="@+id/tvRestroName"
-            style="@style/inter_semi_bold"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="8dp"
-            android:text="The Bombay Canteen"
-            android:textColor="@color/app_theme"
-            android:textSize="@dimen/dimen_11sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView11"
-            app:layout_constraintStart_toEndOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/imageView10" />
-
-        <TextView
-            android:id="@+id/textView13"
-            style="@style/inter_medium"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="8dp"
-            android:text="Ham &amp; Cheese sandwich..."
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_14sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView11"
-            app:layout_constraintStart_toEndOf="@+id/imageView10"
-            app:layout_constraintTop_toBottomOf="@+id/tvRestroName" />
+            <TextView
+                android:id="@+id/tvRestroName"
+                style="@style/inter_semi_bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="16dp"
+                android:drawableEnd="@drawable/fi_sr_angle_small_left"
+                android:text="@{data.restroData.businessName}"
+                android:textColor="@color/app_theme"
+                android:textSize="@dimen/dimen_14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintTop_toTopOf="@+id/imageView10" />
 
 
-        <TextView
-            android:id="@+id/sp"
-            style="@style/inter_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="₹75"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_16sp"
-            app:layout_constraintStart_toStartOf="@+id/textView13"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCartItem"
+                android:layout_width="0dp"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
 
-        <TextView
-            android:id="@+id/mp"
-            style="@style/inter_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="₹200"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_14sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/sp"
-            app:layout_constraintStart_toEndOf="@+id/sp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPickLater"
+                style="@style/common_button"
+                android:layout_width="0dp"
+                android:layout_height="38sp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/background_common_button"
+                android:elevation="1dp"
+                android:visibility="gone"
 
-        <include
-            android:id="@+id/clQuantity"
-            layout="@layout/layout_common_quantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            bind:quantity="@{``+0}"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="@+id/textView13"
-            app:layout_constraintTop_toTopOf="@+id/sp" />
+                android:fontFamily="@font/inter_regular"
+                android:text="@string/pick_up_later"
+                android:textSize="@dimen/dimen_14sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/btnPickNow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btnPickNow" />
 
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dimen_view_line"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/sv_location_grey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imageView10"
-            app:layout_constraintTop_toBottomOf="@+id/imageView10"
-            app:layout_constraintVertical_bias="1.0" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPickNow"
+                style="@style/common_button"
+                android:layout_width="0dp"
+                android:layout_height="38sp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/background_search_view"
+                android:backgroundTint="@color/white"
+                android:elevation="1dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="@string/pick_up_now"
+                android:textColor="@color/app_theme"
+                android:textSize="@dimen/dimen_14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnPickLater"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvCartItem" />
 
 
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/bitmap_remove_theme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvRestroName" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <TextView
-            android:id="@+id/tvAddRequirement"
-            style="@style/inter_medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/add_requirement"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView11" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </layout>

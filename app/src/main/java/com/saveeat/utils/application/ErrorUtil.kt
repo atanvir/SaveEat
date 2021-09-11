@@ -3,7 +3,9 @@ package com.saveeat.utils.application
 import android.R
 import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -14,6 +16,7 @@ import com.saveeat.ui.activity.auth.signup.SignUpActivity
 import com.saveeat.ui.dialog.CreditDialog
 import com.saveeat.ui.dialog.ErrorDialog
 import com.saveeat.utils.extn.snack
+import dagger.hilt.android.internal.managers.ViewComponentManager
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -41,9 +44,11 @@ object ErrorUtil {
         bundle.putString("message",message)
         dialog.arguments=bundle
         dialog.setStyle(DialogFragment.STYLE_NO_TITLE, com.saveeat.R.style.Dialog_NoTitle)
-        if(view.context is AppCompatActivity) dialog.show((view.context as AppCompatActivity).supportFragmentManager, "")
-        else if(view.context is FragmentActivity) dialog.show((view.context as FragmentActivity).supportFragmentManager, "")
-        else if(view.context is Fragment) dialog.show((view.context as Fragment).childFragmentManager, "")
+
+            when (view.context) {
+                is AppCompatActivity -> dialog.show((view.context as AppCompatActivity).supportFragmentManager, "")
+                is ContextWrapper -> dialog.show((((view.context as ContextWrapper).baseContext) as AppCompatActivity).supportFragmentManager, "")
+            }
 
         }catch (e:Exception){
 

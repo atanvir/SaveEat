@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityDrawerBinding
+import com.saveeat.model.request.badge.BadgeModel
+import com.saveeat.repository.cache.DataStore.Companion.dataStore
+import com.saveeat.repository.cache.PreferenceKeyConstants._id
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
@@ -23,6 +26,7 @@ import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.application.Resource
 import com.saveeat.utils.application.StaticDataHelper.getRewardModel
+import com.saveeat.utils.extn.roundOffDecimal
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -32,10 +36,9 @@ class DrawerActivity : BaseActivity<ActivityDrawerBinding>(), View.OnClickListen
 
     override fun getActivityBinding(): ActivityDrawerBinding = ActivityDrawerBinding.inflate(layoutInflater)
     override fun inits() {
-        binding.rvRewards.apply {
-           layoutManager = LinearLayoutManager(this@DrawerActivity, LinearLayoutManager.HORIZONTAL,false)
-           adapter = RewardsAdapter(this@DrawerActivity, getRewardModel())
-        }
+        binding.progresBar.visibility=View.VISIBLE
+        viewModel.userBadgesEarning(BadgeModel(token = getPrefrenceStringValue(this, jwtToken),
+                                               userId = getPrefrenceStringValue(this,_id)))
     }
 
     override fun initCtrl() {
@@ -64,6 +67,23 @@ class DrawerActivity : BaseActivity<ActivityDrawerBinding>(), View.OnClickListen
                     is Resource.Failure -> { ErrorUtil.handlerGeneralError(binding.root, it.throwable!!) }
                 }
             })
+
+
+            viewModel.userBadgesEarning.observe(this@DrawerActivity,{
+                binding.progresBar.visibility=View.GONE
+                when (it) {
+                    is Resource.Success -> {
+                        if(KeyConstants.SUCCESS==it.value?.status?:0) {
+                            binding.model=it.value?.data
+                            binding.rvRewards.layoutManager = LinearLayoutManager(this@DrawerActivity, LinearLayoutManager.HORIZONTAL,false)
+                            binding.rvRewards.adapter = RewardsAdapter(this@DrawerActivity, it.value?.data?.badgeData)
+                        }
+                        else if(KeyConstants.FAILURE<=it.value?.status?:0) ErrorUtil.snackView(binding.root, it.value?.message ?: "")
+                    }
+                    is Resource.Failure -> { ErrorUtil.handlerGeneralError(binding.root, it.throwable!!) }
+                }
+            })
+
         }
     }
 

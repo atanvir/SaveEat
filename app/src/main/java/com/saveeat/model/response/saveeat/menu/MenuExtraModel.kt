@@ -12,7 +12,7 @@ data class MenuExtraModel(
     val foodName: String?,
     val foodQuantity: Int?,
     val foodType: String?,
-    val price: String?,
-    val check: Boolean?,
+    val price: Double?,
+    var check: Boolean=false,
     val subCategory: String?
 ) : Parcelable

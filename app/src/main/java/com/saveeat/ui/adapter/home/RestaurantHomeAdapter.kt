@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
@@ -15,7 +17,7 @@ import com.saveeat.ui.activity.menu.menu.MenuActivity
 import com.saveeat.ui.adapter.restaurant.RestaurantProductHomeAdapter
 import com.saveeat.utils.application.KeyConstants
 
-    class RestaurantHomeAdapter(var context : Context?, var list : MutableList<RestaurantResponseBean?>?, var type : String?,var onFavClick : ((Int,String)->Unit)) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RestaurantHomeAdapter(var context : Context?, var list : MutableList<RestaurantResponseBean?>?, var type : String?,var onFavClick : ((Int,String)->Unit),var cloneList: MutableList<RestaurantResponseBean?>?) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),Filterable {
 
     override fun getItemCount(): Int = list?.size?:0
 
@@ -75,6 +77,46 @@ import com.saveeat.utils.application.KeyConstants
 
                 R.id.ivFav ->{
                     onFavClick.invoke(adapterPosition,type?:"")
+                }
+            }
+        }
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence): FilterResults {
+                val filterResults = FilterResults()
+                if (constraint.isNotEmpty()) {
+                    val filterList: MutableList<RestaurantResponseBean?> = ArrayList()
+
+                    for(i in cloneList?.indices!!){
+                        if(cloneList?.get(i)?.businessName?.contains(constraint.toString(),ignoreCase = true)==true){
+                            filterList?.add(cloneList?.get(i))
+                        }else {
+                            for(j in cloneList?.get(i)?.realProductData?.indices!!){
+                                if(cloneList?.get(i)?.realProductData?.get(j)?.foodName?.contains(constraint.toString(),ignoreCase = true)==true){
+                                    filterList?.add(cloneList?.get(i))
+                                }
+                            }
+                        }
+                    }
+                    filterResults.values=filterList
+                    filterResults.count= filterList?.size?:0
+
+                }else{
+                    filterResults.values=cloneList
+                    filterResults.count=cloneList?.size?:0
+                }
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence, results: FilterResults) {
+                list?.clear()
+                if (results?.count>0) {
+                    list?.addAll(results.values as Collection<RestaurantResponseBean?>)
+                    notifyDataSetChanged()
+                }else{
+                    notifyDataSetChanged()
                 }
             }
         }

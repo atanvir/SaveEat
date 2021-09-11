@@ -5,7 +5,7 @@
     <data>
         <variable
             name="data"
-            type="com.saveeat.model.request.reward.RewardModel" />
+            type="com.saveeat.model.response.saveeat.badge.BadgeData" />
 
 
     </data>
@@ -17,17 +17,27 @@
     android:layout_height="wrap_content">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView5"
-        setFromResourceDrawable="@{data.image}"
         android:layout_width="54sp"
         android:layout_height="54sp"
+        imageUrl="@{data.image}"
+        progressbar="@{progresBar}"
         android:layout_marginStart="14dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progresBar"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
     <TextView
         android:id="@+id/tvLabel"
@@ -36,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="32dp"
-        android:text="@{data.text}"
+        android:text="@{data.name}"
         android:textSize="@dimen/dimen_10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

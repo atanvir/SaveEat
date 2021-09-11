@@ -3,6 +3,9 @@ package com.saveeat.repository.remote.SaveEat
 import com.saveeat.model.request.auth.forgot.ForgotModel
 import com.saveeat.model.request.auth.login.LoginModel
 import com.saveeat.model.request.auth.signup.SignupModel
+import com.saveeat.model.request.cart.CartCount
+import com.saveeat.model.request.cart.CartRequestModel
+import com.saveeat.model.request.cart.UpdateCartModel
 import com.saveeat.model.request.main.favourite.FavouriteModel
 import com.saveeat.model.response.saveeat.auth.AuthModel
 import com.saveeat.model.response.saveeat.location.LocationModel
@@ -12,11 +15,22 @@ import com.saveeat.model.request.menu.MenuBrandModel
 import com.saveeat.model.request.menu.MenuItemDetailModel
 import com.saveeat.model.request.menu.MenuListModel
 import com.saveeat.model.request.menu.MenuModel
+import com.saveeat.model.request.order.OrderCancelModel
+import com.saveeat.model.request.order.OrderHistoryModel
+import com.saveeat.model.request.order.OrderPlaceModel
+import com.saveeat.model.request.rating.RatingModel
+import com.saveeat.model.response.saveeat.badge.BadgeModel
+import com.saveeat.model.response.saveeat.cart.CartModel
+import com.saveeat.model.response.saveeat.cart.DeleteItemCart
 import com.saveeat.model.response.saveeat.main.home.HomeModel
 import com.saveeat.model.response.saveeat.menu.MenuRestaurantModel
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ADD_TO_CART
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ADD_TO_FAVOURITE
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ALL_FAVOURITE
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ALL_RESTAURANT
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.BADGES
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CART_COUNT
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CART_LIST
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CHANGE_MOBILE_NUMBER
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CHECK_MOBILE_AND_EMAIL
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CHECK_MOBILE_FORGOT_PASSWORD
@@ -27,20 +41,24 @@ import com.saveeat.repository.remote.SaveEat.SaveEatConstant.MENU_ITEM_DETAIL
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.MENU_LIST
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.NEAR_BY_RESTAURANT
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.NEW_RESTAURANT_HOME
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ORDER_CANCEL
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ORDER_LIST
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ORDER_PLACE
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.POPULAR_RESTAURANT_HOME
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.RATING_BY_USER
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.REMOVE_CART
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.RESTAURANT_DETAIL
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.RESTAURANT_HOME
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.SAVE_PRODUCTS_HOME
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.SIGNUP
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.UPDATE_ADDRESS
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.UPDATE_CART
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.UPDATE_PROFILE
 import retrofit2.http.*
 
 
 interface SaveEatInterface {
 
-
-    // AUTH
     @FormUrlEncoded
     @POST(CHECK_MOBILE_AND_EMAIL)
     suspend fun checkUserMobileAndEmail(@Field ("email") email: String?,
@@ -116,5 +134,39 @@ interface SaveEatInterface {
 
     @POST(MENU_ITEM_DETAIL)
     suspend fun getItemDetail(@Body model: MenuItemDetailModel?,@Header("Authorization") token: String?):  MenuRestaurantModel?
+
+
+    @POST(ADD_TO_CART)
+    suspend fun addToCart(@Body modelAddTo: com.saveeat.model.request.cart.AddToCartModel?, @Header("Authorization") token: String?) : CartModel?
+
+
+    @POST(UPDATE_CART)
+    suspend fun updateCart(@Body modelAddTo: UpdateCartModel?, @Header("Authorization") token: String?) : CartModel?
+
+    @POST(CART_LIST)
+    suspend fun cartList(@Body model: CartRequestModel?, @Header("Authorization") token: String?) : CartModel?
+
+    @POST(REMOVE_CART)
+    suspend fun deleteItemFromCart(@Body model: DeleteItemCart?, @Header("Authorization") token: String?)  : CartModel?
+
+    @GET(CART_COUNT)
+    suspend fun getCartCount(@Header("Authorization") token: String?) : CartCount?
+
+    @POST(ORDER_PLACE)
+    suspend fun orderItems(@Body model: OrderPlaceModel?, @Header("Authorization") token: String?) : CartModel?
+
+    @POST(ORDER_LIST)
+    suspend fun getOrderList(@Body model: OrderHistoryModel?,  @Header("Authorization") token: String?) : com.saveeat.model.response.saveeat.order.OrderHistoryModel?
+
+    @POST(ORDER_CANCEL)
+    suspend fun orderCancelByUser(@Body model: OrderCancelModel?,  @Header("Authorization") token: String?) : com.saveeat.model.response.saveeat.order.OrderHistoryModel?
+
+    @GET(BADGES)
+    suspend fun userBadgesEarning(@Header("Authorization") token: String?) : BadgeModel?
+
+    @POST(RATING_BY_USER)
+    suspend fun ratingByUser(@Body model: RatingModel?,  @Header("Authorization") token: String?) : com.saveeat.model.response.saveeat.order.OrderHistoryModel?
+
+
 
 }

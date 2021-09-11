@@ -5,6 +5,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.saveeat.model.response.saveeat.bean.CuisineBean
 import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
+import com.saveeat.model.response.saveeat.cart.CartDataModel
 import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
 import com.saveeat.model.response.saveeat.menu.TodayDataModel
 import kotlinx.parcelize.Parcelize
@@ -25,7 +26,7 @@ data class RestaurantDetailModel(
     var pickupLaterAllowance: Boolean?,
     var price: Double?,
     var offeredPrice: Double?,
-    var quantitySell: Int?,
+    var quantitySell: Int=0,
     var ratingByUsers: Int?,
     var saleWindowClose: Int?,
     var saleWindowOpen: Int?,
@@ -43,6 +44,7 @@ data class RestaurantDetailModel(
     var longitude: Double?,
     var todayData: TodayDataModel?,
     var extra: MutableList<MenuExtraModel?>?,
+    var cartData: CartDataModel?,
     var image: String?,
     var menu: Boolean=false,
     var restroData: RestaurantResponseBean?,

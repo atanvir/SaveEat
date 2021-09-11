@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.saveeat.model.response.saveeat.order.OrderBean" />
+
+    </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -35,7 +44,7 @@
                 android:layout_marginEnd="12dp"
                 android:drawablePadding="@dimen/dimen_10sp"
                 android:drawableRight="@drawable/fi_sr_angle_small_left"
-                android:text="Breakfast Club 21"
+                android:text="@{model.restroData.businessName}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_12sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,8 +55,8 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order picked"
-                android:textColor="@color/green"
+                android:text="@{model.status}"
+                android:textColor="@{model.status.equals(`Delivered`)?@color/green:@color/red}"
                 style="@style/inter_regular"
                 android:textSize="@dimen/dimen_10sp"
                 app:layout_constraintStart_toStartOf="@+id/tvProductName"
@@ -71,89 +80,59 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="6 June 2021"
+                calculateDate="@{model.orderDeliveredTime}"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/dimen_10sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView16"
                 app:layout_constraintStart_toEndOf="@+id/viw2" />
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
+                imageUrl="@{model.restroData.logo}"
+                progressbar="@{progressBar}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/restr_logo" />
 
-            <TextView
-                android:id="@+id/textView17"
-                style="@style/inter_medium"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrder"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
-                android:text="1x  Ham &amp; Cheese sandwich "
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_12sp"
-                app:layout_constraintEnd_toStartOf="@+id/textView19"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-            <TextView
-                android:id="@+id/textView18"
-                style="@style/inter_medium"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="2x  Poached eggs &amp; avocado"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_12sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView17"
-                app:layout_constraintStart_toStartOf="@+id/textView17"
-                app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-            <TextView
-                android:id="@+id/textView19"
-                style="@style/inter_medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:text="₹200"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_12sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView17"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="₹175"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_12sp"
-                style="@style/inter_medium"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView18"
-                app:layout_constraintEnd_toEndOf="@+id/textView19" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clOrderDetail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/rvOrder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView18">
+                tools:layout_editor_absoluteY="112dp">
 
                 <View
                     android:id="@+id/view4"
                     android:layout_width="0dp"
                     android:layout_height="0.5dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="#f2eaea"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -174,12 +153,12 @@
 
                 <TextView
                     android:id="@+id/textView22"
+                    style="@style/inter_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6 Jun 2021"
-                    android:textSize="@dimen/dimen_10sp"
+                    calculateDate="@{model.orderDeliveredTime}"
                     android:textColor="@color/grey"
-                    style="@style/inter_regular"
+                    android:textSize="@dimen/dimen_10sp"
                     app:layout_constraintStart_toStartOf="@+id/textView21"
                     app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
@@ -202,7 +181,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="5:22PM"
+                    calculateTime="@{model.orderDeliveredTime}"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/dimen_10sp"
                     app:layout_constraintStart_toEndOf="@+id/viw24"
@@ -213,7 +192,7 @@
                     style="@style/poppin_semi_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="#512218"
+                    android:text="@{`#`+model.orderNumber}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimen_20sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView21"
@@ -221,26 +200,25 @@
 
                 <TextView
                     android:id="@+id/textView24"
+                    style="@style/poppin_regular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/background_grey_stroke_with_white_solid"
-                    android:drawableStart="@drawable/pay_card_img"
                     android:elevation="@dimen/_2sdp"
                     android:gravity="center"
                     android:padding="12dp"
-                    style="@style/poppin_regular"
+                    android:text="Cash On Delivery"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimen_12sp"
-                    android:text="1234-XXXX-XXXX-6789"
                     app:layout_constraintEnd_toEndOf="@+id/textView23"
                     app:layout_constraintStart_toStartOf="@+id/textView21"
                     app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
 
-                <include
+
+                <LinearLayout
                     android:id="@+id/clBilling"
-                    layout="@layout/layout_common_billing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -248,7 +226,179 @@
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView24" />
+                    app:layout_constraintTop_toBottomOf="@id/textView24"
+                    android:orientation="vertical"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_10sdp"
+
+                        >
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/subtotal"
+                                android:layout_alignParentStart="true"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_14sp"
+                                style="@style/inter_regular"
+                                />
+
+
+                            <TextView
+                                android:id="@+id/tvSubTotal"
+                                style="@style/inter_regular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:text="@{@string/price(``+Math.round(model.subTotal))}"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_14sp" />
+
+
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_view_line"
+                            android:layout_marginTop="@dimen/_7sdp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/sv_location_grey"/>
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_10sdp"
+
+                        >
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+
+                            <TextView
+                                android:id="@+id/taxInfo"
+                                style="@style/inter_regular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:drawableEnd="@drawable/info_2"
+                                android:drawablePadding="12dp"
+                                android:text="@string/tax_amp_fees"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_14sp" />
+
+                            <include
+                                android:id="@+id/clTaxInfo"
+                                layout="@layout/layout_tax_fees"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/taxInfo"
+                                android:layout_alignParentEnd="true"
+                                android:visibility="gone"
+                                bind:model="@{model}" />
+
+
+                            <TextView
+                                android:id="@+id/tvTaxFees"
+                                style="@style/inter_regular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:text="@{@string/price(``+Math.round(model.tax))}"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_14sp" />
+
+
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_view_line"
+                            android:layout_marginTop="@dimen/_7sdp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/sv_location_grey"/>
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_10sdp"
+
+                        >
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/poppin_semi_bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:text="@string/total"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_16sp" />
+
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₹"
+                                android:layout_toLeftOf="@id/tvTotalPrice"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_16sp"
+                                style="@style/inter_semi_bold"/>
+
+                            <TextView
+                                android:id="@+id/tvTotalPrice"
+                                style="@style/poppin_semi_bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:text="@{``+Math.round(model.total)}"
+
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/dimen_16sp" />
+
+
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/tvSaveLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/inter_medium"
+                            android:textSize="10sp"
+                            android:text="Continue to checkout to save ₹427 on this order " />
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
 
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -301,11 +451,11 @@
 
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/ivStartOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
-                android:src="@drawable/star_sel"
+                android:src="@{model.ratingData.size()>0?@drawable/star_sel:@drawable/star_unsel}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView31"
                 app:layout_constraintStart_toEndOf="@+id/textView31"
                 app:layout_constraintTop_toTopOf="@+id/textView31" />
@@ -326,43 +476,44 @@
 
 
             <ImageView
+                android:id="@+id/ivStarFive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/star_unsel"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView17"
-                app:layout_constraintStart_toEndOf="@+id/imageView17"
-                app:layout_constraintTop_toTopOf="@+id/imageView17" />
+                android:src="@{model.ratingData.size()>4?@drawable/star_sel:@drawable/star_unsel}"
+                app:layout_constraintBottom_toBottomOf="@+id/ivStarFour"
+                app:layout_constraintStart_toEndOf="@+id/ivStarFour"
+                app:layout_constraintTop_toTopOf="@+id/ivStarFour" />
 
             <ImageView
-                android:id="@+id/imageView17"
+                android:id="@+id/ivStarFour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/star_unsel"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView16"
-                app:layout_constraintStart_toEndOf="@+id/imageView16"
-                app:layout_constraintTop_toTopOf="@+id/imageView16" />
+                android:src="@{model.ratingData.size()>3?@drawable/star_sel:@drawable/star_unsel}"
+                app:layout_constraintBottom_toBottomOf="@+id/ivStarThree"
+                app:layout_constraintStart_toEndOf="@+id/ivStarThree"
+                app:layout_constraintTop_toTopOf="@+id/ivStarThree" />
 
             <ImageView
-                android:id="@+id/imageView16"
+                android:id="@+id/ivStarThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/star_unsel"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView15"
-                app:layout_constraintStart_toEndOf="@+id/imageView15"
-                app:layout_constraintTop_toTopOf="@+id/imageView15" />
+                android:src="@{model.ratingData.size()>2?@drawable/star_sel:@drawable/star_unsel}"
+                app:layout_constraintBottom_toBottomOf="@+id/ivStarTwo"
+                app:layout_constraintStart_toEndOf="@+id/ivStarTwo"
+                app:layout_constraintTop_toTopOf="@+id/ivStarTwo" />
 
             <ImageView
-                android:id="@+id/imageView15"
+                android:id="@+id/ivStarTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/star_sel"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-                app:layout_constraintStart_toEndOf="@+id/imageView7"
-                app:layout_constraintTop_toTopOf="@+id/imageView7" />
+                android:src="@{model.ratingData.size()>1?@drawable/star_sel:@drawable/star_unsel}"
+                app:layout_constraintBottom_toBottomOf="@+id/ivStartOne"
+                app:layout_constraintStart_toEndOf="@+id/ivStartOne"
+                app:layout_constraintTop_toTopOf="@+id/ivStartOne" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout12"
@@ -395,7 +546,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="You saved ₹427 on this order"
+                    android:text="@{`You saved `+@string/price(``+Math.round(model.saveAmount))+` on this order`"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimen_10sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -408,7 +559,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="₹375"
+                    android:text="@{@string/price(``+Math.round(model.subTotal+model.tax))}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimen_12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tvSaveLabelOutSide"

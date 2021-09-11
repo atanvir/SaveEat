@@ -48,6 +48,7 @@ import kotlinx.coroutines.*
 import com.saveeat.repository.cache.PreferenceKeyConstants.deviceToken
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
+import com.saveeat.ui.activity.rating.RatingActivity
 
 import com.saveeat.utils.application.KeyConstants.PREF_NAME
 import java.util.regex.Pattern
@@ -126,6 +127,9 @@ object CommonUtils {
         }else if(activity is CheckoutActivity){
             tvLabel.visibility=View.VISIBLE
             tvLabel.text=activity.getString(R.string.select_payment)
+        }else if(activity is RatingActivity){
+            tvLabel.visibility=View.VISIBLE
+            tvLabel.text=activity.getString(R.string.review_rating)
         }
         else{
             tvLabel.visibility=View.GONE

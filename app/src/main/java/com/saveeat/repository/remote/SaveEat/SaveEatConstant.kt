@@ -24,5 +24,15 @@ object SaveEatConstant  {
     internal const val MENU_LIST="getMenuList"
     internal const val ALL_FAVOURITE="getFavoriteRestaurants"
     internal const val MENU_ITEM_DETAIL="getItemDetail"
+    internal const val ADD_TO_CART="addToCart"
+    internal const val UPDATE_CART="updateCart"
+    internal const val CART_LIST="getCartItem"
+    internal const val REMOVE_CART="deleteItemFromCart"
+    internal const val CART_COUNT="getCartCount"
+    internal const val ORDER_PLACE="orderItems"
+    internal const val ORDER_LIST="getOrderList"
+    internal const val ORDER_CANCEL="orderCancelByUser"
+    internal const val BADGES="userBadgesEarning"
+    internal const val RATING_BY_USER="ratingByUser"
 
 }

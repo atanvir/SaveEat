@@ -5,6 +5,7 @@
     <data>
 
 
+        <import type="android.view.View"/>
         <variable
             name="data"
             type="com.saveeat.model.response.saveeat.menu.MenuExtraModel" />
@@ -12,6 +13,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -38,7 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="42dp"
-            android:text="@{`+`+data.price}"
+            android:text="@{`+`+Math.round(data.price)}"
+            android:visibility="@{data.price>0.0?View.VISIBLE:View.GONE}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"

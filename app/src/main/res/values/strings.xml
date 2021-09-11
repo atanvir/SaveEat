@@ -90,7 +90,8 @@
     <string name="add_requirement">Add Requirement</string>
     <string name="total">TOTAL</string>
     <string name="rate_order">Rate Order</string>
-    <string name="order_being_prepared">Order is being prepared</string>
+    <string name="order_being_prepared">Order is being accepted</string>
+    <string name="order_pending">Order is pending</string>
     <string name="order_ready_to_pickup">Your order is ready to pick up</string>
     <string name="order_completed">Order completed</string>
     <string name="send">Send</string>
@@ -131,6 +132,8 @@
     <string name="all_restaurant_near_you">All restaurants near you</string>
     <string name="price">₹ %1$s</string>
     <string name="full_name_validation">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz</string>
+    <string name="update_cart">Update Cart</string>
+    <string name="review_rating"><![CDATA[Review & Rating]]></string>
 
 
 </resources>

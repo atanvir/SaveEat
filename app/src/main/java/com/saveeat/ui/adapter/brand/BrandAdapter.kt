@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterBrandBinding
@@ -12,7 +14,7 @@ import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 import com.saveeat.ui.activity.menu.menu.MenuActivity
 import com.saveeat.utils.application.KeyConstants
 
-class BrandAdapter (var context : Context?,var list: MutableList<RestaurantResponseBean?>?) : RecyclerView.Adapter<BrandAdapter.MyViewHolder>() {
+class BrandAdapter(var context : Context?,var list: MutableList<RestaurantResponseBean?>?,var cloneList : MutableList<RestaurantResponseBean?>?) : RecyclerView.Adapter<BrandAdapter.MyViewHolder>() ,Filterable{
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandAdapter.MyViewHolder=  MyViewHolder(AdapterBrandBinding.inflate(LayoutInflater.from(context),parent,false))
 
@@ -39,4 +41,37 @@ class BrandAdapter (var context : Context?,var list: MutableList<RestaurantRespo
             }
         }
     }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence): FilterResults {
+                val filterResults = FilterResults()
+                if (constraint.isNotEmpty()) {
+                    val filterList: MutableList<RestaurantResponseBean?> = ArrayList()
+
+                    for(i in cloneList?.indices!!){
+                        if(cloneList?.get(i)?.businessName?.contains(constraint.toString(),ignoreCase = true)==true){
+                            filterList?.add(cloneList?.get(i))
+                        }
+                    }
+                    filterResults.values=filterList
+                    filterResults.count= filterList?.size?:0
+
+                }else{
+                    filterResults.values=cloneList
+                    filterResults.count=cloneList?.size?:0
+                }
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence, results: FilterResults) {
+                list?.clear()
+                if (results?.count>0) {
+                    list?.addAll(results.values as Collection<RestaurantResponseBean?>)
+                    notifyDataSetChanged()
+                }else{
+                    notifyDataSetChanged()
+                }
+            }
+        }    }
 }

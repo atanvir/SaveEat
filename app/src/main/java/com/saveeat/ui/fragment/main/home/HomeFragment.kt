@@ -1,12 +1,15 @@
 package com.saveeat.ui.fragment.main.home
 
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,7 +54,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
         requestModel=CommonHomeModel(latitude=getPrefrenceStringValue(requireActivity(), latitude),
                                      longitude=getPrefrenceStringValue(requireActivity(), longitude),
                                      distance=getPrefrenceStringValue(requireActivity(), distance),
-                                     foodType = BOTH,limit = 10, token = getPrefrenceStringValue(requireActivity(), jwtToken),
+                                     foodType = BOTH,limit = 10,
+                                     token = getPrefrenceStringValue(requireActivity(), jwtToken),
                                      userId=getPrefrenceStringValue(requireActivity(), _id))
         startShimmerAnimation()
     }
@@ -60,6 +64,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
     override fun initCtrl() {
         binding.cpType.setOnClickListener(this)
         binding.rvSaveProducts.addOnScrollListener(saveRestroRecycleviewListner)
+        binding.svLocation.addTextChangedListener {
+            (binding.rvSaveProducts.adapter as SavedRestaurantAdapter).filter.filter(it)
+            (binding.rvPopularProducts.adapter as RestaurantHomeAdapter).filter.filter(it)
+            (binding.rvBrands.adapter as BrandAdapter).filter.filter(it)
+            (binding.rvAllRestro.adapter as RestaurantHomeAdapter).filter.filter(it)
+
+
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+
+                if(binding.rvSaveProducts?.adapter?.itemCount?:0>0) binding.clSaveProducts.visibility=View.VISIBLE
+                else binding.clSaveProducts.visibility=View.GONE
+
+
+                if(binding.rvPopularProducts?.adapter?.itemCount?:0>0) binding.clPopularRestro.visibility=View.VISIBLE
+                else binding.clPopularRestro.visibility=View.GONE
+
+
+                if(binding.rvBrands?.adapter?.itemCount?:0>0) binding.clBrand.visibility=View.VISIBLE
+                else binding.clBrand.visibility=View.GONE
+
+
+                if(binding.rvAllRestro?.adapter?.itemCount?:0>0) binding.clAllRestro.visibility=View.VISIBLE
+                else binding.clAllRestro.visibility=View.GONE
+
+
+            },1000)
+        }
 
         binding.cpType.setOnCloseIconClickListener {
             requestModel?.foodType= BOTH
@@ -109,7 +140,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
 
                             binding.rvSaveProducts.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
-                            binding.rvSaveProducts.adapter=SavedRestaurantAdapter(requireActivity(),it.value?.data?.toMutableList()!!)
+                            binding.rvSaveProducts.adapter=SavedRestaurantAdapter(requireActivity(),it.value?.data?.toMutableList()!!,it.value?.data?.toMutableList()!!)
                             viewModel.popularRestaurantList(requestModel)
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) { stopShimmer();  snackView(binding.root,it.value?.message?:"") }
@@ -149,7 +180,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
 
                             popularRestraurantList=it.value?.data?.toMutableList()!!
                             binding.rvPopularProducts.layoutManager=LinearLayoutManager(requireActivity())
-                            binding.rvPopularProducts.adapter= RestaurantHomeAdapter(requireActivity(),popularRestraurantList,"Popular",this@HomeFragment)
+                            binding.rvPopularProducts.adapter= RestaurantHomeAdapter(requireActivity(),popularRestraurantList,"Popular",this@HomeFragment,it.value?.data?.toMutableList()!!)
                             viewModel.newRestaurantList(requestModel)
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) { stopShimmer(); snackView(binding.root,it.value?.message?:"") }
@@ -165,7 +196,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
 
                             binding.rvBrands.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
-                            binding.rvBrands.adapter= BrandAdapter(requireActivity(),it.value?.data?.toMutableList()!!)
+                            binding.rvBrands.adapter= BrandAdapter(requireActivity(),it.value?.data?.toMutableList()!!,it.value?.data?.toMutableList()!!)
                             viewModel.restaurantForHomeList(requestModel)
 
                         }
@@ -185,7 +216,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
                             allRestraurantList=it.value?.data?.toMutableList()!!
 
                             binding.rvAllRestro.layoutManager=LinearLayoutManager(requireActivity())
-                            binding.rvAllRestro.adapter= RestaurantHomeAdapter(requireActivity(),allRestraurantList,"All",this@HomeFragment)
+                            binding.rvAllRestro.adapter= RestaurantHomeAdapter(requireActivity(),allRestraurantList,"All",this@HomeFragment,it.value?.data?.toMutableList()!!)
 
                             binding.clMain.visibility=View.VISIBLE
                             if(binding.rvSaveProducts.adapter?.itemCount?:0>0) binding.clSaveProducts.visibility=View.VISIBLE else binding.clSaveProducts.visibility=View.GONE

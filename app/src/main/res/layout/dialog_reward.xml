@@ -4,6 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+    <data>
+        <variable
+            name="data"
+            type="com.saveeat.model.response.saveeat.badge.BadgeData" />
+
+
+    </data>
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,11 +42,22 @@
                 android:layout_width="@dimen/_65sdp"
                 android:layout_height="@dimen/_65sdp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/group_4006"
+                android:scaleType="center"
+                imageUrl="@{data.image}"
+                progressbar="@{progresBar}"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progresBar"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView14"
+                app:layout_constraintEnd_toEndOf="@+id/textView14"
+                app:layout_constraintStart_toStartOf="@+id/textView14"
+                app:layout_constraintTop_toTopOf="@+id/textView14" />
 
             <ImageView
                 android:id="@+id/ivRemove"
@@ -56,8 +78,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="40dp"
-                android:text="You unlocked this reward by saving
-1Kg in CO2 emissions"
+                android:text="@{data.name}"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_12sp"
@@ -77,7 +98,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/background_common_button"
                 android:backgroundTint="@color/white"
-                android:text="@string/awesome"
+                android:text="@{data.message}"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textView15"

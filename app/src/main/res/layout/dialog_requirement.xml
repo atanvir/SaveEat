@@ -4,6 +4,14 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+
+        <variable
+            name="data"
+            type="com.saveeat.model.response.saveeat.cart.ProductDataModel" />
+    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -67,7 +75,7 @@ xmlns:tools="http://schemas.android.com/tools">
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
+                android:id="@+id/tilMessage"
                 style="@style/formInputLayoutNormalNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -90,6 +98,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_height="@dimen/_55sdp"
                     android:maxLength="200"
                     android:maxLines="10"
+                    android:text="@={data.requirement}"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 

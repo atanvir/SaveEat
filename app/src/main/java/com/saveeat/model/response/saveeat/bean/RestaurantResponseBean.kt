@@ -37,6 +37,7 @@ data class RestaurantResponseBean(
     var expiryTime: String?,
     var foodImage: String?,
     var foodName: String?,
+    var offeredPrice: Double?,
     var foodQuantity: Int?,
     var safetyBadge: Boolean?,
     var foodType: String?,

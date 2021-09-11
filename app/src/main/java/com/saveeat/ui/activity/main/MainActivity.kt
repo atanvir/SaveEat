@@ -28,13 +28,30 @@ import com.saveeat.utils.extn.loadProfilePic
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import android.location.Geocoder
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ui.NavigationUI
+import com.saveeat.repository.cache.PreferenceKeyConstants
+import com.saveeat.repository.cache.PrefrencesHelper
+import com.saveeat.ui.adapter.cart.CartAdapter
+import com.saveeat.ui.fragment.main.cart.CartViewModel
+import com.saveeat.utils.application.CustomLoader
+import com.saveeat.utils.application.ErrorUtil
+import com.saveeat.utils.application.KeyConstants
+import com.saveeat.utils.application.Resource
+import kotlinx.coroutines.launch
+
+import com.google.android.material.badge.BadgeDrawable
+import kotlin.math.roundToInt
 
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
     private lateinit var navController : NavController
+    private val viewModel : MainViewModel by viewModels()
+
 
     override fun getActivityBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -47,7 +64,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         refreshToolbar()
+        viewModel.getCartCount(token = getPrefrenceStringValue(this, PreferenceKeyConstants.jwtToken))
     }
+
 
 
     override fun initCtrl() {
@@ -64,8 +83,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     }
 
     override fun observer() {
-
-
+        lifecycleScope.launch {
+         viewModel.getCartCount.observe(this@MainActivity,{
+             CustomLoader.hideLoader()
+             when (it) {
+                 is Resource.Success -> {
+                     if(KeyConstants.SUCCESS==it.value?.status?:0) {
+                        if(it.value?.data?:0.0>0.0){
+                            binding.bottomNavigationView.removeBadge(R.id.cartFragment)
+                            binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment).number = it.value?.data?.roundToInt()!!
+                        }
+                        else binding.bottomNavigationView.removeBadge(R.id.cartFragment)
+                     }
+                     else if(KeyConstants.FAILURE<=it.value?.status?:0) ErrorUtil.snackView(binding.root,it.value?.message?:"")
+                 }
+                 is Resource.Failure -> { CustomLoader.hideLoader(); ErrorUtil.handlerGeneralError(binding.root, it.throwable!!) }
+             }
+         })
+        }
     }
 
 
@@ -88,7 +123,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
 
     private var laucher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ it->
-        if(it.resultCode== RESULT_OK){
+        if(it.resultCode== RESULT_OK) {
          val location=it.data?.getParcelableExtra<LocationModel>("data")
          updateLocation(this,location)
          refreshToolbar()

@@ -12,9 +12,9 @@ class OrderStatusAdapter(var context: Context?,var list: List<OrderStatusModel?>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderStatusAdapter.MyViewHolder = MyViewHolder(AdapterOrderStatusBinding.inflate(LayoutInflater.from(context),parent,false))
     override fun onBindViewHolder(holder: OrderStatusAdapter.MyViewHolder, position: Int) {
         holder.binding.data=list?.get(position)
-        holder.binding.executePendingBindings()
-        if(position==2) holder.binding.viewLine.visibility= View.GONE
+        if(position==(list?.size!!-1)) holder.binding.viewLine.visibility= View.GONE
 
+        holder.binding.executePendingBindings()
     }
 
     override fun getItemCount(): Int = list?.size?:0

@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.saveeat.utils.extn.DoubleExtensionKt"/>
+
+        <variable
+            name="model"
+            type="com.saveeat.model.response.saveeat.badge.BadgeBean" />
+    </data>
+
     <LinearLayout
         android:id="@+id/clDrawer"
         android:layout_width="match_parent"
@@ -56,16 +65,28 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRewards"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:nestedScrollingEnabled="false"
-            android:layout_marginStart="15dp"
+            android:layout_height="wrap_content">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRewards"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false" />
+
+        <ProgressBar
+            android:id="@+id/progresBar"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:elevation="5dp"
+            android:layout_centerInParent="true"
             />
+        </RelativeLayout>
+
 
 
 
@@ -103,10 +124,11 @@
 
 
                         <TextView
+                            android:id="@+id/tvItemRescued"
                             style="@style/poppin_bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="54"
+                            android:text="@{``+Math.round(model.totalRescuedItems)}"
                             android:textAlignment="center"
                             android:textColor="@color/reward_text_color"
                             android:textSize="@dimen/dimen_16sp" />
@@ -132,10 +154,11 @@
 
 
                         <TextView
+                            android:id="@+id/tvSaved"
                             style="@style/poppin_bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="₹2,100"
+                            android:text="@{``+@string/price(``+Math.round(model.savedAmount))}"
                             android:textAlignment="center"
                             android:textColor="@color/reward_text_color"
                             android:textSize="@dimen/dimen_16sp" />
@@ -161,10 +184,11 @@
 
 
                         <TextView
+                            android:id="@+id/tvFoodRescued"
                             style="@style/poppin_bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="4KG"
+                            android:text="@{``+DoubleExtensionKt.roundOffDecimal(model.rescuseFoodFinal)+` KG`}"
                             android:textAlignment="center"
                             android:textColor="@color/reward_text_color"
                             android:textSize="@dimen/dimen_16sp" />

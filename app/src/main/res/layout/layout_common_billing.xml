@@ -34,14 +34,14 @@
 
 
         <TextView
+            android:id="@+id/tvSubTotal"
+            style="@style/inter_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="₹150"
             android:layout_alignParentEnd="true"
+            android:text=""
             android:textColor="@color/black"
-            android:textSize="@dimen/dimen_14sp"
-            style="@style/inter_regular"
-            />
+            android:textSize="@dimen/dimen_14sp" />
 
 
 
@@ -71,40 +71,37 @@
             android:layout_height="wrap_content">
 
 
-
             <TextView
                 android:id="@+id/taxInfo"
+                style="@style/inter_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tax_amp_fees"
+                android:layout_alignParentStart="true"
                 android:drawableEnd="@drawable/info_2"
                 android:drawablePadding="12dp"
-                android:layout_alignParentStart="true"
+                android:text="@string/tax_amp_fees"
                 android:textColor="@color/black"
-                android:textSize="@dimen/dimen_14sp"
-                style="@style/inter_regular"
-                />
+                android:textSize="@dimen/dimen_14sp" />
 
             <include
                 android:id="@+id/clTaxInfo"
                 layout="@layout/layout_tax_fees"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_below="@+id/taxInfo"
                 android:layout_alignParentEnd="true"
-                />
+                android:visibility="gone" />
 
 
             <TextView
+                android:id="@+id/tvTaxFees"
+                style="@style/inter_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="₹12"
                 android:layout_alignParentEnd="true"
+                android:text=""
                 android:textColor="@color/black"
-                android:textSize="@dimen/dimen_14sp"
-                style="@style/inter_regular"
-                />
+                android:textSize="@dimen/dimen_14sp" />
 
 
 
@@ -155,14 +152,13 @@
 
             <TextView
                 android:id="@+id/tvTotalPrice"
+                style="@style/poppin_semi_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="182"
                 android:layout_alignParentEnd="true"
+                android:text=""
                 android:textColor="@color/black"
-                android:textSize="@dimen/dimen_16sp"
-                style="@style/poppin_semi_bold"
-                />
+                android:textSize="@dimen/dimen_16sp" />
 
 
 
@@ -174,7 +170,7 @@
             android:layout_height="wrap_content"
             style="@style/inter_medium"
             android:textSize="10sp"
-            android:text="Continue to checkout to save ₹427 on this order " />
+            android:text="" />
     </LinearLayout>
 
 

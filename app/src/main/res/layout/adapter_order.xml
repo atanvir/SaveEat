@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.saveeat.model.response.saveeat.order.OrderData" />
+
+
+        <variable
+            name="restroData"
+            type="com.saveeat.model.response.saveeat.bean.RestaurantResponseBean" />
+
+
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<androidx.cardview.widget.CardView
+    android:id="@+id/cvLogo"
+    android:layout_width="92sp"
+    android:layout_height="78sp"
+    android:elevation="0dp"
+    app:cardElevation="0dp"
+    app:cardCornerRadius="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="12dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.0" >
+
+
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        imageUrl="@{model.productData.foodImage}"
+        progressbar="@{progresBar}"
+        android:scaleType="center"
+        />
+
+
+    <ProgressBar
+        android:id="@+id/progresBar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        />
+
+</androidx.cardview.widget.CardView>
+
+
+
+<de.hdodenhof.circleimageview.CircleImageView
+    android:id="@+id/ciLogo"
+    android:layout_width="28sp"
+    android:layout_height="28sp"
+    imageUrl="@{restroData.logo}"
+    progressbar="@{progressBarLogo}"
+    android:elevation="4dp"
+    android:layout_marginEnd="14dp"
+    app:layout_constraintBottom_toBottomOf="@+id/cvLogo"
+    app:layout_constraintEnd_toStartOf="@+id/sp"
+    app:layout_constraintTop_toTopOf="@+id/cvLogo"
+    app:layout_constraintVertical_bias="1.0" />
+
+<ProgressBar
+    android:id="@+id/progressBarLogo"
+    android:layout_width="10dp"
+    android:layout_height="10dp"
+    app:layout_constraintStart_toStartOf="@+id/ciLogo"
+    app:layout_constraintEnd_toEndOf="@+id/ciLogo"
+    app:layout_constraintTop_toTopOf="@+id/ciLogo"
+    app:layout_constraintBottom_toBottomOf="@+id/ciLogo"
+    />
+
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/inter_medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@{model.productData.foodName}"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_14sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvQuantity"
+        app:layout_constraintStart_toEndOf="@+id/cvLogo"
+        app:layout_constraintTop_toTopOf="@+id/cvLogo" />
+
+    <TextView
+        android:id="@+id/tvQuantity"
+        style="@style/inter_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@{`x`+model.quantity}"
+        android:textColor="@color/app_theme"
+        android:textSize="@dimen/dimen_14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cvLogo" />
+
+
+    <TextView
+        android:id="@+id/tvChoiceName"
+        style="@style/poppin_semi_bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        choice="@{model.mainChoice}"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/dimen_10sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvQuantity"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/tvRestroName"
+        style="@style/poppin_semi_bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@{restroData.businessName}"
+        android:textColor="@color/app_theme"
+        android:textSize="@dimen/dimen_11sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvQuantity"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/tvChoiceName" />
+
+
+<TextView
+    android:id="@+id/sp"
+    style="@style/inter_black"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@{``+@string/price(Math.round(model.productData.offeredPrice+model.choiceAmount))}"
+    android:textColor="@color/black"
+    android:textSize="@dimen/dimen_14sp"
+    app:layout_constraintStart_toStartOf="@+id/tvRestroName"
+    app:layout_constraintTop_toBottomOf="@+id/tvRestroName" />
+
+
+<TextView
+    android:id="@+id/mp"
+    style="@style/inter_regular"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:text="@{``+@string/price(Math.round(model.productData.price))}"
+    android:textColor="@color/black"
+    android:textSize="@dimen/dimen_12sp"
+    app:layout_constraintBaseline_toBaselineOf="@+id/sp"
+    app:layout_constraintStart_toEndOf="@+id/sp" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

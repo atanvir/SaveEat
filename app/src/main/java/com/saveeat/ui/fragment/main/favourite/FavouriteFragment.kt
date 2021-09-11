@@ -60,7 +60,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(), (Int, String
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             list=it.value?.data?.toMutableList()!!
                             binding.rvFavourites.layoutManager=LinearLayoutManager(requireActivity())
-                            binding.rvFavourites.adapter= RestaurantHomeAdapter(requireActivity(),list,"Favourite",this@FavouriteFragment)
+                            binding.rvFavourites.adapter= RestaurantHomeAdapter(requireActivity(),list,"Favourite",this@FavouriteFragment,it.value?.data?.toMutableList()!!)
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) {  ErrorUtil.snackView(binding.root, it.value?.message ?: "") }
                     }

@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.saveeat.R
 import com.saveeat.databinding.AdapterMenuMultipleChoiceBinding
 import com.saveeat.model.response.saveeat.menu.MenuExtraModel
 
-class MenuMultipleChoiceAdapter(var context: Context?,var list: MutableList<MenuExtraModel?>?) : RecyclerView.Adapter<MenuMultipleChoiceAdapter.MyViewHolder>() {
+class MenuMultipleChoiceAdapter(var context: Context?,var list: MutableList<MenuExtraModel?>?,var listner: (Int,Boolean)-> Unit) : RecyclerView.Adapter<MenuMultipleChoiceAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuMultipleChoiceAdapter.MyViewHolder =MyViewHolder(AdapterMenuMultipleChoiceBinding.inflate(LayoutInflater.from(context),parent,false))
 
     override fun onBindViewHolder(holder: MenuMultipleChoiceAdapter.MyViewHolder, position: Int) {
@@ -19,9 +20,19 @@ class MenuMultipleChoiceAdapter(var context: Context?,var list: MutableList<Menu
 
     override fun getItemCount(): Int = list?.size?:0
 
-    inner class MyViewHolder(var binding : AdapterMenuMultipleChoiceBinding): RecyclerView.ViewHolder(binding.root){
+    inner class MyViewHolder(var binding : AdapterMenuMultipleChoiceBinding): RecyclerView.ViewHolder(binding.root),
+        View.OnClickListener {
         init {
+            binding.rbChoiceName.setOnClickListener(this)
+        }
 
+        override fun onClick(v: View?) {
+            when(v?.id){
+                R.id.rbChoiceName -> {
+
+                    listner.invoke(adapterPosition,binding.rbChoiceName.isChecked)
+                }
+            }
         }
     }
 }
