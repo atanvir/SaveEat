@@ -1,7 +1,11 @@
 package com.saveeat.ui.fragment.order.history
 
 import android.app.Activity.RESULT_OK
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +23,7 @@ import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.ui.activity.rating.RatingActivity
 import com.saveeat.ui.adapter.order.HistoryOrderAdapter
+import com.saveeat.ui.adapter.order.UpcomingOrderAdapter
 import com.saveeat.ui.adapter.restaurant.SavedRestaurantAdapter
 import com.saveeat.ui.fragment.main.home.HomeViewModel
 import com.saveeat.utils.application.*
@@ -31,10 +36,17 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(), (Int) -> Unit {
     private val viewModel : HistoryViewModel by viewModels()
     private var list: MutableList<OrderBean?>?=null
     private var position: Int?=0
+    private var orderNotificationBroadcast: BroadcastReceiver?=null
+
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentHistoryBinding = FragmentHistoryBinding.inflate(inflater,container,false)
 
     override fun init() {
+        orderListApi()
+    }
+
+    private fun orderListApi(){
         binding.clShimmer.shimmerContainer.startShimmer()
+        binding.rvHistoryOrders.visibility=View.GONE
         viewModel.getOrderList(OrderHistoryModel(latitude= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.latitude).toDouble(),
                                                  longitude= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.longitude).toDouble(),
                                                  orderType = "Delivered",
@@ -42,14 +54,35 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(), (Int) -> Unit {
                                                  userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)))
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        requireActivity().registerReceiver(orderNotificationBroadcast, IntentFilter("com.saveeat"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().unregisterReceiver(orderNotificationBroadcast)
+    }
+
+
     override fun initCtrl() {
     }
 
     override fun observer() {
         lifecycleScope.launch {
+
+            orderNotificationBroadcast = object : BroadcastReceiver() {
+                override fun onReceive(context: Context, intent: Intent) {
+                    orderListApi()
+                }
+            }
+
             viewModel.getOrderList.observe(this@HistoryFragment,{
                 binding.clShimmer.shimmerContainer.visibility= View.GONE
                 binding.clShimmer.shimmerContainer.stopShimmer()
+                binding.rvHistoryOrders.visibility=View.VISIBLE
+
                 when (it) {
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {

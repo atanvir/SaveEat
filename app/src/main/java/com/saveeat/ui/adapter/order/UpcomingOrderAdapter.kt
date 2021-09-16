@@ -3,6 +3,7 @@ package com.saveeat.ui.adapter.order
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
+import android.media.ExifInterface
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,27 +21,36 @@ import com.saveeat.utils.application.RecyclerItemClickListener
 
 class UpcomingOrderAdapter(var context: Context?,var list: MutableList<OrderBean?>?,var listner : (Int)-> Unit): RecyclerView.Adapter<UpcomingOrderAdapter.MyViewHolder>(){
 
-    // Order Status
-    private var orderStatus =arrayListOf<OrderStatusModel>(OrderStatusModel(context?.getString(R.string.order_pending),false),
-                                                           OrderStatusModel(context?.getString(R.string.order_being_prepared),false),
-                                                           OrderStatusModel(context?.getString(R.string.order_ready_to_pickup),false),
-                                                           OrderStatusModel(context?.getString(R.string.order_completed),false))
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingOrderAdapter.MyViewHolder= MyViewHolder(AdapterOrderUpcomingBinding.inflate(LayoutInflater.from(context),parent,false))
     override fun getItemCount(): Int= list?.size?:0
     override fun onBindViewHolder(holder: UpcomingOrderAdapter.MyViewHolder, position: Int) {
         holder.binding.model=list?.get(position)
+        holder.binding.mp.paintFlags=holder.binding.mp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
 
         // Orders
         holder.binding.rvOrders.layoutManager=LinearLayoutManager(context)
-        holder.binding.rvOrders.adapter=OrderAdapter(context,list?.get(position)?.orderData,list?.get(position)?.restroData)
+        holder.binding.rvOrders.adapter=OrderAdapter(context,/*list?.get(position)?.orderData*/null,list?.get(position)?.restroData)
 
         // Order Status
+         var orderStatus =arrayListOf<OrderStatusModel>(OrderStatusModel(context?.getString(R.string.order_pending),false),
+                                                        OrderStatusModel(context?.getString(R.string.order_being_prepared),false),
+                                                        OrderStatusModel(context?.getString(R.string.order_ready_to_pickup),false),
+                                                        OrderStatusModel(context?.getString(R.string.order_completed),false))
+
         for(i in orderStatus?.indices!!){
             if(list?.get(position)?.status?.equals("Pending")==true && orderStatus?.get(i)?.name?.equals(context?.getString(R.string.order_pending))==true) {
                 orderStatus?.get(i)?.check=true
                 break
             }else if(list?.get(position)?.status?.equals("Accepted")==true && orderStatus?.get(i)?.name?.equals(context?.getString(R.string.order_being_prepared))==true) {
+                orderStatus?.get(0)?.check=true
+                orderStatus?.get(i)?.check=true
+                break
+            }
+
+            else if(list?.get(position)?.status?.equals("Order Ready for pickup")==true && orderStatus?.get(i)?.name?.equals(context?.getString(R.string.order_ready_to_pickup))==true) {
+                orderStatus?.get(0)?.check=true
+                orderStatus?.get(1)?.check=true
                 orderStatus?.get(i)?.check=true
                 break
             }
@@ -49,12 +59,10 @@ class UpcomingOrderAdapter(var context: Context?,var list: MutableList<OrderBean
         holder.binding.rvOrderStatus.layoutManager=LinearLayoutManager(context)
         holder.binding.rvOrderStatus.adapter=OrderStatusAdapter(context,orderStatus)
 
-
         holder.binding.rvItemData.layoutManager=LinearLayoutManager(context)
-        holder.binding.rvItemData.adapter=PastOrderAdapter(context,list?.get(position)?.orderData)
+        holder.binding.rvItemData.adapter=PastOrderAdapter(context,/*list?.get(position)?.orderData*/null)
 
-
-        if(position>0) holder.binding.clMainBelow.visibility=View.GONE
+        if(position>0) holder.binding.clMain.visibility=View.GONE
         holder.binding.executePendingBindings()
     }
 
@@ -62,7 +70,7 @@ class UpcomingOrderAdapter(var context: Context?,var list: MutableList<OrderBean
 
     inner class MyViewHolder(var binding: AdapterOrderUpcomingBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
-            binding.clMain.setOnClickListener(this)
+            binding.cvMain.setOnClickListener(this)
             binding.rlDirection.setOnClickListener(this)
             binding.rlPhoneCall.setOnClickListener(this)
             binding.btnCancelOrder.setOnClickListener(this)
@@ -75,14 +83,12 @@ class UpcomingOrderAdapter(var context: Context?,var list: MutableList<OrderBean
                     listner?.invoke(adapterPosition)
                 }
 
-                R.id.clMain ->{
-                    if(binding.clItemData.visibility==View.VISIBLE){
-                        binding.rvItemData.visibility=View.VISIBLE
-                        binding.clItemData.visibility=View.GONE
+                R.id.cvMain ->{
+                    if(binding.clMain.visibility==View.VISIBLE){
+                        binding.clMain.visibility=View.GONE
                     }
                     else {
-                        binding.rvItemData.visibility=View.GONE
-                        binding.clItemData.visibility=View.VISIBLE
+                        binding.clMain.visibility=View.VISIBLE
                     }
                 }
 

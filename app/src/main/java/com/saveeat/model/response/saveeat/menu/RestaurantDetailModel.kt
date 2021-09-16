@@ -16,6 +16,7 @@ data class RestaurantDetailModel(
     var foodName: String?,
     var description: String?,
     var foodType: String?,
+    var leftQuantity: Long?,
     var foodImage: String?,
     var menuId: String?,
     var logo: String?,
@@ -33,6 +34,7 @@ data class RestaurantDetailModel(
     var sellingStatus: Boolean?,
     var status: String?,
     var subCategory: String?,
+    var category: MutableList<MenuCategoryModel?>?,
     var totalOrder: Int?,
     var totalRating: Int?,
     var updatedAt: String?,
@@ -51,5 +53,6 @@ data class RestaurantDetailModel(
     var cuisineList:  MutableList<CuisineBean?>?,
     var itemData:  MutableList<MenuItemProductModel?>?,
     var itemListAll:  MutableList<RestaurantResponseBean?>?,
+    var fullPriceItemsList:  MutableList<RestaurantResponseBean?>?,
     var realProductData: MutableList<RestaurantProductModel?>?
 ) : Parcelable

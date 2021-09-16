@@ -5,10 +5,14 @@
     <data>
 
 
-        <import type="android.view.View"/>
-        <variable
-            name="data"
-            type="com.saveeat.model.response.saveeat.menu.MenuExtraModel" />
+
+            <import type="android.view.View"/>
+
+            <variable
+                name="data"
+                type="com.saveeat.model.request.cart.ChoiceModel" />
+
+
     </data>
 
 
@@ -54,6 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/new_grey"
+            android:visibility="@{data.last==true?View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/rbChoiceName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

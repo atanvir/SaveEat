@@ -4,6 +4,7 @@ import com.saveeat.model.request.auth.forgot.ForgotModel
 import com.saveeat.model.request.auth.login.LoginModel
 import com.saveeat.model.request.auth.signup.SignupModel
 import com.saveeat.model.request.cart.CartCount
+import com.saveeat.model.request.cart.CartRequestCount
 import com.saveeat.model.request.cart.CartRequestModel
 import com.saveeat.model.request.cart.UpdateCartModel
 import com.saveeat.model.request.main.favourite.FavouriteModel
@@ -30,6 +31,7 @@ import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ALL_FAVOURITE
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ALL_RESTAURANT
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.BADGES
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CART_COUNT
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CART_COUNT_RATIO
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CART_LIST
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CHANGE_MOBILE_NUMBER
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CHECK_MOBILE_AND_EMAIL
@@ -167,6 +169,8 @@ interface SaveEatInterface {
     @POST(RATING_BY_USER)
     suspend fun ratingByUser(@Body model: RatingModel?,  @Header("Authorization") token: String?) : com.saveeat.model.response.saveeat.order.OrderHistoryModel?
 
+    @POST(CART_COUNT_RATIO)
+    suspend fun cartCountParticularRestro(@Body model: CartRequestCount?, @Header("Authorization") token: String?) :CartCount?
 
 
 }

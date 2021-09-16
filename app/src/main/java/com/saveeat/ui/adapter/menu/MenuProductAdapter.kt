@@ -16,13 +16,16 @@ import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
 import com.saveeat.ui.activity.menu.detail.MenuDetailActivity
 
-class MenuProductAdapter(var context: Context?, var list: MutableList<RestaurantResponseBean?>?) : RecyclerView.Adapter<MenuProductAdapter.MenuRestaurantHolder>() {
+class MenuProductAdapter(var context: Context?, var list: MutableList<RestaurantResponseBean?>?,var type : String?) : RecyclerView.Adapter<MenuProductAdapter.MenuRestaurantHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuProductAdapter.MenuRestaurantHolder = MenuRestaurantHolder(AdapterMenuProductBinding.inflate(LayoutInflater.from(context),parent,false))
 
     override fun onBindViewHolder(holder: MenuProductAdapter.MenuRestaurantHolder, position: Int) {
-        holder.binding.mp.paintFlags= holder.binding.mp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         holder.binding.data=list?.get(position)
-        if(list?.get(position)?.leftQuantity==0) holder.binding.ivCoverPhoto.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
+        holder.binding.type=type
+        if(type?.equals("Selling")==true){ if(list?.get(position)?.leftQuantity==0) holder.binding.ivCoverPhoto.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
+        else if(type?.equals("Fix")==true) if(list?.get(position)?.outOfStock==true)  holder.binding.ivCoverPhoto.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
+
+        if(type?.equals("Selling")==true)   holder.binding.mp.paintFlags= holder.binding.mp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         holder.binding.executePendingBindings()
     }
 

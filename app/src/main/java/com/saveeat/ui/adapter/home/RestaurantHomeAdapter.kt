@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterRestaurantHomeBinding
 import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
+import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.activity.menu.menu.MenuActivity
 import com.saveeat.ui.adapter.restaurant.RestaurantProductHomeAdapter
@@ -39,7 +40,7 @@ class RestaurantHomeAdapter(var context : Context?, var list : MutableList<Resta
                 holder.binding.type=type
                 holder.binding.model=list?.get(position)
                 holder.binding.rvProducts.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-                holder.binding.rvProducts.adapter = RestaurantProductHomeAdapter(context,list?.get(position)?.realProductData)
+                holder.binding.rvProducts.adapter = RestaurantProductHomeAdapter(context,list?.get(position)?.realProductData,cloneList?.get(position)?.realProductData)
                 holder.binding.rvProducts.addOnScrollListener(object: RecyclerView.OnScrollListener(){
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         super.onScrolled(recyclerView, dx, dy)
@@ -95,7 +96,13 @@ class RestaurantHomeAdapter(var context : Context?, var list : MutableList<Resta
                         }else {
                             for(j in cloneList?.get(i)?.realProductData?.indices!!){
                                 if(cloneList?.get(i)?.realProductData?.get(j)?.foodName?.contains(constraint.toString(),ignoreCase = true)==true){
-                                    filterList?.add(cloneList?.get(i))
+
+                                    var realProductData: MutableList<RestaurantProductModel?>?= ArrayList()
+                                    realProductData?.add(cloneList?.get(i)?.realProductData?.get(j))
+                                    var cloneNewList=cloneList?.get(i)
+                                    cloneNewList?.realProductData=realProductData
+                                    filterList?.add(cloneNewList)
+
                                 }
                             }
                         }

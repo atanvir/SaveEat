@@ -8,6 +8,7 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.os.Bundle
 import android.text.Spannable
 import android.text.style.RelativeSizeSpan
 import android.util.DisplayMetrics
@@ -15,15 +16,13 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.DialogFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.textfield.TextInputEditText
@@ -49,8 +48,10 @@ import com.saveeat.repository.cache.PreferenceKeyConstants.deviceToken
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
 import com.saveeat.ui.activity.rating.RatingActivity
+import com.saveeat.ui.dialog.ErrorDialog
 
 import com.saveeat.utils.application.KeyConstants.PREF_NAME
+import java.lang.reflect.Field
 import java.util.regex.Pattern
 
 
@@ -305,5 +306,81 @@ object CommonUtils {
     }
 
 
+      fun setEnabledNumberPicker(context: Context,numberPicker: NumberPicker, isEnable : Boolean) {
+        numberPicker.isEnabled = isEnable
+        val enablePickerColor = ContextCompat.getColor(context, R.color.black)
+        val disablePickerColor = ContextCompat.getColor(context, R.color.grey)
+
+        try {
+            val selectorWheelPaintField = numberPicker.javaClass.getDeclaredField("mSelectorWheelPaint")
+            selectorWheelPaintField.isAccessible = true
+            if (isEnable)
+                (selectorWheelPaintField.get(numberPicker) as Paint).color = enablePickerColor
+        else
+            (selectorWheelPaintField.get(numberPicker) as Paint).color = disablePickerColor
+        } catch (e: NoSuchFieldException) {
+            e.printStackTrace()
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
+        }
+        val count = numberPicker.childCount
+        for (i in 0 until count) {
+            val child = numberPicker.getChildAt(i)
+            if (child is EditText) {
+                if (isEnable) child.setTextColor(enablePickerColor)
+                else
+                    child.setTextColor(disablePickerColor)
+
+            }
+        }
+        numberPicker.invalidate()
+    }
+
+    fun getProductType(sellingStatus: Boolean?): String? {
+       return when(sellingStatus){
+           true -> "Selling"
+           else -> "Fixed"
+       }
+
+    }
+
+    fun calculateCombination(min: Int?, max: Int?) : String? {
+        if(min?:0==0 && max?:0==0) return "(Optional)"
+        else if(min?:0==0 && max?:0<2) return "(Choose upto $max)"
+        else if(min?:0==0 && max?:0>=2) return "(Choose upto $max)"
+        else if(min?:0>0){
+            val remainder=((max?:0) - (min?:0))
+            when {
+                remainder>=2  ->  { return "(Choose from $min to $max)" }
+                else -> { return "(Choose $max)" }
+            }
+        }
+        return "(Not a valid combination)"
+    }
+
+    fun calculateCombinationValidation(min: Int?, max: Int?) : String? {
+        if(min?:0==0 && max?:0==0) return "(Optional)"
+        else if(min?:0==0 && max?:0<2) return " upto $max"
+        else if(min?:0==0 && max?:0>=2) return " upto $max"
+        else if(min?:0>0){
+            val remainder=((max?:0) - (min?:0))
+            when {
+                remainder>=2  ->  { return " min $min to max $max" }
+                else -> { return " max $max" }
+            }
+        }
+        return "(Not a valid combination)"
+    }
+
+    fun showDialog(context: Context, message: String?) {
+        val dialog = ErrorDialog()
+        val bundle = Bundle()
+        bundle.putString("message", message?:"")
+        dialog.arguments = bundle
+        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, com.saveeat.R.style.Dialog_NoTitle);
+        dialog.show((context as AppCompatActivity).supportFragmentManager, "")
+    }
 
 }

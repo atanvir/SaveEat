@@ -19,6 +19,7 @@ import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.ui.adapter.restaurant.RestaurantByLocationAdapter
 import com.saveeat.ui.fragment.main.location.LocationViewModel
 import com.saveeat.utils.application.*
+import com.saveeat.utils.application.KeyConstants.BOTH
 import com.saveeat.utils.application.KeyConstants.VEG
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -37,7 +38,7 @@ class LocationListFragment : BaseFragment<FragmentLocationListBinding>(), (Int) 
         viewModel.restaurantList(CommonHomeModel(latitude= getPrefrenceStringValue(requireActivity(), latitude),
                                                 longitude=getPrefrenceStringValue(requireActivity(), longitude),
                                                 distance= getPrefrenceStringValue(requireActivity(), distance),
-                                                foodType = VEG,limit = 10,
+                                                foodType = BOTH,limit = 10,
                                                 token = getPrefrenceStringValue(requireActivity(), jwtToken),
                                                 userId=getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)))
     }

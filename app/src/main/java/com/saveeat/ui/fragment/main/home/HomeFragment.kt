@@ -65,28 +65,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
         binding.cpType.setOnClickListener(this)
         binding.rvSaveProducts.addOnScrollListener(saveRestroRecycleviewListner)
         binding.svLocation.addTextChangedListener {
-            (binding.rvSaveProducts.adapter as SavedRestaurantAdapter).filter.filter(it)
-            (binding.rvPopularProducts.adapter as RestaurantHomeAdapter).filter.filter(it)
-            (binding.rvBrands.adapter as BrandAdapter).filter.filter(it)
-            (binding.rvAllRestro.adapter as RestaurantHomeAdapter).filter.filter(it)
+            if(binding.rvSaveProducts.adapter!=null) (binding.rvSaveProducts.adapter as SavedRestaurantAdapter).filter.filter(it)
+            if(binding.rvPopularProducts.adapter !=null) (binding.rvPopularProducts.adapter as RestaurantHomeAdapter).filter.filter(it)
+            if(binding.rvBrands.adapter !=null) (binding.rvBrands.adapter as BrandAdapter).filter.filter(it)
+            if(binding.rvAllRestro.adapter !=null) (binding.rvAllRestro.adapter as RestaurantHomeAdapter).filter.filter(it)
 
 
             Handler(Looper.getMainLooper()).postDelayed(Runnable {
 
+                if(binding.rvSaveProducts.adapter!=null){
                 if(binding.rvSaveProducts?.adapter?.itemCount?:0>0) binding.clSaveProducts.visibility=View.VISIBLE
                 else binding.clSaveProducts.visibility=View.GONE
+                }
 
 
-                if(binding.rvPopularProducts?.adapter?.itemCount?:0>0) binding.clPopularRestro.visibility=View.VISIBLE
-                else binding.clPopularRestro.visibility=View.GONE
 
+                if(binding.rvPopularProducts.adapter !=null) {
+                    if (binding.rvPopularProducts?.adapter?.itemCount ?: 0 > 0) binding.clPopularRestro.visibility = View.VISIBLE
+                    else binding.clPopularRestro.visibility = View.GONE
+                }
 
-                if(binding.rvBrands?.adapter?.itemCount?:0>0) binding.clBrand.visibility=View.VISIBLE
-                else binding.clBrand.visibility=View.GONE
+                if(binding.rvBrands.adapter !=null) {
+                    if (binding.rvBrands?.adapter?.itemCount ?: 0 > 0) binding.clBrand.visibility = View.VISIBLE
+                    else binding.clBrand.visibility = View.GONE
+                }
 
-
-                if(binding.rvAllRestro?.adapter?.itemCount?:0>0) binding.clAllRestro.visibility=View.VISIBLE
-                else binding.clAllRestro.visibility=View.GONE
+                if(binding.rvAllRestro.adapter !=null) {
+                    if(binding.rvAllRestro?.adapter?.itemCount?:0>0) binding.clAllRestro.visibility=View.VISIBLE
+                    else binding.clAllRestro.visibility=View.GONE
+                }
 
 
             },1000)

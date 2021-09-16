@@ -132,7 +132,12 @@
         <activity
             android:name="com.saveeat.ui.activity.auth.login.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/light_oragne_theme" />
+            android:theme="@style/light_oragne_theme" >
+
+
+
+
+        </activity>
         <activity
             android:name="com.saveeat.ui.activity.walkthrough.WalkThroughActivity"
             android:noHistory="true"
@@ -143,11 +148,14 @@
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/splashScreenTheme">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
 

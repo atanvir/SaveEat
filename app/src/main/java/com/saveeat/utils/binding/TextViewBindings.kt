@@ -1,16 +1,21 @@
 package com.saveeat.utils.binding
 
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.saveeat.R
 import com.saveeat.model.request.cart.ChoiceModel
 import com.saveeat.model.response.saveeat.cart.ProductDataModel
+import com.saveeat.model.response.saveeat.order.OrderBean
+import com.saveeat.model.response.saveeat.order.OrderData
+import com.saveeat.utils.extn.roundOffDecimal
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -49,6 +54,7 @@ class TextViewBindings {
         @BindingAdapter(value = ["calculateDate"])
         @JvmStatic
         fun calculateDate(textView: TextView?,date : String?){
+            if(date!=null){
             val myFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             sdf.timeZone = TimeZone.getTimeZone("GMT")
@@ -58,6 +64,7 @@ class TextViewBindings {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+            }
         }
 
 
@@ -65,6 +72,7 @@ class TextViewBindings {
         @BindingAdapter(value = ["calculateTime"])
         @JvmStatic
         fun calculateTime(textView: TextView?,date : String?){
+            if(date!=null){
             val myFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             sdf.timeZone = TimeZone.getTimeZone("GMT")
@@ -74,22 +82,84 @@ class TextViewBindings {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+            }
         }
 
         @BindingAdapter(value = ["choiceWithPrice"])
         @JvmStatic
         fun setChoiceWithPrice(textView: TextView?,data :ProductDataModel?){
-            var price: Double=0.0
+            var price: Double?=0.0
+            if(data?.type?.equals("Selling")==true) price=data?.productDetail?.offeredPrice?.times(data?.quantity?:0)
+            else price=data?.productDetail?.price?.times(data?.quantity?:0)
+
                 CoroutineScope(Dispatchers.Main).launch {
                     withContext(Dispatchers.IO) {
                         for(i in data?.choice?.indices!!){
-                            price=price.plus(data?.choice?.get(i)?.price?.times(data?.choice?.get(i)?.quantity?:0)?:0.0)
-                        }
-                        price=price.plus(data.productDetail?.offeredPrice?.times(data.quantity?:0)?:0.0)
+                        price=price?.plus(data.choice?.get(i)?.price?:0.0)
                     }
                     withContext(Dispatchers.Main){
-                        textView?.text = textView?.context?.getString(R.string.price,Math.round(price).toString())
+                        textView?.text = textView?.context?.getString(R.string.price,price?.roundOffDecimal().toString())
                     }
+            }
+
+        }
+        }
+
+
+
+
+
+        @BindingAdapter(value = ["itemWithChoiceQty"])
+        @JvmStatic
+        fun setItemWithChoiceQty(textView: TextView?,data :MutableList<OrderData?>?){
+            val priceList:  MutableList<String?>?=ArrayList()
+            val choiceList : MutableList<String?>?=ArrayList()
+
+
+            CoroutineScope(Dispatchers.Main).launch {
+                withContext(Dispatchers.Main) {
+                    for(i in data?.indices!!){
+
+                        for(j in data?.get(i)?.mainChoice?.indices!!){
+                            choiceList?.add(data?.get(i)?.mainChoice?.get(j)?.foodName)
+                        }
+
+                        var dataNewModel="${data?.get(i)?.quantity} x ${data?.get(i)?.productData?.foodName}"
+                        priceList?.add(dataNewModel)
+
+                        }
+                    }
+                withContext(Dispatchers.Main){
+                    if(choiceList?.size?:0>0) {
+                        textView?.text = TextUtils.join(",",priceList!!) + " ("+TextUtils.join(",",choiceList!!)+")"
+                    }else{
+                        textView?.text = TextUtils.join(",",priceList!!)
+                    }
+                }
+            }
+        }
+
+
+        @BindingAdapter(value = ["itemWithChoiceQtyData"])
+        @JvmStatic
+        fun setItemWithChoiceQtyData(textView: TextView?,data :OrderData?){
+            var price: String=""
+            CoroutineScope(Dispatchers.Main).launch {
+                withContext(Dispatchers.IO) {
+                    var list : MutableList<String?>?=ArrayList()
+                    for(j in data?.mainChoice?.indices!!){
+                        list?.add(data?.mainChoice?.get(j)?.foodName)
+
+                    }
+                    if(list?.isNotEmpty()==true){
+                        price="${data?.quantity} x ${data?.productData?.foodName} (${TextUtils.join(",",list!!)})"
+                    }else{
+                        price="${data?.quantity} x ${data?.productData?.foodName}"
+                    }
+                }
+                withContext(Dispatchers.Main){
+                    textView?.text = price
+                }
             }
 
         }
@@ -112,8 +182,8 @@ class TextViewBindings {
                        }
                    }
                    withContext(Dispatchers.Main){
-                       if(list?.size?:0>1) textView?.setText(""+list?.size+" Items || "+textView?.context?.getString(R.string.price,Math.round(price)?.toString()))
-                       else textView?.setText(""+list?.size+" Item || "+textView?.context?.getString(R.string.price,Math.round(price)?.toString()))
+                       if(list?.size?:0>1) textView?.setText(""+list?.size+" Items || "+textView?.context?.getString(R.string.price,price?.roundOffDecimal()?.toString()))
+                       else textView?.setText(""+list?.size+" Item || "+textView?.context?.getString(R.string.price,price?.roundOffDecimal()?.toString()))
                    }
                }
            }

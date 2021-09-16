@@ -8,13 +8,16 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterProductHomeRestaurantBinding
+import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
 import com.saveeat.ui.activity.menu.detail.MenuDetailActivity
 
-class RestaurantProductHomeAdapter(var context: Context?, var list: MutableList<RestaurantProductModel?>?) : RecyclerView.Adapter<RestaurantProductHomeAdapter.RestaurantHolder>() {
+class RestaurantProductHomeAdapter(var context: Context?, var list: MutableList<RestaurantProductModel?>?,var cloneList: MutableList<RestaurantProductModel?>?) : RecyclerView.Adapter<RestaurantProductHomeAdapter.RestaurantHolder>(),Filterable {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantProductHomeAdapter.RestaurantHolder =  RestaurantHolder(AdapterProductHomeRestaurantBinding.inflate(LayoutInflater.from(context),parent,false))
 
     override fun onBindViewHolder(holder: RestaurantProductHomeAdapter.RestaurantHolder, position: Int) {
@@ -39,5 +42,40 @@ class RestaurantProductHomeAdapter(var context: Context?, var list: MutableList<
                 }
             }
         }
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence): FilterResults {
+                val filterResults = FilterResults()
+                if (constraint.isNotEmpty()) {
+                    val filterList: MutableList<RestaurantProductModel?> = ArrayList()
+
+                    for(i in cloneList?.indices!!){
+                        if(cloneList?.get(i)?.foodName?.contains(constraint.toString(),ignoreCase = true)==true){
+                            filterList?.add(cloneList?.get(i))
+                        }
+                    }
+                    filterResults.values=filterList
+                    filterResults.count= filterList?.size?:0
+
+                }else{
+                    filterResults.values=cloneList
+                    filterResults.count=cloneList?.size?:0
+                }
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence, results: FilterResults) {
+                list?.clear()
+                if (results?.count>0) {
+                    list?.addAll(results.values as Collection<RestaurantProductModel?>)
+                    notifyDataSetChanged()
+                }else{
+                    notifyDataSetChanged()
+                }
+            }
+        }
+
     }
 }

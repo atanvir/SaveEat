@@ -24,7 +24,9 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.utils.Utils
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.saveeat.model.request.cart.CartRequestModel
+import com.saveeat.model.request.cart.ChoiceModel
 import com.saveeat.model.request.cart.UpdateCartModel
 import com.saveeat.model.request.order.CartDataPlaceOrderModel
 import com.saveeat.model.request.order.OrderPlaceModel
@@ -40,9 +42,11 @@ import com.saveeat.ui.adapter.restaurant.SavedRestaurantAdapter
 import com.saveeat.ui.fragment.main.home.HomeViewModel
 import com.saveeat.utils.application.*
 import com.saveeat.utils.application.CommonUtils.buttonLoader
+import com.saveeat.utils.application.CommonUtils.getProductType
 import com.saveeat.utils.application.CommonUtils.increaseFontSizeForPath
 import com.saveeat.utils.application.CustomLoader.Companion.hideLoader
 import com.saveeat.utils.application.CustomLoader.Companion.showLoader
+import com.saveeat.utils.extn.roundOffDecimal
 import com.saveeat.utils.extn.toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,6 +55,8 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+import kotlin.math.roundToInt
 
 
 @AndroidEntryPoint
@@ -66,6 +72,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     var saveTotal : Double?=0.0
     var finalTotal : Double?=0.0
     private val viewModel : CartViewModel by viewModels()
+
+    private val typeMap : MutableMap<String?,Int?> = HashMap()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentCartBinding = FragmentCartBinding.inflate(inflater,container,false)
 
@@ -93,20 +101,25 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
 
                                 withContext(Dispatchers.IO){
                                     list=it.value?.data?.cartData
+
+                                    if(list?.size?:0>0) requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).getOrCreateBadge(R.id.cartFragment).number = list?.size?:0
+                                    else requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).removeBadge(R.id.cartFragment)
                                 }
                                 withContext(Dispatchers.Main){
                                     if(list?.isNullOrEmpty()==false){
                                         list?.get(0)?.expanded=true
                                         binding.clBilling.clBilling.visibility=View.VISIBLE
                                         binding.clShadowButton.clMainShadow.visibility=View.VISIBLE
-                                        binding.rvProducts.layoutManager=LinearLayoutManager(requireActivity())
-                                        binding.rvProducts.adapter= CartAdapter(requireActivity(),list,this@CartFragment)
+
                                     }else{
                                         binding.clNoData.visibility=View.VISIBLE
                                         binding.clBilling.clBilling.visibility=View.GONE
                                         binding.clShadowButton.clMainShadow.visibility=View.GONE
                                         binding.rvProducts.visibility=View.GONE
                                     }
+
+                                    binding.rvProducts.layoutManager=LinearLayoutManager(requireActivity())
+                                    binding.rvProducts.adapter= CartAdapter(requireActivity(),list,this@CartFragment)
                                     calculateBilling()
                                 }
                             }
@@ -149,7 +162,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0)  {
                             requireActivity().toast(it.value?.message?:"")
-                            requireActivity().startActivity(Intent(requireActivity(),OrderHistoryActivity::class.java))
+                            requireActivity().startActivity(Intent(requireActivity(),OrderHistoryActivity::class.java).putExtra("cart",true))
                             requireActivity().finish()
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) {  hideLoader(); ErrorUtil.snackView(binding.root,it.value?.message?:"") }
@@ -182,7 +195,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
         binding.clShimmer.shimmerContainer.visibility=View.GONE
         binding.clShimmer.shimmerContainer.stopShimmer()
 
-        if( binding.rvProducts.adapter?.itemCount?:0>0){
+        if(binding.rvProducts.adapter?.itemCount?:0>0){
             binding.rvProducts.visibility=View.VISIBLE
             binding.clBilling.clBilling.visibility=View.VISIBLE
             binding.clShadowButton.clMainShadow.visibility=View.VISIBLE
@@ -205,11 +218,14 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                         for(k in list?.get(i)?.productData?.get(j)?.choice?.indices!!){
                             subTotal=  subTotal?.plus(list?.get(i)?.productData?.get(j)?.choice?.get(k)?.price?.times(list?.get(i)?.productData?.get(j)?.choice?.get(k)?.quantity?:0)?:0.0)
                         }
-                        subTotal=subTotal?.plus(list?.get(i)?.productData?.get(j)?.productDetail?.offeredPrice?.times(list?.get(i)?.productData?.get(j)?.quantity?:0)?:0.0)
+
+                        if(list?.get(i)?.productData?.get(j)?.type?.equals("Selling")==true) subTotal=subTotal?.plus(list?.get(i)?.productData?.get(j)?.productDetail?.offeredPrice?.times(list?.get(i)?.productData?.get(j)?.quantity?:0)?:0.0)
+                        else subTotal=subTotal?.plus(list?.get(i)?.productData?.get(j)?.productDetail?.price?.times(list?.get(i)?.productData?.get(j)?.quantity?:0)?:0.0)
                         saveTotal=saveTotal?.plus(list?.get(i)?.productData?.get(j)?.productDetail?.discountAmount?.times(list?.get(i)?.productData?.get(j)?.quantity?:0)?:0.0)
+
                     }
                 }
-                saveEatFees=(subTotal?.times(5))?.div(100)
+                saveEatFees=saveEatFees?.plus((subTotal?.times(5))?.div(100)!!)
                 finalTotal=subTotal?.plus(saveEatFees!!)
 
             }
@@ -217,15 +233,15 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 hideLoader()
 
                 // Billing
-                binding.clBilling.tvSubTotal.text=requireActivity().getString(R.string.price,""+Math.round(subTotal?:0.0)?.toString())
-                binding.clBilling.clTaxInfo.tvSaveEatFees.text=requireActivity().getString(R.string.price,Math.round(saveEatFees?:0.0)?.toString())
-                binding.clBilling.tvTaxFees.text=requireActivity().getString(R.string.price,Math.round(saveEatFees?:0.0)?.toString())
-                binding.clBilling.tvTotalPrice.text=Math.round(finalTotal?:0.0)?.toString()
+                binding.clBilling.tvSubTotal.text=requireActivity().getString(R.string.price,""+subTotal?.roundOffDecimal()?.toString())
+                binding.clBilling.clTaxInfo.tvSaveEatFees.text=requireActivity().getString(R.string.price,saveEatFees?.roundOffDecimal()?.toString())
+                binding.clBilling.tvTaxFees.text=requireActivity().getString(R.string.price,saveEatFees?.roundOffDecimal()?.toString())
+                binding.clBilling.tvTotalPrice.text=finalTotal?.roundOffDecimal()?.toString()
 
                 binding.clShadowButton.tvButtonLabel.text=getString(R.string.checkout)
-                val wordtoSpan: Spannable = SpannableString("Continue to checkout to save ${requireActivity().getString(R.string.price,""+Math.round(saveTotal?:0.0))} on this order")
+                val wordtoSpan: Spannable = SpannableString("Continue to checkout to save ${requireActivity().getString(R.string.price,""+saveTotal?.roundOffDecimal()?.toString())} on this order")
                 wordtoSpan.setSpan(ForegroundColorSpan(Color.rgb(0, 178, 17)), 28, wordtoSpan.length-14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                increaseFontSizeForPath(wordtoSpan, "${requireActivity().getString(R.string.price,""+Math.round(saveTotal?:0.0))}", 1.25f)
+                increaseFontSizeForPath(wordtoSpan, "${requireActivity().getString(R.string.price,""+saveTotal?.roundOffDecimal()?.toString())}", 1.25f)
                 binding.clBilling.tvSaveLabel.text = wordtoSpan
 
                 stopAnimation()
@@ -239,6 +255,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
             R.id.ivButton ->{
                 if(checkValidation()){
                 buttonLoader(binding.clShadowButton, true)
+
+
                 viewModel.orderItems(OrderPlaceModel(cartData = getCartData(),
                                                      paymentId = "123456789",
                                                      paymentMode = "Cash",
@@ -260,6 +278,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
 
     private fun checkValidation(): Boolean {
         var ret=true
+        var count=0;
 
         for(i in list?.indices!!){
             if(list?.get(i)?.orderType?.isEmpty()==true  || list?.get(i)?.orderType==null){
@@ -274,7 +293,24 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 ret=false
                 ErrorUtil.snackView(binding.root,"Please select pick up time for "+list?.get(i)?.restroData?.businessName)
                 break
+            }else{
+                if(typeMap.isEmpty()==true){
+                if(list?.get(i)?.productData!=null){
+                    for(j in list?.get(i)?.productData?.indices!!){
+                        if(list?.get(i)?.productData?.get(j)?.type?.contains("Selling")==true){
+                            if(typeMap.containsKey(list?.get(i)?.restroData?._id)) typeMap.put(list?.get(i)?.restroData?._id?:"",typeMap.get(list?.get(i)?.restroData?._id?:"")!!+1)
+                            else typeMap.put(list?.get(i)?.restroData?._id?:"",1)
+                        }
+                    }
+              }
+                }
             }
+        }
+
+
+        if(ret && count==list?.size){
+            ret=false;
+            ErrorUtil.snackView(binding.root,"Please add selling price item")
         }
 
 
@@ -311,14 +347,17 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
         var returnValue: Double?=0.0
         for(i in list?.indices!!){
             when {
-                type?.equals("actualAmount") -> returnValue=returnValue?.plus(list?.get(i)?.productDetail?.price?.times(list?.get(i)?.quantity!!)!!)
-                type?.equals("discountAmount") -> returnValue=returnValue?.plus(list?.get(i)?.productDetail?.discountAmount?.times(list?.get(i)?.quantity!!)!!)
+                type?.equals("actualAmount") ->
+                    returnValue = if(list?.get(i)?.type?.equals("Selling")==true) returnValue?.plus(list?.get(i)?.productDetail?.offeredPrice?.times(list?.get(i)?.quantity!!)!!) else returnValue?.plus(list?.get(i)?.productDetail?.price?.times(list?.get(i)?.quantity!!)!!)
+
+                type?.equals("discountAmount") ->
+                    returnValue = if(list?.get(i)?.type?.equals("Selling")==true) returnValue?.plus(list?.get(i)?.productDetail?.discountAmount?.times(list?.get(i)?.quantity!!)!!) else 0.0
                 type?.equals("price") -> {
                     var choiceAmount: Double?=0.0
                     for(j in list?.get(i)?.choice?.indices!!){
                         choiceAmount=choiceAmount?.plus(list?.get(i)?.choice?.get(j)?.price?.times(list?.get(i)?.choice?.get(j)?.quantity?:0)!!)
                     }
-                    returnValue=returnValue?.plus(list?.get(i)?.productDetail?.offeredPrice?.times(list?.get(i)?.quantity!!)!!)
+                    returnValue = if(list?.get(i)?.type?.equals("Selling")==true) returnValue?.plus(list?.get(i)?.productDetail?.offeredPrice?.times(list?.get(i)?.quantity!!)!!) else returnValue?.plus(list?.get(i)?.productDetail?.price?.times(list?.get(i)?.quantity!!)!!)
                     returnValue=returnValue?.plus(choiceAmount?:0.0)
                 }
             }
@@ -337,10 +376,19 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
         viewModel?.updateCart(UpdateCartModel(itemId = list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.productId,
                                               cartId = list?.get(parentPostion?:0)?._id,
                                               quantity = list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.quantity,
-                                              choice = list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.choice,
+                                              choice = getChoiceModel(parentPostion,childPostion,list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.quantity!!),
                                               requirement = list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.requirement,
                                               token= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken),
-                                              userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)))
+                                              userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id),type=getProductType(list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.productDetail?.sellingStatus)))
+    }
+
+    private fun getChoiceModel(parentPostion: Int?,childPostion: Int?,quantity: Int?): MutableList<ChoiceModel?>? {
+        val choiceList: MutableList<ChoiceModel?>? = ArrayList()
+        for(i in list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.choice?.indices!!){
+            list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.choice?.get(i)?.quantity=1
+        }
+        choiceList?.addAll(list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.choice?.toList()!!)
+        return choiceList
     }
 
     private fun startAnimation() {
@@ -358,11 +406,16 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
 //        startAnimation()
         mainPosition=parentPostion
         childPositionView=childPostion
-        quantity=list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.quantity?:0
-        viewModel?.deleteItemFromCart(DeleteItemCart(itemId = list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.productId,
-                                                     cartId = list?.get(parentPostion?:0)?._id,
-                                                     token= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken),
-                                                     userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)))
+        try{
+            quantity=list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.quantity?:0
+            viewModel?.deleteItemFromCart(DeleteItemCart(itemId = list?.get(parentPostion?:0)?.productData?.get(childPostion?:0)?.productId,
+                                                         cartId = list?.get(parentPostion?:0)?._id,
+                                                         token= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken),
+                                                         userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)))
+
+        }catch (e: Exception){
+
+        }
     }
 
 }

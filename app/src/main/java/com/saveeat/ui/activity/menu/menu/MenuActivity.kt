@@ -13,7 +13,6 @@ import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityMenuBinding
 import com.saveeat.model.request.menu.MenuListModel
 import com.saveeat.model.response.saveeat.bean.CuisineBean
-import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 import com.saveeat.model.response.saveeat.menu.MenuItemProductModel
 import com.saveeat.ui.adapter.menu.MenuCategoryAdapter
 import com.saveeat.ui.adapter.menu.MenuProductAdapter
@@ -24,13 +23,16 @@ import kotlinx.coroutines.launch
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import com.saveeat.BuildConfig
+import com.saveeat.model.request.cart.CartRequestCount
 import com.saveeat.model.request.menu.MenuBrandModel
 import com.saveeat.repository.cache.PreferenceKeyConstants._id
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
 import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
+import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.bottomsheet.restaurant.RestaurantBottomSheet
 import com.saveeat.utils.application.KeyConstants.BOTH
 import com.saveeat.utils.application.KeyConstants.BRAND
@@ -44,6 +46,7 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
     private val viewModel : MenuViewModel by viewModels()
     private var menuProductDataList:  MutableList<MenuItemProductModel?>?= ArrayList()
     private var cuisineList:  MutableList<CuisineBean?>?= ArrayList()
+    private var cartCountRestro : Boolean?=false
 
 
     override fun getActivityBinding(): ActivityMenuBinding = ActivityMenuBinding.inflate(layoutInflater)
@@ -80,10 +83,18 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(cartCountRestro==true) viewModel.cartCountParticularRestro(CartRequestCount(restaurantId=binding?.model?.restroObj?.restroData?._id,token = getPrefrenceStringValue(this@MenuActivity, jwtToken),userId = getPrefrenceStringValue(this@MenuActivity, _id)))
+
+    }
+
+
     override fun initCtrl() {
 
         binding.ivMore.setOnClickListener(this)
         binding.cpType.setOnClickListener(this)
+        binding.clViewCart.setOnClickListener(this)
         binding.cpType.setOnCloseIconClickListener {
             //startShimmerAnimation()
             viewModel.getMenuList(MenuListModel(menuId = intent.getStringExtra("_id"),
@@ -140,12 +151,32 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
                             binding.rvMenuCategories.adapter=MenuCategoryAdapter(this@MenuActivity,cuisineList,this@MenuActivity)
 
                             menuProductDataList=it.value?.data?.itemData
-                            menuProductDataList?.add(0,MenuItemProductModel(itemList = it.value?.data?.itemListAll,cuisineId = "123",cuisineName = "All"))
 
-                            binding.rvProducts.layoutManager=GridLayoutManager(this@MenuActivity,2)
-                            binding.rvProducts.adapter= MenuProductAdapter(this@MenuActivity,getSelectedCategoryData(0))
+                            menuProductDataList?.add(0,MenuItemProductModel(itemList = it.value?.data?.itemListAll,cuisineId = "123",cuisineName = "Selling Price",fullPriceItems = it.value?.data?.fullPriceItemsList))
+
+
+                            loadDataByIndex(0)
                             binding.clFooter.clFootMain.visibility=View.VISIBLE
+                            if(cartCountRestro==false){
+                                viewModel.cartCountParticularRestro(CartRequestCount(restaurantId=binding?.model?.restroObj?.restroData?._id,token = getPrefrenceStringValue(this@MenuActivity, jwtToken),userId = getPrefrenceStringValue(this@MenuActivity, _id)))
+                            }
+                            cartCountRestro=true
 
+                        }
+                        else if(KeyConstants.FAILURE<=it.value?.status?:0) { stopShimmer(); ErrorUtil.snackView(binding.root, it.value?.message ?: "") }
+                    }
+                    is Resource.Failure -> { stopShimmer(); ErrorUtil.handlerGeneralError(binding.root, it.throwable!!) }
+                }
+            })
+            viewModel.cartCountParticularRestro.observe(this@MenuActivity,{
+                when (it) {
+                    is Resource.Success -> {
+                        if(KeyConstants.SUCCESS==it.value?.status?:0) {
+                            if(it?.value?.data?:0.0>0.0){
+                                binding.clViewCart.visibility=View.VISIBLE
+                                if(it.value?.data?:0.0>1.0) binding.tvItemCount.text="${Math.round(it.value?.data?:0.0)} Items"
+                                else binding.tvItemCount.text="${Math.round(it.value?.data?:0.0)} Item"
+                            }
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) { stopShimmer(); ErrorUtil.snackView(binding.root, it.value?.message ?: "") }
                     }
@@ -190,11 +221,28 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
         }
     }
 
-    private fun getSelectedCategoryData(position: Int):  MutableList<RestaurantResponseBean?>? {
-        var list:  MutableList<RestaurantResponseBean?>?= ArrayList()
+    private fun loadDataByIndex(position: Int) {
+        if(menuProductDataList?.get(position)?.itemList?.size?:0==0) binding.tvSellingPrice.visibility=View.GONE
+        else binding.tvSellingPrice.visibility=View.VISIBLE
+
+        binding.rvSellingPrice.layoutManager=GridLayoutManager(this@MenuActivity,2)
+        binding.rvSellingPrice.adapter= MenuProductAdapter(this@MenuActivity,getSelectedCategoryData(position)?.get(0)?.itemList,"Selling")
+
+        if(menuProductDataList?.get(position)?.fullPriceItems?.size?:0==0) binding.tvTotalPrice.visibility=View.GONE
+        else binding.tvTotalPrice.visibility=View.VISIBLE
+
+
+        binding.rvProducts.layoutManager=GridLayoutManager(this@MenuActivity,2)
+        binding.rvProducts.adapter= MenuProductAdapter(this@MenuActivity,getSelectedCategoryData(position)?.get(0)?.fullPriceItems,"Fix")
+
+    }
+
+    private fun getSelectedCategoryData(position: Int):  MutableList<MenuItemProductModel?>? {
+        var list:  MutableList<MenuItemProductModel?>?= ArrayList()
         for(i in menuProductDataList?.indices!!){
          if(menuProductDataList?.get(i)?.cuisineId?.equals(cuisineList?.get(position)?._id.toString(),ignoreCase = true)==true){
-             list= menuProductDataList?.get(i)?.itemList
+             Log.e("called","yes")
+             list?.add(menuProductDataList?.get(i))
              break
          }
         }
@@ -208,6 +256,10 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
 
     override fun onClick(v: View?) {
         when(v?.id){
+
+            R.id.clViewCart ->{
+               startActivity(Intent(this,MainActivity::class.java).putExtra("menu",true))
+            }
 
             R.id.ivMore ->{
                 val bottomSheet = RestaurantBottomSheet()
@@ -261,9 +313,8 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
     override fun invoke(position: Int) {
         binding.rvMenuCategories.smoothScrollToPosition(position)
         binding.nestedSvProduct.scrollTo(0,0)
-        (binding.rvProducts.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
-        binding.rvProducts.layoutManager=GridLayoutManager(this@MenuActivity,2)
-        binding.rvProducts.adapter= MenuProductAdapter(this@MenuActivity,getSelectedCategoryData(position))
+        (binding.rvSellingPrice.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
+        loadDataByIndex(position)
     }
 
 

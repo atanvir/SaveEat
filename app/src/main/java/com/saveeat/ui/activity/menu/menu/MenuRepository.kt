@@ -1,6 +1,7 @@
 package com.saveeat.ui.activity.menu.menu
 
 import com.saveeat.base.BaseRepository
+import com.saveeat.model.request.cart.CartRequestCount
 import com.saveeat.model.request.menu.MenuBrandModel
 import com.saveeat.model.request.menu.MenuListModel
 import com.saveeat.model.request.menu.MenuModel
@@ -25,5 +26,10 @@ class MenuRepository @Inject constructor(private val apiInterface: SaveEatInterf
     suspend fun addToFavourite(storeId: String?,token: String?) =safeApiCall {
         apiInterface.addToFavourite(storeId,token)
     }
+
+    suspend fun cartCountParticularRestro(model : CartRequestCount?) =safeApiCall {
+        apiInterface.cartCountParticularRestro(model,model?.token)
+    }
+
 
 }

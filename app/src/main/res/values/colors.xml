@@ -9,6 +9,7 @@
     <color name="brown">#743c20</color>
     <color name="white">#FFFFFF</color>
     <color name="app_theme">#FF7A2C</color>
+    <color name="app_theme_opacity">#B3FF7A2C</color>
     <color name="light_orange">#FFC767</color>
     <color name="grey">#9796A1</color>
     <color name="blur_grey2">#D5D5D5</color>

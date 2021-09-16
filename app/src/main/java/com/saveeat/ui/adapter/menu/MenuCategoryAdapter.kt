@@ -9,10 +9,10 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterMenuCategoryBinding
-import com.saveeat.model.request.menu.MenuCategoryModel
 import com.saveeat.model.response.saveeat.bean.CuisineBean
+import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 
-class MenuCategoryAdapter(var context: Context?, var list:  MutableList<CuisineBean?>?, var onItemClick: ((Int)->Unit) ?= null) : RecyclerView.Adapter<MenuCategoryAdapter.MyViewHolder>() {
+class MenuCategoryAdapter(var context: Context?, var list: MutableList<CuisineBean?>?, var onItemClick: ((Int)->Unit) ?= null) : RecyclerView.Adapter<MenuCategoryAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuCategoryAdapter.MyViewHolder = MyViewHolder(AdapterMenuCategoryBinding.inflate(LayoutInflater.from(context),parent,false))
 
     override fun onBindViewHolder(holder: MenuCategoryAdapter.MyViewHolder, position: Int) {

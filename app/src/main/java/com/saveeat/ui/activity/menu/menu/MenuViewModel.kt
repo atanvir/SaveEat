@@ -5,11 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.saveeat.model.request.cart.CartCount
+import com.saveeat.model.request.cart.CartRequestCount
 import com.saveeat.model.request.menu.MenuBrandModel
 import com.saveeat.model.request.menu.MenuListModel
 import com.saveeat.model.request.menu.MenuModel
 import com.saveeat.model.response.saveeat.main.home.HomeModel
 import com.saveeat.model.response.saveeat.menu.MenuRestaurantModel
+import com.saveeat.model.response.saveeat.order.OrderHistoryModel
 import com.saveeat.utils.application.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -32,6 +35,10 @@ class MenuViewModel @Inject constructor(private val repository: MenuRepository) 
 
     private val _addToFavourite : MutableLiveData<Resource<HomeModel?>?> = MutableLiveData()
     val addToFavourite : LiveData<Resource<HomeModel?>?> get() = _addToFavourite
+
+
+    private val _cartCountParticularRestro : MutableLiveData<Resource<CartCount?>?> = MutableLiveData()
+    val cartCountParticularRestro : LiveData<Resource<CartCount?>?> get() = _cartCountParticularRestro
 
 
 
@@ -60,5 +67,12 @@ class MenuViewModel @Inject constructor(private val repository: MenuRepository) 
         viewModelScope.launch {
             _addToFavourite.value=repository.addToFavourite(storeId,token)
         }
+    }
+
+    fun cartCountParticularRestro(model: CartRequestCount?) {
+        viewModelScope.launch {
+            _cartCountParticularRestro.value=repository.cartCountParticularRestro(model)
+        }
+
     }
 }

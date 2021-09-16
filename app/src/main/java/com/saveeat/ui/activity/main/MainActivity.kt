@@ -29,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import android.location.Geocoder
 import androidx.activity.viewModels
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ui.NavigationUI
@@ -43,6 +44,7 @@ import com.saveeat.utils.application.Resource
 import kotlinx.coroutines.launch
 
 import com.google.android.material.badge.BadgeDrawable
+import com.saveeat.ui.fragment.main.cart.CartFragment
 import kotlin.math.roundToInt
 
 
@@ -64,6 +66,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         refreshToolbar()
+
+
+       val transtient : FragmentTransaction  = supportFragmentManager.beginTransaction()
+       transtient.add(R.id.fragment,CartFragment())
+        //add/replace/remove(
+        //addToBackStack()
+        // custom Animation()
+        //commit()
+
+
         viewModel.getCartCount(token = getPrefrenceStringValue(this, PreferenceKeyConstants.jwtToken))
     }
 

@@ -3,13 +3,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
 
     <data>
 
         <import type="com.saveeat.utils.extn.DoubleExtensionKt"/>
+        <import type="android.view.View"/>
 
 
         <variable
@@ -371,7 +371,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="19dp"
-                android:text="@{@string/price(Math.round(model.offeredPrice))}"
+                android:text="@{model.sellingStatus==false?@string/price(Math.round(model.price)):@string/price(Math.round(model.offeredPrice))}"
                 android:textColor="@color/app_theme"
                 android:textSize="28dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -387,6 +387,7 @@
                 android:text="@{@string/price(Math.round(model.price))}"
                 android:textColor="@color/black"
                 android:textSize="15dp"
+                android:visibility="@{model.sellingStatus==false?View.GONE:View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/sp"
                 app:layout_constraintStart_toEndOf="@+id/sp"
                 app:layout_constraintTop_toTopOf="@+id/sp" />
@@ -415,38 +416,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/sp" />
 
 
-            <TextView
-                android:id="@+id/tvLabelExtra"
-                style="@style/poppin_semi_bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="@string/add_extras"
-                android:visibility="invisible"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_16sp"
-                app:layout_constraintStart_toStartOf="@+id/view4"
-                app:layout_constraintTop_toBottomOf="@+id/view4" />
-
-
             <androidx.core.widget.NestedScrollView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8sp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="@dimen/_50sdp"
-                app:layout_constrainedHeight="true"
                 android:fillViewport="true"
+                app:layout_constrainedHeight="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/view4"
-                app:layout_constraintStart_toStartOf="@+id/tvLabelExtra"
-                app:layout_constraintTop_toBottomOf="@+id/tvLabelExtra">
+                app:layout_constraintStart_toStartOf="@+id/view4"
+                app:layout_constraintTop_toBottomOf="@+id/view4">
 
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvChoices"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
+                    android:layout_height="match_parent" />
             </androidx.core.widget.NestedScrollView>
 
 

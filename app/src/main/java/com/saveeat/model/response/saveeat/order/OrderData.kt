@@ -9,6 +9,7 @@ data class OrderData(
     val amountWithQuantuty: Double,
     val choiceAmount: Double,
     val discountAmount: Double,
+    var productAmountWithChoice: Double?,
     val extra: List<Any>,
     val mainChoice: MutableList<ChoiceModel?>?,
     val price: Double,

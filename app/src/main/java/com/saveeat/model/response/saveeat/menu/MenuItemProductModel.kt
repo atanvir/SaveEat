@@ -5,4 +5,4 @@ import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class MenuItemProductModel(var itemList : MutableList<RestaurantResponseBean?>?,var cuisineId: String?,var cuisineName: String?) : Parcelable
+data class MenuItemProductModel (var itemList : MutableList<RestaurantResponseBean?>?,var cuisineId: String?,var cuisineName: String?,var fullPriceItems:  MutableList<RestaurantResponseBean?>?) : Parcelable

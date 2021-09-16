@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +17,13 @@ import com.saveeat.R
 import com.saveeat.databinding.AdapterOrderHistoryBinding
 import com.saveeat.model.response.saveeat.order.OrderBean
 import com.saveeat.model.response.saveeat.order.OrderData
+import com.saveeat.utils.extn.roundOffDecimal
 import kotlin.math.roundToInt
 
 class HistoryOrderAdapter(var context: Context,var list: MutableList<OrderBean?>?,var listner: (Int) -> Unit) : RecyclerView.Adapter<HistoryOrderAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryOrderAdapter.MyViewHolder = MyViewHolder(AdapterOrderHistoryBinding.inflate(LayoutInflater.from(context), parent, false))
     override fun getItemCount(): Int = list?.size?:0
+    override fun getItemViewType(position: Int): Int = position
 
     override fun onBindViewHolder(holder: HistoryOrderAdapter.MyViewHolder, position: Int) {
         holder.binding.model=list?.get(position)
@@ -31,7 +34,7 @@ class HistoryOrderAdapter(var context: Context,var list: MutableList<OrderBean?>
         holder.binding.rvOrder.layoutManager=LinearLayoutManager(context)
         holder.binding.rvOrder.adapter=PastOrderAdapter(context,list?.get(position)?.orderData)
 
-        val wordtoSpan: Spannable = SpannableString("You saved ${context.getString(R.string.price,""+ (list?.get(position)?.saveAmount ?: 0.0).roundToInt())} on this order")
+        val wordtoSpan: Spannable = SpannableString("You saved ${context.getString(R.string.price,""+ (list?.get(position)?.saveAmount ?: 0.0).roundOffDecimal())} on this order")
         wordtoSpan.setSpan(ForegroundColorSpan(Color.rgb(0, 178, 17)), 9, wordtoSpan.length-13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         holder.binding.tvSaveLabelOutSide.text = wordtoSpan
 

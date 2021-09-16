@@ -34,5 +34,6 @@ object SaveEatConstant  {
     internal const val ORDER_CANCEL="orderCancelByUser"
     internal const val BADGES="userBadgesEarning"
     internal const val RATING_BY_USER="ratingByUser"
+    internal const val CART_COUNT_RATIO="cartCountParticularRestro"
 
 }

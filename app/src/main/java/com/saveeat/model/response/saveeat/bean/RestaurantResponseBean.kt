@@ -16,6 +16,7 @@ data class RestaurantResponseBean(
     var adminVerifyStatus: String?,
     var avgRating: Double?,
     var loaded: Boolean=false,
+    var outOfStock: Boolean?,
 
     var logo: String?,
     var bitmap: Bitmap?,

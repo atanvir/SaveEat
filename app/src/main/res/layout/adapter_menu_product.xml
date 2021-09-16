@@ -5,10 +5,15 @@
     <data>
 
         <import type="com.saveeat.utils.extn.DoubleExtensionKt"/>
+        <import type="android.view.View"/>
 
         <variable
             name="data"
             type="com.saveeat.model.response.saveeat.bean.RestaurantResponseBean" />
+
+        <variable
+            name="type"
+            type="String" />
 
     </data>
 
@@ -25,7 +30,7 @@
             android:layout_height="41dp"
             android:layout_marginTop="81sp"
             android:layout_marginEnd="10dp"
-            android:background="@{data.leftQuantity>0?@drawable/drawable_price_container:@drawable/drawable_price_container_grey}"
+            android:background="@{type.equalsIgnoreCase(`Selling`)?data.leftQuantity>0?@drawable/drawable_price_container:@drawable/drawable_price_container_grey:data.outOfStock?@drawable/drawable_price_container_grey:@drawable/drawable_price_container}"
             android:elevation="@dimen/_7sdp"
             android:outlineProvider="none"
             app:layout_constraintEnd_toEndOf="parent"
@@ -111,15 +116,16 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="4dp"
                             android:background="@drawable/drawable_round_corner"
-                            android:backgroundTint="@{data.leftQuantity==0?@color/blur_grey:@color/app_theme}"
+                            android:backgroundTint="@{type.equalsIgnoreCase(`Selling`)?data.leftQuantity==0?@color/blur_grey:@color/app_theme:data.outOfStock?@color/blur_grey:@color/app_theme}"
                             android:elevation="@dimen/_1sdp"
                             android:gravity="center"
                             android:paddingLeft="@dimen/_7sdp"
                             android:paddingTop="@dimen/_2sdp"
                             android:paddingRight="@dimen/_7sdp"
                             android:paddingBottom="@dimen/_1sdp"
-                            android:text="@{data.leftQuantity>0?data.leftQuantity+` left`:`Nothing left`}"
+                            android:text="@{type.equalsIgnoreCase(`Selling`)?data.leftQuantity>0?data.leftQuantity+` left`:`Nothing left`:data.outOfStock==false?data.leftQuantity+` left`:`Out of stock`}"
                             android:textColor="@color/white"
+                            android:visibility="@{type.equalsIgnoreCase(`Selling`)?View.VISIBLE:View.GONE}"
                             android:textSize="@dimen/dimen_10sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -148,9 +154,11 @@
                             android:scaleType="centerCrop"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.0" />
+
                         <ProgressBar
                             android:id="@+id/progressBar"
                             android:layout_width="18dp"

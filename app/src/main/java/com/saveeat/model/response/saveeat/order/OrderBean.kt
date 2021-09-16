@@ -8,6 +8,7 @@ data class OrderBean(
     val convertedPickupDate: String,
     val createdAt: String,
     val orderDeliveredTime: String,
+    val orderCancelledTime: String,
     val orderData: MutableList<OrderData?>?,
     val orderNumber: String,
     val pickupDate: String,

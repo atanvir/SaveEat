@@ -42,7 +42,7 @@ class CartAdapter(var context: Context?,var list: MutableList<CartDataModel?>?,v
                  list?.get(adapterPosition)?.orderType="Now"
                  list?.get(adapterPosition)?.pickupDate=SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time)
                  list?.get(adapterPosition)?.pickupTime=SimpleDateFormat("HH:mm").format(Calendar.getInstance().time)
-                 binding.btnPickNow.text=list?.get(adapterPosition)?.orderType
+                 binding.btnPickNow.text=list?.get(adapterPosition)?.pickupDate+" "+list?.get(adapterPosition)?.pickupTime
                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                      binding.btnPickNow.backgroundTintList=context?.getColorStateList(R.color.app_theme)
                      binding.btnPickNow.setTextColor(context?.getColor(R.color.white)!!)

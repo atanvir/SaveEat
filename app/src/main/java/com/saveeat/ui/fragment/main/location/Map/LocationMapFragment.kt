@@ -260,7 +260,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         requestModel= CommonHomeModel(latitude= latitude.toString(),
                                       longitude= longitude.toString(),
                                       distance= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.distance),
-                                      foodType = KeyConstants.VEG,limit = 10,
+                                      foodType = KeyConstants.BOTH,limit = 10,
                                       token = getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken) ,
                                       userId= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)
         )

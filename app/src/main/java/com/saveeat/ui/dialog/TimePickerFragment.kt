@@ -2,6 +2,7 @@ package com.saveeat.ui.dialog
 
 import android.app.Dialog
 import android.app.TimePickerDialog
+import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,16 +15,18 @@ import com.saveeat.model.response.saveeat.menu.TodayDataModel
 import com.saveeat.utils.application.ErrorUtil
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.NumberPicker
+import com.saveeat.utils.application.CustomTimePicker
+import java.lang.Exception
+
 
 class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataModel?) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
     private var dateTimeFormat=SimpleDateFormat("yyyy-MM-dd HH:mm")
     private var weekDateFormat=SimpleDateFormat("EEEE")
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val c = Calendar.getInstance()
-        val hour = c.get(Calendar.HOUR_OF_DAY)
-        val minute = c.get(Calendar.MINUTE)
-        return TimePickerDialog(activity, this, hour, minute, android.text.format.DateFormat.is24HourFormat(activity))
+        var timePicker=CustomTimePicker(activity, this, Calendar.getInstance().get(Calendar.HOUR), CustomTimePicker.getRoundedMinute(Calendar.getInstance().get(Calendar.MINUTE) + CustomTimePicker.TIME_PICKER_INTERVAL), false)
+        return timePicker
     }
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
@@ -50,7 +53,8 @@ class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
         }
         else if(date>=times?.first && date<=times?.second){
             data?.pickupTime= SimpleDateFormat("HH:mm").format(date)
-            binding.btnPickLater.text=data?.pickupTime
+
+            binding.btnPickLater.text=data?.pickupDate+" "+data?.pickupTime
 
         }else{
             ErrorUtil.snackView(binding.root,"Please select time between ${dateTimeFormat.format(times?.first)} to ${dateTimeFormat.format(times?.second)} for ${day}")

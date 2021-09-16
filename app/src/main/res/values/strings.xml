@@ -134,6 +134,7 @@
     <string name="full_name_validation">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz</string>
     <string name="update_cart">Update Cart</string>
     <string name="review_rating"><![CDATA[Review & Rating]]></string>
+    <string name="clear_choices"><font size="40"><b>Are you sure wish to close?</b></font>\nGoing back will clear all of your selected item choices</string>
 
 
 </resources>
