@@ -4,12 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
-import androidx.lifecycle.lifecycleScope
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivitySplashBinding
 import com.saveeat.repository.cache.PreferenceKeyConstants.login
 import com.saveeat.repository.cache.PreferenceKeyConstants.walkthrow
-import com.saveeat.ui.activity.auth.login.LoginActivity
+import com.saveeat.ui.activity.auth.login.otp.LoginWithOTPActivity
+import com.saveeat.ui.activity.auth.login.password.LoginWithPasswordActivity
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.activity.walkthrough.WalkThroughActivity
 import com.saveeat.utils.application.KeyConstants.PREF_NAME
@@ -26,7 +26,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         getSharedPreferences(PREF_NAME, MODE_PRIVATE).apply {
             when {
                 getBoolean(login,false) -> splashIntent(MainActivity::class.java)
-                getBoolean(walkthrow,false) -> splashIntent(LoginActivity::class.java)
+                getBoolean(walkthrow,false) -> splashIntent(LoginWithOTPActivity::class.java)
                 else -> splashIntent(WalkThroughActivity::class.java)
             }
         }

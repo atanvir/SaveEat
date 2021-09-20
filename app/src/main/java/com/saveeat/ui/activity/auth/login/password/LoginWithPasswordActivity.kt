@@ -1,7 +1,6 @@
-package com.saveeat.ui.activity.auth.login
+package com.saveeat.ui.activity.auth.login.password
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,18 +10,13 @@ import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityLoginBinding
 import com.saveeat.model.request.auth.login.LoginModel
-import com.saveeat.repository.cache.DataStore
-import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PreferenceKeyConstants.deviceToken
-import com.saveeat.repository.cache.PreferenceKeyConstants.login
 import com.saveeat.repository.cache.PreferenceKeyConstants.walkthrow
 import com.saveeat.repository.cache.PrefrencesHelper.saveUserData
 import com.saveeat.ui.activity.auth.forgot.ForgotPasswordActivity
-import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
+import com.saveeat.ui.activity.auth.login.LoginViewModel
 import com.saveeat.ui.activity.auth.signup.SignUpActivity
-import com.saveeat.ui.activity.auth.signup.SignupViewModel
 import com.saveeat.ui.activity.main.MainActivity
-import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.CommonUtils.authToolbar
 import com.saveeat.utils.application.CommonUtils.buttonLoader
 import com.saveeat.utils.application.CommonUtils.isValidPassword
@@ -33,15 +27,12 @@ import com.saveeat.utils.application.KeyConstants.DEVICE_TYPE
 import com.saveeat.utils.application.KeyConstants.PASSWORD_VALIDATION
 import com.saveeat.utils.application.KeyConstants.PREF_NAME
 import com.saveeat.utils.application.Resource
-import com.saveeat.utils.extn.text
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import me.ibrahimsn.lib.PhoneNumberKit
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 @AndroidEntryPoint
-class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener {
+class LoginWithPasswordActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener {
     private var phoneNumberKit : PhoneNumberKit?=null
     private val viewModel : LoginViewModel by viewModels()
 
@@ -71,13 +62,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
 
     override fun observer() {
         lifecycleScope.launch {
-            viewModel.userLogin.observe(this@LoginActivity, {
+            viewModel.userLogin.observe(this@LoginWithPasswordActivity, {
                 buttonLoader(binding.clShadowButton,false)
                 when (it) {
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
-                            saveUserData(this@LoginActivity,it.value?.data)
-                            startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                            saveUserData(this@LoginWithPasswordActivity,it.value?.data)
+                            startActivity(Intent(this@LoginWithPasswordActivity,MainActivity::class.java))
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) ErrorUtil.snackView(binding.root, it.value?.message ?: "")
                     }

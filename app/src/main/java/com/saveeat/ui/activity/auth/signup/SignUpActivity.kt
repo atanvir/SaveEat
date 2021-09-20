@@ -121,4 +121,8 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(), View.OnClickListen
         return ret
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
 }

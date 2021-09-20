@@ -19,6 +19,7 @@ import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentHistoryBinding
 import com.saveeat.model.request.order.OrderHistoryModel
 import com.saveeat.model.response.saveeat.order.OrderBean
+import com.saveeat.model.response.saveeat.order.RatingModel
 import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.ui.activity.rating.RatingActivity
@@ -110,6 +111,8 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(), (Int) -> Unit {
 
     private val laucher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){it->
         if(it.resultCode==RESULT_OK){
+            list?.get(position?:0)?.ratingData= RatingModel(__v=0,_id="",brandId="",createdAt="",orderId="",rating=it.data?.getDoubleExtra("rating",0.0)?:0.0,review = "",status = "",updatedAt = "",userId = "")
+            binding.rvHistoryOrders.adapter?.notifyItemChanged(position?:0,list?.get(position?:0))
             requireActivity().toast(it.data?.getStringExtra("message")?:"")
         }
     }

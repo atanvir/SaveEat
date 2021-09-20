@@ -14,19 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.saveeat.R
 import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentCartBinding
-import com.saveeat.ui.activity.order.checkout.CheckoutActivity
 import com.saveeat.ui.adapter.cart.CartAdapter
-import com.saveeat.ui.dialog.DatePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
-import android.text.style.RelativeSizeSpan
-import android.util.Log
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.airbnb.lottie.utils.Utils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.saveeat.model.request.cart.CartRequestModel
 import com.saveeat.model.request.cart.ChoiceModel
+import com.saveeat.model.request.cart.RestroSellingModel
 import com.saveeat.model.request.cart.UpdateCartModel
 import com.saveeat.model.request.order.CartDataPlaceOrderModel
 import com.saveeat.model.request.order.OrderPlaceModel
@@ -36,27 +31,21 @@ import com.saveeat.model.response.saveeat.cart.ProductDataModel
 import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
-import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.adapter.cart.CartItemAdapter
-import com.saveeat.ui.adapter.restaurant.SavedRestaurantAdapter
-import com.saveeat.ui.fragment.main.home.HomeViewModel
 import com.saveeat.utils.application.*
 import com.saveeat.utils.application.CommonUtils.buttonLoader
 import com.saveeat.utils.application.CommonUtils.getProductType
 import com.saveeat.utils.application.CommonUtils.increaseFontSizeForPath
 import com.saveeat.utils.application.CustomLoader.Companion.hideLoader
-import com.saveeat.utils.application.CustomLoader.Companion.showLoader
 import com.saveeat.utils.extn.roundOffDecimal
 import com.saveeat.utils.extn.toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
-import kotlin.math.roundToInt
 
 
 @AndroidEntryPoint
@@ -71,9 +60,10 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     var saveEatFees : Double?=0.0
     var saveTotal : Double?=0.0
     var finalTotal : Double?=0.0
+    var taxes : Double?=0.0
     private val viewModel : CartViewModel by viewModels()
 
-    private val typeMap : MutableMap<String?,Int?> = HashMap()
+    private val typeMap : MutableMap<String?, MutableList<RestroSellingModel?>?> = HashMap()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentCartBinding = FragmentCartBinding.inflate(inflater,container,false)
 
@@ -210,6 +200,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
         saveEatFees=0.0
         saveTotal=0.0
         finalTotal=0.0
+        taxes=0.0
 
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.IO){
@@ -222,11 +213,12 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                         if(list?.get(i)?.productData?.get(j)?.type?.equals("Selling")==true) subTotal=subTotal?.plus(list?.get(i)?.productData?.get(j)?.productDetail?.offeredPrice?.times(list?.get(i)?.productData?.get(j)?.quantity?:0)?:0.0)
                         else subTotal=subTotal?.plus(list?.get(i)?.productData?.get(j)?.productDetail?.price?.times(list?.get(i)?.productData?.get(j)?.quantity?:0)?:0.0)
                         saveTotal=saveTotal?.plus(list?.get(i)?.productData?.get(j)?.productDetail?.discountAmount?.times(list?.get(i)?.productData?.get(j)?.quantity?:0)?:0.0)
-
                     }
                 }
-                saveEatFees=saveEatFees?.plus((subTotal?.times(5))?.div(100)!!)
-                finalTotal=subTotal?.plus(saveEatFees!!)
+
+                taxes=subTotal?.times(5)?.div(100)
+                saveEatFees=taxes?.plus(subTotal?:0.0)?.times(2)?.div(100)
+                finalTotal=subTotal?.plus(saveEatFees?.plus(taxes?:0.0)!!)
 
             }
             withContext(Dispatchers.Main){
@@ -235,8 +227,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 // Billing
                 binding.clBilling.tvSubTotal.text=requireActivity().getString(R.string.price,""+subTotal?.roundOffDecimal()?.toString())
                 binding.clBilling.clTaxInfo.tvSaveEatFees.text=requireActivity().getString(R.string.price,saveEatFees?.roundOffDecimal()?.toString())
-                binding.clBilling.tvTaxFees.text=requireActivity().getString(R.string.price,saveEatFees?.roundOffDecimal()?.toString())
+                binding.clBilling.tvTaxFees.text=requireActivity().getString(R.string.price,saveEatFees?.plus(taxes?:0.0)?.roundOffDecimal()?.toString())
                 binding.clBilling.tvTotalPrice.text=finalTotal?.roundOffDecimal()?.toString()
+                binding.clBilling.clTaxInfo.tvTaxes.text=requireActivity().getString(R.string.price,taxes?.roundOffDecimal()?.toString())
 
                 binding.clShadowButton.tvButtonLabel.text=getString(R.string.checkout)
                 val wordtoSpan: Spannable = SpannableString("Continue to checkout to save ${requireActivity().getString(R.string.price,""+saveTotal?.roundOffDecimal()?.toString())} on this order")
@@ -294,15 +287,10 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 ErrorUtil.snackView(binding.root,"Please select pick up time for "+list?.get(i)?.restroData?.businessName)
                 break
             }else{
-                if(typeMap.isEmpty()==true){
-                if(list?.get(i)?.productData!=null){
-                    for(j in list?.get(i)?.productData?.indices!!){
-                        if(list?.get(i)?.productData?.get(j)?.type?.contains("Selling")==true){
-                            if(typeMap.containsKey(list?.get(i)?.restroData?._id)) typeMap.put(list?.get(i)?.restroData?._id?:"",typeMap.get(list?.get(i)?.restroData?._id?:"")!!+1)
-                            else typeMap.put(list?.get(i)?.restroData?._id?:"",1)
-                        }
-                    }
-              }
+                if((list?.get(i)?.productData?.any { it?.type=="Selling" }!=true)){
+                    ret=false
+                    ErrorUtil.snackView(binding.root,"Please select atleast one selling item to the ${list?.get(i)?.restroData?._id}")
+                    break
                 }
             }
         }
@@ -317,6 +305,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
         return  ret
 
     }
+
 
     private fun getCartData(): MutableList<CartDataPlaceOrderModel?>? {
         var returnList : MutableList<CartDataPlaceOrderModel?>? = ArrayList()
@@ -334,7 +323,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                                                                           restroId=list?.get(i)?.restroId,
                                                                           saveAmount = calculateAmount(list?.get(i)?.productData,"discountAmount"),
                                                                           subTotal=calculateAmount(list?.get(i)?.productData,"price"),
-                                                                          tax=(calculateAmount(list?.get(i)?.productData,"price")?.times(5))?.div(100),
+                                                                          saveEatFees=getTax(calculateAmount(list?.get(i)?.productData,"price"),"saveEatFeesv"),
+                                                                          taxes=getTax(calculateAmount(list?.get(i)?.productData,"price"),"taxes"),
+                                                                          tax=getTax(calculateAmount(list?.get(i)?.productData,"price"),"total"),
                                                                           timezone=TimeZone.getDefault().id,
                                                                           total=0.0)
             model?.total=subTotal?.plus(model?.tax!!)
@@ -343,15 +334,31 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
         return returnList
     }
 
+    private fun getSaveEatFees(subTotal: Double?): Double? {
+        val taxes = subTotal?.times(5)?.div(100)
+        val saveEatFees=taxes?.plus(subTotal?:0.0)?.times(2)?.div(100)
+
+        return saveEatFees
+    }
+
+    private fun getTax(subTotal: Double?,type: String?): Double? {
+        val taxes=subTotal?.times(5)?.div(100)
+        val saveEatFees=taxes?.plus(subTotal?:0.0)?.times(2)?.div(100)
+        if(type?.equals("total")==true) return taxes?.plus(saveEatFees?:0.0)
+        else if(type?.equals("taxes")==true) return taxes
+        else return subTotal
+    }
+
     private fun calculateAmount(list: MutableList<ProductDataModel?>?,type: String): Double? {
         var returnValue: Double?=0.0
         for(i in list?.indices!!){
             when {
-                type?.equals("actualAmount") ->
-                    returnValue = if(list?.get(i)?.type?.equals("Selling")==true) returnValue?.plus(list?.get(i)?.productDetail?.offeredPrice?.times(list?.get(i)?.quantity!!)!!) else returnValue?.plus(list?.get(i)?.productDetail?.price?.times(list?.get(i)?.quantity!!)!!)
+                type?.equals("actualAmount") -> returnValue = if(list?.get(i)?.type?.equals("Selling")==true) returnValue?.plus(list?.get(i)?.productDetail?.offeredPrice?.times(list?.get(i)?.quantity!!)!!) else returnValue?.plus(list?.get(i)?.productDetail?.price?.times(list?.get(i)?.quantity!!)!!)
 
-                type?.equals("discountAmount") ->
-                    returnValue = if(list?.get(i)?.type?.equals("Selling")==true) returnValue?.plus(list?.get(i)?.productDetail?.discountAmount?.times(list?.get(i)?.quantity!!)!!) else 0.0
+                type?.equals("discountAmount") -> returnValue = if(list?.get(i)?.type?.equals("Selling")==true) returnValue?.plus(list?.get(i)?.productDetail?.discountAmount?.times(list?.get(i)?.quantity!!)!!) else returnValue?.plus(0.0)
+
+
+
                 type?.equals("price") -> {
                     var choiceAmount: Double?=0.0
                     for(j in list?.get(i)?.choice?.indices!!){

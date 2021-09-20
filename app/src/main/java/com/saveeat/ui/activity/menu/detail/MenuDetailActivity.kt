@@ -87,11 +87,13 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
 
                     binding.tvDescription.visibility=View.INVISIBLE
                     binding.view.visibility=View.INVISIBLE
+                    binding.ivBack.visibility=View.VISIBLE
 
                     binding.tvToolbarHeader.visibility=View.VISIBLE
                     binding.ivRestroImage.visibility=View.VISIBLE
 
                 } else if (State.IDLE == state) {
+                    binding.ivBack.visibility=View.INVISIBLE
                     binding.tvTitle.visibility=View.VISIBLE
                     binding.ivType.visibility=View.VISIBLE
 

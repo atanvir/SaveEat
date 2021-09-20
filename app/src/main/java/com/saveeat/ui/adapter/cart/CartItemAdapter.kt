@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterCartItemBinding
 import com.saveeat.model.response.saveeat.cart.ProductDataModel
-import com.saveeat.ui.dialog.RequirementDialog
+import com.saveeat.ui.dialog.order.RequirementDialog
 
 class CartItemAdapter(var context: Context?,var parentPostion: Int?,var list : List<ProductDataModel?>?,var listner: setOnClickListner)  : RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
 

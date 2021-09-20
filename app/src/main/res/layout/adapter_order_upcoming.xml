@@ -222,7 +222,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textView4"
                         app:layout_constraintStart_toStartOf="@+id/imageView3"
@@ -258,7 +258,7 @@
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/path_3389"
                         android:drawablePadding="6dp"
-                        android:text="@{``+model.ratingData.size()}"
+                        android:text="@{``+model.restroData.avgRating}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dime_13sp"
                         app:layout_constraintStart_toStartOf="@+id/textView4"
@@ -540,17 +540,14 @@
                         </LinearLayout>
 
 
-                        <androidx.appcompat.widget.AppCompatButton
+                        <TextView
                             android:id="@+id/btnCancelOrder"
-                            style="@style/common_button"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
                             android:layout_marginBottom="24dp"
-                            android:background="@drawable/background_common_button"
-                            android:backgroundTint="@color/white"
                             android:elevation="@dimen/_7sdp"
-                            android:text="Cancel Order"
+                            android:text="@string/cancel"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/linearLayout3"

@@ -14,6 +14,8 @@ data class CartDataPlaceOrderModel(
     val restroId: String?,
     val saveAmount: Double?,
     val subTotal: Double?,
+    val saveEatFees: Double?,
+    val taxes: Double?,
     val tax: Double?,
     val timezone: String?,
     var total: Double?

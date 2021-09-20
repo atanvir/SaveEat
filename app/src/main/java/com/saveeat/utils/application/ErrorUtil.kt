@@ -1,22 +1,11 @@
 package com.saveeat.utils.application
 
-import android.R
-import android.app.Activity
-import android.content.Context
 import android.content.ContextWrapper
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import com.google.android.material.snackbar.Snackbar
-import com.saveeat.ui.activity.auth.signup.SignUpActivity
-import com.saveeat.ui.dialog.CreditDialog
-import com.saveeat.ui.dialog.ErrorDialog
-import com.saveeat.utils.extn.snack
-import dagger.hilt.android.internal.managers.ViewComponentManager
+import com.saveeat.ui.dialog.error.ErrorDialog
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketTimeoutException

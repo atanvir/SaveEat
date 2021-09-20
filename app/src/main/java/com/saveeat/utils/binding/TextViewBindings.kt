@@ -170,6 +170,7 @@ class TextViewBindings {
         fun setTotalItemPrice(textView: TextView?, list: List<ProductDataModel?>?){
             var price: Double=0.0
 
+
             if(list?.isNotEmpty()==true){
                CoroutineScope(Dispatchers.Main).launch {
                    withContext(Dispatchers.IO) {
@@ -177,7 +178,9 @@ class TextViewBindings {
                            for(j in list?.get(i)?.choice?.indices!!){
                                price=price.plus(list?.get(i)?.choice?.get(j)?.price?.times(list?.get(i)?.choice?.get(j)?.quantity?:0)?:0.0)
                            }
-                           price=price.plus(list?.get(i)?.productDetail?.offeredPrice?.times(list?.get(i)?.quantity?:0)?:0.0)
+
+                           if(list?.get(i)?.type?.equals("Selling")==true) price=price.plus(list?.get(i)?.productDetail?.offeredPrice?.times(list?.get(i)?.quantity?:0)?:0.0)
+                           else price=price.plus(list?.get(i)?.productDetail?.price?.times(list?.get(i)?.quantity?:0)?:0.0)
 
                        }
                    }

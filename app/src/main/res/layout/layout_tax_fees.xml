@@ -80,11 +80,11 @@
                 app:layout_constraintEnd_toStartOf="@+id/ivCLose" />
 
             <TextView
-                android:id="@+id/textView44"
+                android:id="@+id/tvTaxes"
                 style="@style/inter_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="₹0"
+                android:text="@{model.taxes!=null?@string/price(``+Math.round(model.taxes)):``}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_14sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView41"
@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/restaurant_gst"
+                android:text="Taxes"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_14sp"
                 app:layout_constraintStart_toStartOf="@+id/textView39"
@@ -108,7 +108,7 @@
                 style="@style/inter_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/price(``+Math.round(model.tax))}"
+                android:text="@{model.saveEatFees!=null?@string/price(``+Math.round(model.saveEatFees)):``}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_14sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView45"

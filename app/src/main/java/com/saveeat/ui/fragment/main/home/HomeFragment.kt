@@ -54,7 +54,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
         requestModel=CommonHomeModel(latitude=getPrefrenceStringValue(requireActivity(), latitude),
                                      longitude=getPrefrenceStringValue(requireActivity(), longitude),
                                      distance=getPrefrenceStringValue(requireActivity(), distance),
-                                     foodType = BOTH,limit = 10,
+                                     foodType = BOTH,
+                                     limit = 10,
                                      token = getPrefrenceStringValue(requireActivity(), jwtToken),
                                      userId=getPrefrenceStringValue(requireActivity(), _id))
         startShimmerAnimation()
@@ -69,7 +70,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
             if(binding.rvPopularProducts.adapter !=null) (binding.rvPopularProducts.adapter as RestaurantHomeAdapter).filter.filter(it)
             if(binding.rvBrands.adapter !=null) (binding.rvBrands.adapter as BrandAdapter).filter.filter(it)
             if(binding.rvAllRestro.adapter !=null) (binding.rvAllRestro.adapter as RestaurantHomeAdapter).filter.filter(it)
-
 
             Handler(Looper.getMainLooper()).postDelayed(Runnable {
 

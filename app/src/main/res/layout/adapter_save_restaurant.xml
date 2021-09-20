@@ -229,7 +229,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_10sp"
                     android:layout_marginBottom="14dp"
-                    android:text="@{``+model.avgRating}"
+                    android:text="@{``+model.restroData.avgRating}"
                     android:drawableEnd="@drawable/path_3389"
                     android:drawablePadding="6dp"
                     android:textColor="@color/black"

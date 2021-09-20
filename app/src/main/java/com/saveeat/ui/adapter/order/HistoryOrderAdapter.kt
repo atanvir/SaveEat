@@ -1,6 +1,7 @@
 package com.saveeat.ui.adapter.order
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
@@ -17,6 +18,9 @@ import com.saveeat.R
 import com.saveeat.databinding.AdapterOrderHistoryBinding
 import com.saveeat.model.response.saveeat.order.OrderBean
 import com.saveeat.model.response.saveeat.order.OrderData
+import com.saveeat.ui.activity.drawer.help.HelpActivity
+import com.saveeat.utils.application.CommonUtils
+import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.extn.roundOffDecimal
 import kotlin.math.roundToInt
 
@@ -45,6 +49,7 @@ class HistoryOrderAdapter(var context: Context,var list: MutableList<OrderBean?>
         init {
             binding.cvMain.setOnClickListener(this)
             binding.taxInfo.setOnClickListener(this)
+            binding.btnHelp.setOnClickListener(this)
             binding.clTaxInfo.ivCLose.setOnClickListener(this)
             binding.ivStartOne.setOnClickListener(this)
             binding.ivStarTwo.setOnClickListener(this)
@@ -59,6 +64,8 @@ class HistoryOrderAdapter(var context: Context,var list: MutableList<OrderBean?>
                 R.id.taxInfo ->{ binding.clTaxInfo.clTaxInfo.visibility=View.VISIBLE }
                 R.id.ivCLose ->{ binding.clTaxInfo.clTaxInfo.visibility=View.GONE }
 
+                R.id.btnHelp ->{ context?.startActivity(Intent(context,HelpActivity::class.java)) }
+
                 R.id.cvMain->{
                     if(binding.clOrderDetail.visibility==View.VISIBLE) {
                         binding.clOrderDetail.visibility=View.GONE
@@ -72,7 +79,8 @@ class HistoryOrderAdapter(var context: Context,var list: MutableList<OrderBean?>
 
 
                 R.id.ivStartOne ->{
-                    listner?.invoke(adapterPosition)
+                    if(list?.get(adapterPosition)?.ratingData?.rating?:0.0>0.0) ErrorUtil.snackView(binding.root,"You have already rated this order")
+                    else listner?.invoke(adapterPosition)
                 }
 
                 R.id.ivStarTwo ->{

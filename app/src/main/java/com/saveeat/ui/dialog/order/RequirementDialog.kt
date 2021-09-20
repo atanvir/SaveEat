@@ -1,4 +1,4 @@
-package com.saveeat.ui.dialog
+package com.saveeat.ui.dialog.order
 
 import android.view.LayoutInflater
 import android.view.View

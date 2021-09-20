@@ -7,6 +7,9 @@ data class OrderBean(
     val _id: String,
     val convertedPickupDate: String,
     val createdAt: String,
+    var saveEatFees: Double?,
+    var taxes: Double?,
+
     val orderDeliveredTime: String,
     val orderCancelledTime: String,
     val orderData: MutableList<OrderData?>?,
@@ -15,7 +18,7 @@ data class OrderBean(
     val pickupTime: String,
     val pin: String,
     val qrCode: String,
-    var ratingData: MutableList<Any>,
+    var ratingData: RatingModel?,
     val restroData: RestaurantResponseBean?,
     val saveAmount: Double?,
     val status: String,

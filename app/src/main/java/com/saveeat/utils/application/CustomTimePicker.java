@@ -1,5 +1,6 @@
 package com.saveeat.utils.application;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.res.Resources;
@@ -19,7 +20,12 @@ public class CustomTimePicker extends TimePickerDialog {
 
 
     public CustomTimePicker(Context context, OnTimeSetListener callBack, int hourOfDay, int minute, boolean is24HourView) {
-        super(context, callBack, hourOfDay, minute, is24HourView);
+//        AlertDialog.THEME_HOLO_DARK
+//        AlertDialog.THEME_DEVICE_DEFAULT_LIGHT
+//        AlertDialog.THEME_HOLO_LIGHT
+//       AlertDialog.THEME_DEVICE_DEFAULT_DARK
+//         AlertDialog.THEME_TRADITIONAL
+        super(context,  AlertDialog.THEME_HOLO_LIGHT,callBack, hourOfDay, minute, is24HourView);
     }
 
     @Override

@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment
 import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityCreditBinding
-import com.saveeat.ui.dialog.CreditDialog
+import com.saveeat.ui.dialog.credit.CreditDialog
 import com.saveeat.utils.application.CommonUtils.toolbar
 import dagger.hilt.android.AndroidEntryPoint
 

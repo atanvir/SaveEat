@@ -37,7 +37,7 @@
 
 
             <ImageView
-                android:id="@+id/textView14"
+                android:id="@+id/ivLogo"
                 style="@style/poppin_medium"
                 android:layout_width="@dimen/_65sdp"
                 android:layout_height="@dimen/_65sdp"
@@ -54,10 +54,10 @@
                 android:id="@+id/progresBar"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView14"
-                app:layout_constraintEnd_toEndOf="@+id/textView14"
-                app:layout_constraintStart_toStartOf="@+id/textView14"
-                app:layout_constraintTop_toTopOf="@+id/textView14" />
+                app:layout_constraintBottom_toBottomOf="@+id/ivLogo"
+                app:layout_constraintEnd_toEndOf="@+id/ivLogo"
+                app:layout_constraintStart_toStartOf="@+id/ivLogo"
+                app:layout_constraintTop_toTopOf="@+id/ivLogo" />
 
             <ImageView
                 android:id="@+id/ivRemove"
@@ -67,7 +67,7 @@
                 android:padding="@dimen/_5sdp"
                 android:src="@drawable/i_remove"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView14" />
+                app:layout_constraintTop_toTopOf="@+id/ivLogo" />
 
 
             <TextView
@@ -80,11 +80,11 @@
                 android:layout_marginEnd="40dp"
                 android:text="@{data.name}"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@{data.badgeCount==0?@color/white:@color/black}"
                 android:textSize="@dimen/dimen_12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+                app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -98,8 +98,9 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/background_common_button"
                 android:backgroundTint="@color/white"
+
                 android:text="@{data.message}"
-                android:textColor="@color/black"
+                android:textColor="@{data.badgeCount==0?@color/blur_grey:@color/black}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textView15"
                 app:layout_constraintStart_toStartOf="@+id/textView15"

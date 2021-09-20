@@ -2,6 +2,7 @@ package com.saveeat.repository.remote.SaveEat
 
 import com.saveeat.model.request.auth.forgot.ForgotModel
 import com.saveeat.model.request.auth.login.LoginModel
+import com.saveeat.model.request.auth.login.LoginOTPModel
 import com.saveeat.model.request.auth.signup.SignupModel
 import com.saveeat.model.request.cart.CartCount
 import com.saveeat.model.request.cart.CartRequestCount
@@ -38,6 +39,7 @@ import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CHECK_MOBILE_AND_EM
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CHECK_MOBILE_FORGOT_PASSWORD
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.FORGOT_PASSWORD
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.LOGIN
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.LOGIN_BY_OTP
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.LOGOUT
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.MENU_ITEM_DETAIL
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.MENU_LIST
@@ -74,7 +76,7 @@ interface SaveEatInterface {
     suspend fun login(@Body data: LoginModel?) : AuthModel?
 
     @POST(CHECK_MOBILE_FORGOT_PASSWORD)
-    suspend fun forgot(@Body model: ForgotModel?) : AuthModel?
+    suspend fun forgot(@Body model: Any?) : AuthModel?
 
 
     @POST(FORGOT_PASSWORD)
@@ -171,6 +173,9 @@ interface SaveEatInterface {
 
     @POST(CART_COUNT_RATIO)
     suspend fun cartCountParticularRestro(@Body model: CartRequestCount?, @Header("Authorization") token: String?) :CartCount?
+
+    @POST(LOGIN_BY_OTP)
+    suspend fun loginByOtp(@Body model: LoginOTPModel?) : AuthModel?
 
 
 }

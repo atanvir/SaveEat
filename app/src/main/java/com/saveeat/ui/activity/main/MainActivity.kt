@@ -29,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import android.location.Geocoder
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -89,7 +90,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             tvKMDropDown.setOnClickListener(this@MainActivity)
         }
         binding.bottomNavigationView.setOnNavigationItemSelectedListener  { item ->
+            try{
             if(item.itemId != binding.bottomNavigationView.selectedItemId) NavigationUI.onNavDestinationSelected(item, navController)
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
             true
         }
     }
@@ -103,7 +108,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                      if(KeyConstants.SUCCESS==it.value?.status?:0) {
                         if(it.value?.data?:0.0>0.0){
                             binding.bottomNavigationView.removeBadge(R.id.cartFragment)
-                            binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment).number = it.value?.data?.roundToInt()!!
+                            val badge=binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment)
+                            badge.backgroundColor=ContextCompat.getColor(this@MainActivity,R.color.app_theme)
+                            badge.number=it.value?.data?.roundToInt()!!
                         }
                         else binding.bottomNavigationView.removeBadge(R.id.cartFragment)
                      }

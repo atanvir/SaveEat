@@ -22,6 +22,7 @@
         android:hint="@string/search"
         android:iconifiedByDefault="true"
         android:paddingLeft="9dp"
+        android:imeOptions="actionDone"
         style="@style/inter_regular"
         android:queryBackground="@android:color/transparent"
         android:textColorHint="@color/grey"
@@ -33,7 +34,7 @@
     <com.google.android.material.chip.Chip
         android:id="@+id/cpType"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_42sdp"
+        android:layout_height="54dp"
         android:layout_marginEnd="8dp"
         android:text="@string/veg"
         style="@style/Widget.MyApp.Chip.Choice"
@@ -60,7 +61,7 @@
     <ImageView
         android:id="@+id/ivFilter"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="38dp"
         android:adjustViewBounds="true"
         android:elevation="@dimen/_3sdp"
         android:src="@drawable/group_3986"

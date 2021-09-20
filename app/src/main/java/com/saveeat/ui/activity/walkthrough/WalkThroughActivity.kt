@@ -6,7 +6,7 @@ import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityWalkThroughBinding
 import com.saveeat.model.request.walkthrough.WalkThroughModel
-import com.saveeat.ui.activity.auth.login.LoginActivity
+import com.saveeat.ui.activity.auth.login.password.LoginWithPasswordActivity
 import com.saveeat.ui.adapter.walkthrough.WalkThroughAdapter
 import com.saveeat.utils.extn.onPageChanged
 import com.saveeat.utils.extn.visible
@@ -38,10 +38,10 @@ class WalkThroughActivity : BaseActivity<ActivityWalkThroughBinding>(), View.OnC
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.ivNext -> {
-                if(binding?.viewPager?.currentItem==2) startActivity(Intent(this,LoginActivity::class.java))
+                if(binding?.viewPager?.currentItem==2) startActivity(Intent(this, LoginWithPasswordActivity::class.java))
                 else binding.viewPager.setCurrentItem(binding?.viewPager?.currentItem+1,true)
             }
-            R.id.tvSkip -> { startActivity(Intent(this,LoginActivity::class.java)) }
+            R.id.tvSkip -> { startActivity(Intent(this, LoginWithPasswordActivity::class.java)) }
 
         }
     }

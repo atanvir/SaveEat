@@ -9,12 +9,11 @@ import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityDrawerBinding
 import com.saveeat.model.request.badge.BadgeModel
-import com.saveeat.repository.cache.DataStore.Companion.dataStore
 import com.saveeat.repository.cache.PreferenceKeyConstants._id
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
-import com.saveeat.ui.activity.auth.login.LoginActivity
+import com.saveeat.ui.activity.auth.login.password.LoginWithPasswordActivity
 import com.saveeat.ui.activity.drawer.help.HelpActivity
 import com.saveeat.ui.activity.drawer.credit.CreditActivity
 import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
@@ -25,8 +24,6 @@ import com.saveeat.ui.adapter.rewards.RewardsAdapter
 import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.application.Resource
-import com.saveeat.utils.application.StaticDataHelper.getRewardModel
-import com.saveeat.utils.extn.roundOffDecimal
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -60,7 +57,7 @@ class DrawerActivity : BaseActivity<ActivityDrawerBinding>(), View.OnClickListen
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             PrefrencesHelper.userLogout(this@DrawerActivity)
-                            startActivity(Intent(this@DrawerActivity,LoginActivity::class.java))
+                            startActivity(Intent(this@DrawerActivity, LoginWithPasswordActivity::class.java))
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) ErrorUtil.snackView(binding.root, it.value?.message ?: "")
                     }

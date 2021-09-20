@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
@@ -22,12 +23,18 @@ import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityOtpverificationBinding
 import com.saveeat.model.request.profile.ProfileModel
 import com.saveeat.model.request.auth.forgot.ForgotModel
+import com.saveeat.model.request.auth.login.LoginOTPModel
 import com.saveeat.model.request.auth.signup.SignupModel
+import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.ui.activity.auth.password.PasswordActivity
+import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.utils.application.CommonUtils.TAG
 import com.saveeat.utils.application.CommonUtils.authToolbar
 import com.saveeat.utils.application.CommonUtils.buttonLoader
+import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.ErrorUtil.snackView
+import com.saveeat.utils.application.KeyConstants
+import com.saveeat.utils.application.Resource
 import com.saveeat.utils.extn.hideKeyboard
 import com.saveeat.utils.extn.text
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +51,7 @@ class OTPVerificationActivity : BaseActivity<ActivityOtpverificationBinding>(), 
     private var verificationCode = ""
     private var mResendToken: PhoneAuthProvider.ForceResendingToken?=null
     private var countDownTimer : CountDownTimer?=null
+    private val viewModel: OTPViewModel by viewModels()
 
     private val OTP_TIMER: Long=119000
     private val OTP_TIMER_DELAY: Long=1000
@@ -59,6 +67,7 @@ class OTPVerificationActivity : BaseActivity<ActivityOtpverificationBinding>(), 
             is SignupModel -> { mobileNo= (data as SignupModel)?.countryCode + (data as SignupModel)?.mobileNumber }
             is ForgotModel -> { mobileNo= (data as ForgotModel)?.countryCode + (data as ForgotModel)?.mobileNumber }
             is ProfileModel -> { mobileNo= (data as ProfileModel)?.countryCode + (data as ProfileModel)?.mobileNumber }
+            is LoginOTPModel ->{ mobileNo= (data as LoginOTPModel)?.countryCode + (data as LoginOTPModel)?.mobileNumber  }
         }
        startTimer()
        autoReadOTP()
@@ -81,6 +90,24 @@ class OTPVerificationActivity : BaseActivity<ActivityOtpverificationBinding>(), 
                     }
                 }
             } }
+
+        lifecycleScope.launch {
+            viewModel.loginByOtp.observe(this@OTPVerificationActivity,{
+                buttonLoader(binding.clShadowButton,false)
+                when (it) {
+                    is Resource.Success -> {
+                        if(KeyConstants.SUCCESS==it.value?.status?:0) {
+                            PrefrencesHelper.saveUserData(this@OTPVerificationActivity, it.value?.data)
+                            startActivity(Intent(this@OTPVerificationActivity, MainActivity::class.java))
+                        }
+                        else if(KeyConstants.FAILURE<=it.value?.status?:0) ErrorUtil.snackView(binding.root, it.value?.message ?: "")
+                    }
+                    is Resource.Failure -> {
+                        ErrorUtil.handlerGeneralError(binding.root, it.throwable!!)
+                    }
+                }
+            })
+        }
     }
 
     override fun onClick(v: View?) {
@@ -189,6 +216,11 @@ class OTPVerificationActivity : BaseActivity<ActivityOtpverificationBinding>(), 
                 is ForgotModel  -> { startActivity(Intent(this,PasswordActivity::class.java).putExtra("data",data as ForgotModel)) }
                 is ProfileModel -> { setResult(RESULT_OK,Intent().putExtra("data",data as ProfileModel))
                                      finish() }
+
+                is LoginOTPModel ->{
+                    buttonLoader(binding.clShadowButton,true)
+                    viewModel.login(data as LoginOTPModel)
+                }
             }
         } else {
             snackView(binding.root,task.exception?.message?:"")

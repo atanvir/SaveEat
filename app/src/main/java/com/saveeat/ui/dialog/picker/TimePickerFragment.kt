@@ -1,11 +1,10 @@
-package com.saveeat.ui.dialog
+package com.saveeat.ui.dialog.picker
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
-import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import com.saveeat.R
@@ -15,9 +14,7 @@ import com.saveeat.model.response.saveeat.menu.TodayDataModel
 import com.saveeat.utils.application.ErrorUtil
 import java.text.SimpleDateFormat
 import java.util.*
-import android.widget.NumberPicker
 import com.saveeat.utils.application.CustomTimePicker
-import java.lang.Exception
 
 
 class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataModel?) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
@@ -25,7 +22,7 @@ class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
     private var weekDateFormat=SimpleDateFormat("EEEE")
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        var timePicker=CustomTimePicker(activity, this, Calendar.getInstance().get(Calendar.HOUR), CustomTimePicker.getRoundedMinute(Calendar.getInstance().get(Calendar.MINUTE) + CustomTimePicker.TIME_PICKER_INTERVAL), false)
+        var timePicker=CustomTimePicker(activity,this, Calendar.getInstance().get(Calendar.HOUR), CustomTimePicker.getRoundedMinute(Calendar.getInstance().get(Calendar.MINUTE) + CustomTimePicker.TIME_PICKER_INTERVAL), false)
         return timePicker
     }
 
@@ -53,8 +50,7 @@ class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
         }
         else if(date>=times?.first && date<=times?.second){
             data?.pickupTime= SimpleDateFormat("HH:mm").format(date)
-
-            binding.btnPickLater.text=data?.pickupDate+" "+data?.pickupTime
+            binding.btnPickLater.text=SimpleDateFormat("dd/MM/yy hh:mm a").format(date)
 
         }else{
             ErrorUtil.snackView(binding.root,"Please select time between ${dateTimeFormat.format(times?.first)} to ${dateTimeFormat.format(times?.second)} for ${day}")

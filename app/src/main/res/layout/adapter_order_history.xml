@@ -203,6 +203,17 @@
                     app:layout_constraintEnd_toEndOf="@+id/view4" />
 
                 <TextView
+                    android:id="@+id/tvPaymentMode"
+                    style="@style/inter_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Paid by: GPay"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_10sp"
+                    app:layout_constraintEnd_toEndOf="@+id/view4"
+                    app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+                <TextView
                     android:id="@+id/textView24"
                     style="@style/poppin_regular"
                     android:layout_width="0dp"
@@ -211,6 +222,7 @@
                     android:background="@drawable/background_grey_stroke_with_white_solid"
                     android:elevation="@dimen/_2sdp"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:padding="12dp"
                     android:text="Payment on picked up"
                     android:textColor="@color/black"
@@ -406,8 +418,9 @@
 
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnHelp"
                     style="@style/common_button"
-                    android:layout_width="0dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="12dp"
@@ -415,9 +428,10 @@
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/background_common_button"
                     android:backgroundTint="@color/white"
-                    android:elevation="@dimen/_5sdp"
-                    android:text="Help"
-                    android:textColor="@color/black"
+
+                    android:elevation="@dimen/_8sdp"
+                    android:text="@string/help"
+                    android:textColor="@android:color/holo_blue_light"
                     android:textSize="@dimen/dimen_14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/textView24"
@@ -461,8 +475,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
                 android:visibility="@{model.status.equalsIgnoreCase(`Cancelled`)?View.GONE:View.VISIBLE}"
-
-                android:src="@{model.ratingData.size()>0?@drawable/star_sel:@drawable/star_unsel}"
+                android:src="@{model.ratingData!=null?model.ratingData.rating>0.0?@drawable/star_sel:@drawable/star_unsel:@drawable/star_unsel}"
                 app:layout_constraintBottom_toBottomOf="@+id/tvRatingLabel"
                 app:layout_constraintStart_toEndOf="@+id/tvRatingLabel"
                 app:layout_constraintTop_toTopOf="@+id/tvRatingLabel" />
@@ -489,7 +502,7 @@
                 android:layout_marginStart="8dp"
                 android:visibility="@{model.status.equalsIgnoreCase(`Cancelled`)?View.GONE:View.VISIBLE}"
 
-                android:src="@{model.ratingData.size()>4?@drawable/star_sel:@drawable/star_unsel}"
+                android:src="@{model.ratingData!=null?model.ratingData.rating>4.0?@drawable/star_sel:@drawable/star_unsel:@drawable/star_unsel}"
                 app:layout_constraintBottom_toBottomOf="@+id/ivStarFour"
                 app:layout_constraintStart_toEndOf="@+id/ivStarFour"
                 app:layout_constraintTop_toTopOf="@+id/ivStarFour" />
@@ -501,7 +514,7 @@
                 android:layout_marginStart="8dp"
                 android:visibility="@{model.status.equalsIgnoreCase(`Cancelled`)?View.GONE:View.VISIBLE}"
 
-                android:src="@{model.ratingData.size()>3?@drawable/star_sel:@drawable/star_unsel}"
+                android:src="@{model.ratingData!=null?model.ratingData.rating>3.0?@drawable/star_sel:@drawable/star_unsel:@drawable/star_unsel}"
                 app:layout_constraintBottom_toBottomOf="@+id/ivStarThree"
                 app:layout_constraintStart_toEndOf="@+id/ivStarThree"
                 app:layout_constraintTop_toTopOf="@+id/ivStarThree" />
@@ -513,7 +526,7 @@
                 android:layout_marginStart="8dp"
                 android:visibility="@{model.status.equalsIgnoreCase(`Cancelled`)?View.GONE:View.VISIBLE}"
 
-                android:src="@{model.ratingData.size()>2?@drawable/star_sel:@drawable/star_unsel}"
+                android:src="@{model.ratingData!=null?model.ratingData.rating>2.0?@drawable/star_sel:@drawable/star_unsel:@drawable/star_unsel}"
                 app:layout_constraintBottom_toBottomOf="@+id/ivStarTwo"
                 app:layout_constraintStart_toEndOf="@+id/ivStarTwo"
                 app:layout_constraintTop_toTopOf="@+id/ivStarTwo" />
@@ -525,7 +538,7 @@
                 android:layout_marginStart="8dp"
                 android:visibility="@{model.status.equalsIgnoreCase(`Cancelled`)?View.GONE:View.VISIBLE}"
 
-                android:src="@{model.ratingData.size()>1?@drawable/star_sel:@drawable/star_unsel}"
+                android:src="@{model.ratingData!=null?model.ratingData.rating>1.0?@drawable/star_sel:@drawable/star_unsel:@drawable/star_unsel}"
                 app:layout_constraintBottom_toBottomOf="@+id/ivStartOne"
                 app:layout_constraintStart_toEndOf="@+id/ivStartOne"
                 app:layout_constraintTop_toTopOf="@+id/ivStartOne" />

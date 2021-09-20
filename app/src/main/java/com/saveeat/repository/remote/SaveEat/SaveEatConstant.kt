@@ -35,5 +35,6 @@ object SaveEatConstant  {
     internal const val BADGES="userBadgesEarning"
     internal const val RATING_BY_USER="ratingByUser"
     internal const val CART_COUNT_RATIO="cartCountParticularRestro"
+    internal const val LOGIN_BY_OTP="loginByOtp"
 
 }

@@ -1,19 +1,14 @@
 package com.saveeat.ui.adapter.menu
 
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterMenuMultipleChoiceBinding
 import com.saveeat.databinding.AdapterMenuSingleChoiceBinding
 import com.saveeat.model.response.saveeat.menu.MenuCategoryModel
-import com.saveeat.model.response.saveeat.menu.MenuExtraModel
-import com.saveeat.ui.dialog.ErrorDialog
 import com.saveeat.utils.application.CommonUtils
 
 class MenuChoiceAdapter(var context: Context?, var data: MenuCategoryModel?,  var listner :MenuCustomizationListner?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

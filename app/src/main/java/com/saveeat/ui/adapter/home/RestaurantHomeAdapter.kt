@@ -2,6 +2,7 @@ package com.saveeat.ui.adapter.home
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,19 +94,20 @@ class RestaurantHomeAdapter(var context : Context?, var list : MutableList<Resta
                     for(i in cloneList?.indices!!){
                         if(cloneList?.get(i)?.businessName?.contains(constraint.toString(),ignoreCase = true)==true){
                             filterList?.add(cloneList?.get(i))
-                        }else {
+                        }else{
+                            var realProductData: MutableList<RestaurantProductModel?>?= ArrayList()
                             for(j in cloneList?.get(i)?.realProductData?.indices!!){
+                                Log.e("search",cloneList?.get(i)?.realProductData?.get(j)?.foodName?:"")
                                 if(cloneList?.get(i)?.realProductData?.get(j)?.foodName?.contains(constraint.toString(),ignoreCase = true)==true){
-
-                                    var realProductData: MutableList<RestaurantProductModel?>?= ArrayList()
                                     realProductData?.add(cloneList?.get(i)?.realProductData?.get(j))
                                     var cloneNewList=cloneList?.get(i)
                                     cloneNewList?.realProductData=realProductData
                                     filterList?.add(cloneNewList)
-
                                 }
                             }
                         }
+
+
                     }
                     filterResults.values=filterList
                     filterResults.count= filterList?.size?:0

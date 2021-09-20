@@ -30,7 +30,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.saveeat.R
 import com.saveeat.databinding.LayoutCommonButtonBinding
 import com.saveeat.repository.cache.PreferenceKeyConstants
-import com.saveeat.ui.activity.auth.login.LoginActivity
+import com.saveeat.ui.activity.auth.login.password.LoginWithPasswordActivity
 import com.saveeat.ui.activity.auth.password.PasswordActivity
 import com.saveeat.ui.activity.drawer.help.HelpActivity
 import com.saveeat.ui.activity.drawer.credit.CreditActivity
@@ -38,7 +38,6 @@ import com.saveeat.ui.activity.drawer.location.HiddenLocationActivity
 import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
 import com.saveeat.ui.activity.drawer.payment.PaymentActivity
 import com.saveeat.ui.activity.order.checkout.CheckoutActivity
-import com.saveeat.utils.extn.enable
 import com.saveeat.utils.extn.onSelected
 import com.saveeat.utils.extn.text
 import io.michaelrocks.libphonenumber.android.NumberParseException
@@ -48,10 +47,10 @@ import com.saveeat.repository.cache.PreferenceKeyConstants.deviceToken
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
 import com.saveeat.ui.activity.rating.RatingActivity
-import com.saveeat.ui.dialog.ErrorDialog
+import com.saveeat.ui.dialog.error.ErrorDialog
 
 import com.saveeat.utils.application.KeyConstants.PREF_NAME
-import java.lang.reflect.Field
+import com.saveeat.utils.extn.enable
 import java.util.regex.Pattern
 
 
@@ -101,7 +100,7 @@ object CommonUtils {
 
 
 
-        if(activity is LoginActivity){
+        if(activity is LoginWithPasswordActivity){
             ivBack.visibility= View.GONE
         }
         ivBack.setOnClickListener{ activity.onBackPressed() }

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterCartBinding
 import com.saveeat.model.response.saveeat.cart.CartDataModel
-import com.saveeat.ui.dialog.DatePickerFragment
+import com.saveeat.ui.dialog.picker.DatePickerFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,6 +23,7 @@ class CartAdapter(var context: Context?,var list: MutableList<CartDataModel?>?,v
         holder.binding.data=list?.get(position)
         if(list?.get(position)?.expanded==true) holder.binding.clMain.performClick()
         holder.binding.rvCartItem.layoutManager=LinearLayoutManager(context)
+        holder.binding.btnPickNow.performClick()
         holder.binding.rvCartItem.adapter=CartItemAdapter(context,position,list?.get(position)?.productData,listner)
         holder.binding.executePendingBindings()
     }
@@ -39,10 +40,12 @@ class CartAdapter(var context: Context?,var list: MutableList<CartDataModel?>?,v
         override fun onClick(v: View?) {
             when(v?.id){
              R.id.btnPickNow ->{
+                 val now=Calendar.getInstance()
+                 now.add(Calendar.MINUTE,15)
                  list?.get(adapterPosition)?.orderType="Now"
-                 list?.get(adapterPosition)?.pickupDate=SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time)
-                 list?.get(adapterPosition)?.pickupTime=SimpleDateFormat("HH:mm").format(Calendar.getInstance().time)
-                 binding.btnPickNow.text=list?.get(adapterPosition)?.pickupDate+" "+list?.get(adapterPosition)?.pickupTime
+                 list?.get(adapterPosition)?.pickupDate=SimpleDateFormat("yyyy-MM-dd").format(now.time)
+                 list?.get(adapterPosition)?.pickupTime=SimpleDateFormat("HH:mm").format(now.time)
+//                 binding.btnPickNow.text=list?.get(adapterPosition)?.pickupDate+" "+list?.get(adapterPosition)?.pickupTime
                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                      binding.btnPickNow.backgroundTintList=context?.getColorStateList(R.color.app_theme)
                      binding.btnPickNow.setTextColor(context?.getColor(R.color.white)!!)

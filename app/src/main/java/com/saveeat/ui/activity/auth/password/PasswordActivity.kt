@@ -10,11 +10,8 @@ import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityPasswordBinding
 import com.saveeat.model.request.auth.forgot.ForgotModel
 import com.saveeat.model.request.auth.signup.SignupModel
-import com.saveeat.ui.activity.auth.login.LoginActivity
-import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
-import com.saveeat.ui.activity.auth.signup.SignupViewModel
+import com.saveeat.ui.activity.auth.login.password.LoginWithPasswordActivity
 import com.saveeat.ui.activity.location.ChooseAddressActivity
-import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.CommonUtils.authToolbar
 import com.saveeat.utils.application.CommonUtils.buttonLoader
 import com.saveeat.utils.application.CommonUtils.isValidPassword
@@ -65,7 +62,7 @@ class PasswordActivity : BaseActivity<ActivityPasswordBinding>(), View.OnClickLi
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             toast(it.value?.message?:"")
-                            startActivity(Intent(this@PasswordActivity,LoginActivity::class.java))
+                            startActivity(Intent(this@PasswordActivity, LoginWithPasswordActivity::class.java))
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) ErrorUtil.snackView(binding.root, it.value?.message ?: "")
                     }

@@ -343,6 +343,8 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
         handler?.sendEmptyMessage(HIDE_INFO_WINDOW)
     }
     override fun onCameraIdle() {
+        latitute= mMap?.cameraPosition?.target?.latitude?:0.0
+        longitute= mMap?.cameraPosition?.target?.longitude?:0.0
         handler?.sendEmptyMessage(GETTING_ADDRESS)
         binding.pbAddressLoader.visible(true)
         binding.tvAddress.text=""

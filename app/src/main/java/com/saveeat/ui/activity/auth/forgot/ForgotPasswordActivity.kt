@@ -10,11 +10,7 @@ import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityForgotPasswordBinding
 import com.saveeat.model.request.auth.forgot.ForgotModel
-import com.saveeat.repository.cache.DataStore
-import com.saveeat.ui.activity.auth.login.LoginActivity
-import com.saveeat.ui.activity.auth.login.LoginViewModel
 import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
-import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.CommonUtils.authToolbar
 import com.saveeat.utils.application.CommonUtils.buttonLoader
 import com.saveeat.utils.application.CommonUtils.mobileNo

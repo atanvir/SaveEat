@@ -35,7 +35,7 @@ class RatingActivity : BaseActivity<ActivityRatingBinding>(), RatingBar.OnRating
 
     override fun initCtrl() {
         binding.rbReview.onRatingBarChangeListener=this
-        binding.clShadowButton.clMainShadow.setOnClickListener(this)
+        binding.clShadowButton.ivButton.setOnClickListener(this)
     }
 
     override fun observer() {
@@ -47,6 +47,7 @@ class RatingActivity : BaseActivity<ActivityRatingBinding>(), RatingBar.OnRating
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             val intent= Intent()
                             intent.putExtra("message",it.value?.message)
+                            intent.putExtra("rating",binding.rbReview.rating?.toDouble())
                             setResult(RESULT_OK,intent)
                             finish()
                         }
@@ -85,7 +86,7 @@ class RatingActivity : BaseActivity<ActivityRatingBinding>(), RatingBar.OnRating
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.clShadowButton ->{
+            R.id.ivButton ->{
                 buttonLoader(binding.clShadowButton,true)
                 if(checkValidation()){
                     viewModel.ratingByUser(RatingModel(orderId = intent.getStringExtra("_id"),
@@ -101,11 +102,11 @@ class RatingActivity : BaseActivity<ActivityRatingBinding>(), RatingBar.OnRating
     }
 
     private fun checkValidation(): Boolean {
-        var ret=false
+        var ret=true
 
         if(binding?.rbReview?.rating==0f){
             ret=false
-            binding.root.snack("Please add some rating"){}
+            ErrorUtil.snackView(binding.root,"Please atleast one rating")
         }
 
         return ret
