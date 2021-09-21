@@ -7,6 +7,9 @@
 
     <data>
 
+        <import type="com.saveeat.utils.extn.DoubleExtensionKt"/>
+
+
         <variable
             name="model"
             type="com.saveeat.model.response.saveeat.order.OrderBean" />
@@ -84,7 +87,7 @@
                 style="@style/inter_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{model.taxes!=null?@string/price(``+Math.round(model.taxes)):``}"
+                android:text="@{model.taxes!=null?@string/price(``+DoubleExtensionKt.roundOffDecimal(model.taxes)):``}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_14sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView41"
@@ -108,7 +111,7 @@
                 style="@style/inter_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{model.saveEatFees!=null?@string/price(``+Math.round(model.saveEatFees)):``}"
+                android:text="@{model.saveEatFees!=null?@string/price(``+DoubleExtensionKt.roundOffDecimal(model.saveEatFees)):``}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_14sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView45"

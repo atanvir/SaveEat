@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Paint
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import com.saveeat.model.request.address.PlacesModel
 import com.saveeat.utils.application.GoogleUtils
+import java.util.HashSet
 
 
 class MenuProductAdapter(var context: Context?, var list: MutableList<RestaurantResponseBean?>?,var cloneList: MutableList<RestaurantResponseBean?>?,var type : String?) : RecyclerView.Adapter<MenuProductAdapter.MenuRestaurantHolder>(),Filterable {
@@ -30,10 +32,10 @@ class MenuProductAdapter(var context: Context?, var list: MutableList<Restaurant
         holder.binding.data=list?.get(position)
         holder.binding.type=type
         holder.binding.mp.visibility=View.VISIBLE
-        if(type?.equals("Selling")==true){
+        if(type?.equals("Selling")==true || list?.get(position)?.type?.equals("Selling")==true){
             holder.binding.mp.paintFlags= holder.binding.mp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             if(list?.get(position)?.leftQuantity==0) holder.binding.ivCoverPhoto.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
-        else if(type?.equals("Fix")==true){
+        else if(type?.equals("Fix")==true || list?.get(position)?.type?.equals("Fix")==true){
             if(list?.get(position)?.outOfStock==true)  holder.binding.ivCoverPhoto.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
             val layoutParams : MarginLayoutParams = holder.binding.sp.layoutParams as MarginLayoutParams
             layoutParams.setMargins(0,0,0,0)
@@ -64,22 +66,25 @@ class MenuProductAdapter(var context: Context?, var list: MutableList<Restaurant
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
+                val filterList: MutableList<RestaurantResponseBean?> = ArrayList()
+
                 val filterResults = FilterResults()
                 if (constraint.isNotEmpty()) {
-                    val filterList: MutableList<RestaurantResponseBean?> = ArrayList()
 
                     for(i in cloneList?.indices!!){
-                        if(cloneList?.get(i)?.foodName?.contains(constraint.toString(),ignoreCase = true)==true){
+                        if(cloneList?.get(i)?.foodName?.toLowerCase()?.contains(constraint.toString().toLowerCase(),ignoreCase = true)==true){
                             filterList?.add(cloneList?.get(i))
                         }
                     }
-                    filterResults.values=filterList
-                    filterResults.count= filterList?.size?:0
 
-                }else{
-                    filterResults.values=cloneList
-                    filterResults.count=cloneList?.size?:0
                 }
+                var set =HashSet<RestaurantResponseBean?>()
+                set.addAll(filterList!!)
+                filterList.clear()
+                filterList.addAll(set)
+                filterResults.values=filterList
+                filterResults.count= filterList?.size?:0
+
                 return filterResults
             }
 

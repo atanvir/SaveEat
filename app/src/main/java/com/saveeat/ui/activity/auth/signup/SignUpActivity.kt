@@ -14,6 +14,7 @@ import com.saveeat.databinding.ActivitySignUpBinding
 import com.saveeat.model.request.auth.signup.SignupModel
 import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PreferenceKeyConstants.deviceToken
+import com.saveeat.ui.activity.auth.login.otp.LoginWithOTPActivity
 import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
 import com.saveeat.utils.application.CommonUtils.authToolbar
 import com.saveeat.utils.application.CommonUtils.buttonLoader
@@ -80,7 +81,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(), View.OnClickListen
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.tvLogin ->{ finish() }
+            R.id.tvLogin ->{ startActivity(Intent(this,LoginWithOTPActivity::class.java)) }
             R.id.ivButton ->{
                 if(checkValidation()){
                     buttonLoader(binding.clShadowButton,true)

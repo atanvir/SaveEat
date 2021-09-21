@@ -32,6 +32,8 @@ data class RestaurantDetailModel(
     var saleWindowClose: Int?,
     var saleWindowOpen: Int?,
     var sellingStatus: Boolean?,
+    var storeStatusOne: Boolean?,
+    var storeStatusTwo: Boolean?,
     var status: String?,
     var subCategory: String?,
     var category: MutableList<MenuCategoryModel?>?,

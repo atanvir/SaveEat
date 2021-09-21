@@ -50,7 +50,7 @@ class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
         }
         else if(date>=times?.first && date<=times?.second){
             data?.pickupTime= SimpleDateFormat("HH:mm").format(date)
-            binding.btnPickLater.text=SimpleDateFormat("dd/MM/yy hh:mm a").format(date)
+            binding.btnPickLater.text=SimpleDateFormat("dd/MM/yy h:mm a").format(date)
 
         }else{
             ErrorUtil.snackView(binding.root,"Please select time between ${dateTimeFormat.format(times?.first)} to ${dateTimeFormat.format(times?.second)} for ${day}")

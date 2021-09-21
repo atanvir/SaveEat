@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/drawable_round_corner"
-            android:backgroundTint="@{model.leftData>0?@color/light_pink:@color/blur_grey}">
+            android:backgroundTint="@{model.storeStatusOne==true &amp;&amp; model.storeStatusTwo==true?model.leftData>0?@color/light_pink:@color/blur_grey:@color/blur_grey}">
 
 
             <de.hdodenhof.circleimageview.CircleImageView

@@ -13,6 +13,7 @@ import com.saveeat.repository.cache.PreferenceKeyConstants._id
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
+import com.saveeat.ui.activity.auth.login.otp.LoginWithOTPActivity
 import com.saveeat.ui.activity.auth.login.password.LoginWithPasswordActivity
 import com.saveeat.ui.activity.drawer.help.HelpActivity
 import com.saveeat.ui.activity.drawer.credit.CreditActivity
@@ -57,7 +58,7 @@ class DrawerActivity : BaseActivity<ActivityDrawerBinding>(), View.OnClickListen
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             PrefrencesHelper.userLogout(this@DrawerActivity)
-                            startActivity(Intent(this@DrawerActivity, LoginWithPasswordActivity::class.java))
+                            startActivity(Intent(this@DrawerActivity, LoginWithOTPActivity::class.java))
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) ErrorUtil.snackView(binding.root, it.value?.message ?: "")
                     }

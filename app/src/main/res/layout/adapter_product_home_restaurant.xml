@@ -11,6 +11,11 @@
             name="data"
             type="com.saveeat.model.response.saveeat.main.home.RestaurantProductModel" />
 
+
+        <variable
+            name="close"
+            type="Boolean" />
+
     </data>
 
 
@@ -24,7 +29,7 @@
         android:layout_height="41dp"
         android:layout_marginStart="109dp"
         android:layout_marginTop="81sp"
-        android:background="@{data.leftQuantity>0?@drawable/drawable_price_container:@drawable/drawable_price_container_grey}"
+        android:background="@{close==true?data.leftQuantity>0?@drawable/drawable_price_container:@drawable/drawable_price_container_grey:@drawable/drawable_price_container_grey}"
         android:elevation="@dimen/_7sdp"
         android:outlineProvider="none"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +115,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="4dp"
                         android:background="@drawable/drawable_round_corner"
-                        android:backgroundTint="@{data.leftQuantity==0?@color/blur_grey:@color/app_theme}"
+                        android:backgroundTint="@{close==true?data.leftQuantity==0?@color/blur_grey:@color/app_theme:@color/blur_grey}"
                         android:elevation="@dimen/_1sdp"
                         android:gravity="center"
                         android:paddingLeft="@dimen/_7sdp"

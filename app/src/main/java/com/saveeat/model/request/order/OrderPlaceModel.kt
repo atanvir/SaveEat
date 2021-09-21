@@ -10,5 +10,7 @@ data class OrderPlaceModel(
     val tax: Double?,
     val total: Double?,
     val token : String?,
-    val userId: String?
+    val userId: String?,
+    val saveEatFees:Double?,
+    var taxes: Double?
 )

@@ -28,6 +28,7 @@ import com.saveeat.model.request.order.OrderPlaceModel
 import com.saveeat.model.response.saveeat.cart.CartDataModel
 import com.saveeat.model.response.saveeat.cart.DeleteItemCart
 import com.saveeat.model.response.saveeat.cart.ProductDataModel
+import com.saveeat.model.response.saveeat.cart.TaxCommissionModel
 import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
@@ -61,6 +62,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     var saveTotal : Double?=0.0
     var finalTotal : Double?=0.0
     var taxes : Double?=0.0
+
+    var taxCommissionModel: TaxCommissionModel?=null
     private val viewModel : CartViewModel by viewModels()
 
     private val typeMap : MutableMap<String?, MutableList<RestroSellingModel?>?> = HashMap()
@@ -91,6 +94,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
 
                                 withContext(Dispatchers.IO){
                                     list=it.value?.data?.cartData
+                                    taxCommissionModel=it?.value?.data?.taxCommission
 
                                     if(list?.size?:0>0) requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).getOrCreateBadge(R.id.cartFragment).number = list?.size?:0
                                     else requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).removeBadge(R.id.cartFragment)
@@ -216,8 +220,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                     }
                 }
 
-                taxes=subTotal?.times(5)?.div(100)
-                saveEatFees=taxes?.plus(subTotal?:0.0)?.times(2)?.div(100)
+                taxes=subTotal?.times(taxCommissionModel?.tax?:0.0)?.div(100)
+                saveEatFees=taxes?.plus(subTotal?:0.0)?.times(taxCommissionModel?.fee?:0.0)?.div(100)
                 finalTotal=subTotal?.plus(saveEatFees?.plus(taxes?:0.0)!!)
 
             }
@@ -256,10 +260,11 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                                                      paymentStatus="Confirm",
                                                      saveAmount=saveTotal,
                                                      subTotal=subTotal,
-                                                     tax = saveEatFees,
+                                                     tax = saveEatFees?.plus(taxes?:0.0),
                                                      total=finalTotal,
                                                      token= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken),
-                                                     userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)))
+                                                     userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id),
+                                                     saveEatFees=saveEatFees,taxes=taxes))
                 }else{
                     buttonLoader(binding.clShadowButton, false)
                 }
@@ -323,7 +328,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                                                                           restroId=list?.get(i)?.restroId,
                                                                           saveAmount = calculateAmount(list?.get(i)?.productData,"discountAmount"),
                                                                           subTotal=calculateAmount(list?.get(i)?.productData,"price"),
-                                                                          saveEatFees=getTax(calculateAmount(list?.get(i)?.productData,"price"),"saveEatFeesv"),
+                                                                          saveEatFees=getTax(calculateAmount(list?.get(i)?.productData,"price"),"saveEatFees"),
                                                                           taxes=getTax(calculateAmount(list?.get(i)?.productData,"price"),"taxes"),
                                                                           tax=getTax(calculateAmount(list?.get(i)?.productData,"price"),"total"),
                                                                           timezone=TimeZone.getDefault().id,
@@ -342,11 +347,11 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     }
 
     private fun getTax(subTotal: Double?,type: String?): Double? {
-        val taxes=subTotal?.times(5)?.div(100)
-        val saveEatFees=taxes?.plus(subTotal?:0.0)?.times(2)?.div(100)
+        val taxes=subTotal?.times(taxCommissionModel?.tax?:0.0)?.div(100)
+        val saveEatFees=taxes?.plus(subTotal?:0.0)?.times(taxCommissionModel?.fee?:0.0)?.div(100)
         if(type?.equals("total")==true) return taxes?.plus(saveEatFees?:0.0)
         else if(type?.equals("taxes")==true) return taxes
-        else return subTotal
+        else return saveEatFees
     }
 
     private fun calculateAmount(list: MutableList<ProductDataModel?>?,type: String): Double? {

@@ -23,6 +23,7 @@ class RewardsAdapter(var context: Context?,var list : MutableList<BadgeData?>?) 
     }
 
     override fun getItemCount(): Int =list?.size?:0
+    override fun getItemViewType(position: Int): Int = position
 
     inner class MyViewHolder(var binding: AdapterRewardsBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {

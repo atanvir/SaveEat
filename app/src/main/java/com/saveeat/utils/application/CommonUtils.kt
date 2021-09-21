@@ -51,6 +51,8 @@ import com.saveeat.ui.dialog.error.ErrorDialog
 
 import com.saveeat.utils.application.KeyConstants.PREF_NAME
 import com.saveeat.utils.extn.enable
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.regex.Pattern
 
 
@@ -380,6 +382,15 @@ object CommonUtils {
         dialog.arguments = bundle
         dialog.setStyle(DialogFragment.STYLE_NO_TITLE, com.saveeat.R.style.Dialog_NoTitle);
         dialog.show((context as AppCompatActivity).supportFragmentManager, "")
+    }
+
+    fun calculateDate(date: Date): String? {
+        return  SimpleDateFormat("dd-MM-yyyy").format(date)
+    }
+
+
+    fun calculateTime(date: Date): String? {
+        return  SimpleDateFormat("hh:mm a").format(date)
     }
 
 }

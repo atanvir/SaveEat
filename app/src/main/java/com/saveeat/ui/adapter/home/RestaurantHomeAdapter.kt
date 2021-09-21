@@ -17,6 +17,7 @@ import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.activity.menu.menu.MenuActivity
 import com.saveeat.ui.adapter.restaurant.RestaurantProductHomeAdapter
+import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.KeyConstants
 
 class RestaurantHomeAdapter(var context : Context?, var list : MutableList<RestaurantResponseBean?>?, var type : String?,var onFavClick : ((Int,String)->Unit),var cloneList: MutableList<RestaurantResponseBean?>?) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),Filterable {
@@ -41,7 +42,10 @@ class RestaurantHomeAdapter(var context : Context?, var list : MutableList<Resta
                 holder.binding.type=type
                 holder.binding.model=list?.get(position)
                 holder.binding.rvProducts.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-                holder.binding.rvProducts.adapter = RestaurantProductHomeAdapter(context,list?.get(position)?.realProductData,cloneList?.get(position)?.realProductData)
+
+                if(list?.get(position)?.storeStatusOne==true && list?.get(position)?.storeStatusTwo==true) holder.binding.rvProducts.adapter = RestaurantProductHomeAdapter(context,list?.get(position)?.realProductData,cloneList?.get(position)?.realProductData,true)
+                else holder.binding.rvProducts.adapter = RestaurantProductHomeAdapter(context,list?.get(position)?.realProductData,cloneList?.get(position)?.realProductData,false)
+
                 holder.binding.rvProducts.addOnScrollListener(object: RecyclerView.OnScrollListener(){
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         super.onScrolled(recyclerView, dx, dy)
@@ -71,10 +75,14 @@ class RestaurantHomeAdapter(var context : Context?, var list : MutableList<Resta
         override fun onClick(v: View?) {
             when(v?.id){
                 R.id.ivViewAll->{
-                    val intent=Intent(context,MenuActivity::class.java)
-                    intent.putExtra("_id",list?.get(adapterPosition)?.menuData?._id)
-                    intent.putExtra("type",KeyConstants.RESTAURANT)
-                    context?.startActivity(intent)
+                    if(list?.get(adapterPosition)?.storeStatusOne!=true || list?.get(adapterPosition)?.storeStatusTwo!=true){
+                        ErrorUtil.snackView(binding.root,"Restaurant is closed")
+                    }else{
+                        val intent=Intent(context,MenuActivity::class.java)
+                        intent.putExtra("_id",list?.get(adapterPosition)?.menuData?._id)
+                        intent.putExtra("type",KeyConstants.RESTAURANT)
+                        context?.startActivity(intent)
+                    }
                 }
 
                 R.id.ivFav ->{

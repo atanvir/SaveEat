@@ -35,6 +35,7 @@ import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.adapter.restaurant.SavedRestaurantAdapter
+import com.saveeat.ui.bottomsheet.menu.search.SearchBottomSheet
 import com.saveeat.ui.bottomsheet.restaurant.RestaurantBottomSheet
 import com.saveeat.utils.application.KeyConstants.BOTH
 import com.saveeat.utils.application.KeyConstants.BRAND
@@ -50,9 +51,6 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
     private var menuProductDataList:  MutableList<MenuItemProductModel?>?= ArrayList()
     private var cuisineList:  MutableList<CuisineBean?>?= ArrayList()
     private var cartCountRestro : Boolean?=false
-
-    var cloneItemList: MutableList<RestaurantResponseBean?>? =ArrayList()
-    var cloneFullPriceList: MutableList<RestaurantResponseBean?>? =ArrayList()
 
 
     override fun getActivityBinding(): ActivityMenuBinding = ActivityMenuBinding.inflate(layoutInflater)
@@ -98,10 +96,7 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
 
     override fun initCtrl() {
 
-        binding.edSeach.queryChanged {
-            if(binding.rvSellingPrice.adapter!=null) (binding.rvSellingPrice.adapter as MenuProductAdapter).filter.filter(it)
-            if(binding.rvProducts.adapter!=null) (binding.rvProducts.adapter as MenuProductAdapter).filter.filter(it)
-        }
+        binding.ivMore.setOnClickListener(this)
         binding.cpType.setOnClickListener(this)
         binding.tvProductName.setOnClickListener(this)
         binding.clViewCart.setOnClickListener(this)
@@ -230,26 +225,19 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
     }
 
     private fun loadDataByIndex(position: Int) {
-        cloneItemList=getSelectedCategoryData(position)?.get(0)?.itemList
-        cloneFullPriceList=getSelectedCategoryData(position)?.get(0)?.fullPriceItems
 
 
         if(menuProductDataList?.get(position)?.itemList?.size?:0==0) binding.tvSellingPrice.visibility=View.GONE
         else binding.tvSellingPrice.visibility=View.GONE
         binding.rvSellingPrice.layoutManager=GridLayoutManager(this@MenuActivity,2)
-        binding.rvSellingPrice.adapter= MenuProductAdapter(this@MenuActivity,getSelectedCategoryData(position)?.get(0)?.itemList,cloneItemList,"Selling")
+        binding.rvSellingPrice.adapter= MenuProductAdapter(this@MenuActivity,getSelectedCategoryData(position)?.get(0)?.itemList,null,"Selling")
 
         if(menuProductDataList?.get(position)?.fullPriceItems?.size?:0==0) binding.tvTotalPrice.visibility=View.GONE
         else binding.tvTotalPrice.visibility=View.VISIBLE
 
 
         binding.rvProducts.layoutManager=GridLayoutManager(this@MenuActivity,2)
-        binding.rvProducts.adapter= MenuProductAdapter(this@MenuActivity,getSelectedCategoryData(position)?.get(0)?.fullPriceItems,cloneFullPriceList,"Fix")
-
-        if(binding.edSeach.query.length>0){
-            if(binding.rvSellingPrice.adapter!=null) (binding.rvSellingPrice.adapter as MenuProductAdapter).filter.filter(binding.edSeach.query)
-            if(binding.rvProducts.adapter!=null) (binding.rvProducts.adapter as MenuProductAdapter).filter.filter(binding.edSeach.query)
-        }
+        binding.rvProducts.adapter= MenuProductAdapter(this@MenuActivity,getSelectedCategoryData(position)?.get(0)?.fullPriceItems,null,"Fix")
     }
 
     private fun getSelectedCategoryData(position: Int):  MutableList<MenuItemProductModel?>? {
@@ -302,6 +290,14 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
             R.id.rlPhoneCall ->{
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + binding.clFooter.tvPhoneCall.text.toString()))
                 startActivity(intent)
+            }
+            R.id.ivMore ->{
+                val bottomSheet = SearchBottomSheet()
+                val bundle = Bundle()
+                bundle.putParcelableArrayList("data", ArrayList(menuProductDataList))
+                bottomSheet.arguments = bundle
+                bottomSheet.show(supportFragmentManager, "")
+
             }
 
 

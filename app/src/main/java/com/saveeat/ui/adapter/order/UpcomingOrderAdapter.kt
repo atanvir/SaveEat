@@ -20,6 +20,8 @@ import com.saveeat.model.response.saveeat.order.OrderBean
 import com.saveeat.model.response.saveeat.order.OrderData
 import com.saveeat.utils.application.CommonUtils
 import com.saveeat.utils.application.RecyclerItemClickListener
+import com.saveeat.utils.binding.TextViewBindings.Companion.calculateDate
+import com.saveeat.utils.binding.TextViewBindings.Companion.calculateTime
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -34,7 +36,7 @@ class UpcomingOrderAdapter(var context: Context?,var list: MutableList<OrderBean
         holder.binding.model=list?.get(position)
         holder.binding.mp.paintFlags=holder.binding.mp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-//        startTimer(holder.binding,list?.get(position)?.createdAt)
+        startTimer(holder.binding,list?.get(position)?.createdAt)
 
 
         // Orders
@@ -86,17 +88,19 @@ class UpcomingOrderAdapter(var context: Context?,var list: MutableList<OrderBean
         if(date!=null){
             try {
                 val date: Date = sdf.parse(date)
-                if(60*1000<date.time){
+                Log.e("server","Date"+""+CommonUtils.calculateDate(date))
+                Log.e("server","Time"+""+CommonUtils.calculateTime(date))
+                var currentDate=Calendar.getInstance().time
+
+                if(61*1000>(currentDate.time-date.time)){
                 if(countDownTimer!=null) countDownTimer=null
-                countDownTimer = object : CountDownTimer(60*1000-date.time, 1000) {
+                countDownTimer = object : CountDownTimer(61*1000-(currentDate.time-date.time), 1000) {
                     override fun onTick(millisUntilFinished: Long) {
-                        holder.btnCancelOrder.visibility=View.VISIBLE
+                       if(holder.btnCancelOrder.visibility==View.GONE) holder.btnCancelOrder.visibility=View.VISIBLE
                     }
 
                     override fun onFinish() {
                         holder.btnCancelOrder.visibility=View.GONE
-
-
                     }
                 }.start()
                 }else{

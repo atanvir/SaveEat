@@ -14,6 +14,7 @@ import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
 import com.saveeat.ui.activity.menu.detail.MenuDetailActivity
 import com.saveeat.ui.activity.menu.menu.MenuActivity
+import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.application.KeyConstants.BRAND
 
@@ -35,11 +36,15 @@ class MapRestaurantAdapter(var context: Context?, var list: MutableList<Restaura
         override fun onClick(v: View?) {
             when(v?.id){
                 R.id.cvMain ->{
-                    val intent=Intent(context,MenuActivity::class.java)
-                    if(list?.get(adapterPosition)?.userType?.equals(BRAND,ignoreCase = true)==true)intent.putExtra("_id",list?.get(adapterPosition)?._id)
-                    else intent.putExtra("_id",list?.get(adapterPosition)?.menuData?._id)
-                    intent.putExtra("type",list?.get(adapterPosition)?.userType)
-                    context?.startActivity(intent)
+                    if(list?.get(adapterPosition)?.storeStatusOne==true && list?.get(adapterPosition)?.storeStatusTwo==true){
+                        val intent=Intent(context,MenuActivity::class.java)
+                        if(list?.get(adapterPosition)?.userType?.equals(BRAND,ignoreCase = true)==true)intent.putExtra("_id",list?.get(adapterPosition)?._id)
+                        else intent.putExtra("_id",list?.get(adapterPosition)?.menuData?._id)
+                        intent.putExtra("type",list?.get(adapterPosition)?.userType)
+                        context?.startActivity(intent)
+                    }else{
+                        ErrorUtil.snackView(binding.root,"Sorry! Restaurant is closed")
+                    }
                 }
             }
         }

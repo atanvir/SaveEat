@@ -12,6 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class RestaurantResponseBean(
     var _id: String?,
     var userType: String?,
+    var type: String?,
     var addedQuantity: Int?,
     var adminVerifyStatus: String?,
     var avgRating: Double?,
@@ -66,6 +67,8 @@ data class RestaurantResponseBean(
     var distance: Double?,
     var isFav: Boolean?,
     var leftData: Int?,
+    var storeStatusTwo: Boolean?,
+    var storeStatusOne: Boolean?,
     var latitude: Double?,
     var longitude: Double?,
     var maxLeft: MutableList<MaxLeftModel?>?,

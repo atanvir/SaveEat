@@ -16,14 +16,17 @@ import com.saveeat.databinding.AdapterProductHomeRestaurantBinding
 import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
 import com.saveeat.ui.activity.menu.detail.MenuDetailActivity
+import com.saveeat.utils.application.ErrorUtil
 
-class RestaurantProductHomeAdapter(var context: Context?, var list: MutableList<RestaurantProductModel?>?,var cloneList: MutableList<RestaurantProductModel?>?) : RecyclerView.Adapter<RestaurantProductHomeAdapter.RestaurantHolder>(),Filterable {
+class RestaurantProductHomeAdapter(var context: Context?, var list: MutableList<RestaurantProductModel?>?,var cloneList: MutableList<RestaurantProductModel?>?,var close : Boolean?) : RecyclerView.Adapter<RestaurantProductHomeAdapter.RestaurantHolder>(),Filterable {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantProductHomeAdapter.RestaurantHolder =  RestaurantHolder(AdapterProductHomeRestaurantBinding.inflate(LayoutInflater.from(context),parent,false))
 
     override fun onBindViewHolder(holder: RestaurantProductHomeAdapter.RestaurantHolder, position: Int) {
         holder.binding.mp.paintFlags= holder.binding.mp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         holder.binding.data=list?.get(position)
-        if(list?.get(position)?.leftQuantity==0) holder.binding.ivCoverPhoto.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
+        holder.binding.close=close
+        if(close==false) holder.binding.ivCoverPhoto.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
+        else if(list?.get(position)?.leftQuantity==0) holder.binding.ivCoverPhoto.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
         holder.binding.executePendingBindings()
     }
     override fun getItemCount(): Int = list?.size?:0
@@ -35,10 +38,14 @@ class RestaurantProductHomeAdapter(var context: Context?, var list: MutableList<
 
         override fun onClick(v: View?) {
             when(v?.id) {
-                R.id.cvMain->{
-                    val intent=Intent(context,MenuDetailActivity::class.java)
-                    intent.putExtra("_id",list?.get(adapterPosition)?._id)
-                    context?.startActivity(intent)
+                R.id.cvMain-> {
+                    if(close==false){
+                        ErrorUtil.snackView(binding.root,"Sorry! restaurant is closed")
+                    }else{
+                        val intent=Intent(context,MenuDetailActivity::class.java)
+                        intent.putExtra("_id",list?.get(adapterPosition)?._id)
+                        context?.startActivity(intent)
+                    }
                 }
             }
         }

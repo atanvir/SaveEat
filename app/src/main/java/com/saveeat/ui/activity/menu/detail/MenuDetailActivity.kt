@@ -92,6 +92,9 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
                     binding.tvToolbarHeader.visibility=View.VISIBLE
                     binding.ivRestroImage.visibility=View.VISIBLE
 
+                }else if(State.EXPANDED==state){
+                    binding.ivBack.visibility=View.VISIBLE
+
                 } else if (State.IDLE == state) {
                     binding.ivBack.visibility=View.INVISIBLE
                     binding.tvTitle.visibility=View.VISIBLE
@@ -348,6 +351,10 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
         else if(quantity?:0==0){
             ret=false
             ErrorUtil.snackView(binding.root,"Please add some quantity")
+        }else if(binding?.model?.storeStatusOne==true && binding?.model?.storeStatusTwo==true){
+            ret=false
+            ErrorUtil.snackView(binding.root,"Restaurant is not active")
+
         }
 
 
@@ -408,7 +415,12 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
 //            if(binding.model.sellingStatus){
 //
 //            }
-            if(binding?.model?.sellingStatus==true && binding.model?.leftQuantity?:0<=0){
+            if(binding?.model?.storeStatusOne==true && binding?.model?.storeStatusTwo==true){
+                binding.clShadowButton.tvButtonLabel.text="Restaurant closed"
+                binding.clShadowButton.ivButton.setImageDrawable(ContextCompat.getDrawable(this@MenuDetailActivity,R.drawable.bitmap_grey))
+
+            }
+            else if(binding?.model?.sellingStatus==true && binding.model?.leftQuantity?:0<=0){
                 binding.clShadowButton.tvButtonLabel.text="Nothing Left"
                 binding.clShadowButton.ivButton.setImageDrawable(ContextCompat.getDrawable(this@MenuDetailActivity,R.drawable.bitmap_grey))
             }
