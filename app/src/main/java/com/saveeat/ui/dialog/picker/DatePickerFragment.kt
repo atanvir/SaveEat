@@ -6,8 +6,10 @@ import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.crashlytics.internal.common.CommonUtils
 import com.saveeat.R
 import com.saveeat.databinding.AdapterCartBinding
 import com.saveeat.model.response.saveeat.cart.CartDataModel
@@ -16,17 +18,46 @@ import java.util.*
 
 class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataModel?) : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
+    val calender = Calendar.getInstance()
+
+    val year = calender.get(Calendar.YEAR)
+    val month = calender.get(Calendar.MONTH)
+    val day = calender.get(Calendar.DAY_OF_MONTH)
+
+
+    val serverFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    val sdf = SimpleDateFormat(serverFormat, Locale.US)
+
+    var maxTime:Long?=0
+
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        sdf.timeZone = TimeZone.getTimeZone("GMT+05:30")
 
-
+        Log.e("timeZone",""+sdf?.timeZone)
         val datePickerDailog=DatePickerDialog(requireActivity(),AlertDialog.THEME_HOLO_LIGHT, this, year, month, day)
-        datePickerDailog.datePicker?.minDate=c.timeInMillis
-        datePickerDailog.datePicker?.maxDate=c.timeInMillis+(7* 24 * 60 * 60 * 1000)
+        maxTime=calculateMaxDate()
+        datePickerDailog.datePicker?.minDate=calender.timeInMillis
+        datePickerDailog.datePicker?.maxDate=calculateMaxDate()
         return datePickerDailog
+    }
+
+    private fun calculateMaxDate(): Long {
+        var date: Date?=null
+        for(i in data?.productData?.indices!!) {
+            if(data?.productData?.get(i)?.productDetail?.pickupLaterAllowance==true){
+                val convertedDate: Date = sdf.parse(data?.productData?.get(i)?.productDetail?.convertedPickupDate)
+
+                if(date==null){ date=convertedDate }
+                if(date?.time?:0>convertedDate.time){ date=convertedDate } }
+        }
+
+        Log.e("DatePickerFragment","date--"+com.saveeat.utils.application.CommonUtils.calculateDate(date!!))
+        Log.e("DatePickerFragment","time--"+com.saveeat.utils.application.CommonUtils.calculateTime(date!!))
+
+        val serverdate=Calendar.getInstance()
+        serverdate.time=date
+        return serverdate.timeInMillis
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
@@ -37,6 +68,7 @@ class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
         Log.e("date",data?.pickupDate?:"")
         data?.orderType="Later"
         dismiss()
-        TimePickerFragment(binding,data).show(requireActivity().supportFragmentManager,"")
+
+        TimePickerFragment(binding,data,Date(maxTime!!)).show(requireActivity().supportFragmentManager,"")
     }
 }

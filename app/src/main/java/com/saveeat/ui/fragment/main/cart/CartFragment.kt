@@ -32,6 +32,7 @@ import com.saveeat.model.response.saveeat.cart.TaxCommissionModel
 import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
+import com.saveeat.ui.activity.order.status.OrderStatusActivity
 import com.saveeat.ui.adapter.cart.CartItemAdapter
 import com.saveeat.utils.application.*
 import com.saveeat.utils.application.CommonUtils.buttonLoader
@@ -122,7 +123,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) {
                             stopAnimation()
-
                         }
                     }
                     is Resource.Failure -> {  stopAnimation();
@@ -155,8 +155,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 when (it) {
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0)  {
-                            requireActivity().toast(it.value?.message?:"")
-                            requireActivity().startActivity(Intent(requireActivity(),OrderHistoryActivity::class.java).putExtra("cart",true))
+//                            requireActivity().toast(it.value?.message?:"")
+                            requireActivity().startActivity(Intent(requireActivity(),OrderStatusActivity::class.java).putExtra("saveAmount",saveTotal?.toString()))
                             requireActivity().finish()
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) {  hideLoader(); ErrorUtil.snackView(binding.root,it.value?.message?:"") }
@@ -223,7 +223,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 taxes=subTotal?.times(taxCommissionModel?.tax?:0.0)?.div(100)
                 saveEatFees=taxes?.plus(subTotal?:0.0)?.times(taxCommissionModel?.fee?:0.0)?.div(100)
                 finalTotal=subTotal?.plus(saveEatFees?.plus(taxes?:0.0)!!)
-
             }
             withContext(Dispatchers.Main){
                 hideLoader()
@@ -252,8 +251,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
             R.id.ivButton ->{
                 if(checkValidation()){
                 buttonLoader(binding.clShadowButton, true)
-
-
                 viewModel.orderItems(OrderPlaceModel(cartData = getCartData(),
                                                      paymentId = "123456789",
                                                      paymentMode = "Cash",
@@ -291,6 +288,10 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 ret=false
                 ErrorUtil.snackView(binding.root,"Please select pick up time for "+list?.get(i)?.restroData?.businessName)
                 break
+            }else if(list?.get(i)?.restroData?.storeStatusOne!=true || list?.get(i)?.restroData?.storeStatusTwo!=true){
+                ret=false
+                ErrorUtil.snackView(binding.root,"Sorry! ${list?.get(i)?.restroData?.businessName} is closed , Please try ordering with another restaurant")
+                break
             }else{
                 if((list?.get(i)?.productData?.any { it?.type=="Selling" }!=true)){
                     ret=false
@@ -305,7 +306,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
             ret=false;
             ErrorUtil.snackView(binding.root,"Please add selling price item")
         }
-
 
         return  ret
 
@@ -361,8 +361,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 type?.equals("actualAmount") -> returnValue = if(list?.get(i)?.type?.equals("Selling")==true) returnValue?.plus(list?.get(i)?.productDetail?.offeredPrice?.times(list?.get(i)?.quantity!!)!!) else returnValue?.plus(list?.get(i)?.productDetail?.price?.times(list?.get(i)?.quantity!!)!!)
 
                 type?.equals("discountAmount") -> returnValue = if(list?.get(i)?.type?.equals("Selling")==true) returnValue?.plus(list?.get(i)?.productDetail?.discountAmount?.times(list?.get(i)?.quantity!!)!!) else returnValue?.plus(0.0)
-
-
 
                 type?.equals("price") -> {
                     var choiceAmount: Double?=0.0
@@ -426,6 +424,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                                                          userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)))
 
         }catch (e: Exception){
+
 
         }
     }

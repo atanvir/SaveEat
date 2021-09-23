@@ -123,9 +123,6 @@ class LoginWithPasswordActivity : BaseActivity<ActivityLoginBinding>(), View.OnC
     }
 
 
-    override fun onBackPressed() {
-        finishAffinity()
-    }
 
 
 }

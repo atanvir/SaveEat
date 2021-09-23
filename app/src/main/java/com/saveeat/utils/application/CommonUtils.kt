@@ -45,6 +45,7 @@ import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 import kotlinx.coroutines.*
 import com.saveeat.repository.cache.PreferenceKeyConstants.deviceToken
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
+import com.saveeat.ui.activity.auth.login.otp.LoginWithOTPActivity
 import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
 import com.saveeat.ui.activity.rating.RatingActivity
 import com.saveeat.ui.dialog.error.ErrorDialog
@@ -102,7 +103,7 @@ object CommonUtils {
 
 
 
-        if(activity is LoginWithPasswordActivity){
+        if(activity is LoginWithOTPActivity){
             ivBack.visibility= View.GONE
         }
         ivBack.setOnClickListener{ activity.onBackPressed() }

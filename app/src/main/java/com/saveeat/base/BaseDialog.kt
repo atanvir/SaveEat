@@ -10,7 +10,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseDialog<B: ViewBinding> : DialogFragment() {
-    protected lateinit var callback: OnBackPressedCallback
     protected lateinit var binding: B
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding=getDialogBinding(inflater, container)
@@ -22,8 +21,6 @@ abstract class BaseDialog<B: ViewBinding> : DialogFragment() {
         super.onStart()
         dialog?.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
     }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         init()

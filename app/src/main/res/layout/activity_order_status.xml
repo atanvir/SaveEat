@@ -9,16 +9,22 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.order.status.OrderStatusActivity">
 
-    <ImageView
+
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/imageView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/group_4018"
+        android:layout_width="@dimen/_155sdp"
+        android:layout_height="@dimen/_155sdp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.26999998" />
+        app:layout_constraintVertical_bias="0.26999998"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="order_place.json"
+        app:lottie_loop="false" />
+
+
 
     <TextView
         android:id="@+id/textView21"
@@ -35,27 +41,16 @@
 
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/tvSaveAmount"
         style="@style/poppin_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="The restaurant is preparing your order"
+        android:text="Yo saved "
         android:textColor="@color/black"
         android:textSize="@dimen/dimen_12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-
-    <include
-        android:id="@+id/clShadowButton"
-        layout="@layout/layout_common_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,7 +54,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(), View.OnClickList
     override fun getActivityBinding(): ActivityProfileBinding = ActivityProfileBinding.inflate(layoutInflater)
     override fun inits() {
         mobileNo=getPrefrenceStringValue(this, countryCode)+getPrefrenceStringValue(this, mobileNumber)
-        binding?.model= ProfileModel(profilePic =  getPrefrenceStringValue(this,profilePic),name = getPrefrenceStringValue(this,name),email =getPrefrenceStringValue(this,email),mobileNumber = getPrefrenceStringValue(this, mobileNumber),countryCode = getPrefrenceStringValue(this, countryCode),token = getPrefrenceStringValue(this, jwtToken))
+        binding?.model= ProfileModel(profilePic =  getPrefrenceStringValue(this,profilePic),name = /*getPrefrenceStringValue(this,name)*/"This is for Testing ",email =getPrefrenceStringValue(this,email),mobileNumber = getPrefrenceStringValue(this, mobileNumber),countryCode = getPrefrenceStringValue(this, countryCode),token = getPrefrenceStringValue(this, jwtToken))
         toolbar(this)
         phoneNumberKit = PhoneNumberKit(this)
         phoneNumberKit?.attachToInput(binding.tilPhoneNo, binding.countryCodePicker.selectedCountryCodeAsInt)
@@ -260,5 +260,4 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(), View.OnClickList
     override fun onAWSProgress(progress: Int?) {
         Log.e("progress", "uploading done $progress")
     }
-
 }

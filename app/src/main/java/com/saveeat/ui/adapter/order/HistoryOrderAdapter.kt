@@ -38,8 +38,11 @@ class HistoryOrderAdapter(var context: Context,var list: MutableList<OrderBean?>
         holder.binding.rvOrder.layoutManager=LinearLayoutManager(context)
         holder.binding.rvOrder.adapter=PastOrderAdapter(context,list?.get(position)?.orderData)
 
+
+
         val wordtoSpan: Spannable = SpannableString("You saved ${context.getString(R.string.price,""+ (list?.get(position)?.saveAmount ?: 0.0).roundOffDecimal())} on this order")
         wordtoSpan.setSpan(ForegroundColorSpan(Color.rgb(0, 178, 17)), 9, wordtoSpan.length-13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        CommonUtils.increaseFontSizeForPath(wordtoSpan, "${context.getString(R.string.price,""+ (list?.get(position)?.saveAmount ?: 0.0).roundOffDecimal())}", 1.25f)
         holder.binding.tvSaveLabelOutSide.text = wordtoSpan
 
         holder.binding.executePendingBindings()

@@ -106,4 +106,8 @@ class LoginWithOTPActivity : BaseActivity<ActivityLoginWithOtpBinding>(), View.O
         return ret
 
     }
+
+    override fun onBackPressed() {
+        finishAffinity()
+    }
 }

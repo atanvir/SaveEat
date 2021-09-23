@@ -33,16 +33,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveEat"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".ui.activity.auth.login.otp.LoginWithOTPActivity"
             android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme"
-            android:noHistory="true"
             android:exported="true" />
+
         <activity
             android:name=".ui.activity.order.checkout.CheckoutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/white_theme" />
+
         <activity
             android:name=".ui.activity.order.status.OrderStatusActivity"
             android:screenOrientation="portrait"
@@ -128,7 +130,6 @@
         <activity
             android:name=".ui.activity.auth.login.password.LoginWithPasswordActivity"
             android:screenOrientation="portrait"
-            android:noHistory="false"
             android:theme="@style/light_oragne_theme"></activity>
         <activity
             android:name=".ui.activity.walkthrough.WalkThroughActivity"
@@ -137,7 +138,6 @@
             android:theme="@style/light_oragne_theme" />
         <activity
             android:name=".ui.activity.splash.SplashActivity"
-            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/splashScreenTheme">
             <intent-filter>

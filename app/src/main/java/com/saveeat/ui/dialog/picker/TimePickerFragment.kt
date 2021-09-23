@@ -16,12 +16,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 import com.saveeat.utils.application.CustomTimePicker
 
-
-class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataModel?) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
-    private var dateTimeFormat=SimpleDateFormat("yyyy-MM-dd HH:mm")
-    private var weekDateFormat=SimpleDateFormat("EEEE")
+class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataModel?,var maxTime: Date?) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
+    private var dateTimeFormat=SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
+    private var weekDateFormat=SimpleDateFormat("EEEE", Locale.US)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        dateTimeFormat.timeZone = TimeZone.getTimeZone("GMT+05:30")
+        weekDateFormat.timeZone = TimeZone.getTimeZone("GMT+05:30")
+
+
         var timePicker=CustomTimePicker(activity,this, Calendar.getInstance().get(Calendar.HOUR), CustomTimePicker.getRoundedMinute(Calendar.getInstance().get(Calendar.MINUTE) + CustomTimePicker.TIME_PICKER_INTERVAL), false)
         return timePicker
     }
@@ -45,8 +48,14 @@ class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
     private fun loadTime(date : Date,day: String) {
         val times=selectedTime(data?.timeData,day)
 
+        var newFormat=SimpleDateFormat("hh:mm")
+
         if(date<=Calendar.getInstance().time){
             ErrorUtil.snackView(binding.root,"Please select valid time")
+        }else if(newFormat.format(times?.first!!)>=newFormat.format(maxTime) && newFormat.format(times?.second!!) <= newFormat.format(maxTime)){
+            ErrorUtil.snackView(binding.root,"Sorry restaurant is closed ,Please try same order with another restaurant")
+        }else if(date>maxTime){
+            ErrorUtil.snackView(binding.root,"Sorry! pick up time for this item is exceeded")
         }
         else if(date>=times?.first && date<=times?.second){
             data?.pickupTime= SimpleDateFormat("HH:mm").format(date)
@@ -65,7 +74,6 @@ class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
         for(i in todayDataModel?.indices!!)
             if(todayDataModel?.get(i)?.day?.equals(day,ignoreCase = true)==true){
              pair=Pair(dateTimeFormat.parse("${data?.pickupDate} ${todayDataModel[i]?.pickupWindowOpen}"),dateTimeFormat.parse("${data?.pickupDate} ${todayDataModel[i]?.pickupWindowClose}"))
-
             break
         }
 

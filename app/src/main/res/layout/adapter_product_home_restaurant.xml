@@ -122,8 +122,7 @@
                         android:paddingTop="@dimen/_2sdp"
                         android:paddingRight="@dimen/_7sdp"
                         android:paddingBottom="@dimen/_1sdp"
-
-                        android:text="@{data.leftQuantity>0?data.leftQuantity+` left`:`Nothing left`}"
+                        android:text="@{close==true?data.leftQuantity>0?data.leftQuantity+` left`:`Nothing left`:`Closed`}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/dimen_10sp"
                         app:layout_constraintStart_toStartOf="parent"
