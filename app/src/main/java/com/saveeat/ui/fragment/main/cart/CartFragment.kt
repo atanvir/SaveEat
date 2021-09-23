@@ -74,7 +74,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     private var dateTimeFormat=SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
 
 
-
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentCartBinding = FragmentCartBinding.inflate(inflater,container,false)
 
     override fun init() {
