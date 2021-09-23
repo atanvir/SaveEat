@@ -54,7 +54,7 @@ class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
             ErrorUtil.snackView(binding.root,"Please select valid time")
         }else if(newFormat.format(times?.first!!)>=newFormat.format(maxTime) && newFormat.format(times?.second!!) <= newFormat.format(maxTime)){
             ErrorUtil.snackView(binding.root,"Sorry restaurant is closed ,Please try same order with another restaurant")
-        }else if(date>maxTime){
+        }else if(date>=maxTime){
             ErrorUtil.snackView(binding.root,"Sorry! pick up time for this item is exceeded")
         }
         else if(date>=times?.first && date<=times?.second){

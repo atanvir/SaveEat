@@ -304,7 +304,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 ret=false
                 ErrorUtil.snackView(binding.root,"Sorry! ${list?.get(i)?.restroData?.businessName} is closed , Please try ordering with another restaurant")
                 break
-            }else if(maxTime>0 && dateTimeFormat.parse("${list?.get(i)?.pickupDate} ${list?.get(i)?.pickupTime}").time<=maxTime){
+            }else if(maxTime>0 && dateTimeFormat.parse("${list?.get(i)?.pickupDate} ${list?.get(i)?.pickupTime}").time>=maxTime){
                 ret=false
                 ErrorUtil.snackView(binding.root,"Sorry! ${list?.get(i)?.restroData?.businessName} items has been expired ,Please try with any other item")
                 break

@@ -33,11 +33,11 @@ class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         sdf.timeZone = TimeZone.getTimeZone("GMT+05:30")
-        var maxTime=calculateMaxDate()
+        maxTime=calculateMaxDate()
 
         val datePickerDailog=DatePickerDialog(requireActivity(),AlertDialog.THEME_HOLO_LIGHT, this, year, month, day)
         datePickerDailog.datePicker?.minDate=calender.timeInMillis
-        if(maxTime>0) datePickerDailog.datePicker?.maxDate=calculateMaxDate()
+        if(maxTime?:0>0) datePickerDailog.datePicker?.maxDate=maxTime?:0
         return datePickerDailog
     }
 
