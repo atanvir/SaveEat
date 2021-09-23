@@ -34,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
-            android:scaleType="center"
+            android:scaleType="centerInside"
             app:layout_constraintBottom_toTopOf="@+id/guideLineTop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +64,8 @@
                 android:elevation="1dp"
                 android:text="@{data.title}"
                 android:textColor="#444251"
+                android:gravity="center"
+
                 android:textSize="@dimen/dimen_27sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

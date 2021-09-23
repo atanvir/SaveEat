@@ -53,17 +53,17 @@
     <string name="type_the_code_here">Type the code here</string>
     <string name="rewards">Rewards</string>
     <string name="with_saveeat_rewards_purchases_prizes_so_when_you_do_your_bit_for_the_planet_you_ll_be_rewarded">With SaveEat Rewards, purchases = prizes. So when you do your bit for the planet, you\'ll be rewarded</string>
-    <string name="make_5_orders_kr_50_or_higher_n_and_you_can_select_a_prize">Make 5 orders (kr 50 or higher) <br></br> and you can select a prize</string>
+    <string name="make_5_orders_kr_50_or_higher_n_and_you_can_select_a_prize">Make 5 orders (₹500 or higher) in 30 days and you can select a prize.</string>
     <string name="plant_a_tree">Plant a tree</string>
-    <string name="in_partnership_with_one_tree_planted_we_ll_plant_a_tree_for_you_at_the_tap_of_a_button">In partnership with ``One Tree Planted``, we\'ll plant a tree for you at the tap of a button</string>
-    <string name="_25_off_your_next_order">25% off your next order</string>
-    <string name="get_an_additional_discount_on_top_of_your_next_order_up_to_200_kr">Get an additional discount on top of your next order up to 200 kr</string>
+    <string name="in_partnership_with_one_tree_planted_we_ll_plant_a_tree_for_you_at_the_tap_of_a_button">Plant a tree, in partnership with One Tree Planted, we\'ll plant a tree for you at the tap of a button.</string>
+    <string name="_25_off_your_next_order">Receive ₹25 in Credits</string>
+    <string name="get_an_additional_discount_on_top_of_your_next_order_up_to_200_kr">You can use your credits to rescue food items.</string>
     <string name="receive_25_kr_credit">Receive 25 kr credit</string>
     <string name="you_can_use_your_credits_to_rescue_items">You can use your credits to rescue items</string>
     <string name="how_it_works">How it works</string>
-    <string name="every_order_of_kr_50_or_higher_will_automatically_mark_as_1_order_towards_your_reward">Every order of kr 50 or higher will automatically mark as 1 order towards your reward</string>
-    <string name="once_your_first_order_is_made_you_get_30_days_to_make_the_rest_of_the_5_orders_kr_50_or_higher">Once your first order is made, you get 30 days to make the rest of the 5 orders (kr 50 or higher)</string>
-    <string name="once_you_ve_made_5_purchases_you_can_select_one_of_our_well_deserved_rewards">Once you\'ve made 5 purchases, you can select one of our well deserved rewards</string>
+    <string name="every_order_of_kr_50_or_higher_will_automatically_mark_as_1_order_towards_your_reward">Every order of ₹500 or higher hill automatically mark as 1 order towards your reward</string>
+    <string name="once_your_first_order_is_made_you_get_30_days_to_make_the_rest_of_the_5_orders_kr_50_or_higher">Once your first order is made, you get 30 days to make the rest of the orders (₹500 or higher)</string>
+    <string name="once_you_ve_made_5_purchases_you_can_select_one_of_our_well_deserved_rewards">Once you\'ve made 5 purchases, you can select on of our well deserved rewards.</string>
     <string name="faq">FAQ</string>
     <string name="items_rescued">Items Rescued</string>
     <string name="saved">Saved</string>

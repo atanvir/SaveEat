@@ -14,7 +14,7 @@ class HelpActivity : BaseActivity<ActivityHelpBinding>() {
     override fun inits() {
         toolbar(this)
         binding.rvFAQ.layoutManager=LinearLayoutManager(this)
-        binding.rvFAQ.adapter= FAQAdapter(this)
+        binding.rvFAQ.adapter= FAQAdapter(this,null)
     }
 
     override fun initCtrl() {

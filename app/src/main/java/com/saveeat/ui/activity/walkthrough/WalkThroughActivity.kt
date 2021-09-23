@@ -6,6 +6,7 @@ import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityWalkThroughBinding
 import com.saveeat.model.request.walkthrough.WalkThroughModel
+import com.saveeat.ui.activity.auth.login.otp.LoginWithOTPActivity
 import com.saveeat.ui.activity.auth.login.password.LoginWithPasswordActivity
 import com.saveeat.ui.adapter.walkthrough.WalkThroughAdapter
 import com.saveeat.utils.extn.onPageChanged
@@ -38,10 +39,10 @@ class WalkThroughActivity : BaseActivity<ActivityWalkThroughBinding>(), View.OnC
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.ivNext -> {
-                if(binding?.viewPager?.currentItem==2) startActivity(Intent(this, LoginWithPasswordActivity::class.java))
+                if(binding?.viewPager?.currentItem==2) startActivity(Intent(this, LoginWithOTPActivity::class.java))
                 else binding.viewPager.setCurrentItem(binding?.viewPager?.currentItem+1,true)
             }
-            R.id.tvSkip -> { startActivity(Intent(this, LoginWithPasswordActivity::class.java)) }
+            R.id.tvSkip -> { startActivity(Intent(this, LoginWithOTPActivity::class.java)) }
 
         }
     }
@@ -49,12 +50,21 @@ class WalkThroughActivity : BaseActivity<ActivityWalkThroughBinding>(), View.OnC
     private fun walkthroughData(): MutableList<WalkThroughModel?>? {
         val list:MutableList<WalkThroughModel?>? = ArrayList()
         for(i in 0..2){
-        val model = WalkThroughModel(image = 1,
-                                     title = "Lorem ipsum dolor sit",
-                                     description = "Lorem ipsum dolor sit amet, consectetur \n adipiscing elit")
-        if(i==0) model?.image=R.drawable.group_740
-        else if(i==1) model?.image=R.drawable.group_712
-        else if(i==2)  model?.image=R.drawable.group_776
+            var model: WalkThroughModel?=null
+            if(i ==0){
+              model = WalkThroughModel(image = R.drawable.burger_transparent,
+                                     title = "Welcome to SaveEat!",
+                                     description = "All you need to save the world: EAT")
+        }else if(i==1){
+             model = WalkThroughModel(image = R.drawable.takeaway_transparent,
+                title = "Pay in the app & pick up",
+                description = "Pay directly in the app and pick up the food as take away by giving your order OTP")
+        }
+        else if(i==2){
+             model = WalkThroughModel(image = R.drawable.notification_transparent,
+                title = "Never miss a deal",
+                description = "Follow your favourite restaurants in the app, and get notifications when they have food available on a discount.\n")
+        }
         list?.add(model)
         }
         return list

@@ -4,6 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+
+        <variable
+            name="data"
+            type="com.saveeat.model.request.FAQModel" />
+
+    </data>
+
 
 
     <androidx.cardview.widget.CardView
@@ -27,7 +36,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:drawableRight="@drawable/fi_sr_angle_small_left"
-                android:text="How do I Lorem ipsum dolor sit amet?"
+                android:text="@{data.title}"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="@dimen/dimen_12sp"
@@ -66,7 +75,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel justo ut ligula suscipit mollis. Donec at lobortis mauris, at placerat purus. Mauris blandit in magna ut vulputate"
+                    android:text="@{data.description}"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
                     android:textSize="@dimen/dimen_14sp"
@@ -83,6 +92,7 @@
                     android:layout_marginTop="16dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
+                    android:visibility="gone"
                     android:src="@drawable/three_dimensional_abstract_scene_background_23_2148888692"
                     app:layout_constraintEnd_toEndOf="@+id/desText"
                     app:layout_constraintStart_toStartOf="@+id/desText"
@@ -95,13 +105,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+
                     android:text="Proin vehicula orci at tellus porttitor facilisis."
+
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
                     android:textSize="@dimen/dimen_14sp"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="@+id/ivPlaceHolder"
-                    app:layout_constraintStart_toStartOf="@+id/ivPlaceHolder"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ivPlaceHolder" />
 
 
@@ -116,7 +128,7 @@
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
                     android:textSize="@dimen/dimen_14sp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/desText2"
                     app:layout_constraintStart_toStartOf="@+id/desText2"

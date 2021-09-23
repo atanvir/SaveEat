@@ -45,6 +45,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -67,11 +68,20 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     var taxCommissionModel: TaxCommissionModel?=null
     private val viewModel : CartViewModel by viewModels()
 
-    private val typeMap : MutableMap<String?, MutableList<RestroSellingModel?>?> = HashMap()
+
+    val serverFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    val sdf = SimpleDateFormat(serverFormat, Locale.US)
+    private var dateTimeFormat=SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
+
+
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentCartBinding = FragmentCartBinding.inflate(inflater,container,false)
 
     override fun init() {
+        sdf.timeZone = TimeZone.getTimeZone("GMT+05:30")
+        dateTimeFormat.timeZone = TimeZone.getTimeZone("GMT+05:30")
+
+
         startAnimation()
         cartListApi()
     }
@@ -275,7 +285,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
         var ret=true
         var count=0;
 
+
         for(i in list?.indices!!){
+           var maxTime= calculateMaxDate(list?.get(i)?.productData)
             if(list?.get(i)?.orderType?.isEmpty()==true  || list?.get(i)?.orderType==null){
                 ret=false
                 ErrorUtil.snackView(binding.root,"Please select pick up option for "+list?.get(i)?.restroData?.businessName)
@@ -288,9 +300,13 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 ret=false
                 ErrorUtil.snackView(binding.root,"Please select pick up time for "+list?.get(i)?.restroData?.businessName)
                 break
-            }else if(list?.get(i)?.restroData?.storeStatusOne!=true || list?.get(i)?.restroData?.storeStatusTwo!=true){
+            }else if(list?.get(i)?.storeStatusOne!=true || list?.get(i)?.storeStatusTwo!=true){
                 ret=false
                 ErrorUtil.snackView(binding.root,"Sorry! ${list?.get(i)?.restroData?.businessName} is closed , Please try ordering with another restaurant")
+                break
+            }else if(maxTime>0 && dateTimeFormat.parse("${list?.get(i)?.pickupDate} ${list?.get(i)?.pickupTime}").time<=maxTime){
+                ret=false
+                ErrorUtil.snackView(binding.root,"Sorry! ${list?.get(i)?.restroData?.businessName} items has been expired ,Please try with any other item")
                 break
             }else{
                 if((list?.get(i)?.productData?.any { it?.type=="Selling" }!=true)){
@@ -309,6 +325,26 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
 
         return  ret
 
+    }
+
+
+    private fun calculateMaxDate(list : MutableList<ProductDataModel?>?): Long {
+        var date: Date?=null
+        for(i in list?.indices!!) {
+            if(list?.get(i)?.productDetail?.pickupLaterAllowance==true){
+                val convertedDate: Date = sdf.parse(list?.get(i)?.productDetail?.convertedPickupDate)
+
+                if(date==null){ date=convertedDate }
+                if(date?.time?:0<convertedDate.time){ date=convertedDate } }
+        }
+
+
+        if(date!=null){
+            val serverdate=Calendar.getInstance()
+            serverdate.time=date
+            return serverdate.timeInMillis
+        }
+        else return 0
     }
 
 

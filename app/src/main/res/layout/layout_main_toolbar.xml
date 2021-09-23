@@ -8,7 +8,6 @@
         android:layout_height="wrap_content"
         android:elevation="@dimen/_10sdp"
         android:layout_marginTop="2dp"
-
         app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

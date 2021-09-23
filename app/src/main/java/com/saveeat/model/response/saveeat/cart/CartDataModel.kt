@@ -9,4 +9,4 @@ import com.saveeat.model.response.saveeat.menu.TodayDataModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class CartDataModel(var _id: String?,var expanded: Boolean?,var userId: String?,var restroId: String?,var orderType: String?,var pickupDate: String?,var pickupTime: String?,var productData : MutableList<ProductDataModel?>?,var restroData: RestaurantResponseBean?,var timeData: MutableList<TodayDataModel?>?, var choice : MutableList<ChoiceModel?>?) : Parcelable
+data class CartDataModel(var _id: String?,var expanded: Boolean?,var userId: String?,var restroId: String?,var orderType: String?,var pickupDate: String?,var pickupTime: String?,var productData : MutableList<ProductDataModel?>?,var restroData: RestaurantResponseBean?,var timeData: MutableList<TodayDataModel?>?, var choice : MutableList<ChoiceModel?>?,var storeStatusOne: Boolean?,var storeStatusTwo: Boolean?) : Parcelable

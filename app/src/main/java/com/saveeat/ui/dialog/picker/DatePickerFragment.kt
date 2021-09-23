@@ -33,12 +33,11 @@ class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         sdf.timeZone = TimeZone.getTimeZone("GMT+05:30")
+        var maxTime=calculateMaxDate()
 
-        Log.e("timeZone",""+sdf?.timeZone)
         val datePickerDailog=DatePickerDialog(requireActivity(),AlertDialog.THEME_HOLO_LIGHT, this, year, month, day)
-        maxTime=calculateMaxDate()
         datePickerDailog.datePicker?.minDate=calender.timeInMillis
-        datePickerDailog.datePicker?.maxDate=calculateMaxDate()
+        if(maxTime>0) datePickerDailog.datePicker?.maxDate=calculateMaxDate()
         return datePickerDailog
     }
 
@@ -52,12 +51,13 @@ class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
                 if(date?.time?:0>convertedDate.time){ date=convertedDate } }
         }
 
-        Log.e("DatePickerFragment","date--"+com.saveeat.utils.application.CommonUtils.calculateDate(date!!))
-        Log.e("DatePickerFragment","time--"+com.saveeat.utils.application.CommonUtils.calculateTime(date!!))
 
+        if(date!=null){
         val serverdate=Calendar.getInstance()
         serverdate.time=date
         return serverdate.timeInMillis
+        }
+        else return 0
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {

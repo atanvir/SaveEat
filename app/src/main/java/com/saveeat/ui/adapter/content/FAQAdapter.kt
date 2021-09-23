@@ -9,14 +9,17 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
 import com.saveeat.databinding.AdapterFaqBinding
+import com.saveeat.model.request.FAQModel
 
-class FAQAdapter(var context: Context) : RecyclerView.Adapter<FAQAdapter.MyViewHolder>() {
+class FAQAdapter(var context: Context,var list: MutableList<FAQModel?>?) : RecyclerView.Adapter<FAQAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FAQAdapter.MyViewHolder = MyViewHolder(AdapterFaqBinding.inflate(LayoutInflater.from(context),parent,false))
 
     override fun onBindViewHolder(holder: FAQAdapter.MyViewHolder, position: Int) {
+        holder.binding.data=list?.get(position)
+        holder.binding.executePendingBindings()
     }
 
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = list?.size?:0
     inner class MyViewHolder(var binding: AdapterFaqBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
             binding.mainCV.setOnClickListener(this)
