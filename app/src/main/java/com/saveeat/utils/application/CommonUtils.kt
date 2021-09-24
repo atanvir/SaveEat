@@ -29,6 +29,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.messaging.FirebaseMessaging
 import com.saveeat.R
 import com.saveeat.databinding.LayoutCommonButtonBinding
+import com.saveeat.model.response.saveeat.cart.ProductDataModel
 import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.ui.activity.auth.login.password.LoginWithPasswordActivity
 import com.saveeat.ui.activity.auth.password.PasswordActivity
@@ -308,37 +309,6 @@ object CommonUtils {
     }
 
 
-      fun setEnabledNumberPicker(context: Context,numberPicker: NumberPicker, isEnable : Boolean) {
-        numberPicker.isEnabled = isEnable
-        val enablePickerColor = ContextCompat.getColor(context, R.color.black)
-        val disablePickerColor = ContextCompat.getColor(context, R.color.grey)
-
-        try {
-            val selectorWheelPaintField = numberPicker.javaClass.getDeclaredField("mSelectorWheelPaint")
-            selectorWheelPaintField.isAccessible = true
-            if (isEnable)
-                (selectorWheelPaintField.get(numberPicker) as Paint).color = enablePickerColor
-        else
-            (selectorWheelPaintField.get(numberPicker) as Paint).color = disablePickerColor
-        } catch (e: NoSuchFieldException) {
-            e.printStackTrace()
-        } catch (e: IllegalAccessException) {
-            e.printStackTrace()
-        } catch (e: IllegalArgumentException) {
-            e.printStackTrace()
-        }
-        val count = numberPicker.childCount
-        for (i in 0 until count) {
-            val child = numberPicker.getChildAt(i)
-            if (child is EditText) {
-                if (isEnable) child.setTextColor(enablePickerColor)
-                else
-                    child.setTextColor(disablePickerColor)
-
-            }
-        }
-        numberPicker.invalidate()
-    }
 
     fun getProductType(sellingStatus: Boolean?): String? {
        return when(sellingStatus){
@@ -394,4 +364,25 @@ object CommonUtils {
         return  SimpleDateFormat("hh:mm a").format(date)
     }
 
+    fun calculateMaxDate(data : MutableList<ProductDataModel?>?): Long {
+
+        val serverFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        val sdf = SimpleDateFormat(serverFormat, Locale.US)
+        sdf.timeZone = TimeZone.getTimeZone("GMT+05:30")
+
+        var date: Date?=null
+        for(i in data?.indices!!) {
+            if(data?.get(i)?.productDetail?.pickupLaterAllowance==true){
+                val convertedDate: Date = sdf.parse(data?.get(i)?.productDetail?.convertedPickupDate)
+
+                if(date==null){ date=convertedDate }
+                if(date?.time?:0>convertedDate.time){ date=convertedDate } }
+        }
+        val serverdate=Calendar.getInstance()
+        if(date!=null){
+            serverdate.time=date
+            return serverdate.timeInMillis
+        }
+        else{ return 0 }
+    }
 }

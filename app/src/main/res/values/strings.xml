@@ -138,6 +138,7 @@
     <string name="continues">Continue</string>
     <string name="cancel"><u>Cancel</u></string>
     <string name="help"><u>Help</u></string>
+    <string name="oops_there_seem_to_be_no_restaurants_n_available_in_your_area">Oops! There seem to be no restaurants \n available in your area</string>
 
 
 </resources>

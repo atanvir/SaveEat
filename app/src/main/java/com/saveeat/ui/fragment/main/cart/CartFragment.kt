@@ -286,7 +286,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
 
 
         for(i in list?.indices!!){
-           var maxTime= calculateMaxDate(list?.get(i)?.productData)
+           var maxTime= CommonUtils.calculateMaxDate(list?.get(i)?.productData)
             if(list?.get(i)?.orderType?.isEmpty()==true  || list?.get(i)?.orderType==null){
                 ret=false
                 ErrorUtil.snackView(binding.root,"Please select pick up option for "+list?.get(i)?.restroData?.businessName)
@@ -327,24 +327,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     }
 
 
-    private fun calculateMaxDate(list : MutableList<ProductDataModel?>?): Long {
-        var date: Date?=null
-        for(i in list?.indices!!) {
-            if(list?.get(i)?.productDetail?.pickupLaterAllowance==true){
-                val convertedDate: Date = sdf.parse(list?.get(i)?.productDetail?.convertedPickupDate)
-
-                if(date==null){ date=convertedDate }
-                if(date?.time?:0<convertedDate.time){ date=convertedDate } }
-        }
-
-
-        if(date!=null){
-            val serverdate=Calendar.getInstance()
-            serverdate.time=date
-            return serverdate.timeInMillis
-        }
-        else return 0
-    }
 
 
     private fun getCartData(): MutableList<CartDataPlaceOrderModel?>? {

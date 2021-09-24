@@ -12,6 +12,7 @@ import com.saveeat.R
 import com.saveeat.databinding.AdapterCartItemBinding
 import com.saveeat.model.response.saveeat.cart.ProductDataModel
 import com.saveeat.ui.dialog.order.RequirementDialog
+import com.saveeat.utils.extn.snack
 
 class CartItemAdapter(var context: Context?,var parentPostion: Int?,var list : List<ProductDataModel?>?,var listner: setOnClickListner)  : RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
 
@@ -42,9 +43,14 @@ class CartItemAdapter(var context: Context?,var parentPostion: Int?,var list : L
                     dialog.show((context as AppCompatActivity).supportFragmentManager, "")
                 }
 
-                R.id.ivRemove ->{ listner?.removeCart(parentPostion,adapterPosition) }
+                R.id.ivRemove -> { listner?.removeCart(parentPostion,adapterPosition) }
 
-                R.id.ivPlus ->{ listner.updateCart(parentPostion,adapterPosition,+1) }
+                R.id.ivPlus ->{
+                    if(list?.get(adapterPosition)?.sellingStatus==false) listner.updateCart(parentPostion,adapterPosition,+1)
+                    else if(list?.get(adapterPosition)?.quantitySell?:0>list?.get(adapterPosition)?.quantity?:0) listner.updateCart(parentPostion,adapterPosition,+1)
+                    else binding.root.snack("No quantity left for today"){}
+
+                }
                 R.id.ivMinus ->{ listner.updateCart(parentPostion,adapterPosition,-1) }
             }
         }

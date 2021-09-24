@@ -1,7 +1,10 @@
 package com.saveeat.ui.fragment.main.location.Map
 
 import android.Manifest
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.location.Location
@@ -62,6 +65,8 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     private var curLatitude : Double?=0.0
     private var curLongitude : Double?=0.0
     var clusterBinding : ClusterViewBinding?=null
+    private var distanceBroadcast: BroadcastReceiver?=null
+
 
     var zoomLevel=14f
     var isCurrentLocationEnable=false
@@ -78,8 +83,27 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         binding.btnShowRestro.setOnClickListener(this)
     }
 
+    override fun onStart() {
+        super.onStart()
+        requireActivity().registerReceiver(distanceBroadcast, IntentFilter("com.saveeat"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().unregisterReceiver(distanceBroadcast)
+    }
+
     override fun observer() {
         lifecycleScope.launch {
+            distanceBroadcast = object : BroadcastReceiver() {
+                override fun onReceive(context: Context, intent: Intent) {
+                    showLoader(requireActivity())
+                    restaurantApi(latitude= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.latitude).toDouble(),
+                                  longitude= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.longitude).toDouble())
+                }
+            }
+
+
             viewModel.restaurantList.observe(this@LocationMapFragment,{
                 when (it) {
                     is Resource.Success -> {

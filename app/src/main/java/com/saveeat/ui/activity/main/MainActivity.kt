@@ -45,6 +45,8 @@ import com.saveeat.utils.application.Resource
 import kotlinx.coroutines.launch
 
 import com.google.android.material.badge.BadgeDrawable
+import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceBooleanValue
+import com.saveeat.repository.cache.PrefrencesHelper.writePrefrencesValue
 import com.saveeat.ui.fragment.main.cart.CartFragment
 import kotlin.math.roundToInt
 
@@ -67,16 +69,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         refreshToolbar()
-
-
-       val transtient : FragmentTransaction  = supportFragmentManager.beginTransaction()
-       transtient.add(R.id.fragment,CartFragment())
-        //add/replace/remove(
-        //addToBackStack()
-        // custom Animation()
-        //commit()
-
-
         viewModel.getCartCount(token = getPrefrenceStringValue(this, PreferenceKeyConstants.jwtToken))
     }
 
@@ -129,9 +121,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             // Toolbar
             R.id.ivProfile ->{ startActivity(Intent(this,ProfileActivity::class.java)) }
             R.id.tvKMDropDown ->{ DistanceBottomSheet({
+                writePrefrencesValue(this).apply { putString(distance,it) }
+                val intent=Intent("com.saveeat")
+                intent.putExtra("distance",it)
+                sendBroadcast(intent)
+
                 binding.clMainToolbar.tvKMDropDown.text="Within $it KM"
                 binding.clMainToolbar.tvKMDropDown.tag=it?.toString() },
-                (binding.clMainToolbar.tvKMDropDown.tag?:"").toString()).show(supportFragmentManager,"") }
+                (binding.clMainToolbar.tvKMDropDown.tag?:"").toString()).show(supportFragmentManager,"")
+
+            }
 
             // Drawer
             R.id.ivDrawer ->{ startActivity(Intent(this, DrawerActivity::class.java))}

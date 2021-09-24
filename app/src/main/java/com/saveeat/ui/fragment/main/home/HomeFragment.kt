@@ -1,5 +1,9 @@
 package com.saveeat.ui.fragment.main.home
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -7,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -19,12 +25,16 @@ import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentHomeBinding
 import com.saveeat.model.request.main.home.CommonHomeModel
 import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
+import com.saveeat.model.response.saveeat.location.LocationModel
+import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PreferenceKeyConstants._id
 import com.saveeat.repository.cache.PreferenceKeyConstants.distance
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
 import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
+import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
+import com.saveeat.ui.activity.location.ChooseAddressActivity
 import com.saveeat.ui.adapter.brand.BrandAdapter
 import com.saveeat.ui.adapter.home.RestaurantHomeAdapter
 import com.saveeat.ui.adapter.restaurant.SavedRestaurantAdapter
@@ -47,10 +57,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
     private var allRestraurantList : MutableList<RestaurantResponseBean?>? = ArrayList()
     private var type : String?=null
     private var position : Int?=null
+    private var distanceBroadcast: BroadcastReceiver?=null
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater,container,false)
 
     override fun init() {
+        binding.clShadowButton.tvButtonLabel.text="Search for new location"
         requestModel=CommonHomeModel(latitude=getPrefrenceStringValue(requireActivity(), latitude),
                                      longitude=getPrefrenceStringValue(requireActivity(), longitude),
                                      distance=getPrefrenceStringValue(requireActivity(), distance),
@@ -61,9 +73,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
         startShimmerAnimation()
     }
 
+    override fun onStart() {
+        super.onStart()
+        requireActivity().registerReceiver(distanceBroadcast, IntentFilter("com.saveeat"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().unregisterReceiver(distanceBroadcast)
+    }
+
 
     override fun initCtrl() {
         binding.cpType.setOnClickListener(this)
+        binding.clShadowButton.ivButton.setOnClickListener(this)
         binding.rvSaveProducts.addOnScrollListener(saveRestroRecycleviewListner)
         binding.svLocation.addTextChangedListener {
             if(binding.rvSaveProducts.adapter!=null) (binding.rvSaveProducts.adapter as SavedRestaurantAdapter).filter.filter(it)
@@ -127,7 +150,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
 
 
     private fun startShimmerAnimation(){
+        binding.svLocation.visibility=View.VISIBLE
+        binding.cpType.visibility=View.VISIBLE
+        binding.ivFilter.visibility=View.VISIBLE
         binding.clMain.visibility=View.GONE
+        binding.clNoData.visibility=View.GONE
         binding.clShimmer.shimmerContainer.startShimmer()
         binding.clShimmer.shimmerContainer.visibility=View.VISIBLE
         viewModel.moreSaveProductList(requestModel)
@@ -141,6 +168,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
 
     override fun observer() {
         lifecycleScope.launch {
+
+
+            distanceBroadcast = object : BroadcastReceiver() {
+                override fun onReceive(context: Context, intent: Intent) {
+                    requestModel?.distance=intent.getStringExtra("distance")
+                    startShimmerAnimation()
+                }
+            }
+
             viewModel.moreSaveProductList.observe(this@HomeFragment,{
                 when (it) {
                     is Resource.Success -> {
@@ -230,6 +266,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
                             if(binding.rvPopularProducts.adapter?.itemCount?:0>0) binding.clPopularRestro.visibility=View.VISIBLE else binding.clPopularRestro.visibility=View.GONE
                             if(binding.rvBrands.adapter?.itemCount?:0>0) binding.clBrand.visibility=View.VISIBLE else binding.clBrand.visibility=View.GONE
                             if(binding.rvAllRestro.adapter?.itemCount?:0>0) binding.clAllRestro.visibility=View.VISIBLE else binding.clAllRestro.visibility=View.GONE
+                            if(binding.clSaveProducts.visibility==View.GONE && binding.clPopularRestro.visibility==View.GONE  && binding.clBrand.visibility==View.GONE  && binding.clAllRestro.visibility==View.GONE)
+                            {
+                                binding.svLocation.visibility=View.GONE
+                                binding.cpType.visibility=View.GONE
+                                binding.ivFilter.visibility=View.GONE
+                                binding.clNoData.visibility=View.VISIBLE
+                            }
+                            else {
+                                binding.svLocation.visibility=View.VISIBLE
+                                binding.cpType.visibility=View.VISIBLE
+                                binding.ivFilter.visibility=View.VISIBLE
+                                binding.clNoData.visibility=View.GONE
+                            }
+
 
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) { snackView(binding.root,it.value?.message?:"") }
@@ -249,6 +299,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
 
     override fun onClick(v: View?) {
         when(v?.id){
+
+            R.id.ivButton -> {
+                laucher.launch(Intent(requireActivity(), ChooseAddressActivity::class.java).putExtra("data", LocationModel(address = getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.address),latitude=getPrefrenceStringValue(requireActivity(),latitude).toDouble(),longitude=getPrefrenceStringValue(requireActivity(), longitude).toDouble(),distance=getPrefrenceStringValue(requireActivity(),distance))))
+            }
             R.id.cpType ->{
                 requestModel?.foodType= VEG
                 startShimmerAnimation()
@@ -268,6 +322,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
         when(type){
             "Popular" ->{ viewModel?.addToFavourite(popularRestraurantList?.get(position)?._id, getPrefrenceStringValue(requireActivity(), jwtToken)) }
             "All" ->{ viewModel?.addToFavourite(allRestraurantList?.get(position)?._id, getPrefrenceStringValue(requireActivity(), jwtToken)) }
+        }
+    }
+
+    private var laucher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ it->
+        if(it.resultCode== AppCompatActivity.RESULT_OK) {
+            val location=it.data?.getParcelableExtra<LocationModel>("data")
+            PrefrencesHelper.updateLocation(requireActivity(), location)
+            startShimmerAnimation()
+
         }
     }
 

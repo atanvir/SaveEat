@@ -1,5 +1,9 @@
 package com.saveeat.ui.fragment.main.location.List
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,17 +34,39 @@ class LocationListFragment : BaseFragment<FragmentLocationListBinding>(), (Int) 
     private var list : MutableList<RestaurantResponseBean?>? = ArrayList()
     private var position : Int?=null
 
+    private var distanceBroadcast: BroadcastReceiver?=null
+    private var requestModel : CommonHomeModel?=null
+
+
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLocationListBinding = FragmentLocationListBinding.inflate(inflater,container,false)
 
     override fun init() {
+       requestModel=CommonHomeModel(latitude= getPrefrenceStringValue(requireActivity(), latitude),
+                                    longitude=getPrefrenceStringValue(requireActivity(), longitude),
+                                    distance= getPrefrenceStringValue(requireActivity(), distance),
+                                    foodType = BOTH,limit = 10,
+                                    token = getPrefrenceStringValue(requireActivity(), jwtToken),
+                                    userId=getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id))
+
+       restaurantListApi()
+    }
+
+    private fun restaurantListApi() {
+        binding.clShimmer.shimmerContainer.visibility=View.VISIBLE
+        binding.rvListRestro.visibility=View.GONE
         binding.clShimmer.shimmerContainer.startShimmer()
-        viewModel.restaurantList(CommonHomeModel(latitude= getPrefrenceStringValue(requireActivity(), latitude),
-                                                longitude=getPrefrenceStringValue(requireActivity(), longitude),
-                                                distance= getPrefrenceStringValue(requireActivity(), distance),
-                                                foodType = BOTH,limit = 10,
-                                                token = getPrefrenceStringValue(requireActivity(), jwtToken),
-                                                userId=getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)))
+        viewModel.restaurantList(requestModel)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        requireActivity().registerReceiver(distanceBroadcast, IntentFilter("com.saveeat"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().unregisterReceiver(distanceBroadcast)
     }
 
     override fun initCtrl() {
@@ -48,9 +74,15 @@ class LocationListFragment : BaseFragment<FragmentLocationListBinding>(), (Int) 
 
     override fun observer() {
         lifecycleScope.launch {
+
+            distanceBroadcast = object : BroadcastReceiver() {
+                override fun onReceive(context: Context, intent: Intent) {
+                    requestModel?.distance=intent.getStringExtra("distance")
+                    restaurantListApi()
+                }
+            }
             viewModel.restaurantList.observe(this@LocationListFragment,{
-                binding.clShimmer.shimmerContainer.stopShimmer()
-                binding.clShimmer.shimmerContainer.visibility= View.GONE
+                stopShimmer()
                 when (it) {
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
@@ -79,6 +111,12 @@ class LocationListFragment : BaseFragment<FragmentLocationListBinding>(), (Int) 
                 }
             })
         }
+    }
+
+    private fun stopShimmer() {
+        binding.clShimmer.shimmerContainer.stopShimmer()
+        binding.clShimmer.shimmerContainer.visibility= View.GONE
+        binding.rvListRestro.visibility=View.VISIBLE
     }
 
     override fun invoke(position: Int) {

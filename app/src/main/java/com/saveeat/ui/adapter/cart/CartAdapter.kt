@@ -46,7 +46,7 @@ class CartAdapter(var context: Context?,var list: MutableList<CartDataModel?>?,v
 
 
         for(i in list?.get(position)?.productData?.indices!!){
-            var maxDate=calculateMaxDate(list?.get(position)?.productData)
+            var maxDate=CommonUtils.calculateMaxDate(list?.get(position)?.productData)
             if(maxDate>0){
             if(currentDate.time> maxDate){
                 holder.binding.btnPickLater.visibility=View.GONE
@@ -61,34 +61,10 @@ class CartAdapter(var context: Context?,var list: MutableList<CartDataModel?>?,v
 
         }
 
-
-
         holder.binding.rvCartItem.adapter=CartItemAdapter(context,position,list?.get(position)?.productData,listner)
         holder.binding.executePendingBindings()
     }
 
-    private fun calculateMaxDate(data : MutableList<ProductDataModel?>?): Long {
-        var date: Date?=null
-        for(i in data?.indices!!) {
-            if(data?.get(i)?.productDetail?.pickupLaterAllowance==true){
-                val convertedDate: Date = sdf.parse(data?.get(i)?.productDetail?.convertedPickupDate)
-
-                if(date==null){ date=convertedDate }
-                if(date?.time?:0>convertedDate.time){ date=convertedDate } }
-        }
-        val serverdate=Calendar.getInstance()
-
-        if(date!=null){
-        serverdate.time=date
-        return serverdate.timeInMillis
-        }
-        else{ return 0 }
-    }
-
-
-
-    private fun loadTime(date : Date,day: String) {
-    }
 
     private fun selectedTime(todayDataModel: MutableList<TodayDataModel?>?, day: String) : Pair<Date?,Date?>? {
 

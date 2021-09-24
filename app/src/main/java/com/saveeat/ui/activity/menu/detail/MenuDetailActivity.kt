@@ -273,7 +273,8 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
 
             }
             R.id.ivPlus -> {
-                if(binding?.model?.leftQuantity?:0>quantity?:0) updateQuantity(+1)
+                if(binding?.model?.sellingStatus==false) updateQuantity(+1)
+                else if(binding?.model?.leftQuantity?:0>quantity?:0) updateQuantity(+1)
                 else binding.root.snack("No quantity left for today"){}
             }
 
