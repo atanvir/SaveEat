@@ -137,11 +137,9 @@
                     style="@style/inter_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="22dp"
                     android:text="@{``+@string/price(DoubleExtensionKt.roundOffDecimal(model.total))}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimen_14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvChoiceName"
                     app:layout_constraintTop_toBottomOf="@+id/tvChoiceName" />
 
@@ -158,6 +156,23 @@
                     android:textSize="@dimen/dimen_12sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/sp"
                     app:layout_constraintStart_toEndOf="@+id/sp" />
+
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    style="@style/inter_medium"
+                    calculateDateWithTime="@{model.createdAt}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tvChoiceName"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/tvChoiceName"
+                    app:layout_constraintTop_toBottomOf="@+id/sp"
+                    app:layout_constraintVertical_bias="0.0" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

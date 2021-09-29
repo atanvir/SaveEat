@@ -153,4 +153,11 @@ dependencies {
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+
+
+    // Razor Pay
+    implementation 'com.razorpay:checkout:1.6.8'
+
+
+
 }

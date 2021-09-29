@@ -3,6 +3,7 @@ package com.saveeat.utils.binding
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import com.saveeat.utils.extn.loadNormalPhoto
 import com.saveeat.utils.extn.loadProfilePic
 
@@ -22,6 +23,14 @@ class ImageViewBindings {
         fun setFromResourceDrawable(imageView: ImageView?, drawable: Int?){
 
             imageView?.setImageResource(drawable!!)
+        }
+
+
+        @BindingAdapter(value = ["loadGIFFromResource"])
+        @JvmStatic
+        fun loadGIFFromResource(imageView: ImageView?, drawable: Int?){
+            Glide.with(imageView?.context!!).asGif().load(drawable).into(imageView)
+//            imageView?.setImageResource(drawable!!)
         }
 
 

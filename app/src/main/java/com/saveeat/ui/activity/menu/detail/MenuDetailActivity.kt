@@ -268,7 +268,8 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
                     if(allPossibleCombination(true)){
                     if (binding?.model?.cartData != null) viewModel.updateCart(getUpdateCartModel())
                     else viewModel.addToCart(getAddToCartModel())
-                    }else{ buttonLoader(binding.clShadowButton, false) }
+                    }
+                    else{ buttonLoader(binding.clShadowButton, false) }
                 }else buttonLoader(binding.clShadowButton, false)
 
             }
@@ -358,10 +359,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
         }else if(binding?.model?.storeStatusOne==true && binding?.model?.storeStatusTwo==true){
             ret=false
             ErrorUtil.snackView(binding.root,"Restaurant is not active")
-
         }
-
-
 
         return ret
     }
@@ -380,7 +378,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
 
             menuItemPrice=menuItemPrice?.plus(list?.get(list?.indexOf(data)?:-1)?.choice?.get(position?:0)?.price?:0.0)
             singleChoiceMap.put(list?.indexOf(data)?:0,list?.get(list?.indexOf(data)?:-1)?.choice?.get(position?:0)?.price?:0.0)
-
         }
         else{
             singleChoiceMap.remove(list?.indexOf(data)?:0)
@@ -456,7 +453,4 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(), View.OnCli
         if(singleChoiceMap.isNullOrEmpty() && multipleChoiceMap.isNullOrEmpty()) super.onBackPressed()
         else ErrorUtil.snackView(binding.root,getString(R.string.clear_choices))
     }
-
-
-
 }

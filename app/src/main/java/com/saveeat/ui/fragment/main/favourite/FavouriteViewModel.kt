@@ -22,7 +22,7 @@ class FavouriteViewModel @Inject constructor(private val repository: FavouriteRe
     val addToFavourite : LiveData<Resource<HomeModel?>?> get() = _addToFavourite
 
 
-    fun getFavoriteRestaurants(model : FavouriteModel?){
+    fun getFavoriteRestaurants(model : CommonHomeModel?){
         viewModelScope.launch {
             _getFavoriteRestaurants.value=repository.getFavoriteRestaurants(model)
         }

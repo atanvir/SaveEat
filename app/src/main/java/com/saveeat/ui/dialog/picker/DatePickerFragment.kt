@@ -24,12 +24,10 @@ class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
     val month = calender.get(Calendar.MONTH)
     val day = calender.get(Calendar.DAY_OF_MONTH)
 
-
     val serverFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     val sdf = SimpleDateFormat(serverFormat, Locale.US)
 
     var maxTime:Long?=0
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         sdf.timeZone = TimeZone.getTimeZone("GMT+05:30")
@@ -46,7 +44,6 @@ class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
         for(i in data?.productData?.indices!!) {
             if(data?.productData?.get(i)?.productDetail?.pickupLaterAllowance==true){
                 val convertedDate: Date = sdf.parse(data?.productData?.get(i)?.productDetail?.convertedPickupDate)
-
                 if(date==null){ date=convertedDate }
                 if(date?.time?:0>convertedDate.time){ date=convertedDate } }
         }
@@ -61,6 +58,7 @@ class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
+
         binding.btnPickNow.text = requireActivity().getString(R.string.pick_up_now)
         val date= SimpleDateFormat("yyyy-MM-dd").parse("${year}-${month+1}-${day}")
 

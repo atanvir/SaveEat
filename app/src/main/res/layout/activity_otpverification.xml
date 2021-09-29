@@ -19,9 +19,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
-
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/clBottomSheet"
             android:layout_width="match_parent"

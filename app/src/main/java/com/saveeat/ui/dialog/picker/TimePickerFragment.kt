@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import com.saveeat.R
@@ -18,16 +19,22 @@ import com.saveeat.utils.application.CustomTimePicker
 
 class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataModel?,var maxTime: Date?) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
     private var dateTimeFormat=SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
+    private var dateFormat=SimpleDateFormat("yyyy-MM-dd")
+    private var hourFormat=SimpleDateFormat("hh")
+    private var minFormat=SimpleDateFormat("hh")
+    val currentTime=Calendar.getInstance()
+
     private var weekDateFormat=SimpleDateFormat("EEEE", Locale.US)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         dateTimeFormat.timeZone = TimeZone.getTimeZone("GMT+05:30")
         weekDateFormat.timeZone = TimeZone.getTimeZone("GMT+05:30")
 
-
-        var timePicker=CustomTimePicker(activity,this, Calendar.getInstance().get(Calendar.HOUR), CustomTimePicker.getRoundedMinute(Calendar.getInstance().get(Calendar.MINUTE) + CustomTimePicker.TIME_PICKER_INTERVAL), false)
+        var timePicker=CustomTimePicker(activity,this, currentTime.get(Calendar.HOUR), currentTime.get(Calendar.MINUTE), false)
         return timePicker
     }
+
+
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
         val date= dateTimeFormat.parse("${data?.pickupDate} ${hourOfDay}:${minute}")
@@ -79,4 +86,6 @@ class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
 
         return pair
     }
+
+
 }

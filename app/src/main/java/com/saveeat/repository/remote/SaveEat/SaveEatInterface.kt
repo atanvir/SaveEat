@@ -133,7 +133,7 @@ interface SaveEatInterface {
     suspend fun nearByRestaurantDetail(@Body model: MenuBrandModel?, @Header("Authorization") token: String?)  :  MenuRestaurantModel?
 
     @POST(ALL_FAVOURITE)
-    suspend fun getFavoriteRestaurants(@Body model: FavouriteModel?,@Header("Authorization") token: String?)  : HomeModel?
+    suspend fun getFavoriteRestaurants(@Body model: CommonHomeModel?,@Header("Authorization") token: String?)  : HomeModel?
 
 
     @POST(MENU_ITEM_DETAIL)

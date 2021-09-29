@@ -90,7 +90,7 @@
     <string name="add_requirement">Add Instructions</string>
     <string name="total">TOTAL</string>
     <string name="rate_order">Rate Order</string>
-    <string name="order_being_prepared">Order is being accepted</string>
+    <string name="order_being_prepared">Order has been accepted</string>
     <string name="order_pending">Order is pending</string>
     <string name="order_ready_to_pickup">Your order is ready to pick up</string>
     <string name="order_completed">Order completed</string>

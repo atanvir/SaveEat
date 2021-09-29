@@ -80,7 +80,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
 
     override fun onDestroy() {
         super.onDestroy()
-        requireActivity().unregisterReceiver(distanceBroadcast)
+        try{ if(distanceBroadcast!=null) requireActivity().unregisterReceiver(distanceBroadcast) }catch (e: Exception){ }
     }
 
 

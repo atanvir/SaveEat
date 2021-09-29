@@ -52,16 +52,16 @@ class WalkThroughActivity : BaseActivity<ActivityWalkThroughBinding>(), View.OnC
         for(i in 0..2){
             var model: WalkThroughModel?=null
             if(i ==0){
-              model = WalkThroughModel(image = R.drawable.burger_transparent,
+              model = WalkThroughModel(image = R.drawable.burger,
                                      title = "Welcome to SaveEat!",
                                      description = "All you need to save the world: EAT")
         }else if(i==1){
-             model = WalkThroughModel(image = R.drawable.takeaway_transparent,
+             model = WalkThroughModel(image = R.drawable.pickup,
                 title = "Pay in the app & pick up",
                 description = "Pay directly in the app and pick up the food as take away by giving your order OTP")
         }
         else if(i==2){
-             model = WalkThroughModel(image = R.drawable.notification_transparent,
+             model = WalkThroughModel(image = R.drawable.notification,
                 title = "Never miss a deal",
                 description = "Follow your favourite restaurants in the app, and get notifications when they have food available on a discount.\n")
         }

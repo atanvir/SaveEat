@@ -10,7 +10,7 @@ import javax.inject.Inject
 class FavouriteRepository @Inject constructor(private val apiInterface: SaveEatInterface) : BaseRepository() {
 
 
-    suspend fun getFavoriteRestaurants(model: FavouriteModel?) =safeApiCall {
+    suspend fun getFavoriteRestaurants(model: CommonHomeModel?) =safeApiCall {
         apiInterface.getFavoriteRestaurants(model,model?.token)
     }
 

@@ -229,14 +229,14 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
 
 
     private fun mapControls() {
-        if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-             mMap?.isMyLocationEnabled = true
-            mMap?.uiSettings?.isMyLocationButtonEnabled = true
-
-        }
+//        if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//             mMap?.isMyLocationEnabled = true
+//            mMap?.uiSettings?.isMyLocationButtonEnabled = true
+//
+//        }
         mMap.uiSettings.isCompassEnabled = false
         mMap?.uiSettings?.isScrollGesturesEnabledDuringRotateOrZoom=false
-        mMap?.uiSettings?.isZoomControlsEnabled=true
+//        mMap?.uiSettings?.isZoomControlsEnabled=true
 
         // Location Button Gravity
         val btnMyLocation = (childFragmentManager?.findFragmentById(R.id.mapView)?.view?.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById<View>(Integer.parseInt("2"))
@@ -286,8 +286,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
                                       distance= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.distance),
                                       foodType = KeyConstants.BOTH,limit = 10,
                                       token = getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken) ,
-                                      userId= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)
-        )
+                                      userId= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id))
 
         viewModel.restaurantList(requestModel)
     }

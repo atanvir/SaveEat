@@ -1,10 +1,15 @@
 package com.saveeat.ui.fragment.main.cart
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
+import android.provider.Settings
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +24,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.razorpay.Checkout
+import com.razorpay.PaymentData
+import com.razorpay.PaymentResultWithDataListener
 import com.saveeat.model.request.cart.CartRequestModel
 import com.saveeat.model.request.cart.ChoiceModel
 import com.saveeat.model.request.cart.RestroSellingModel
@@ -29,6 +37,7 @@ import com.saveeat.model.response.saveeat.cart.CartDataModel
 import com.saveeat.model.response.saveeat.cart.DeleteItemCart
 import com.saveeat.model.response.saveeat.cart.ProductDataModel
 import com.saveeat.model.response.saveeat.cart.TaxCommissionModel
+import com.saveeat.razorpay.RazorPay
 import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
@@ -40,6 +49,7 @@ import com.saveeat.utils.application.CommonUtils.getProductType
 import com.saveeat.utils.application.CommonUtils.increaseFontSizeForPath
 import com.saveeat.utils.application.CustomLoader.Companion.hideLoader
 import com.saveeat.utils.extn.roundOffDecimal
+import com.saveeat.utils.extn.roundOffDecimalWithTwo
 import com.saveeat.utils.extn.toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -67,6 +77,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
 
     var taxCommissionModel: TaxCommissionModel?=null
     private val viewModel : CartViewModel by viewModels()
+    private var paymentGatewayResposne: BroadcastReceiver?=null
+
 
 
     val serverFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -77,6 +89,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentCartBinding = FragmentCartBinding.inflate(inflater,container,false)
 
     override fun init() {
+
+
         sdf.timeZone = TimeZone.getTimeZone("GMT+05:30")
         dateTimeFormat.timeZone = TimeZone.getTimeZone("GMT+05:30")
 
@@ -92,8 +106,39 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        requireActivity().registerReceiver(paymentGatewayResposne, IntentFilter("com.saveeat"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().unregisterReceiver(paymentGatewayResposne)
+    }
+
     override fun observer() {
         lifecycleScope.launch {
+
+
+            paymentGatewayResposne = object : BroadcastReceiver() {
+                override fun onReceive(context: Context, intent: Intent) {
+                    buttonLoader(binding.clShadowButton, true)
+                    var paymentId  = intent.getStringExtra("paymentId")
+                    viewModel.orderItems(OrderPlaceModel(cartData = getCartData(),
+                                                         paymentId = paymentId,
+                                                         paymentMode = "RazorPay",
+                                                         paymentStatus="Confirm",
+                                                         saveAmount=saveTotal,
+                                                         subTotal=subTotal,
+                                                         tax = saveEatFees?.plus(taxes?:0.0),
+                                                         total=finalTotal,
+                                                         token= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken),
+                                                         userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id),
+                                                         saveEatFees=saveEatFees,taxes=taxes))
+
+
+                }
+            }
             viewModel.getCartItem.observe(this@CartFragment,{
 
                 when (it) {
@@ -237,11 +282,11 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 hideLoader()
 
                 // Billing
-                binding.clBilling.tvSubTotal.text=requireActivity().getString(R.string.price,""+subTotal?.roundOffDecimal()?.toString())
-                binding.clBilling.clTaxInfo.tvSaveEatFees.text=requireActivity().getString(R.string.price,saveEatFees?.roundOffDecimal()?.toString())
-                binding.clBilling.tvTaxFees.text=requireActivity().getString(R.string.price,saveEatFees?.plus(taxes?:0.0)?.roundOffDecimal()?.toString())
+                binding.clBilling.tvSubTotal.text=requireActivity().getString(R.string.price,""+subTotal?.roundOffDecimalWithTwo()?.toString())
+                binding.clBilling.clTaxInfo.tvSaveEatFees.text=requireActivity().getString(R.string.price,saveEatFees?.roundOffDecimalWithTwo()?.toString())
+                binding.clBilling.tvTaxFees.text=requireActivity().getString(R.string.price,saveEatFees?.plus(taxes?:0.0)?.roundOffDecimalWithTwo()?.toString())
                 binding.clBilling.tvTotalPrice.text=finalTotal?.roundOffDecimal()?.toString()
-                binding.clBilling.clTaxInfo.tvTaxes.text=requireActivity().getString(R.string.price,taxes?.roundOffDecimal()?.toString())
+                binding.clBilling.clTaxInfo.tvTaxes.text=requireActivity().getString(R.string.price,taxes?.roundOffDecimalWithTwo()?.toString())
 
                 binding.clShadowButton.tvButtonLabel.text=getString(R.string.checkout)
                 val wordtoSpan: Spannable = SpannableString("Continue to checkout to save ${requireActivity().getString(R.string.price,""+saveTotal?.roundOffDecimal()?.toString())} on this order")
@@ -260,20 +305,23 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
             R.id.ivButton ->{
                 if(checkValidation()){
                 buttonLoader(binding.clShadowButton, true)
-                viewModel.orderItems(OrderPlaceModel(cartData = getCartData(),
-                                                     paymentId = "123456789",
-                                                     paymentMode = "Cash",
-                                                     paymentStatus="Confirm",
-                                                     saveAmount=saveTotal,
-                                                     subTotal=subTotal,
-                                                     tax = saveEatFees?.plus(taxes?:0.0),
-                                                     total=finalTotal,
-                                                     token= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken),
-                                                     userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id),
-                                                     saveEatFees=saveEatFees,taxes=taxes))
+//                RazorPay().payload(requireActivity(), Settings.Secure.getString(requireActivity().contentResolver, Settings.Secure.ANDROID_ID),finalTotal?.roundOffDecimal())
+//                buttonLoader(binding.clShadowButton, false)
+
+                    viewModel.orderItems(OrderPlaceModel(cartData = getCartData(),
+                        paymentId = "123456",
+                        paymentMode = "RazorPay",
+                        paymentStatus="Confirm",
+                        saveAmount=saveTotal,
+                        subTotal=subTotal,
+                        tax = saveEatFees?.plus(taxes?:0.0),
+                        total=finalTotal,
+                        token= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken),
+                        userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id),
+                        saveEatFees=saveEatFees,taxes=taxes))
                 }else{
                     buttonLoader(binding.clShadowButton, false)
-                }
+            }
             }
             R.id.taxInfo ->{ binding.clBilling.clTaxInfo.clTaxInfo.visibility=View.VISIBLE }
             R.id.ivCLose ->{ binding.clBilling.clTaxInfo.clTaxInfo.visibility=View.GONE }
@@ -332,6 +380,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     private fun getCartData(): MutableList<CartDataPlaceOrderModel?>? {
         var returnList : MutableList<CartDataPlaceOrderModel?>? = ArrayList()
         for(i in list?.indices!!){
+            var subTotal=calculateAmount(list?.get(i)?.productData,"price")
+            var totalTax=getTax(calculateAmount(list?.get(i)?.productData,"price"),"total")
+            Log.e("total",""+subTotal?.plus(totalTax?:0.0))
             val model : CartDataPlaceOrderModel? =CartDataPlaceOrderModel(actualAmount=calculateAmount(list?.get(i)?.productData,"actualAmount"),
                                                                           address= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.address),
                                                                           cartId=list?.get(i)?._id,
@@ -344,12 +395,12 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                                                                           price=calculateAmount(list?.get(i)?.productData,"price"),
                                                                           restroId=list?.get(i)?.restroId,
                                                                           saveAmount = calculateAmount(list?.get(i)?.productData,"discountAmount"),
-                                                                          subTotal=calculateAmount(list?.get(i)?.productData,"price"),
+                                                                          subTotal=subTotal,
                                                                           saveEatFees=getTax(calculateAmount(list?.get(i)?.productData,"price"),"saveEatFees"),
                                                                           taxes=getTax(calculateAmount(list?.get(i)?.productData,"price"),"taxes"),
-                                                                          tax=getTax(calculateAmount(list?.get(i)?.productData,"price"),"total"),
+                                                                          tax=totalTax,
                                                                           timezone=TimeZone.getDefault().id,
-                                                                          total=0.0)
+                                                                          total=subTotal?.plus(totalTax?:0.0))
             model?.total=subTotal?.plus(model?.tax!!)
             returnList?.add(model)
         }
@@ -445,5 +496,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
 
         }
     }
+
+
+
+
 
 }

@@ -28,6 +28,7 @@ import com.saveeat.utils.extn.loadProfilePic
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import android.location.Geocoder
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
@@ -45,14 +46,22 @@ import com.saveeat.utils.application.Resource
 import kotlinx.coroutines.launch
 
 import com.google.android.material.badge.BadgeDrawable
+import com.razorpay.Checkout
+import com.razorpay.PaymentData
+import com.razorpay.PaymentResultWithDataListener
+
+//import com.razorpay.Checkout
+//import com.razorpay.PaymentResultListener
+
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceBooleanValue
 import com.saveeat.repository.cache.PrefrencesHelper.writePrefrencesValue
 import com.saveeat.ui.fragment.main.cart.CartFragment
+import com.saveeat.utils.extn.snack
 import kotlin.math.roundToInt
 
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
+class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, PaymentResultWithDataListener {
 
     private lateinit var navController : NavController
     private val viewModel : MainViewModel by viewModels()
@@ -61,6 +70,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     override fun getActivityBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun inits() {
+        Checkout.preload(getApplicationContext());
+
         navController=findNavController(this,R.id.fragment)
         binding.bottomNavigationView.setupWithNavController(navController)
         if(intent.getBooleanExtra("menu",false)) binding.bottomNavigationView.selectedItemId=R.id.cartFragment
@@ -70,6 +81,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         super.onResume()
         refreshToolbar()
         viewModel.getCartCount(token = getPrefrenceStringValue(this, PreferenceKeyConstants.jwtToken))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Checkout.clearUserData(this)
     }
 
 
@@ -121,7 +137,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             // Toolbar
             R.id.ivProfile ->{ startActivity(Intent(this,ProfileActivity::class.java)) }
             R.id.tvKMDropDown ->{ DistanceBottomSheet({
-                writePrefrencesValue(this).apply { putString(distance,it) }
+                writePrefrencesValue(this).apply { putString(distance,it) }.apply()
                 val intent=Intent("com.saveeat")
                 intent.putExtra("distance",it)
                 sendBroadcast(intent)
@@ -165,5 +181,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         if(addresses?.get(0)?.subLocality?:"".equals("")==true) binding.clMainToolbar.tvAddress.text=addresses?.get(0)?.getAddressLine(0)
         else binding.clMainToolbar.tvAddress.text=addresses?.get(0)?.subLocality
     }
+
+
+    override fun onPaymentSuccess(p0: String?, p1: PaymentData?) {
+        val intent=Intent("com.saveeat")
+        intent.putExtra("paymentId",p0)
+        sendBroadcast(intent)
+    }
+
+    override fun onPaymentError(p0: Int, p1: String?, p2: PaymentData?) {
+        ErrorUtil.snackView(binding.root,p1?:"")
+    }
+
 
 }

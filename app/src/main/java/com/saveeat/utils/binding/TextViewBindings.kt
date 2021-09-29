@@ -68,6 +68,23 @@ class TextViewBindings {
         }
 
 
+        @BindingAdapter(value = ["calculateDateWithTime"])
+        @JvmStatic
+        fun calculateDateWithTime(textView: TextView?,date : String?){
+            if(date!=null){
+                val myFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                sdf.timeZone = TimeZone.getTimeZone("GMT")
+                try {
+                    val date: Date = sdf.parse(date)
+                    textView?.text=SimpleDateFormat("dd MMM yyyy, hh:mm a").format(date)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
+
 
         @BindingAdapter(value = ["calculateTime"])
         @JvmStatic

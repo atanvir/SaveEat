@@ -12,7 +12,9 @@ import com.saveeat.R
 import com.saveeat.base.BaseFragment
 import com.saveeat.databinding.FragmentFavouriteBinding
 import com.saveeat.model.request.main.favourite.FavouriteModel
+import com.saveeat.model.request.main.home.CommonHomeModel
 import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
+import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
 import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
@@ -44,9 +46,13 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(), (Int, String
 
     override fun init() {
         binding.clShimmer.shimmerContainer.startShimmer()
-        viewModel.getFavoriteRestaurants(FavouriteModel(latitude= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), latitude),
-                                                        longitude= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), longitude),
-                                                        token= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), jwtToken)))
+        viewModel.getFavoriteRestaurants(CommonHomeModel(latitude= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), latitude),
+                                                         longitude= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), longitude),
+                                                         distance= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.distance),
+                                                         foodType = KeyConstants.BOTH,
+                                                         limit = 100,
+                                                         token = PrefrencesHelper.getPrefrenceStringValue(requireActivity(), jwtToken),
+                                                         userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id)))
     }
     override fun initCtrl() {
     }
