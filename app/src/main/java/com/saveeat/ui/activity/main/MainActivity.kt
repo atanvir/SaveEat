@@ -70,7 +70,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
     override fun getActivityBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun inits() {
-        Checkout.preload(getApplicationContext());
+        Checkout.preload(applicationContext);
 
         navController=findNavController(this,R.id.fragment)
         binding.bottomNavigationView.setupWithNavController(navController)
@@ -136,7 +136,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
 
             // Toolbar
             R.id.ivProfile ->{ startActivity(Intent(this,ProfileActivity::class.java)) }
-            R.id.tvKMDropDown ->{ DistanceBottomSheet({
+            R.id.tvKMDropDown ->{
+
+                DistanceBottomSheet({
                 writePrefrencesValue(this).apply { putString(distance,it) }.apply()
                 val intent=Intent("com.saveeat")
                 intent.putExtra("distance",it)
@@ -192,6 +194,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
     override fun onPaymentError(p0: Int, p1: String?, p2: PaymentData?) {
         ErrorUtil.snackView(binding.root,p1?:"")
     }
-
-
 }

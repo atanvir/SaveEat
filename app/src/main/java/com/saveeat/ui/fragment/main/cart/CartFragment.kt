@@ -305,20 +305,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
             R.id.ivButton ->{
                 if(checkValidation()){
                 buttonLoader(binding.clShadowButton, true)
-//                RazorPay().payload(requireActivity(), Settings.Secure.getString(requireActivity().contentResolver, Settings.Secure.ANDROID_ID),finalTotal?.roundOffDecimal())
-//                buttonLoader(binding.clShadowButton, false)
-
-                    viewModel.orderItems(OrderPlaceModel(cartData = getCartData(),
-                        paymentId = "123456",
-                        paymentMode = "RazorPay",
-                        paymentStatus="Confirm",
-                        saveAmount=saveTotal,
-                        subTotal=subTotal,
-                        tax = saveEatFees?.plus(taxes?:0.0),
-                        total=finalTotal,
-                        token= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken),
-                        userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id),
-                        saveEatFees=saveEatFees,taxes=taxes))
+                RazorPay().payload(requireActivity(), Settings.Secure.getString(requireActivity().contentResolver, Settings.Secure.ANDROID_ID),finalTotal?.roundOffDecimal())
+                buttonLoader(binding.clShadowButton, false)
                 }else{
                     buttonLoader(binding.clShadowButton, false)
             }

@@ -53,7 +53,7 @@ class OTPVerificationActivity : BaseActivity<ActivityOtpverificationBinding>(), 
     private var countDownTimer : CountDownTimer?=null
     private val viewModel: OTPViewModel by viewModels()
 
-    private val OTP_TIMER: Long=119000
+    private val OTP_TIMER: Long=59000
     private val OTP_TIMER_DELAY: Long=1000
     override fun getActivityBinding(): ActivityOtpverificationBinding = ActivityOtpverificationBinding.inflate(layoutInflater)
 
@@ -235,7 +235,9 @@ class OTPVerificationActivity : BaseActivity<ActivityOtpverificationBinding>(), 
 
     override fun onStop() {
         super.onStop()
-        this.unregisterReceiver(smsReceiver)
+        if(smsReceiver!=null){
+            try{ this.unregisterReceiver(smsReceiver) }catch (e : Exception){ }
+        }
     }
 
     override fun onFailure(p0: Exception) { Log.e(TAG(this),p0.message?:"") }
