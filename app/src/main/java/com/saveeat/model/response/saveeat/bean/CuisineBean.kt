@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CuisineBean(
-    var check: Boolean,
+    var check: Boolean=false,
     val _id: String,
     val name: String?
 ) : Parcelable

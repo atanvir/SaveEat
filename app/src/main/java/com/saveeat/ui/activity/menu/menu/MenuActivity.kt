@@ -23,25 +23,23 @@ import kotlinx.coroutines.launch
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import com.saveeat.BuildConfig
 import com.saveeat.model.request.cart.CartRequestCount
+import com.saveeat.model.request.filter.FilterRequestModel
 import com.saveeat.model.request.menu.MenuBrandModel
-import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
+import com.saveeat.model.response.saveeat.menu.MenuRestaurantModel
 import com.saveeat.repository.cache.PreferenceKeyConstants._id
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
 import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.ui.activity.main.MainActivity
-import com.saveeat.ui.adapter.restaurant.SavedRestaurantAdapter
 import com.saveeat.ui.bottomsheet.menu.search.SearchBottomSheet
 import com.saveeat.ui.bottomsheet.restaurant.RestaurantBottomSheet
 import com.saveeat.utils.application.KeyConstants.BOTH
 import com.saveeat.utils.application.KeyConstants.BRAND
 import com.saveeat.utils.application.KeyConstants.RESTAURANT
 import com.saveeat.utils.application.KeyConstants.VEG
-import com.saveeat.utils.extn.queryChanged
 
 
 @AndroidEntryPoint
@@ -56,18 +54,22 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
     override fun getActivityBinding(): ActivityMenuBinding = ActivityMenuBinding.inflate(layoutInflater)
 
     override fun inits() {
-
-//        startShimmerAnimation()
         binding.clShimmer.shimmerContainer.visibility=View.VISIBLE
         binding.clShimmer.shimmerContainer.startShimmer()
 
         if(intent.getStringExtra("type").equals(RESTAURANT,true)) {
-            viewModel.getMenuList(MenuListModel(menuId = intent.getStringExtra("_id"),
-                                                latitude= getPrefrenceStringValue(this@MenuActivity, latitude),
-                                                longitude= getPrefrenceStringValue(this@MenuActivity, longitude),
-                                                userId = getPrefrenceStringValue(this@MenuActivity, _id),
-                                                token = getPrefrenceStringValue(this@MenuActivity, jwtToken),
-                                                foodType = BOTH))
+           var model= intent?.getParcelableExtra<FilterRequestModel?>("filter")
+            if(model!=null){
+                model?.menuId=intent.getStringExtra("_id")?:""
+                viewModel.getMenuListByFilter(model)
+            }else{
+                viewModel.getMenuList(MenuListModel(menuId = intent.getStringExtra("_id"),
+                                                    latitude= getPrefrenceStringValue(this@MenuActivity, latitude),
+                                                    longitude= getPrefrenceStringValue(this@MenuActivity, longitude),
+                                                    userId = getPrefrenceStringValue(this@MenuActivity, _id),
+                                                    token = getPrefrenceStringValue(this@MenuActivity, jwtToken),
+                                                    foodType = BOTH))
+            }
         }
         else if(intent?.getStringExtra("type").equals(BRAND,ignoreCase = true)){
             viewModel.nearByRestaurantDetail(MenuBrandModel(longitude= getPrefrenceStringValue(this@MenuActivity, longitude),
@@ -141,36 +143,8 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
 
     override fun observer() {
         lifecycleScope.launch {
-            viewModel.getMenuList.observe(this@MenuActivity,{
-                stopShimmer()
-                when (it) {
-                    is Resource.Success -> {
-                        if(KeyConstants.SUCCESS==it.value?.status?:0) {
-                            var data=it.value?.data
-                            data?.menu=true
-                            binding.model=data
-
-                            cuisineList=it?.value?.data?.cuisineList
-                            cuisineList?.add(0,CuisineBean(check = true,_id = "123",name = "All"))
-                            binding.rvMenuCategories.layoutManager=LinearLayoutManager(this@MenuActivity,LinearLayoutManager.HORIZONTAL,false)
-                            binding.rvMenuCategories.adapter=MenuCategoryAdapter(this@MenuActivity,cuisineList,this@MenuActivity)
-                            menuProductDataList=it.value?.data?.itemData
-                            menuProductDataList?.add(0,MenuItemProductModel(itemList = it.value?.data?.itemListAll,cuisineId = "123",cuisineName = "Selling Price",fullPriceItems = it.value?.data?.fullPriceItemsList))
-
-
-                            loadDataByIndex(0)
-                            binding.clFooter.clFootMain.visibility=View.VISIBLE
-                            if(cartCountRestro==false){
-                                viewModel.cartCountParticularRestro(CartRequestCount(restaurantId=binding?.model?.restroObj?.restroData?._id,token = getPrefrenceStringValue(this@MenuActivity, jwtToken),userId = getPrefrenceStringValue(this@MenuActivity, _id)))
-                            }
-                            cartCountRestro=true
-
-                        }
-                        else if(KeyConstants.FAILURE<=it.value?.status?:0) { stopShimmer(); ErrorUtil.snackView(binding.root, it.value?.message ?: "") }
-                    }
-                    is Resource.Failure -> { stopShimmer(); ErrorUtil.handlerGeneralError(binding.root, it.throwable!!) }
-                }
-            })
+            viewModel.getMenuList.observe(this@MenuActivity,{ loadMenuData(it) })
+            viewModel.getMenuListByFilter.observe(this@MenuActivity,{ loadMenuData(it) })
             viewModel.cartCountParticularRestro.observe(this@MenuActivity,{
                 when (it) {
                     is Resource.Success -> {
@@ -224,9 +198,39 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
         }
     }
 
+    private fun loadMenuData(it: Resource<MenuRestaurantModel?>?) {
+    stopShimmer()
+    when (it) {
+        is Resource.Success -> {
+            if(KeyConstants.SUCCESS==it.value?.status?:0) {
+                var data=it.value?.data
+                data?.menu=true
+                binding.model=data
+
+                cuisineList=it?.value?.data?.cuisineList
+                cuisineList?.add(0,CuisineBean(check = true,_id = "123",name = "All"))
+                binding.rvMenuCategories.layoutManager=LinearLayoutManager(this@MenuActivity,LinearLayoutManager.HORIZONTAL,false)
+                binding.rvMenuCategories.adapter=MenuCategoryAdapter(this@MenuActivity,cuisineList,this@MenuActivity)
+                menuProductDataList=it.value?.data?.itemData
+                menuProductDataList?.add(0,MenuItemProductModel(itemList = it.value?.data?.itemListAll,cuisineId = "123",cuisineName = "Selling Price",fullPriceItems = it.value?.data?.fullPriceItemsList))
+
+
+                loadDataByIndex(0)
+                binding.clFooter.clFootMain.visibility=View.VISIBLE
+                if(cartCountRestro==false){
+                    viewModel.cartCountParticularRestro(CartRequestCount(restaurantId=binding?.model?.restroObj?.restroData?._id,token = getPrefrenceStringValue(this@MenuActivity, jwtToken),userId = getPrefrenceStringValue(this@MenuActivity, _id)))
+                }
+                cartCountRestro=true
+
+            }
+            else if(KeyConstants.FAILURE<=it.value?.status?:0) { stopShimmer(); ErrorUtil.snackView(binding.root, it.value?.message ?: "") }
+        }
+        is Resource.Failure -> { stopShimmer(); ErrorUtil.handlerGeneralError(binding.root, it.throwable!!) }
+    }
+}
+
+
     private fun loadDataByIndex(position: Int) {
-
-
         if(menuProductDataList?.get(position)?.itemList?.size?:0==0) binding.tvSellingPrice.visibility=View.GONE
         else binding.tvSellingPrice.visibility=View.GONE
         binding.rvSellingPrice.layoutManager=GridLayoutManager(this@MenuActivity,2)
@@ -260,7 +264,7 @@ class MenuActivity : BaseActivity<ActivityMenuBinding>(), View.OnClickListener, 
         when(v?.id){
 
             R.id.clViewCart ->{
-               startActivity(Intent(this,MainActivity::class.java).putExtra("menu",true))
+               startActivity(Intent(this, MainActivity::class.java).putExtra("menu",true))
             }
 
             R.id.tvProductName ->{

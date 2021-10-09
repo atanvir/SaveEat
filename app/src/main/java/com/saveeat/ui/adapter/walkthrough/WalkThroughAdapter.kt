@@ -10,6 +10,7 @@ import com.saveeat.databinding.AdapterWalkThroughBinding
 import com.saveeat.model.request.walkthrough.WalkThroughModel
 
 class WalkThroughAdapter(val context: Context, val list: MutableList<WalkThroughModel?>?) : PagerAdapter() {
+   
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val binding=AdapterWalkThroughBinding.inflate(LayoutInflater.from(context),container,false)
         binding.data=list?.get(position)

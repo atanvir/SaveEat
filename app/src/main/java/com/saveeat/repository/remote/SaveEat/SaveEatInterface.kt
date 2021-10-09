@@ -8,11 +8,14 @@ import com.saveeat.model.request.cart.CartCount
 import com.saveeat.model.request.cart.CartRequestCount
 import com.saveeat.model.request.cart.CartRequestModel
 import com.saveeat.model.request.cart.UpdateCartModel
-import com.saveeat.model.request.main.favourite.FavouriteModel
+import com.saveeat.model.request.filter.FilterRequestModel
+import com.saveeat.model.request.filter.SubCategoryModel
 import com.saveeat.model.response.saveeat.auth.AuthModel
 import com.saveeat.model.response.saveeat.location.LocationModel
 import com.saveeat.model.request.profile.ProfileModel
 import com.saveeat.model.request.main.home.CommonHomeModel
+import com.saveeat.model.request.main.search.GlobalSearchModel
+import com.saveeat.model.request.main.search.SaveRecentSearch
 import com.saveeat.model.request.menu.MenuBrandModel
 import com.saveeat.model.request.menu.MenuItemDetailModel
 import com.saveeat.model.request.menu.MenuListModel
@@ -24,7 +27,10 @@ import com.saveeat.model.request.rating.RatingModel
 import com.saveeat.model.response.saveeat.badge.BadgeModel
 import com.saveeat.model.response.saveeat.cart.CartModel
 import com.saveeat.model.response.saveeat.cart.DeleteItemCart
+import com.saveeat.model.response.saveeat.main.filter.FilterCuisinesModel
+import com.saveeat.model.response.saveeat.main.filter.FilterSubCategoryModel
 import com.saveeat.model.response.saveeat.main.home.HomeModel
+import com.saveeat.model.response.saveeat.main.search.SearchModel
 import com.saveeat.model.response.saveeat.menu.MenuRestaurantModel
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ADD_TO_CART
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ADD_TO_FAVOURITE
@@ -37,23 +43,32 @@ import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CART_LIST
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CHANGE_MOBILE_NUMBER
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CHECK_MOBILE_AND_EMAIL
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CHECK_MOBILE_FORGOT_PASSWORD
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CUISINE_LIST
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.CUISINE_SUB_CATEGORY
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.FILTER
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.FORGOT_PASSWORD
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.GLOBAL_SEARCH
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.LOGIN
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.LOGIN_BY_OTP
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.LOGOUT
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.MENU_ITEM_DETAIL
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.MENU_LIST
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.MENU_LIST_FILTER
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.NEAR_BY_RESTAURANT
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.NEW_RESTAURANT_HOME
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ORDER_CANCEL
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ORDER_LIST
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ORDER_PLACE
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.POPULAR_CUISINES
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.POPULAR_RESTAURANT_HOME
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.RATING_BY_USER
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.RECENT_SEARCH
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.REMOVE_CART
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.RESTAURANT_DETAIL
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.RESTAURANT_HOME
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.SAVE_PRODUCTS_HOME
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.SAVE_RECENT_SEARCH
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.SEARCH_SUGGESTION
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.SIGNUP
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.UPDATE_ADDRESS
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.UPDATE_CART
@@ -128,6 +143,9 @@ interface SaveEatInterface {
     @POST(MENU_LIST)
     suspend fun getMenuList(@Body model: MenuListModel?,@Header("Authorization") token: String?)  :  MenuRestaurantModel?
 
+    @POST(MENU_LIST_FILTER)
+    suspend fun getMenuListByFilter(@Body model: FilterRequestModel?,@Header("Authorization") token: String?)  :  MenuRestaurantModel?
+
 
     @POST(NEAR_BY_RESTAURANT)
     suspend fun nearByRestaurantDetail(@Body model: MenuBrandModel?, @Header("Authorization") token: String?)  :  MenuRestaurantModel?
@@ -176,6 +194,37 @@ interface SaveEatInterface {
 
     @POST(LOGIN_BY_OTP)
     suspend fun loginByOtp(@Body model: LoginOTPModel?) : AuthModel?
+
+
+    @POST(POPULAR_CUISINES)
+    suspend fun popularCuisineProducts(@Body model: CommonHomeModel?,  @Header("Authorization") token: String?) : SearchModel?
+
+
+
+    @POST(RECENT_SEARCH)
+    suspend fun getRecentSearch(@Body model: CommonHomeModel?,  @Header("Authorization") token: String?) : SearchModel?
+
+
+    @POST(SEARCH_SUGGESTION)
+    suspend fun searchSuggestions(@Body model: GlobalSearchModel?,  @Header("Authorization") token: String?) : com.saveeat.model.response.saveeat.main.search.GlobalSearchModel?
+
+
+    @POST(GLOBAL_SEARCH)
+    suspend fun globalSearch(@Body model: GlobalSearchModel?,  @Header("Authorization") token: String?) : com.saveeat.model.response.saveeat.main.search.GlobalSearchModel?
+
+
+    @POST(SAVE_RECENT_SEARCH)
+    suspend fun saveRecentSearch(@Body model: SaveRecentSearch?) : SearchModel?
+
+    @GET(CUISINE_LIST)
+    suspend fun cuisineList() : FilterCuisinesModel?
+
+    @POST(CUISINE_SUB_CATEGORY)
+    suspend fun cuisineSubCategory(@Body model: SubCategoryModel?, @Header("Authorization") token: String?) : FilterCuisinesModel?
+
+
+    @POST(FILTER)
+    suspend fun restaurantFilter(@Body model: FilterRequestModel?, @Header("Authorization") token: String?) : HomeModel?
 
 
 }

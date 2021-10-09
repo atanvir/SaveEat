@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
+import com.ozcanalasalvar.library.view.popup.TimePickerPopup
 import com.saveeat.R
 import com.saveeat.databinding.AdapterCartBinding
 import com.saveeat.model.response.saveeat.cart.CartDataModel
@@ -19,9 +20,6 @@ import com.saveeat.utils.application.CustomTimePicker
 
 class TimePickerFragment(var binding: AdapterCartBinding, var data : CartDataModel?,var maxTime: Date?) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
     private var dateTimeFormat=SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
-    private var dateFormat=SimpleDateFormat("yyyy-MM-dd")
-    private var hourFormat=SimpleDateFormat("hh")
-    private var minFormat=SimpleDateFormat("hh")
     val currentTime=Calendar.getInstance()
 
     private var weekDateFormat=SimpleDateFormat("EEEE", Locale.US)

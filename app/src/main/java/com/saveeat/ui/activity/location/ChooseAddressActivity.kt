@@ -179,7 +179,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             PrefrencesHelper.saveUserData(this@ChooseAddressActivity, it.value?.data)
-                            startActivity(Intent(this@ChooseAddressActivity,MainActivity::class.java))
+                            startActivity(Intent(this@ChooseAddressActivity, MainActivity::class.java))
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) snackView(binding.root,it.value?.message?:"")
                     }
@@ -194,7 +194,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding>(), GPSP
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             updateLocation(this@ChooseAddressActivity,data as LocationModel)
                             finish()
-                            startActivity(Intent(this@ChooseAddressActivity,MainActivity::class.java))
+                            startActivity(Intent(this@ChooseAddressActivity, MainActivity::class.java))
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) snackView(binding.root,it.value?.message?:"")
                     }

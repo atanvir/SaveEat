@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 class HomeRepository @Inject constructor(private val apiInterface: SaveEatInterface) : BaseRepository() {
 
-    suspend fun moreSaveProductList(model: CommonHomeModel?) =safeApiCall{
-        apiInterface.moreSaveProductList(model,model?.token)
-    }
+        suspend fun moreSaveProductList(model: CommonHomeModel?) =safeApiCall{
+            apiInterface.moreSaveProductList(model,model?.token)
+        }
 
 
     suspend fun restaurantForHomeList(model: CommonHomeModel?) =safeApiCall{

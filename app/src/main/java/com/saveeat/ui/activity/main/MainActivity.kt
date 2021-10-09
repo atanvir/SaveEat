@@ -28,24 +28,17 @@ import com.saveeat.utils.extn.loadProfilePic
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import android.location.Geocoder
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ui.NavigationUI
 import com.saveeat.repository.cache.PreferenceKeyConstants
-import com.saveeat.repository.cache.PrefrencesHelper
-import com.saveeat.ui.adapter.cart.CartAdapter
-import com.saveeat.ui.fragment.main.cart.CartViewModel
 import com.saveeat.utils.application.CustomLoader
 import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.KeyConstants
 import com.saveeat.utils.application.Resource
 import kotlinx.coroutines.launch
 
-import com.google.android.material.badge.BadgeDrawable
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
@@ -53,10 +46,7 @@ import com.razorpay.PaymentResultWithDataListener
 //import com.razorpay.Checkout
 //import com.razorpay.PaymentResultListener
 
-import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceBooleanValue
 import com.saveeat.repository.cache.PrefrencesHelper.writePrefrencesValue
-import com.saveeat.ui.fragment.main.cart.CartFragment
-import com.saveeat.utils.extn.snack
 import kotlin.math.roundToInt
 
 
@@ -65,7 +55,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
 
     private lateinit var navController : NavController
     private val viewModel : MainViewModel by viewModels()
-
 
     override fun getActivityBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -97,6 +86,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
             tvAddress.setOnClickListener(this@MainActivity)
             tvKMDropDown.setOnClickListener(this@MainActivity)
         }
+
         binding.bottomNavigationView.setOnNavigationItemSelectedListener  { item ->
             try{
             if(item.itemId != binding.bottomNavigationView.selectedItemId) NavigationUI.onNavDestinationSelected(item, navController)

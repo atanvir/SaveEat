@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.filter.FilterActivity">
+
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/layout_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/guideBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guideEnd"
+        app:layout_constraintStart_toStartOf="@+id/guideStart"
+        app:layout_constraintTop_toBottomOf="@+id/include">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/textView50"
+                style="@style/poppin_semi_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawableStart="@drawable/group_34830"
+                android:drawablePadding="10dp"
+                android:text="Ratings"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView50" />
+
+
+            <TextView
+                android:id="@+id/tvPriceRange"
+                style="@style/poppin_semi_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableStart="@drawable/group_34837"
+                android:drawablePadding="10dp"
+                android:text="Price Range"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvRating" />
+
+
+            <com.google.android.material.slider.RangeSlider
+                android:id="@+id/seekbarPriceRange"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:valueFrom="0"
+                android:valueTo="100"
+                app:values="@array/initial_slider_values"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPriceRange"
+                />
+
+
+            <TextView
+                android:id="@+id/tvMinPrice"
+                style="@style/inter_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="₹200"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seekbarPriceRange" />
+
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cbVeg"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:layout_marginTop="14dp"
+                style="@style/poppin_regular"
+                android:text="@string/veg"
+                android:buttonTint="@color/app_theme"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvMinPrice" />
+
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cbNonVeg"
+                style="@style/poppin_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:layout_marginStart="24dp"
+                android:buttonTint="@color/app_theme"
+                android:text="No Veg"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_14sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/cbVeg"
+                app:layout_constraintStart_toEndOf="@+id/cbVeg" />
+
+
+
+
+
+            <TextView
+                android:id="@+id/textView51"
+                style="@style/poppin_semi_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableStart="@drawable/group_34824"
+                android:drawablePadding="10dp"
+                android:text="Cuisines Category"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cbVeg" />
+
+
+            <TextView
+                android:id="@+id/tvMaxPrice"
+                style="@style/inter_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="₹2500"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/seekbarPriceRange"
+                app:layout_constraintTop_toBottomOf="@+id/seekbarPriceRange" />
+
+            <TextView
+                android:id="@+id/tvSubCategory"
+                style="@style/poppin_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/drawable_background"
+                android:drawableEnd="@drawable/bitmap_arrow_frwd"
+                android:padding="10dp"
+                android:paddingStart="11dp"
+                android:paddingEnd="10dp"
+                android:hint="Select Sub Category"
+                android:textColorHint="@color/grey_2"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLabelCuisinesCategory" />
+
+
+            <TextView
+                android:id="@+id/tvCuisinesCategory"
+                style="@style/poppin_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/drawable_background"
+                android:drawableEnd="@drawable/bitmap_arrow_frwd"
+                android:padding="10dp"
+                android:paddingStart="11dp"
+                android:paddingEnd="10dp"
+                android:hint="Select Cuisines Category"
+                android:textSize="12sp"
+                android:textColorHint="#B7B7B7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView51" />
+
+
+            <TextView
+                android:id="@+id/tvLabelCuisinesCategory"
+                style="@style/poppin_semi_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableStart="@drawable/group_34824"
+                android:drawablePadding="10dp"
+                android:text="Sub Category"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCuisinesCategory" />
+
+
+            <CheckBox
+                android:id="@+id/cbPickUpAllowance"
+                style="@style/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingStart="4dp"
+                android:text="Only Pickup Later Items"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSubCategory" />
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/clShadowButton"
+        layout="@layout/layout_common_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.07" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.98" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+</layout>

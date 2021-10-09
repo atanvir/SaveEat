@@ -41,6 +41,7 @@ class LoginWithPasswordActivity : BaseActivity<ActivityLoginBinding>(), View.OnC
 
     override fun inits() {
         authToolbar(this)
+
         binding.model= LoginModel(countryCode = "",mobileNumber = "",
                                   password = "",deviceType = DEVICE_TYPE,
                                   deviceToken = getSharedPreferences(PREF_NAME, MODE_PRIVATE)?.getString(deviceToken,"").toString())
@@ -68,7 +69,7 @@ class LoginWithPasswordActivity : BaseActivity<ActivityLoginBinding>(), View.OnC
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             saveUserData(this@LoginWithPasswordActivity,it.value?.data)
-                            startActivity(Intent(this@LoginWithPasswordActivity,MainActivity::class.java))
+                            startActivity(Intent(this@LoginWithPasswordActivity, MainActivity::class.java))
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) ErrorUtil.snackView(binding.root, it.value?.message ?: "")
                     }

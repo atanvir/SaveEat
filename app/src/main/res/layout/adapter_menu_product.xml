@@ -128,7 +128,8 @@
                             android:paddingBottom="@dimen/_1sdp"
                             android:text="@{type.equalsIgnoreCase(`Selling`)?data.leftQuantity>0?data.leftQuantity+` left`:`Nothing left`:data.outOfStock==false?data.leftQuantity+` left`:`Out of stock`}"
                             android:textColor="@color/white"
-                            android:visibility="@{type.equalsIgnoreCase(`Selling`)?View.VISIBLE:View.GONE}"                            android:textSize="@dimen/dimen_10sp"
+                            android:visibility="@{type.equalsIgnoreCase(`Selling`)?View.VISIBLE:View.GONE}"
+                            android:textSize="@dimen/dimen_10sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 

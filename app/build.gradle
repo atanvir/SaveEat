@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId 'com.saveeat'
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName '1.0'
@@ -38,6 +38,7 @@ android {
     }
     buildFeatures {
         dataBinding true
+        viewBinding true
     }
 }
 
@@ -157,6 +158,9 @@ dependencies {
 
     // Razor Pay
     implementation 'com.razorpay:checkout:1.6.8'
+
+    // Date Picker
+    implementation 'com.github.OzcanAlasalvar:DatePicker:1.0.4'
 
 
 

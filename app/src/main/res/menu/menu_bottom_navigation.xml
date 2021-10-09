@@ -18,7 +18,8 @@
         android:title=""
         android:icon="@drawable/drawable_fav_selector"/>
 
-    <item android:id="@+id/search"
+    <item
+        android:id="@+id/searchFragment"
         android:title=""
         android:icon="@drawable/drawable_search_selector"/>
 

@@ -43,7 +43,7 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding>(), TabLay
     }
 
     override fun onBackPressed() {
-        if(intent.getBooleanExtra("cart",false)) startActivity(Intent(this,MainActivity::class.java))
+        if(intent.getBooleanExtra("cart",false)) startActivity(Intent(this, MainActivity::class.java))
         else super.onBackPressed()
     }
 }

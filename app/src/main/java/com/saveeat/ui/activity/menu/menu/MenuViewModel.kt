@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.saveeat.model.request.cart.CartCount
 import com.saveeat.model.request.cart.CartRequestCount
+import com.saveeat.model.request.filter.FilterRequestModel
 import com.saveeat.model.request.menu.MenuBrandModel
 import com.saveeat.model.request.menu.MenuListModel
 import com.saveeat.model.request.menu.MenuModel
@@ -27,6 +28,10 @@ class MenuViewModel @Inject constructor(private val repository: MenuRepository) 
 
     private val _getMenuList : MutableLiveData<Resource<MenuRestaurantModel?>?> = MutableLiveData()
     val getMenuList : LiveData<Resource<MenuRestaurantModel?>?>  get() = _getMenuList
+
+
+    private val _getMenuListByFilter : MutableLiveData<Resource<MenuRestaurantModel?>?> = MutableLiveData()
+    val getMenuListByFilter : LiveData<Resource<MenuRestaurantModel?>?>  get() = _getMenuListByFilter
 
 
     private val _nearByRestaurantDetail : MutableLiveData<Resource<MenuRestaurantModel?>?> = MutableLiveData()
@@ -51,6 +56,13 @@ class MenuViewModel @Inject constructor(private val repository: MenuRepository) 
     fun getMenuList(model: MenuListModel?) {
         viewModelScope.launch {
             _getMenuList.value=repository.getMenuList(model)
+        }
+
+    }
+
+    fun getMenuListByFilter(model: FilterRequestModel?) {
+        viewModelScope.launch {
+            _getMenuListByFilter.value=repository.getMenuListByFilter(model)
         }
 
     }

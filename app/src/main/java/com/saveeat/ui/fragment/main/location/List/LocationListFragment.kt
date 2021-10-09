@@ -88,7 +88,7 @@ class LocationListFragment : BaseFragment<FragmentLocationListBinding>(), (Int) 
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             list=it.value?.data
                             binding.rvListRestro.layoutManager=LinearLayoutManager(requireActivity())
-                            binding.rvListRestro.adapter= RestaurantByLocationAdapter(requireActivity(),list,this@LocationListFragment)
+                            binding.rvListRestro.adapter= RestaurantByLocationAdapter(requireActivity(),list,this@LocationListFragment,"Restaurant")
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) { ErrorUtil.snackView(binding.root, it.value?.message ?: "") }
                     }

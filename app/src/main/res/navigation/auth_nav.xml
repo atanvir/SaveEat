@@ -6,32 +6,50 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/favouriteFragment"
-        android:name="com.saveeat.ui.fragment.main.favourite.FavouriteFragment"
-        android:label="FavouriteFragment"
-        tools:layout="@layout/fragment_favourite"
-        />
-    <fragment
         android:id="@+id/homeFragment"
         android:name="com.saveeat.ui.fragment.main.home.HomeFragment"
-        android:label="HomeFragment"
+        android:label="Home Fragment"
         tools:layout="@layout/fragment_home"
 
         />
     <fragment
         android:id="@+id/locationTabFragment"
         android:name="com.saveeat.ui.fragment.main.location.LocationTabFragment"
-        android:label="LocationTabFragment"
+        android:label="Location Tab Fragment"
         tools:layout="@layout/fragment_tab_location"
 
+        />
+
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.saveeat.ui.fragment.main.favourite.FavouriteFragment"
+        android:label="Favourite Fragment"
+        tools:layout="@layout/fragment_favourite"
         />
 
 
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.saveeat.ui.fragment.main.cart.CartFragment"
-        android:label="LocationTabFragment"
+        android:label="Cart Fragment"
         tools:layout="@layout/fragment_cart"
+
+        />
+
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.saveeat.ui.fragment.main.search.SearchFragment"
+        android:label="Search Fragment"
+        tools:layout="@layout/fragment_search"/>
+
+
+
+    <fragment
+        android:id="@+id/globalSearch"
+        android:name="com.saveeat.ui.fragment.main.search.GlobalSearchFragment"
+        android:label="Global Search"
+        tools:layout="@layout/fragment_global_search"
 
         />
 </navigation>

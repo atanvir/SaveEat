@@ -34,6 +34,7 @@ import com.saveeat.repository.cache.PreferenceKeyConstants.latitude
 import com.saveeat.repository.cache.PreferenceKeyConstants.longitude
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
+import com.saveeat.ui.activity.filter.FilterActivity
 import com.saveeat.ui.activity.location.ChooseAddressActivity
 import com.saveeat.ui.adapter.brand.BrandAdapter
 import com.saveeat.ui.adapter.home.RestaurantHomeAdapter
@@ -87,6 +88,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
     override fun initCtrl() {
         binding.cpType.setOnClickListener(this)
         binding.clShadowButton.ivButton.setOnClickListener(this)
+        binding.ivFilter.setOnClickListener(this)
         binding.rvSaveProducts.addOnScrollListener(saveRestroRecycleviewListner)
         binding.svLocation.addTextChangedListener {
             if(binding.rvSaveProducts.adapter!=null) (binding.rvSaveProducts.adapter as SavedRestaurantAdapter).filter.filter(it)
@@ -313,16 +315,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
                 }
                 binding.cpType.setTextColor(ContextCompat.getColor(requireActivity(),R.color.white))
             }
+
+            R.id.ivFilter ->{ startActivity(Intent(requireActivity(),FilterActivity::class.java)) }
         }
     }
 
     override fun invoke(position: Int, type: String?) {
-        this.type=type
-        this.position=position
-        when(type){
-            "Popular" ->{ viewModel?.addToFavourite(popularRestraurantList?.get(position)?._id, getPrefrenceStringValue(requireActivity(), jwtToken)) }
-            "All" ->{ viewModel?.addToFavourite(allRestraurantList?.get(position)?._id, getPrefrenceStringValue(requireActivity(), jwtToken)) }
-        }
+
     }
 
     private var laucher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ it->

@@ -25,4 +25,9 @@ object PreferenceKeyConstants {
     const val walkthrow : String="walkthrow"
     const val login : String="login"
 
+    const val about_us : String="About Us"
+    const val term_condition : String="Terms and Conditions"
+    const val privacy_policy : String="Privacy Policy"
+    const val refund_cancellation : String="Refund and Cancellation"
+
 }

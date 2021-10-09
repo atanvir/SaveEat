@@ -179,6 +179,19 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <CheckBox
+                    android:id="@+id/chBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12dp"
+                    style="@style/poppin_semi_bold"
+                    android:buttonTint="@color/app_theme"
+                    android:text="I accept all Terms &amp; Conditions \nand Privacy Policy"
+                    app:layout_constraintEnd_toStartOf="@+id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@+id/guideStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tilPhoneNo" />
+
                 <include
                     android:id="@+id/clShadowButton"
                     layout="@layout/layout_common_button"
@@ -186,7 +199,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toStartOf="@+id/guideEnd"
                     app:layout_constraintStart_toStartOf="@+id/guideStart"
-                    app:layout_constraintTop_toBottomOf="@+id/tilPhoneNo" />
+                    app:layout_constraintTop_toBottomOf="@+id/chBox" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout

@@ -9,7 +9,6 @@ import com.saveeat.databinding.ActivitySplashBinding
 import com.saveeat.repository.cache.PreferenceKeyConstants.login
 import com.saveeat.repository.cache.PreferenceKeyConstants.walkthrow
 import com.saveeat.ui.activity.auth.login.otp.LoginWithOTPActivity
-import com.saveeat.ui.activity.auth.login.password.LoginWithPasswordActivity
 import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.activity.walkthrough.WalkThroughActivity
 import com.saveeat.utils.application.KeyConstants.PREF_NAME

@@ -75,6 +75,7 @@ data class RestaurantResponseBean(
     var todayData: TodayDataModel?,
     var image: String?,
     var mobileNumber: String?,
+    var actualType: String?,
     var webiteLink: String?,
     var cuisineList:  MutableList<CuisineBean?>?,
     var itemData:  MutableList<RestaurantProductModel?>?,

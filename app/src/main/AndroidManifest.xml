@@ -33,18 +33,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveEat"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".ui.activity.filter.FilterResultActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/white_theme"
+            />
+        <activity
+            android:name=".ui.activity.drawer.content.StaticContentActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/white_theme" />
+        <activity
+            android:name=".ui.activity.filter.FilterCategoryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/white_theme" />
+        <activity
+            android:name=".ui.activity.filter.FilterActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/white_theme" />
         <activity
             android:name=".ui.activity.auth.login.otp.LoginWithOTPActivity"
+            android:exported="true"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/light_oragne_theme"
-            android:exported="true" />
-
+            android:theme="@style/light_oragne_theme" />
         <activity
             android:name=".ui.activity.order.checkout.CheckoutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/white_theme" />
-
         <activity
             android:name=".ui.activity.order.status.OrderStatusActivity"
             android:screenOrientation="portrait"
@@ -92,7 +111,8 @@
         <activity
             android:name=".ui.activity.main.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/white_theme" />
+            android:theme="@style/white_theme"
+            android:windowSoftInputMode="adjustNothing" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -115,13 +135,13 @@
         </activity>
         <activity
             android:name=".ui.activity.auth.password.PasswordActivity"
-            android:screenOrientation="portrait"
             android:noHistory="false"
+            android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
             android:name=".ui.activity.auth.signup.SignUpActivity"
-            android:screenOrientation="portrait"
             android:noHistory="false"
+            android:screenOrientation="portrait"
             android:theme="@style/light_oragne_theme" />
         <activity
             android:name=".ui.activity.auth.forgot.ForgotPasswordActivity"
@@ -130,7 +150,7 @@
         <activity
             android:name=".ui.activity.auth.login.password.LoginWithPasswordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/light_oragne_theme"></activity>
+            android:theme="@style/light_oragne_theme" />
         <activity
             android:name=".ui.activity.walkthrough.WalkThroughActivity"
             android:noHistory="true"
@@ -138,6 +158,7 @@
             android:theme="@style/light_oragne_theme" />
         <activity
             android:name=".ui.activity.splash.SplashActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/splashScreenTheme">
             <intent-filter>

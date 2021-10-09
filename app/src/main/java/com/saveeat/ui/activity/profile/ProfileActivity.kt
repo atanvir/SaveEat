@@ -20,7 +20,6 @@ import com.saveeat.repository.cache.PreferenceKeyConstants.countryCode
 import com.saveeat.repository.cache.PreferenceKeyConstants.email
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PreferenceKeyConstants.mobileNumber
-import com.saveeat.repository.cache.PreferenceKeyConstants.name
 import com.saveeat.repository.cache.PreferenceKeyConstants.profilePic
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.repository.cache.PrefrencesHelper.updateUserData
@@ -100,7 +99,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(), View.OnClickList
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             updateUserData(this@ProfileActivity,it.value?.data)
-                            startActivity(Intent(this@ProfileActivity,MainActivity::class.java))
+                            startActivity(Intent(this@ProfileActivity, MainActivity::class.java))
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) ErrorUtil.snackView(binding.root, it.value?.message ?: "")
                     }

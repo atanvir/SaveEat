@@ -26,7 +26,7 @@ fun EditText.onAfterChanged(listener: (String) -> Unit) {
         override fun afterTextChanged(s: Editable?) {
             timer?.cancel()
             timer=null
-            timer=  object :CountDownTimer(1000,1000){
+            timer=  object :CountDownTimer(500,500){
                 override fun onTick(millisUntilFinished: Long) {
 
                 }

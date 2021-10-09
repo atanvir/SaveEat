@@ -14,7 +14,6 @@ import com.saveeat.R
 import com.saveeat.databinding.AdapterRestaurantHomeBinding
 import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
 import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
-import com.saveeat.ui.activity.main.MainActivity
 import com.saveeat.ui.activity.menu.menu.MenuActivity
 import com.saveeat.ui.adapter.restaurant.RestaurantProductHomeAdapter
 import com.saveeat.utils.application.ErrorUtil

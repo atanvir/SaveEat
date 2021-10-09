@@ -8,6 +8,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.viewbinding.ViewBinding
+import com.saveeat.R
+import com.saveeat.databinding.FragmentGlobalSearchBinding
+import com.saveeat.databinding.FragmentSearchBinding
 
 abstract class BaseFragment<B: ViewBinding> : Fragment() {
     protected lateinit var callback: OnBackPressedCallback
@@ -27,7 +30,8 @@ abstract class BaseFragment<B: ViewBinding> : Fragment() {
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 try {
-                    Navigation.findNavController(view).popBackStack()
+                    if(binding is FragmentGlobalSearchBinding) Navigation.findNavController(view).navigate(R.id.searchFragment)
+                    else Navigation.findNavController(view).popBackStack()
                     this.remove()
                 }catch (e: Exception){
                     requireActivity().finish()

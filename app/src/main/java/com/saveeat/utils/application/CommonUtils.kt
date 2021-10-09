@@ -10,6 +10,11 @@ import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.util.DisplayMetrics
 import android.util.Log
@@ -48,6 +53,10 @@ import com.saveeat.repository.cache.PreferenceKeyConstants.deviceToken
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.ui.activity.auth.login.otp.LoginWithOTPActivity
 import com.saveeat.ui.activity.auth.otp.OTPVerificationActivity
+import com.saveeat.ui.activity.drawer.content.StaticContentActivity
+import com.saveeat.ui.activity.filter.FilterActivity
+import com.saveeat.ui.activity.filter.FilterCategoryActivity
+import com.saveeat.ui.activity.filter.FilterResultActivity
 import com.saveeat.ui.activity.rating.RatingActivity
 import com.saveeat.ui.dialog.error.ErrorDialog
 
@@ -134,6 +143,18 @@ object CommonUtils {
         }else if(activity is RatingActivity){
             tvLabel.visibility=View.VISIBLE
             tvLabel.text=activity.getString(R.string.review_rating)
+        }else if(activity is FilterActivity){
+            tvLabel.visibility=View.VISIBLE
+            tvLabel.text=activity.getString(R.string.filter)
+        }else if(activity is FilterCategoryActivity){
+            tvLabel.visibility=View.VISIBLE
+            tvLabel.text=activity.intent.getStringExtra("name")
+        }else if(activity is StaticContentActivity){
+            tvLabel.visibility=View.VISIBLE
+            tvLabel.text=activity.intent.getStringExtra("type")
+        }else if(activity is FilterResultActivity){
+            tvLabel.visibility=View.VISIBLE
+            tvLabel.text=activity.getString(R.string.filter_result)
         }
         else{
             tvLabel.visibility=View.GONE
@@ -384,5 +405,26 @@ object CommonUtils {
             return serverdate.timeInMillis
         }
         else{ return 0 }
+    }
+
+    fun loadTermSpannable(context: Context?) : Spannable {
+        val wordtoSpan: Spannable = SpannableString("I accept all Terms & Conditions and Privacy Policy")
+        wordtoSpan.setSpan(object : ClickableSpan() { override fun onClick(vi: View) {
+            context?.startActivity(Intent(context, StaticContentActivity::class.java).putExtra("type",PreferenceKeyConstants.term_condition))
+        } override fun updateDrawState(ds: TextPaint) { super.updateDrawState(ds) } }, 12, 31, 0)
+        wordtoSpan.setSpan(ForegroundColorSpan(Color.rgb(255,122,44)), 12, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
+
+        wordtoSpan.setSpan(object : ClickableSpan() { override fun onClick(vi: View) {
+            context?.startActivity(Intent(context, StaticContentActivity::class.java).putExtra("type",PreferenceKeyConstants.privacy_policy))
+        } override fun updateDrawState(ds: TextPaint) { super.updateDrawState(ds) } }, 32, wordtoSpan?.length, 0)
+        wordtoSpan.setSpan(ForegroundColorSpan(Color.rgb(255,122,44)), 36, wordtoSpan?.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        wordtoSpan.setSpan(object : ClickableSpan() { override fun onClick(vi: View) {
+        } override fun updateDrawState(ds: TextPaint) { super.updateDrawState(ds)
+            ds.isUnderlineText=false } }, 32, 35, 0)
+        wordtoSpan.setSpan(ForegroundColorSpan(Color.rgb(0,0,0)),32, 35, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        return wordtoSpan
     }
 }

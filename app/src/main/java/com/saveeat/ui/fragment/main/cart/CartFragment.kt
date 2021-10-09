@@ -68,7 +68,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     private var childPositionView : Int?=0
     private var quantity: Int=0
 
-    // Billing
+    // Rating
     var subTotal : Double?=0.0
     var saveEatFees : Double?=0.0
     var saveTotal : Double?=0.0
@@ -79,8 +79,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     private val viewModel : CartViewModel by viewModels()
     private var paymentGatewayResposne: BroadcastReceiver?=null
 
-
-
     val serverFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     val sdf = SimpleDateFormat(serverFormat, Locale.US)
     private var dateTimeFormat=SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
@@ -89,11 +87,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentCartBinding = FragmentCartBinding.inflate(inflater,container,false)
 
     override fun init() {
-
-
         sdf.timeZone = TimeZone.getTimeZone("GMT+05:30")
         dateTimeFormat.timeZone = TimeZone.getTimeZone("GMT+05:30")
-
 
         startAnimation()
         cartListApi()
@@ -295,6 +290,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 binding.clBilling.tvSaveLabel.text = wordtoSpan
 
                 stopAnimation()
+
             }
         }
     }
@@ -389,6 +385,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                                                                           tax=totalTax,
                                                                           timezone=TimeZone.getDefault().id,
                                                                           total=subTotal?.plus(totalTax?:0.0))
+
             model?.total=subTotal?.plus(model?.tax!!)
             returnList?.add(model)
         }

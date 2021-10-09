@@ -10,33 +10,36 @@ import android.view.View
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.crashlytics.internal.common.CommonUtils
+import com.ozcanalasalvar.library.view.datePicker.DatePicker.MONTH_ON_FIRST
+import com.ozcanalasalvar.library.view.popup.DatePickerPopup
 import com.saveeat.R
 import com.saveeat.databinding.AdapterCartBinding
 import com.saveeat.model.response.saveeat.cart.CartDataModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataModel?) : DialogFragment(), DatePickerDialog.OnDateSetListener {
+class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataModel?) : DialogFragment(), DatePickerPopup.OnDateSelectListener {
 
     val calender = Calendar.getInstance()
-
-    val year = calender.get(Calendar.YEAR)
-    val month = calender.get(Calendar.MONTH)
-    val day = calender.get(Calendar.DAY_OF_MONTH)
-
     val serverFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     val sdf = SimpleDateFormat(serverFormat, Locale.US)
-
     var maxTime:Long?=0
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         sdf.timeZone = TimeZone.getTimeZone("GMT+05:30")
         maxTime=calculateMaxDate()
 
-        val datePickerDailog=DatePickerDialog(requireActivity(),AlertDialog.THEME_HOLO_LIGHT, this, year, month, day)
-        datePickerDailog.datePicker?.minDate=calender.timeInMillis
-        if(maxTime?:0>0) datePickerDailog.datePicker?.maxDate=maxTime?:0
-        return datePickerDailog
+       val mp= DatePickerPopup.Builder()
+            .from(requireActivity())
+            .textSize(19)
+            .pickerMode(com.ozcanalasalvar.library.view.datePicker.DatePicker.DAY_ON_FIRST)
+            .darkModeEnabled(true)
+            .currentDate(calender?.timeInMillis?:0)
+            .startDate(calender?.timeInMillis?:0)
+            .endDate(maxTime?:0)
+            .listener(this)
+            .build()
+       return mp
     }
 
     private fun calculateMaxDate(): Long {
@@ -48,8 +51,8 @@ class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
                 if(date?.time?:0>convertedDate.time){ date=convertedDate } }
         }
 
-
         if(date!=null){
+        Log.e("dateMax",""+date)
         val serverdate=Calendar.getInstance()
         serverdate.time=date
         return serverdate.timeInMillis
@@ -57,8 +60,9 @@ class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
         else return 0
     }
 
-    override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
 
+
+    override fun onDateSelected(dp: com.ozcanalasalvar.library.view.datePicker.DatePicker?, date: Long, day: Int, month: Int, year: Int) {
         binding.btnPickNow.text = requireActivity().getString(R.string.pick_up_now)
         val date= SimpleDateFormat("yyyy-MM-dd").parse("${year}-${month+1}-${day}")
 
@@ -66,6 +70,8 @@ class DatePickerFragment(var binding: AdapterCartBinding, var data : CartDataMod
         Log.e("date",data?.pickupDate?:"")
         data?.orderType="Later"
         dismiss()
+
+
 
         TimePickerFragment(binding,data,Date(maxTime!!)).show(requireActivity().supportFragmentManager,"")
     }

@@ -209,11 +209,9 @@
     <dimen name="dimen_500sp">500sp</dimen>
 
 
-
-
-
     <dimen name="dimen_266">266sp</dimen>
     <dimen name="dimen_136">136dp</dimen>
-    <item name="dimen_21" type="dimen" >21sp</item>
-    <item name="dimen_view_line" type="dimen" >0.7dp</item>
+    <item name="dimen_21" type="dimen">21sp</item>
+    <item name="dimen_view_line" type="dimen">0.7dp</item>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

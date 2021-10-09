@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="data"
+            type="com.saveeat.model.request.rating.RatingStarModel" />
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMain"
+        android:layout_width="53dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="11dp"
+        isCheck="@{data.check}"
+        app:layout_constraintEnd_toStartOf="@+id/con_2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView103">
+
+
+        <TextView
+            android:id="@+id/tvStar"
+            style="@style/inter_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:gravity="center"
+            android:drawablePadding="4dp"
+            android:drawableEnd="@{data.check==true?@drawable/path_3389_1:@drawable/path_3389}"
+            android:lineSpacingExtra="4sp"
+            android:text="@{String.valueOf(data.star)}"
+            android:textColor="@{data.check==true?@color/white: @color/black}"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

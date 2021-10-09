@@ -22,6 +22,7 @@ object SaveEatConstant  {
     internal const val RESTAURANT_DETAIL="getRestroDetail"
     internal const val NEAR_BY_RESTAURANT="nearByRestaurantDetail"
     internal const val MENU_LIST="getMenuList"
+    internal const val MENU_LIST_FILTER="getMenuListByFilter"
     internal const val ALL_FAVOURITE="getFavoriteRestaurants"
     internal const val MENU_ITEM_DETAIL="getItemDetail"
     internal const val ADD_TO_CART="addToCart"
@@ -36,5 +37,13 @@ object SaveEatConstant  {
     internal const val RATING_BY_USER="ratingByUser"
     internal const val CART_COUNT_RATIO="cartCountParticularRestro"
     internal const val LOGIN_BY_OTP="loginByOtp"
+    internal const val POPULAR_CUISINES="popularCuisineProducts"
+    internal const val RECENT_SEARCH="getRecentSearch"
+    internal const val GLOBAL_SEARCH="globalSearch"
+    internal const val SEARCH_SUGGESTION="searchSuggestions"
+    internal const val SAVE_RECENT_SEARCH="saveRecentSearch"
+    internal const val CUISINE_LIST="cuisineList"
+    internal const val CUISINE_SUB_CATEGORY="cusineSubCategory"
+    internal const val FILTER="restaurantFilter"
 
 }

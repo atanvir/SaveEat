@@ -9,12 +9,14 @@ import com.saveeat.R
 import com.saveeat.base.BaseActivity
 import com.saveeat.databinding.ActivityDrawerBinding
 import com.saveeat.model.request.badge.BadgeModel
+import com.saveeat.repository.cache.PreferenceKeyConstants
 import com.saveeat.repository.cache.PreferenceKeyConstants._id
 import com.saveeat.repository.cache.PreferenceKeyConstants.jwtToken
 import com.saveeat.repository.cache.PrefrencesHelper
 import com.saveeat.repository.cache.PrefrencesHelper.getPrefrenceStringValue
 import com.saveeat.ui.activity.auth.login.otp.LoginWithOTPActivity
 import com.saveeat.ui.activity.auth.login.password.LoginWithPasswordActivity
+import com.saveeat.ui.activity.drawer.content.StaticContentActivity
 import com.saveeat.ui.activity.drawer.help.HelpActivity
 import com.saveeat.ui.activity.drawer.credit.CreditActivity
 import com.saveeat.ui.activity.drawer.history.OrderHistoryActivity
@@ -45,6 +47,10 @@ class DrawerActivity : BaseActivity<ActivityDrawerBinding>(), View.OnClickListen
         binding.tvOrderDetail.setOnClickListener(this@DrawerActivity)
         binding.tvHiddenLocation.setOnClickListener(this@DrawerActivity)
         binding.tvHelp.setOnClickListener(this@DrawerActivity)
+        binding.tvAboutUs.setOnClickListener(this@DrawerActivity)
+        binding.tvTerm.setOnClickListener(this@DrawerActivity)
+        binding.tvPrivacy.setOnClickListener(this@DrawerActivity)
+        binding.tvRefund.setOnClickListener(this@DrawerActivity)
         binding.tvLogout.setOnClickListener(this@DrawerActivity)
         binding.ivRewards.setOnClickListener(this@DrawerActivity)
         binding.ivBack.setOnClickListener(this@DrawerActivity)
@@ -98,6 +104,11 @@ class DrawerActivity : BaseActivity<ActivityDrawerBinding>(), View.OnClickListen
                 binding.tvLogout.isEnabled=false
                 viewModel.userLogout(getPrefrenceStringValue(this, jwtToken))
             }
+
+            R.id.tvAboutUs ->{ startActivity(Intent(this, StaticContentActivity::class.java).putExtra("type",PreferenceKeyConstants.about_us)) }
+            R.id.tvTerm ->{ startActivity(Intent(this, StaticContentActivity::class.java).putExtra("type",PreferenceKeyConstants.term_condition)) }
+            R.id.tvPrivacy ->{ startActivity(Intent(this, StaticContentActivity::class.java).putExtra("type",PreferenceKeyConstants.privacy_policy)) }
+            R.id.tvRefund ->{ startActivity(Intent(this, StaticContentActivity::class.java).putExtra("type",PreferenceKeyConstants.refund_cancellation)) }
         }
     }
 }

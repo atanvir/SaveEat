@@ -2,6 +2,7 @@ package com.saveeat.ui.activity.menu.menu
 
 import com.saveeat.base.BaseRepository
 import com.saveeat.model.request.cart.CartRequestCount
+import com.saveeat.model.request.filter.FilterRequestModel
 import com.saveeat.model.request.menu.MenuBrandModel
 import com.saveeat.model.request.menu.MenuListModel
 import com.saveeat.model.request.menu.MenuModel
@@ -18,6 +19,13 @@ class MenuRepository @Inject constructor(private val apiInterface: SaveEatInterf
     suspend fun getMenuList(model: MenuListModel?) = safeApiCall{
         apiInterface.getMenuList(model,model?.token)
     }
+
+
+    suspend fun getMenuListByFilter(model: FilterRequestModel?) = safeApiCall{
+        apiInterface.getMenuListByFilter(model,model?.token)
+    }
+
+
 
     suspend fun nearByRestaurantDetail(model: MenuBrandModel?) = safeApiCall{
         apiInterface.nearByRestaurantDetail(model,model?.token)

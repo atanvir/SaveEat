@@ -60,7 +60,6 @@ object PrefrencesHelper {
             putString(countryCode,data?.countryCode?:"")
             putString(mobileNumber,data?.mobileNumber?:"")
         }.apply()
-
     }
 
     fun userLogout(context: Context) {
