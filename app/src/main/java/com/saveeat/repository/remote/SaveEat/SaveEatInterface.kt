@@ -32,6 +32,7 @@ import com.saveeat.model.response.saveeat.main.filter.FilterSubCategoryModel
 import com.saveeat.model.response.saveeat.main.home.HomeModel
 import com.saveeat.model.response.saveeat.main.search.SearchModel
 import com.saveeat.model.response.saveeat.menu.MenuRestaurantModel
+import com.saveeat.model.response.saveeat.wallet.WalletModel
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ADD_TO_CART
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ADD_TO_FAVOURITE
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.ALL_FAVOURITE
@@ -73,6 +74,7 @@ import com.saveeat.repository.remote.SaveEat.SaveEatConstant.SIGNUP
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.UPDATE_ADDRESS
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.UPDATE_CART
 import com.saveeat.repository.remote.SaveEat.SaveEatConstant.UPDATE_PROFILE
+import com.saveeat.repository.remote.SaveEat.SaveEatConstant.USER_DETAIL
 import retrofit2.http.*
 
 
@@ -225,6 +227,10 @@ interface SaveEatInterface {
 
     @POST(FILTER)
     suspend fun restaurantFilter(@Body model: FilterRequestModel?, @Header("Authorization") token: String?) : HomeModel?
+
+
+    @GET(USER_DETAIL)
+    suspend fun getUserDetail(@Header("Authorization") token: String?) : WalletModel?
 
 
 }

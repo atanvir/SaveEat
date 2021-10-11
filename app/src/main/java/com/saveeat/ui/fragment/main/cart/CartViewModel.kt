@@ -10,6 +10,7 @@ import com.saveeat.model.request.order.OrderPlaceModel
 import com.saveeat.model.response.saveeat.cart.CartModel
 import com.saveeat.model.response.saveeat.cart.DeleteItemCart
 import com.saveeat.model.response.saveeat.main.home.HomeModel
+import com.saveeat.model.response.saveeat.wallet.WalletModel
 import com.saveeat.ui.fragment.main.home.HomeRepository
 import com.saveeat.utils.application.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,6 +35,19 @@ class CartViewModel @Inject constructor(private val repository: CartRepository):
 
     private val _orderItems : MutableLiveData<Resource<CartModel??>?> = MutableLiveData()
     val orderItems : LiveData<Resource<CartModel??>?> get() = _orderItems
+
+    private val _getUserDetails : MutableLiveData<Resource<WalletModel?>?> = MutableLiveData()
+    val getUserDetails : LiveData<Resource<WalletModel?>?> get() = _getUserDetails
+
+
+
+    fun getUserDetail(token: String) {
+        viewModelScope.launch {
+            _getUserDetails.value=repository.getUserDetail(token)
+        }
+
+    }
+
 
     fun cartList(model: CartRequestModel?){
         viewModelScope.launch {

@@ -61,6 +61,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     private var clusterItemManager: ClusterManager<ClusterItemAdapter?>?=null
     private var requestModel : CommonHomeModel? =null
     private var list : MutableList<RestaurantResponseBean?>? = ArrayList()
+    private var cloneList : MutableList<RestaurantResponseBean?>? = ArrayList()
     private val viewModel : LocationViewModel by viewModels()
     private var curLatitude : Double?=0.0
     private var curLongitude : Double?=0.0
@@ -68,8 +69,11 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
     private var distanceBroadcast: BroadcastReceiver?=null
 
 
-    var zoomLevel=14f
-    var isCurrentLocationEnable=false
+    private var zoomLevel=14f
+    private var isCurrentLocationEnable=false
+
+    private var isSearch=false
+    private var searckKey: String?=null
 
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLocationMapBinding = FragmentLocationMapBinding.inflate(inflater,container)
@@ -97,9 +101,17 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
         lifecycleScope.launch {
             distanceBroadcast = object : BroadcastReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
+                    if (intent.getBooleanExtra("update", false)) {
+                        isSearch = true
+                        searckKey = intent.getStringExtra("search")
+//                        showLoader(requireActivity())
+                        restaurantApi(latitude = getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.latitude).toDouble(),
+                                      longitude = getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.longitude).toDouble()
+                        )
+                    } else{
                     showLoader(requireActivity())
                     restaurantApi(latitude= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.latitude).toDouble(),
-                                  longitude= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.longitude).toDouble())
+                                  longitude= getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.longitude).toDouble())}
                 }
             }
 
@@ -114,11 +126,20 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
                                     clusterItemManager?.clearItems()
                                     list?.clear()
                                     list = it?.value?.data
+                                    cloneList = it?.value?.data
                                     val latLngBounds = LatLngBounds.Builder()
                                     for (i in list?.indices!!) {
-                                        it.value?.data?.get(i)?.bitmap= BitmapFactory.decodeStream(URL(it.value?.data?.get(i)?.logo).openConnection().getInputStream())
-                                        clusterItemManager?.addItem(ClusterItemAdapter(it.value?.data?.get(i)))
-                                        latLngBounds.include(LatLng(list?.get(i)?.latitude ?: 0.0, list?.get(i)?.longitude ?: 0.0))
+                                        if(isSearch){
+                                            if(list?.get(i)?.businessName?.contains(searckKey?:"",ignoreCase = true)==true){
+                                                it.value?.data?.get(i)?.bitmap= BitmapFactory.decodeStream(URL(it.value?.data?.get(i)?.logo).openConnection().getInputStream())
+                                                clusterItemManager?.addItem(ClusterItemAdapter(it.value?.data?.get(i)))
+                                                latLngBounds.include(LatLng(list?.get(i)?.latitude ?: 0.0, list?.get(i)?.longitude ?: 0.0))
+                                            }
+                                        }else{
+                                            it.value?.data?.get(i)?.bitmap= BitmapFactory.decodeStream(URL(it.value?.data?.get(i)?.logo).openConnection().getInputStream())
+                                            clusterItemManager?.addItem(ClusterItemAdapter(it.value?.data?.get(i)))
+                                            latLngBounds.include(LatLng(list?.get(i)?.latitude ?: 0.0, list?.get(i)?.longitude ?: 0.0))
+                                        }
                                     }
                                     }catch (e: Exception){
                                         e.printStackTrace()
@@ -128,7 +149,12 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
                                     hideLoader()
                                     clusterItemManager?.cluster()
                                     binding.rvRestaurant.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
-                                    binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),list)
+                                    binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),list,cloneList)
+
+                                    if(isSearch){
+                                        isSearch=false
+                                        ( binding.rvRestaurant.adapter as MapRestaurantAdapter).filter.filter(searckKey)
+                                    }
                                     if(isCurrentLocationEnable){
                                         isCurrentLocationEnable=false
                                         updateCameraPoistion(12f)
@@ -210,7 +236,7 @@ class LocationMapFragment : BaseFragment<FragmentLocationMapBinding>(), OnMapRea
             mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngBounds.build().center, 12f))
 
             binding.rvRestaurant.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
-            binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),list)
+            binding.rvRestaurant.adapter=MapRestaurantAdapter(requireActivity(),list,cloneList)
 
             true
         }

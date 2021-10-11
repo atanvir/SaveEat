@@ -5,5 +5,9 @@ data class BadgeData(
     val badgeCount: Int,
     val image: String,
     val message: String,
-    val name: String
+    val name: String,
+    val greyContent: String,
+    val fullColorContent: String,
+    val emojiGrey: String,
+    val emojiColor: String,
 )

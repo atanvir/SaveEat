@@ -36,14 +36,13 @@ import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class FilterActivity : BaseActivity<ActivityFilterBinding>(), View.OnClickListener,
-    RangeSlider.OnChangeListener {
+class FilterActivity : BaseActivity<ActivityFilterBinding>(), View.OnClickListener, RangeSlider.OnChangeListener {
     private var ratingList: MutableList<RatingStarModel?>?=ArrayList()
     private val viewModel : FilterViewModel by viewModels()
     private var cuisineList : MutableList<CuisineBean?>?= ArrayList()
     private var cuisinesCategoryList : MutableList<CuisineBean?>?= ArrayList()
 
-    private var minPrice : Int = 0
+    private var minPrice : Int = 20
     private var maxPrice : Int = 2000
 
     private var filterRequestModel: FilterRequestModel?=null
@@ -67,7 +66,7 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(), View.OnClickListen
     }
 
     override fun initCtrl() {
-
+        binding.tvReset.setOnClickListener(this)
         binding.tvSubCategory.setOnClickListener(this)
         binding.tvCuisinesCategory.setOnClickListener(this)
         binding.clShadowButton.ivButton.setOnClickListener(this)
@@ -104,6 +103,8 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(), View.OnClickListen
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             cuisinesCategoryList=it?.value?.data
+                            cuisinesCategoryList=cuisinesCategoryList?.distinctBy { Pair(it?.name, it?.name) }?.toMutableList()
+
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) { ErrorUtil.snackView(binding.root, it.value?.message ?: "") }
                     }
@@ -115,6 +116,41 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(), View.OnClickListen
 
     override fun onClick(v: View?) {
         when(v?.id){
+
+            R.id.tvReset ->{
+
+                // Rating
+                for(i in ratingList?.indices!!){
+                    ratingList?.get(i)?.check=false
+                }
+                binding.rvRating.adapter?.notifyDataSetChanged()
+
+                // Price Range
+
+                binding.seekbarPriceRange.values[0] = 0.0f
+                binding.seekbarPriceRange.values[1] = 100.0f
+
+
+                // Food Type
+                binding.cbVeg.isChecked=false
+                binding.cbNonVeg.isChecked=false
+
+                // Cuisines
+
+                for(i in cuisineList?.indices!!){
+                    cuisineList?.get(i)?.check=false
+                }
+                binding.tvCuisinesCategory.text=""
+
+                // Sub Category
+                for(i in cuisinesCategoryList?.indices!!){
+                    cuisinesCategoryList?.get(i)?.check=false
+                }
+                binding.tvSubCategory.text=""
+
+                // Picked Up Allowance
+                binding.cbPickUpAllowance.isChecked=false
+            }
             R.id.tvSubCategory -> {
                 val intent=Intent(this@FilterActivity,FilterCategoryActivity::class.java)
                 intent.putExtra("name","Sub Category")
@@ -131,7 +167,7 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(), View.OnClickListen
             R.id.ivButton -> {
                 buttonLoader(binding.clShadowButton, true)
                 filterRequestModel=FilterRequestModel(cuisines = getSelectedCuisines(),
-                                                      distance = /*PrefrencesHelper.getPrefrenceStringValue(this, PreferenceKeyConstants.distance)*/"1000",
+                                                      distance = PrefrencesHelper.getPrefrenceStringValue(this, PreferenceKeyConstants.distance),
                                                       foodType=getFoodType(),
                                                       latitude = PrefrencesHelper.getPrefrenceStringValue(this, PreferenceKeyConstants.latitude).toDouble(),
                                                       longitude = PrefrencesHelper.getPrefrenceStringValue(this, PreferenceKeyConstants.longitude).toDouble(),
@@ -177,6 +213,11 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(), View.OnClickListen
                 list?.add(cuisineList?.get(i)?.name)
                 cuisinesDataId?.add(cuisineList?.get(i)?._id)
             } }
+
+            for(i in cuisinesCategoryList?.indices!!){
+                cuisinesCategoryList?.get(i)?.check=false
+            }
+            binding.tvSubCategory.text=""
             if(list?.isNotEmpty()==true) binding.tvCuisinesCategory.text=TextUtils.join(", ", list!!)
             else binding.tvCuisinesCategory.text=""
 

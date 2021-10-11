@@ -78,7 +78,6 @@
                 tools:context=".ui.fragment.main.cart.CartFragment">
 
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvProducts"
                     android:layout_width="0dp"
@@ -107,6 +106,20 @@
                     app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
                     app:layout_constraintTop_toBottomOf="@+id/rvProducts"
                     app:layout_constraintVertical_bias="0.0" />
+
+                <CheckBox
+                    android:id="@+id/cbCreditWallet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/app_theme"
+                    android:text="Avaialable credit balance ₹ 0"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/clBilling"
+                    app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
+                    app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
+
+
+                    />
 
 
                 <androidx.constraintlayout.widget.Guideline

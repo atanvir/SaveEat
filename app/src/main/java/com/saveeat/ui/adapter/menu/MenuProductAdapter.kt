@@ -33,9 +33,11 @@ class MenuProductAdapter(var context: Context?, var list: MutableList<Restaurant
         holder.binding.type=type
         holder.binding.mp.visibility=View.VISIBLE
         if(type?.equals("Selling")==true || list?.get(position)?.type?.equals("Selling")==true){
+            if(list?.get(position)?.type?.equals("Selling")==true) holder.binding.type=list?.get(position)?.type
             holder.binding.mp.paintFlags= holder.binding.mp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             if(list?.get(position)?.leftQuantity==0) holder.binding.ivCoverPhoto.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
         else if(type?.equals("Fix")==true || list?.get(position)?.type?.equals("Fix")==true){
+            if(list?.get(position)?.type?.equals("Fix")==true) holder.binding.type=list?.get(position)?.type
             if(list?.get(position)?.outOfStock==true)  holder.binding.ivCoverPhoto.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
             val layoutParams : MarginLayoutParams = holder.binding.sp.layoutParams as MarginLayoutParams
             layoutParams.setMargins(0,0,0,0)

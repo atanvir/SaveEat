@@ -74,7 +74,7 @@ class GlobalSearchFragment : BaseFragment<FragmentGlobalSearchBinding>(), (Int) 
 
                     if(binding.tabLayout.selectedTabPosition==0){
                         binding.rvData.layoutManager= LinearLayoutManager(requireActivity())
-                        binding.rvData.adapter= RestaurantByLocationAdapter(requireActivity(),restaurantList,this@GlobalSearchFragment,"")
+                        binding.rvData.adapter= RestaurantByLocationAdapter(requireActivity(),restaurantList,null,this@GlobalSearchFragment,"")
                     }else{
 
                         for(i in dishesList?.indices!!){
@@ -115,7 +115,7 @@ class GlobalSearchFragment : BaseFragment<FragmentGlobalSearchBinding>(), (Int) 
     override fun onTabSelected(tab: TabLayout.Tab?) {
         if(tab?.position==0) {
             binding.rvData.layoutManager= LinearLayoutManager(requireActivity())
-            binding.rvData.adapter= RestaurantByLocationAdapter(requireActivity(),restaurantList,this@GlobalSearchFragment,"")
+            binding.rvData.adapter= RestaurantByLocationAdapter(requireActivity(),restaurantList,null,this@GlobalSearchFragment,"")
         }
         else {
             for(i in dishesList?.indices!!){

@@ -79,8 +79,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, 
         requireActivity().registerReceiver(distanceBroadcast, IntentFilter("com.saveeat"))
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         try{ if(distanceBroadcast!=null) requireActivity().unregisterReceiver(distanceBroadcast) }catch (e: Exception){ }
     }
 

@@ -68,7 +68,7 @@
             style="@style/inter_regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{data.actualType.equals(`Restaurant`)?data.businessName:data.foodName}"
+            android:text="@{data.actualType.equals(`Restaurant`)?data.businessName:data.actualType.equals(`Cuisine`)?data.cuisine:data.foodName}"
             android:textColor="@color/black"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"

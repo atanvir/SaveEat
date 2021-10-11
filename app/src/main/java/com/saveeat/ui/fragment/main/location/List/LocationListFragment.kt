@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,8 @@ class LocationListFragment : BaseFragment<FragmentLocationListBinding>(), (Int) 
 
     private var distanceBroadcast: BroadcastReceiver?=null
     private var requestModel : CommonHomeModel?=null
+    private var isSearch=false
+    private var searckKey: String?=null
 
 
 
@@ -64,8 +67,8 @@ class LocationListFragment : BaseFragment<FragmentLocationListBinding>(), (Int) 
         requireActivity().registerReceiver(distanceBroadcast, IntentFilter("com.saveeat"))
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         requireActivity().unregisterReceiver(distanceBroadcast)
     }
 
@@ -77,8 +80,15 @@ class LocationListFragment : BaseFragment<FragmentLocationListBinding>(), (Int) 
 
             distanceBroadcast = object : BroadcastReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
-                    requestModel?.distance=intent.getStringExtra("distance")
-                    restaurantListApi()
+                    Log.e("search","--> "+intent.getStringExtra("search"))
+                    if(intent.getBooleanExtra("update",false)){
+                        searckKey=intent.getStringExtra("search")
+                        restaurantListApi()
+                        isSearch=true
+                    }else{
+                        requestModel?.distance=intent.getStringExtra("distance")
+                        restaurantListApi()
+                    }
                 }
             }
             viewModel.restaurantList.observe(this@LocationListFragment,{
@@ -88,7 +98,14 @@ class LocationListFragment : BaseFragment<FragmentLocationListBinding>(), (Int) 
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             list=it.value?.data
                             binding.rvListRestro.layoutManager=LinearLayoutManager(requireActivity())
-                            binding.rvListRestro.adapter= RestaurantByLocationAdapter(requireActivity(),list,this@LocationListFragment,"Restaurant")
+                            binding.rvListRestro.adapter= RestaurantByLocationAdapter(requireActivity(),list,it.value?.data,this@LocationListFragment,"Restaurant")
+                            if(isSearch){
+                                (binding.rvListRestro.adapter as RestaurantByLocationAdapter).filter.filter(searckKey)
+                                isSearch=false
+                            }
+
+
+
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) { ErrorUtil.snackView(binding.root, it.value?.message ?: "") }
                     }

@@ -59,6 +59,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
+import kotlin.math.roundToLong
 
 
 @AndroidEntryPoint
@@ -74,6 +75,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
     var saveTotal : Double?=0.0
     var finalTotal : Double?=0.0
     var taxes : Double?=0.0
+    var walletAmount : Double?=0.0
 
     var taxCommissionModel: TaxCommissionModel?=null
     private val viewModel : CartViewModel by viewModels()
@@ -98,10 +100,11 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
         binding.clShadowButton.ivButton.setOnClickListener(this)
         binding.clBilling.taxInfo.setOnClickListener(this)
         binding.clBilling.clTaxInfo.ivCLose.setOnClickListener(this)
+        binding.cbCreditWallet.setOnClickListener(this)
 
     }
 
-    override fun onStart() {
+   override fun onStart() {
         super.onStart()
         requireActivity().registerReceiver(paymentGatewayResposne, IntentFilter("com.saveeat"))
     }
@@ -162,6 +165,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                                         binding.rvProducts.visibility=View.GONE
                                     }
 
+                                    viewModel.getUserDetail(token=PrefrencesHelper.getPrefrenceStringValue(requireActivity(),PreferenceKeyConstants.jwtToken))
                                     binding.rvProducts.layoutManager=LinearLayoutManager(requireActivity())
                                     binding.rvProducts.adapter= CartAdapter(requireActivity(),list,this@CartFragment)
                                     calculateBilling()
@@ -188,6 +192,20 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                     is Resource.Failure -> {  stopAnimation(); ErrorUtil.handlerGeneralError(binding.root, it.throwable!!) }
                 }
             })
+
+            viewModel.getUserDetails.observe(this@CartFragment,{
+                when (it) {
+                    is Resource.Success -> {
+                        if(KeyConstants.SUCCESS==it.value?.status?:0) {
+                            walletAmount=it.value?.data?.walletAmount
+                            binding.cbCreditWallet.text="Available credit "+context?.getString(R.string.price,it.value?.data?.walletAmount?:0.0.toString())
+                        }
+                        else if(KeyConstants.FAILURE<=it.value?.status?:0) {  stopAnimation(); ErrorUtil.snackView(binding.root,it.value?.message?:"") }
+                    }
+                    is Resource.Failure -> {  stopAnimation(); ErrorUtil.handlerGeneralError(binding.root, it.throwable!!) }
+                }
+            })
+
 
             viewModel.deleteItemFromCart.observe(this@CartFragment,{
                 when (it) {
@@ -242,6 +260,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
             binding.rvProducts.visibility=View.VISIBLE
             binding.clBilling.clBilling.visibility=View.VISIBLE
             binding.clShadowButton.clMainShadow.visibility=View.VISIBLE
+            binding.cbCreditWallet.visibility=View.VISIBLE
         }else{
             binding.clNoData.visibility=View.VISIBLE
         }
@@ -271,6 +290,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
 
                 taxes=subTotal?.times(taxCommissionModel?.tax?:0.0)?.div(100)
                 saveEatFees=taxes?.plus(subTotal?:0.0)?.times(taxCommissionModel?.fee?:0.0)?.div(100)
+                saveEatFees=saveEatFees?.plus(saveEatFees?.times(18)?.div(100)!!)
                 finalTotal=subTotal?.plus(saveEatFees?.plus(taxes?:0.0)!!)
             }
             withContext(Dispatchers.Main){
@@ -280,10 +300,10 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
                 binding.clBilling.tvSubTotal.text=requireActivity().getString(R.string.price,""+subTotal?.roundOffDecimalWithTwo()?.toString())
                 binding.clBilling.clTaxInfo.tvSaveEatFees.text=requireActivity().getString(R.string.price,saveEatFees?.roundOffDecimalWithTwo()?.toString())
                 binding.clBilling.tvTaxFees.text=requireActivity().getString(R.string.price,saveEatFees?.plus(taxes?:0.0)?.roundOffDecimalWithTwo()?.toString())
-                binding.clBilling.tvTotalPrice.text=finalTotal?.roundOffDecimal()?.toString()
+                binding.clBilling.tvTotalPrice.text=finalTotal?.roundToLong()?.toString()
                 binding.clBilling.clTaxInfo.tvTaxes.text=requireActivity().getString(R.string.price,taxes?.roundOffDecimalWithTwo()?.toString())
 
-                binding.clShadowButton.tvButtonLabel.text=getString(R.string.checkout)
+                binding.clShadowButton.tvButtonLabel.text=getString(R.string.checkout)+" (${context?.getString(R.string.price,Math.round(finalTotal?:0.0).toString())})"
                 val wordtoSpan: Spannable = SpannableString("Continue to checkout to save ${requireActivity().getString(R.string.price,""+saveTotal?.roundOffDecimal()?.toString())} on this order")
                 wordtoSpan.setSpan(ForegroundColorSpan(Color.rgb(0, 178, 17)), 28, wordtoSpan.length-14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 increaseFontSizeForPath(wordtoSpan, "${requireActivity().getString(R.string.price,""+saveTotal?.roundOffDecimal()?.toString())}", 1.25f)
@@ -298,6 +318,15 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
 
     override fun onClick(v: View?) {
         when(v?.id){
+            R.id.cbCreditWallet ->{
+                if(binding.cbCreditWallet.isChecked) {
+                    finalTotal=finalTotal?.minus(walletAmount?:0.0)
+                    binding.clShadowButton.tvButtonLabel.text=context?.getString(R.string.checkout)+" ({${context?.getString(R.string.price,""+Math.round(finalTotal?:0.0))})"
+                }
+                else binding.clShadowButton.tvButtonLabel.text=context?.getString(R.string.checkout)+" ({${context?.getString(R.string.price,""+Math.round(finalTotal?:0.0))})"
+            }
+
+
             R.id.ivButton ->{
                 if(checkValidation()){
                 buttonLoader(binding.clShadowButton, true)
@@ -404,6 +433,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), View.OnClickListener, 
         val saveEatFees=taxes?.plus(subTotal?:0.0)?.times(taxCommissionModel?.fee?:0.0)?.div(100)
         if(type?.equals("total")==true) return taxes?.plus(saveEatFees?:0.0)
         else if(type?.equals("taxes")==true) return taxes
+        else if(type?.equals("saveEatFees")==true) return saveEatFees?.plus(saveEatFees?.times(18).div(100))
         else return saveEatFees
     }
 

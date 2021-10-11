@@ -41,7 +41,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<FragmentSearchBinding>(), (Int) -> Unit {
+class SearchFragment : BaseFragment<FragmentSearchBinding>(), (Int) -> Unit,View.OnClickListener {
     private val homeViewModel : HomeViewModel by viewModels()
     private val viewModel : SearchViewModel by viewModels()
     private var requestModel : CommonHomeModel? =null
@@ -69,7 +69,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), (Int) -> Unit {
                                       longitude= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.longitude),
                                       distance= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.distance),
                                       foodType = KeyConstants.BOTH,
-                                      limit = 10000,
+                                      limit = 3,
                                       token = PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken),
                                       userId= PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants._id))
 
@@ -115,6 +115,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), (Int) -> Unit {
                 viewModel.getRecentSearch(requestModel)
             }
         }
+        binding.tvRecentShowMore.setOnClickListener(this)
+
 
     }
 
@@ -127,7 +129,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), (Int) -> Unit {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             popularList=it.value?.data
                             binding.rvPopularProducts.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
-                            binding.rvPopularProducts.adapter=RestaurantByLocationAdapter(requireActivity(),popularList,this@SearchFragment,"Search")
+                            binding.rvPopularProducts.adapter=RestaurantByLocationAdapter(requireActivity(),popularList,null,this@SearchFragment,"Search")
                             viewModel.popularCuisineProducts(requestModel)
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) { binding.progressBar.visibility=View.GONE; ErrorUtil.snackView(binding.root, it.value?.message ?: "") }
@@ -145,7 +147,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), (Int) -> Unit {
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             binding.rvGlobalSearch.layoutManager=LinearLayoutManager(requireActivity())
-                            binding.rvGlobalSearch.adapter=SearchSuggestionAdapter(requireActivity(),it.value?.data?.mergeData,{ globalSearchFragment() })
+                            binding.rvGlobalSearch.adapter=SearchSuggestionAdapter(requireActivity(),it.value?.data?.mergeData) { globalSearchFragment() }
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) { ErrorUtil.snackView(binding.root, it.value?.message ?: "") }
                     }
@@ -161,8 +163,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), (Int) -> Unit {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             binding.rvRecentSearch.layoutManager=LinearLayoutManager(requireActivity())
                             binding.rvRecentSearch.adapter=RecentSearchAdapter(requireActivity(),it.value?.data) {
+                                binding.svName.setText(it?:"")
                                 globalSearchModel?.search=it
-                                globalSearchFragment() }
+                                globalSearchFragment()
+                            }
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) {
                             binding.progressBar.visibility=View.GONE
@@ -179,7 +183,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), (Int) -> Unit {
                     is Resource.Success -> {
                         if(KeyConstants.SUCCESS==it.value?.status?:0) {
                             binding.rvCuisines.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
-                            binding.rvCuisines.adapter=CuisinesAdapter(requireActivity(),it.value?.data)
+                            binding.rvCuisines.adapter=CuisinesAdapter(requireActivity(),it.value?.data){
+                                binding.svName.setText(it?:"")
+                                globalSearchModel?.search=it
+                                globalSearchFragment()
+                            }
                             homeViewModel.newRestaurantList(requestModel)
                         }
                         else if(KeyConstants.FAILURE<=it.value?.status?:0) {
@@ -262,6 +270,21 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), (Int) -> Unit {
     override fun invoke(p1: Int) {
         this.position=p1
         homeViewModel?.addToFavourite(popularList?.get(position?:0)?._id, PrefrencesHelper.getPrefrenceStringValue(requireActivity(), PreferenceKeyConstants.jwtToken))
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.tvRecentShowMore ->{
+                if(binding.tvRecentShowMore.text?.equals("Show More")==true){
+                    binding.tvRecentShowMore.text="Show Less"
+                    requestModel?.limit=100
+                }else{
+                    binding.tvRecentShowMore.text="Show More"
+                    requestModel?.limit=3
+                }
+                viewModel.getRecentSearch(requestModel)
+            }
+        }
     }
 
 

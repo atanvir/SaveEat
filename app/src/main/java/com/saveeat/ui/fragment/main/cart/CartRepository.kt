@@ -15,6 +15,10 @@ class CartRepository@Inject constructor(private val apiInterface: SaveEatInterfa
         apiInterface.cartList(model,model?.token)
     }
 
+    suspend fun getUserDetail(token: String?)= safeApiCall {
+        apiInterface.getUserDetail(token)
+    }
+
 
     suspend fun updateCart(model: UpdateCartModel?) =safeApiCall{
         apiInterface.updateCart(model,model?.token)

@@ -93,6 +93,7 @@
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:elevation="@dimen/_3sdp"
+        android:visibility="gone"
         android:scaleType="fitXY"
         android:outlineAmbientShadowColor="@color/app_theme"
         android:outlineSpotShadowColor="@color/app_theme"

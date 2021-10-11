@@ -37,7 +37,7 @@ class FilterResultActivity : BaseActivity<ActivityFilterResultBinding>(), (Int) 
         list=intent?.getParcelableArrayListExtra("data")
         filterRequestModel=intent?.getParcelableExtra<FilterRequestModel?>("filter")
         binding.rvAllRestro.layoutManager=LinearLayoutManager(this)
-        binding.rvAllRestro.adapter=RestaurantByLocationAdapter(this,list,this,"Filter")
+        binding.rvAllRestro.adapter=RestaurantByLocationAdapter(this,list,null,this,"Filter")
     }
 
     override fun initCtrl() {}

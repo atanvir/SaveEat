@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.saveeat.R
@@ -15,11 +18,12 @@ import com.saveeat.databinding.AdapterRestaurantByLocationBinding
 import com.saveeat.model.request.filter.FilterRequestModel
 import com.saveeat.model.request.restaurant.RestaurantByLocationModel
 import com.saveeat.model.response.saveeat.bean.RestaurantResponseBean
+import com.saveeat.model.response.saveeat.main.home.RestaurantProductModel
 import com.saveeat.ui.activity.menu.menu.MenuActivity
 import com.saveeat.utils.application.ErrorUtil
 import com.saveeat.utils.application.KeyConstants
 
-class RestaurantByLocationAdapter(var context: Context?,var list : MutableList<RestaurantResponseBean?>?,var listner : (Int)-> Unit,var type: String?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RestaurantByLocationAdapter(var context: Context?,var list : MutableList<RestaurantResponseBean?>?,var cloneList : MutableList<RestaurantResponseBean?>?,var listner : (Int)-> Unit,var type: String?) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),Filterable {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder  =
         if(viewType==0) SearchViewHolder(AdapterPopularRestaurantSearchBinding.inflate(LayoutInflater.from(context),parent,false))
@@ -94,4 +98,42 @@ class RestaurantByLocationAdapter(var context: Context?,var list : MutableList<R
         }
     }
 
-}
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val filterResults = FilterResults()
+                val filterList: MutableList<RestaurantResponseBean?> = ArrayList()
+
+                if (constraint?.isNotEmpty()==true) {
+
+                    for(i in cloneList?.indices!!){
+                        if(cloneList?.get(i)?.businessName?.contains(constraint.toString(),ignoreCase = true)==true){
+                            filterList?.add(cloneList?.get(i))
+                        }
+                    }
+
+
+                }
+                if(filterList?.size>0){
+                    filterResults.values=filterList
+                    filterResults.count= filterList?.size?:0
+                }else{
+                    filterResults.values=cloneList
+                    filterResults.count= cloneList?.size?:0
+                }
+
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults) {
+                list?.clear()
+                if (results?.count>0) {
+                    list?.addAll(results.values as Collection<RestaurantResponseBean?>)
+                    notifyDataSetChanged()
+                }else{
+                    notifyDataSetChanged()
+                }
+            }
+        }
+    }    }
+

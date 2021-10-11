@@ -6,6 +6,8 @@
 
 
     <data>
+
+
         <variable
             name="data"
             type="com.saveeat.model.response.saveeat.badge.BadgeData" />
@@ -78,7 +80,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="40dp"
-                android:text="@{data.name}"
+                android:text="@{data.badgeCount==0?data.fullColorContent:data.greyContent}"
                 android:textAlignment="center"
                 android:textColor="@{data.badgeCount==0?@color/white:@color/black}"
                 android:textSize="@dimen/dimen_12sp"
@@ -99,12 +101,12 @@
                 android:background="@drawable/background_common_button"
                 android:backgroundTint="@color/white"
 
-                android:text="@{data.message}"
                 android:textColor="@{data.badgeCount==0?@color/blur_grey:@color/black}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textView15"
                 app:layout_constraintStart_toStartOf="@+id/textView15"
                 app:layout_constraintTop_toBottomOf="@id/textView15" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <TextView
+        android:id="@+id/tvReset"
+        style="@style/poppin_semi_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        android:padding="5dp"
+        android:textColor="@color/light_orange"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toStartOf="@+id/guideEnd"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -85,6 +98,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:valueFrom="0"
+
+                app:thumbColor="@color/light_orange"
+                app:thumbStrokeColor="@color/light_orange"
+                app:haloColor="@color/light_orange"
+                app:tickColor="@color/light_orange"
+                app:tickColorActive="@color/light_orange"
+                app:tickColorInactive="@color/grey"
                 android:valueTo="100"
                 app:values="@array/initial_slider_values"
                 app:layout_constraintEnd_toEndOf="parent"

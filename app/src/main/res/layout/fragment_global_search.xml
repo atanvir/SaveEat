@@ -15,7 +15,6 @@
             style="@style/inter_regular"
             android:layout_width="0dp"
             android:layout_height="38dp"
-            android:layout_marginEnd="8dp"
             android:background="@drawable/background_search_view_white"
             android:drawableStart="@drawable/ed_new_search"
             android:drawablePadding="16dp"
@@ -26,7 +25,7 @@
             android:queryBackground="@android:color/transparent"
             android:textColorHint="@color/grey"
             android:textSize="@dimen/dimen_12sp"
-            app:layout_constraintEnd_toStartOf="@+id/ivFilter"
+            app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
             app:layout_constraintStart_toStartOf="@+id/guideLineEnd"
             app:layout_constraintTop_toTopOf="@+id/guideLineTop" />
 
@@ -37,6 +36,7 @@
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:elevation="@dimen/_3sdp"
+            android:visibility="gone"
             android:outlineAmbientShadowColor="@color/app_theme"
             android:outlineSpotShadowColor="@color/app_theme"
             android:scaleType="fitXY"

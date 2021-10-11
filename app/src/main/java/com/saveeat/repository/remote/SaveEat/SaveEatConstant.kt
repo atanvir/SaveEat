@@ -45,5 +45,6 @@ object SaveEatConstant  {
     internal const val CUISINE_LIST="cuisineList"
     internal const val CUISINE_SUB_CATEGORY="cusineSubCategory"
     internal const val FILTER="restaurantFilter"
+    internal const val USER_DETAIL="getUserDetails"
 
 }

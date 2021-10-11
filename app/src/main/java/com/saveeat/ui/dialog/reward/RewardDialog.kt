@@ -18,8 +18,10 @@ class RewardDialog(var data: BadgeData?)  : BaseDialog<DialogRewardBinding>(), V
     override fun init() {
         binding.data=data
         if(binding.data?.badgeCount?:0==0) binding.ivLogo.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
-
+        if(binding.data?.badgeCount?:0==0) binding.btnAwesome.text = binding.data?.message+"  \uD83D\uDE0A"
+        else binding.btnAwesome.text = binding.data?.message+" \uD83D\uDCAA"
     }
+
 
     override fun initCtrl() {
         binding.ivRemove.setOnClickListener(this)

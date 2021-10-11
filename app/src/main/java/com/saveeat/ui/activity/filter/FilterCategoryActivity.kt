@@ -26,7 +26,6 @@ class FilterCategoryActivity : BaseActivity<ActivityFilterCategoryBinding>(), (I
         toolbar(this)
         binding.clShadowButton.tvButtonLabel.text="Apply"
         list=intent?.getParcelableArrayListExtra("data")
-        list=list?.distinctBy { Pair(it?.name, it?.name) }?.toMutableList()
         binding.rvCategory.layoutManager=LinearLayoutManager(this)
         binding.rvCategory.adapter=FilterCategoryAdapter(this,list,this)
     }

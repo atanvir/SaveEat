@@ -42,7 +42,7 @@ class CustomClusterRenderer(var context: Context?, var map: GoogleMap?, private 
         for(i in selectedClusterList.indices) list?.add((ArrayList(cluster.items as MutableCollection<ClusterItemAdapter>)?.get(i) as ClusterItemAdapter).data)
 
         bindingActivity?.rvRestaurant?.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-        bindingActivity?.rvRestaurant?.adapter=MapRestaurantAdapter(context,list)
+        bindingActivity?.rvRestaurant?.adapter=MapRestaurantAdapter(context,list,null)
 
         visibleSection()
     }
